@@ -1,1 +1,62 @@
 
+FUNKCIONALNI ZAHTJEVI:
+
+Neregistrirani korisnik može:
+  1) pregledati popis događaja.
+  2) pregledati oglas za ulaznice.
+
+Registrirani korisnik može:
+  3) pregledati popis događaja.
+  4) pregledati oglas za ulaznice.
+  5) odgovoriti na (tuđi) oglas za ulaznice.
+  7) objaviti oglas za zamjenu ulaznice.
+  8) objaviti oglas za prodaju ulaznice.
+  9) "lajkati" oglase za koje su zainteresirani.
+  10) "dislajkati" oglase za koje nisu zainteresirani.
+  11) koristiti filtere za pronalazak željenih oglasa.
+  12) vidjeti potencijalne lance razmjene (struktura u kojoj više korisnika mijenja ulaznice)
+
+Platforma (aplikacija):
+  9) se povezuje na vanjski servis s katalogom izvođača.
+  10) se integrira s vanjskom uslugom za vremensku prognozu
+  10) prilagođava prikaz registriranim korisnicima, ovisno o "lajku" ili "dislajku"
+  11) šalje registriranim korisnicma obavjest putem emaila.
+  12) šalje registriranim korisnicma obavjesti u aplikaciji.
+  13) registriranim korsnicima omogućava pregled prošlih transakcija
+ // 13) provodni potrebne akcije nakon zaključenja (kortransakcije
+
+Oglas(i):
+  10) sadržava vrstu, naziv, datumi  mjesto događaja.
+  11) sadržava opcionalno broj sjedala i vrsta ulaznica.
+  12) ako se radi o zamjeni, opcionalno navodi željeni događaj ili vrsta ulaznice (koja će se prihvatiti kao zamjena).
+  13) se automatski ukalanja istekom datuma događaja.
+  14) ako je događaj glazbeni kocert, automatski preuzima iz vanjske aplikacije podatke o izvođaču i žanru. 
+  15) se mogu filtrirati po tipu događaja/žanru.
+
+Interakcija korisnika se opisuju i događaju kroz transakcije.
+
+Transakcije:
+  20) se pokreću kada 2 ili više registriranih korisnika međusobno izraze interes za zamjenu ulazice.
+  21) sadržava podatke o uključenim korisnicima, odlukama te vremenski okvir odluke.
+  23) aktiviraju sustav, koji svim korisnicima iz transakcije šalje obavjest o početku transakcije
+  22) aktiviraju sustav kada svi korisnici navedeni u transakciji donesu odluku, ili vremenski okvir isteče.
+
+Adminstrator sutava:
+  25) generira izvještaj o aktivnostima korisnika
+  26) generira izvještaj o razmjenama ulaznica
+  27) generira izvještaj o prijavama o lažnom oglašavanju
+  28) upravlja korisničkim računima
+  29) rješava sporove 
+  30) deaktivira korisničke račune 
+
+
+
+NEFUKCIONALNI
+Aplikacija je:
+  35) prilagođena različitim veličinama ekrana (responsive design)
+  36) izvedena u arhitekturi klijent - poslužitelj
+
+  13) obavještava registrirane korisnike o novim oglasima koji su prilagođeni njihovim preferencijama
+
+Registrirani korisnik može:
+6) biti prodavač u jednoj transakciji, a kupac u drugoj transakciji.
