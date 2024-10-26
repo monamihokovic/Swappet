@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user") //rute treba prilagoditi
+@RequestMapping("/") //rute treba prilagoditi
+//dodati rutu /login -> kako i kamo da spremim podatke o trenutnom korisniku?
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add") //rute treba prilagoditi
+    @PostMapping("/register") //rute treba prilagoditi
     public String add(@RequestBody User user) {
         userService.saveUser(user);
         return "New user added";
