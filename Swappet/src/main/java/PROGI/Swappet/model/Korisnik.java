@@ -19,6 +19,16 @@ public class Korisnik {
     @Column(name = "username", unique = true, nullable = false, length = 20)
     private String username;
 
+    public Korisnik(Integer idKorisnik, String email, String username) {
+        this.idKorisnik = idKorisnik;
+        this.email = email;
+        this.username = username;
+    }
+
+    public Korisnik() {
+
+    }
+
     // Getteri i setteri
     public String getEmail() {
         return email;

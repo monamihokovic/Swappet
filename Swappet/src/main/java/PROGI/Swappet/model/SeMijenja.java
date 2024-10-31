@@ -15,6 +15,29 @@ public class SeMijenja {
     @Column(name = "idtransakcija", nullable = false)
     private Integer idTransakcija;
 
-    // Getteri i setteri
-    //...
+    // konstruktori
+    public SeMijenja() {
+    }
+
+    public SeMijenja(Integer idUlaznica, Integer idTransakcija) {
+        this.idUlaznica = idUlaznica;
+        this.idTransakcija = idTransakcija;
+    }
+
+    // getter i setteri
+    public Integer getIdTransakcija() {
+        return idTransakcija;
+    }
+
+    public void setIdTransakcija(Integer idTransakcija) {
+        this.idTransakcija = idTransakcija;
+    }
+
+    public Integer getIdUlaznica() {
+        return idUlaznica;
+    }
+
+    public void setIdUlaznica(Integer idUlaznica) {
+        this.idUlaznica = idUlaznica;
+    }
 }
