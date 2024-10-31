@@ -1,6 +1,6 @@
 # Swappet
 
-U svrhu izrade projektnog zadatka kolegija Programsko inženjerstvo, na temu web aplikacije "kupnja ulaznice za koncerte", izrađena je web aplikacija Swappet. 
+U svrhu izrade projektnog zadatka kolegija Programsko inženjerstvo, na temu web aplikacije ,,preprodaja i zamjena karata", izrađena je web aplikacija Swappet. 
 
 Glavni cilj web aplikacije nije samo uspješna preprodaja ulaznica, već i zamjena istih.
 
