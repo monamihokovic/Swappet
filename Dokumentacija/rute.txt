@@ -1,0 +1,6 @@
+swappet.com -> stranica na kojoj korisnici biraju login/register/bez registracije
+/login -> login stranica, kad korisnik već postoji u bazi
+/register -> na ovoj ruti treba dodati novog korisnika u bazu
+/homepage -> homepage, ovdje se trebaju izlistati oglasi i prikazati sve što treba (gumb za dodavanje novih oglasa, gumb za profil, ...)
+
+Ostale rute dodam kad dođemo do njih
