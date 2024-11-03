@@ -48,7 +48,7 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 > Ivan Vjekoslav Rođak - voditelj, backend  
 > Goran Torbica - backend  
 > Mona Mihoković - backend, dokumentacija  
-> Patrik Mraz - frontend  
+> Patrick Mraz - frontend  
 > Maja Blažok - frontend  
 > Dominik Mandić - baza  
 > Paško Zekić - dokumentacija  
