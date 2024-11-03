@@ -45,13 +45,13 @@ Na backend strani, koristimo Java i Spring framework.
 Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju koja zadovoljava potrebe naših korisnika.
 
 ## Članovi tima 
-> Ivan Vjekoslav Rođak - voditelj, backend
-> Goran Torbica - backend
-> Mona Mihoković - backend, dokumentacija
-> Patrik Mraz - frontend
-> Maja Blažok - frontend
-> Dominik Mandić - baza
-> Paško Zekić - dokumentacija
+> Ivan Vjekoslav Rođak - voditelj, backend  
+> Goran Torbica - backend  
+> Mona Mihoković - backend, dokumentacija  
+> Patrik Mraz - frontend  
+> Maja Blažok - frontend  
+> Dominik Mandić - baza  
+> Paško Zekić - dokumentacija  
 
 ## Kontribucije
 >Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md
