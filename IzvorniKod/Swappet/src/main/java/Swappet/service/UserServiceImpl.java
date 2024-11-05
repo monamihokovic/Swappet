@@ -22,4 +22,8 @@ public class UserServiceImpl implements KorisnikService{
     public List<Korisnik> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public Korisnik findUserByUsername(String email) {
+        return userRepository.findByEmail(email);  // Custom query to find by username
+    }
 }

@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import java.io.IOException;
 
 //SVE rute treba podesiti na ono što će zapravo biti
-//spremanje u bazu i veza sa frontendom - treba otkriti kako
 
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
@@ -35,11 +34,11 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 })
                 .oauth2Login(oauth2login->{
                     oauth2login
-                            .loginPage("/login")
+                            //.loginPage("/login")
                             .successHandler(new AuthenticationSuccessHandler() {
                         @Override
                         public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                            response.sendRedirect("/profile");
+                            response.sendRedirect("/homepage");
                         }
                     });;
                 })
@@ -58,9 +57,11 @@ public class AuthConfig extends DefaultOAuth2UserService {
         String username = oAuth2User.getAttribute("username");
         String email = oAuth2User.getAttribute("email");
 
-        // Save or update user details in the database
-        Korisnik user = new Korisnik(email, id, username);
-        userRepository.save(user);
+        if(userRepository.findByEmail(email) == null) {
+            // Save or update user details in the database
+            Korisnik user = new Korisnik(id, email, username);
+            userRepository.save(user);
+        }
 
         return oAuth2User;
     }
