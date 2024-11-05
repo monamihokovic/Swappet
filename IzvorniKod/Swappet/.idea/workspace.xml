@@ -6,15 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="ca2e1c4e-05b7-4d78-ae2e-2e596662b5ba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTipId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTipId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeTipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeTipRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeUkljucenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeUkljucenRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/KorisnikRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/KorisnikRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/SeMijenjaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/SeMijenjaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliOglasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliOglasRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliTipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliTipRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/controller/HomepageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/OauthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/controller/OauthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/SwappetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/service/SwappetApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SwappetApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/rodak/Documents/Progi/repo/IzvorniKod/Swappet&quot;,
@@ -52,8 +55,22 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="SwappetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Swappet" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Swappet.service.SwappetApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -82,6 +99,8 @@
       <workItem from="1730746983154" duration="6000" />
       <workItem from="1730809070775" duration="402000" />
       <workItem from="1730809906706" duration="1221000" />
+      <workItem from="1730828024782" duration="8766000" />
+      <workItem from="1730840739897" duration="273000" />
     </task>
     <servers />
   </component>
