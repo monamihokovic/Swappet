@@ -1,6 +1,7 @@
 package Swappet.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class JeTipId implements Serializable {
 

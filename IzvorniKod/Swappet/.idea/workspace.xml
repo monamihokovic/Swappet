@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca2e1c4e-05b7-4d78-ae2e-2e596662b5ba" name="Changes" comment="" />
+    <list default="true" id="ca2e1c4e-05b7-4d78-ae2e-2e596662b5ba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTipId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTipId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeTipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeTipRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeUkljucenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeUkljucenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/KorisnikRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/KorisnikRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/SeMijenjaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/SeMijenjaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliOglasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliOglasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliTipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliTipRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swappet/service/UserServiceImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -26,19 +40,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/rodak/Documents/Progi/repo/IzvorniKod/Swappet",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rodak/Documents/Progi/repo/IzvorniKod/Swappet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -59,6 +74,14 @@
       <workItem from="1730725885632" duration="1198000" />
       <workItem from="1730738494652" duration="333000" />
       <workItem from="1730738988672" duration="245000" />
+      <workItem from="1730739953249" duration="156000" />
+      <workItem from="1730740551969" duration="405000" />
+      <workItem from="1730746602039" duration="149000" />
+      <workItem from="1730746880071" duration="4000" />
+      <workItem from="1730746911004" duration="3000" />
+      <workItem from="1730746983154" duration="6000" />
+      <workItem from="1730809070775" duration="402000" />
+      <workItem from="1730809906706" duration="1221000" />
     </task>
     <servers />
   </component>
