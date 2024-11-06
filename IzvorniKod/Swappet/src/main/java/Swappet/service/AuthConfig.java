@@ -26,23 +26,18 @@ import java.io.IOException;
 public class AuthConfig extends DefaultOAuth2UserService {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(registry->{
-                    registry.requestMatchers("/", "/register").permitAll();
-                    registry.anyRequest().authenticated();
-                })
-                .oauth2Login(oauth2login->{
-                    oauth2login
-                            //.loginPage("/login")
-                            .successHandler(new AuthenticationSuccessHandler() {
-                        @Override
-                        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/register", "/homepage/").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2login -> oauth2login
+                        //.loginPage("/login")
+                        .successHandler((request, response, authentication) -> {
                             response.sendRedirect("/homepage");
-                        }
-                    });;
-                })
-                .formLogin(Customizer.withDefaults())
+                        })
+                )
                 .build();
     }
 
@@ -53,13 +48,23 @@ public class AuthConfig extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        int id = oAuth2User.getAttribute("id");
         String username = oAuth2User.getAttribute("username");
         String email = oAuth2User.getAttribute("email");
+
+        int id;
+        if(oAuth2User.getAttribute("id") == null || username == null){
+            id = 2213;
+            username = "Takumi Rodjowara";
+        }else{
+            id = oAuth2User.getAttribute("id");
+        }
 
         if(userRepository.findByEmail(email) == null) {
             // Save or update user details in the database
             Korisnik user = new Korisnik(id, email, username);
+            System.out.println(user.getUsername());
+            System.out.println(user.getIdKorisnik());
+            System.out.println(user.getEmail());
             userRepository.save(user);
         }
 
