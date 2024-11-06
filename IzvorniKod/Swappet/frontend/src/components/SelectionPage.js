@@ -1,15 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/SelectionPage.css"; 
-import Header from "../components/Header"; // Import the Header component
+import Header from "../components/Header"; 
 import { FaArrowRight } from "react-icons/fa"; 
 
 const SelectionPage = ({ userName }) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const navigate = useNavigate();
 
   const toggleCategory = (category) => {
     setSelectedCategories((prev) => 
       prev.includes(category) ? prev.filter(item => item !== category) : [...prev, category]
     );
+  };
+
+  const handleContinueClick = () => {
+    if (selectedCategories.length > 0) {
+      navigate("/advertisements"); 
+    }
   };
 
   return (
@@ -40,6 +48,7 @@ const SelectionPage = ({ userName }) => {
         <div className="continue-button-container">
           <button className="continue-button"
               disabled={selectedCategories.length === 0} 
+              onClick={handleContinueClick}
 >
             Nastavi <FaArrowRight />
           </button>

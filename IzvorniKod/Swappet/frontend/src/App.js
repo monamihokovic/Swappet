@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import './App.css';
 import StartPage from './components/StartPage';
 import SelectionPage from './components/SelectionPage';
+import AdvertisementsPage from './components/AdvertisementsPage';
+
 
 function App() {
   const [userToken, setUserToken] = useState(null); // Manage user token
@@ -30,9 +32,10 @@ function App() {
 
   return (
     <Router>
-      <Routes> {/* Use Routes instead of Switch */}
+       <Routes>
         <Route path="/" element={<LoginRedirect />} />
         <Route path="/selection" element={<SelectionPage userName={userName} />} />
+        <Route path="/advertisements" element={<AdvertisementsPage userName={userName} />} /> 
       </Routes>
     </Router>
   );
