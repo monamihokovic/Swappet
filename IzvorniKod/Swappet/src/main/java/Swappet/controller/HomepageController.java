@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/homepage")
+@RequestMapping("/homepage")
 public class HomepageController {
 
     // Homepage: trebaš primiti od frontenda kategorije za oglase,
@@ -21,7 +21,7 @@ public class HomepageController {
     @Autowired
     private OglasService oglasService;
 
-    @PostMapping("/oglas")
+    @PostMapping("/homepage/oglas") //ako dobiješ error, vrati ovo na /oglas
     public ResponseEntity<List<Oglas>> getOglasByCategories(@RequestBody List<Integer> categories) {
         List<Oglas> oglasi = oglasService.getOglasByCategories(categories);
         return ResponseEntity.ok(oglasi);
