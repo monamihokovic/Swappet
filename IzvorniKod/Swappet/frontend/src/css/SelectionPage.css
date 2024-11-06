@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+/* Background and overall layout */
+.selection-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: rgb(65, 67, 97);
+    background: linear-gradient(180deg, rgba(65, 67, 97, 1) 35%, rgba(39, 42, 61, 1) 100%);
+    color: #ffffff;
+}
+
+.overlay {
+    margin-top: 20px; 
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Header and logo styling */
+.header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 1em;
+}
+
+.logo {
+    color: #ffffff;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2em;
+}
+
+.highlight {
+    color: #a184c5;
+}
+
+/* Subheader styling */
+.subheader {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+/* Category buttons styling */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.category-button {
+    background-color: #2b2544;
+    color: #a184c5;
+    border: none;
+    border-radius: 20px;
+    padding: 0.7em 1.5em;
+    margin: 0.5em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-button:hover {
+    background-color: #a184c5;
+    color: #ffffff;
+}
+
+/* Warning text styling */
+.warning-text {
+    font-size: 0.9em;
+    color: #ffcc00; /* Highlighting the warning */
+    margin-bottom: 1em;
+}
+
+/* Continue button styling */
+.continue-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.continue-button {
+    background-color: #a184c5;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.7em 1.5em;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.category-button.selected{
+    background-color: #ffffff;
+    color: #a184c5;
+}
+
+.continue-button:hover{
+    background-color: #ffffff;
+    color: #a184c5;
+}
+
+
+.continue-button svg {
+    margin-left: 0.5em; 
+}
+
+.continue-button:disabled {
+    background-color: #ccc; 
+    color: #666; 
+    cursor: not-allowed;
+}
