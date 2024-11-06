@@ -9,21 +9,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/") //rute treba prilagoditi
-//dodati rutu /login -> kako i kamo da spremim podatke o trenutnom korisniku?
 public class UserController {
 
     @Autowired
     private KorisnikService userService;
 
-    @PostMapping("/register") //rute treba prilagoditi
+    @PostMapping("/register")
     public String add(@RequestBody Korisnik user) {
         userService.saveUser(user);
         return "New user added";
     }
 
-    @GetMapping("/getAll") //rute opet
+    @GetMapping("/getAll")
     public List<Korisnik> getAllUsers() {
         //daj mi iz baze i pošalji na frontend
         return userService.getAllUsers();
     }
+
 }
