@@ -16,4 +16,9 @@ public class OglasService {
     public List<Oglas> getOglasByCategories(List<Integer> categories) {
         return oglasRepository.findOglasByTipOglasIn(categories);
     }
+
+    public Oglas saveOglas(Oglas oglas) {
+        return oglasRepository.save(oglas);
+    }
+
 }
