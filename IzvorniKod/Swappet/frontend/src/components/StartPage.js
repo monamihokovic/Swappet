@@ -34,9 +34,9 @@ const StartPage = ({ onLogin }) => {
         </button>
         
         <footer className="footer">
-          <a href="#about">O nama</a>
+          {/* <a href="#about">O nama</a>
           <a href="#contact">Kontakt</a>
-          <a href="#help">Pomoć</a>
+          <a href="#help">Pomoć</a> */}
           <a href="#fer">@ FER 2024/2025</a>
         </footer>
       </div>

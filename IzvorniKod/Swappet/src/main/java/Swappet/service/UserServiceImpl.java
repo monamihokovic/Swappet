@@ -13,17 +13,14 @@ public class UserServiceImpl implements KorisnikService{
     @Autowired
     private KorisnikRepository userRepository;
 
-    @Override
-    public Korisnik saveUser(Korisnik user) {
-        return userRepository.save(user);
-    }
-
+    //funkcija za debuggiranje, vraća sve korisnike
     @Override
     public List<Korisnik> getAllUsers() {
         return userRepository.findAll();
     }
 
+    //upit u bazu za korisnika na temeljju emaila (ključ)
     public Korisnik findUserByUsername(String email) {
-        return userRepository.findByEmail(email);  // Custom query to find by username
+        return userRepository.findByEmail(email);
     }
 }
