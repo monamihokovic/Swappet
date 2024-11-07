@@ -50,7 +50,7 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 > Mona Mihoković - backend, dokumentacija  
 > Patrick Mraz - frontend  
 > Maja Blažok - frontend  
-> Dominik Mandić - baza podataka i vanjski resursi
+> Dominik Mandić - baza podataka i vanjski resursi  
 > Paško Zekić - dokumentacija  
 
 ## Kontribucije
@@ -62,7 +62,7 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 Kodeks ponašanja skup je provedivih pravila koja služe za jasnu komunikaciju očekivanja i zahtjeva za rad zajednice/tima. Njime se jasno definiraju obaveze, prava, neprihvatljiva ponašanja te  odgovarajuće posljedice (za razliku od etičkog kodeksa). U ovom repozitoriju dan je jedan od široko prihvaćenih kodeksa ponašanja za rad u zajednici otvorenog koda.
 
 # 📝 Licenca
-Važeča (1)
+Važeća (1)
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 Ovaj repozitorij sadrži otvoreni obrazovni sadržaji (eng. Open Educational Resources)  i licenciran je prema pravilima Creative Commons licencije koja omogućava da preuzmete djelo, podijelite ga s drugima uz 
