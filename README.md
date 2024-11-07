@@ -1,6 +1,6 @@
 # Swappet
 
-U svrhu izrade projektnog zadatka kolegija Programsko inženjerstvo, na temu web aplikacije "kupnja ulaznice za koncerte", izrađena je web aplikacija Swappet. 
+U svrhu izrade projektnog zadatka kolegija Programsko inženjerstvo, na temu web aplikacije ,,Preprodaja i razmjena karata i ulaznica", izrađena je web aplikacija Swappet. 
 
 Glavni cilj web aplikacije nije samo uspješna preprodaja ulaznica, već i zamjena istih.
 
@@ -13,7 +13,7 @@ Naša web aplikacija zamišljena je s funkcijama prijave korisnika, podrškom za
 
 Neregistrirani korisnici mogu pregledavati popis događaja, gledati oglase za ulaznice i pristupiti stvaranju korisničkog računa. Registracija korisnika započinje unosom korisničkog imena i email adrese, nakon čega sustav šalje link za aktivaciju računa. Prilikom aktivacije korisnik unosi lozinku.
 
-Registrirani korisnici imaju dodatne mogućnosti. Mogu biti prodavači u jednoj transakciji i kupci u drugoj, pregledavati popis događaja i oglase za ulaznice te koristiti filtre za pronalazak željenih oglasa. Također mogu odgovarati na tuđe oglase, objavljivati oglase za zamjenu ili prodaju ulaznica, a imaju i pristup potencijalnim lancima razmjene za tuđe oglase. Registrirani korisnici mogu "lajkati" ili "dislajkati" oglase te započinjati interakciju prilikom kupnje ili zahtjeva za zamjenu ulaznice. 
+Registrirani korisnici imaju dodatne mogućnosti. Mogu biti prodavači u jednoj transakciji i kupci u drugoj, pregledavati popis događaja i oglase za ulaznice te koristiti filtre za pronalazak željenih oglasa. Također mogu odgovarati na tuđe oglase, objavljivati oglase za zamjenu ili prodaju ulaznica, a imaju i pristup potencijalnim lancima razmjene za tuđe oglase. Registrirani korisnici mogu ,,lajkati" ili ,,dislajkati" oglase te započinjati interakciju prilikom kupnje ili zahtjeva za zamjenu ulaznice. 
 
 Na taj način, naša web aplikacija osigurava jednostavno i učinkovito iskustvo za sve korisnike.
 
@@ -21,7 +21,7 @@ Transakcija sadržava podatke o uključenim korisnicima, odlukama, vrsti te vrem
 
 Platforma se povezuje na vanjski servis s katalogom izvođača, čime korisnici mogu lako pristupiti informacijama o izvođačima. Također, integrira se s vanjskom uslugom za vremensku prognozu, što omogućava korisnicima da budu informirani o vremenskim uvjetima na dan događaja.
 
-Registriranim korisnicima prikaz se prilagođava ovisno o njihovim preferencijama, temeljenim na "lajkovima" i "dislajkovima". Obavijesti se šalju putem emaila i unutar aplikacije, a korisnici su obaviješteni o novim oglasima koji odgovaraju njihovim interesima. Također, mogu pregledati svoje prošle transakcije, a sustav automatski popunjava podatke o transakciji na temelju detektirane interakcije.
+Registriranim korisnicima prikaz se prilagođava ovisno o njihovim preferencijama, temeljenim na ,,lajkovima" i ,,dislajkovima". Obavijesti se šalju putem emaila i unutar aplikacije, a korisnici su obaviješteni o novim oglasima koji odgovaraju njihovim interesima. Također, mogu pregledati svoje prošle transakcije, a sustav automatski popunjava podatke o transakciji na temelju detektirane interakcije.
 
 Kada je riječ o oglasima, oni sadrže sve bitne informacije kao što su vrsta, naziv, datumi i mjesto događaja, uz opcionalne podatke o broju sjedala i vrsti ulaznica. U slučaju zamjene, korisnici mogu navesti željeni događaj ili vrstu ulaznice koja će se prihvatiti kao zamjena. Oglasi se automatski uklanjaju istekom datuma događaja, a ako se radi o glazbenom koncertu, sustav automatski preuzima podatke o izvođaču i žanru iz vanjske aplikacije.
 
@@ -50,7 +50,7 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 > Mona Mihoković - backend, dokumentacija  
 > Patrick Mraz - frontend  
 > Maja Blažok - frontend  
-> Dominik Mandić - baza  
+> Dominik Mandić - baza podataka i vanjski resursi
 > Paško Zekić - dokumentacija  
 
 ## Kontribucije
@@ -59,21 +59,7 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 
 
 ## 📝 Kodeks ponašanja [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
-Kao studenti sigurno ste upoznati s minimumom prihvatljivog ponašanja definiran u [KODEKS PONAŠANJA STUDENATA FAKULTETA ELEKTROTEHNIKE I RAČUNARSTVA SVEUČILIŠTA U ZAGREBU](https://www.fer.hr/_download/repository/Kodeks_ponasanja_studenata_FER-a_procisceni_tekst_2016%5B1%5D.pdf), te dodatnim naputcima za timski rad na predmetu [Programsko inženjerstvo](https://wwww.fer.hr).
-Očekujemo da ćete poštovati [etički kodeks IEEE-a](https://www.ieee.org/about/corporate/governance/p7-8.html) koji ima važnu obrazovnu funkciju sa svrhom postavljanja najviših standarda integriteta, odgovornog ponašanja i etičkog ponašanja u profesionalnim aktivnosti. Time profesionalna zajednica programskih inženjera definira opća načela koja definiranju  moralni karakter, donošenje važnih poslovnih odluka i uspostavljanje jasnih moralnih očekivanja za sve pripadnike zajenice.
-
-Kodeks ponašanja skup je provedivih pravila koja služe za jasnu komunikaciju očekivanja i zahtjeva za rad zajednice/tima. Njime se jasno definiraju obaveze, prava, neprihvatljiva ponašanja te  odgovarajuće posljedice (za razliku od etičkog kodeksa). U ovom repozitoriju dan je jedan od široko prihvačenih kodeks ponašanja za rad u zajednici otvorenog koda.
->### Poboljšajte funkcioniranje tima:
->* definirajte načina na koji će rad biti podijeljen među članovima grupe
->* dogovorite kako će grupa međusobno komunicirati.
->* ne gubite vrijeme na dogovore na koji će grupa rješavati sporove primjenite standarde!
->* implicitno podrazmijevamo da će svi članovi grupe slijediti kodeks ponašanja.
- 
->###  Prijava problema
->Najgore što se može dogoditi je da netko šuti kad postoje problemi. Postoji nekoliko stvari koje možete učiniti kako biste najbolje riješili sukobe i probleme:
->* Obratite mi se izravno [e-pošta](mailto:vlado.sruk@fer.hr) i  učinit ćemo sve što je u našoj moći da u punom povjerenju saznamo koje korake trebamo poduzeti kako bismo riješili problem.
->* Razgovarajte s vašim asistentom jer ima najbolji uvid u dinamiku tima. Zajedno ćete saznati kako riješiti sukob i kako izbjeći daljnje utjecanje u vašem radu.
->* Ako se osjećate ugodno neposredno razgovarajte o problemu. Manje incidente trebalo bi rješavati izravno. Odvojite vrijeme i privatno razgovarajte s pogođenim članom tima te vjerujte u iskrenost.
+Kodeks ponašanja skup je provedivih pravila koja služe za jasnu komunikaciju očekivanja i zahtjeva za rad zajednice/tima. Njime se jasno definiraju obaveze, prava, neprihvatljiva ponašanja te  odgovarajuće posljedice (za razliku od etičkog kodeksa). U ovom repozitoriju dan je jedan od široko prihvaćenih kodeksa ponašanja za rad u zajednici otvorenog koda.
 
 # 📝 Licenca
 Važeča (1)
