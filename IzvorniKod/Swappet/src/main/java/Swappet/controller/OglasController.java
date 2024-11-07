@@ -15,6 +15,7 @@ public class OglasController {
     @Autowired
     private OglasService oglasService;
 
+    //dodavanje oglasa u bazu
     @PostMapping
     public Oglas addOglas(@RequestBody Oglas oglas) {
         return oglasService.saveOglas(oglas);

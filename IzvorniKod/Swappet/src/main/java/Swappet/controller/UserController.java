@@ -14,15 +14,9 @@ public class UserController {
     @Autowired
     private KorisnikService userService;
 
-    @PostMapping("/register")
-    public String add(@RequestBody Korisnik user) {
-        userService.saveUser(user);
-        return "New user added";
-    }
-
     @GetMapping("/getAll")
     public List<Korisnik> getAllUsers() {
-        //daj mi iz baze i pošalji na frontend
+        //vraća listu svih korisnika iz baze, za debugging
         return userService.getAllUsers();
     }
 

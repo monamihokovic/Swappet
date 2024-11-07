@@ -30,6 +30,12 @@ function App() {
     return <StartPage onLogin={onLogin} />;
   };
 
+  // Function to redirect to backend for OAuth2 login
+  const handleGoogleLogin = () => {
+    // Redirect user to the backend /register route, which will trigger OAuth2 login
+    window.location.href = 'http://localhost:8081/register'; // This will trigger the OAuth2 flow
+  };
+
   return (
     <Router>
        <Routes>

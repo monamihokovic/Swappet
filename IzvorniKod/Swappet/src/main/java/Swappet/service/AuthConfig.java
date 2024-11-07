@@ -15,16 +15,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
+
+    //Funkcija za autentifikaciju korisnika preko Google OAuth2
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
+                        //na ove rute može doći i neregistrirani korisnik
                         .requestMatchers("/", "/register", "/homepage/").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("/homepage");
+                            //nakon uspješne registracije, korisnik se prosljeđuje na sljedeću rutu
+                            response.sendRedirect("http://localhost:3000/selection");
                         })
                 )
                 .build();
@@ -33,15 +37,19 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Autowired
     private KorisnikRepository userRepository;
 
+    //funkcija koja provjerava postoji li korisnik u bazi te ga sprema ako nije
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        //iz OAuth2 vadimo username, email i id korisnika
         String username = oAuth2User.getAttribute("name");
         String email = oAuth2User.getAttribute("email");
         String idlong = oAuth2User.getAttribute("sub");
-        int id = Integer.parseInt(idlong.substring(1, 7));
+        //potrebno je Googleov id srezati jer je prevelik za int
+        int id = Integer.parseInt(idlong.substring(idlong.length() - 7));
 
+        //provjera i spremanje korisnika u bazu
         if(userRepository.findByEmail(email) == null) {
             Korisnik user = new Korisnik(id, email, username);
             System.out.println(user.getUsername());

@@ -8,6 +8,7 @@ import java.security.Principal;
 @RestController
 public class OauthController {
 
+    //placeholder za početnu stranicu
     @RequestMapping("/")
     public String home(){
         return "Welcome to Funland, Sonic";
