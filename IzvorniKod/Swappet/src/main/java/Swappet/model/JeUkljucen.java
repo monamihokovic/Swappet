@@ -17,6 +17,7 @@ public class JeUkljucen {
     @Column(name = "odluka", nullable = false)
     private Integer odluka;
 
+
     // kostruktor
     public JeUkljucen(String email, Integer odluka) {
         this.email = email;
@@ -47,5 +48,4 @@ public class JeUkljucen {
     public void setOdluka(Integer odluka) {
         this.odluka = odluka;
     }
-
 }

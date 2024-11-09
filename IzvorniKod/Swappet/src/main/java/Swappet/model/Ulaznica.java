@@ -10,10 +10,10 @@ public class Ulaznica {
     @Column(name = "idulaznica", nullable = false)
     private Integer idUlaznica;
 
-    @Column(name = "red", nullable = false)
+    @Column(name = "red", nullable = true)
     private Integer red;
 
-    @Column(name = "broj", nullable = false)
+    @Column(name = "broj", nullable = true)
     private Integer broj;
 
     @Column(name = "vrstaulaznice")

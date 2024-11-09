@@ -39,5 +39,5 @@ public class TipDog {
     public void setNazivtipa(String nazivtipa) {
         this.nazivtipa = nazivtipa;
     }
-
 }
+

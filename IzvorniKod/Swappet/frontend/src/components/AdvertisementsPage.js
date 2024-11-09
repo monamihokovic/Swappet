@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import Card from "./Card";
 import "../css/AdvertisementsPage.css";
 import { FaSearch } from "react-icons/fa";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
+
+
 const AdvertisementsPage = ({ userName, profilePic }) => {
+  const navigate = useNavigate();
+
+  const handleCreate = () =>{
+    navigate("/createEvent");
+  };
+  
   const [price, setPrice] = useState(50);
   const [selectedCategories, setSelectedCategories] = useState([]); // Array for multiple selected categories
   const [ads, setAds] = useState([
@@ -116,6 +125,8 @@ const AdvertisementsPage = ({ userName, profilePic }) => {
           />
         </div>
 
+        <button className={userName==="gost" ? "hidden" : "createEvent"} onClick={handleCreate}>Dodaj događaj </button>
+
         <div className="logo">
           S<span id="usklicnik">!</span>
         </div>
@@ -159,7 +170,7 @@ const AdvertisementsPage = ({ userName, profilePic }) => {
       <div className="cards-container">
         {filteredAds.length === 0 ? (
           <div className="no-events-message">
-            Nema još takvih događaja...
+            Nema još takvih događaja... :(
           </div>
         ) : (
           filteredAds.map((ad) => <Card key={ad.id} ad={ad} />)

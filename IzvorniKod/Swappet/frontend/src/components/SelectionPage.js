@@ -18,7 +18,8 @@ const SelectionPage = ({ userName }) => {
       navigate("/advertisements"); 
     }
   };
-
+  
+  console.log(userName);
   return (
     <div className="selection-page">
       <div className="naslov1">
