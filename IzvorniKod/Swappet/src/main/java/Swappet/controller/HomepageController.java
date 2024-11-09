@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/homepage")
@@ -21,9 +22,17 @@ public class HomepageController {
     @Autowired
     private OglasService oglasService;
 
-    @PostMapping("/homepage/oglas") //ako dobiješ error, vrati ovo na /oglas
-    public ResponseEntity<List<Oglas>> getOglasByCategories(@RequestBody List<Integer> categories) {
-        List<Oglas> oglasi = oglasService.getOglasByCategories(categories);
+    // stara verzija
+//    @PostMapping("/homepage/oglas") //ako dobiješ error, vrati ovo na /oglas
+//    public ResponseEntity<List<Oglas>> getOglasByCategories(@RequestBody List<Integer> categories) {
+//        List<Oglas> oglasi = oglasService.getOglasByCategories(categories);
+//        return ResponseEntity.ok(oglasi);
+//    }
+
+    // nova verzija, oglasi po kategoriji uz cijenu ulaznice
+    @PostMapping("/homepage/oglas")
+    public ResponseEntity<List<Map<String, Object>>> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
+        List<Map<String, Object>> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
         return ResponseEntity.ok(oglasi);
     }
 }

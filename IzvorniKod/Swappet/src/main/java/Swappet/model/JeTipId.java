@@ -25,6 +25,7 @@ public class JeTipId implements Serializable {
         this.idOglas = idOglas;
     }
 
+
     // Konstruktor
     public JeTipId() {
     }

@@ -5,6 +5,7 @@ import './App.css';
 import StartPage from './components/StartPage';
 import SelectionPage from './components/SelectionPage';
 import AdvertisementsPage from './components/AdvertisementsPage';
+import CreateEvent from './components/createEvent';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/" element={<LoginRedirect />} />
         <Route path="/selection" element={<SelectionPage userName={userName} />} />
         <Route path="/advertisements" element={<AdvertisementsPage userName={userName} profilePic={profilePic} />} />
+        <Route path="/createEvent" element={<CreateEvent userName={userName} profilePic={profilePic}/>}/>
       </Routes>
     </Router>
   );

@@ -139,3 +139,32 @@ li.selected{
     flex-grow: 1;
     margin-right: 20px;
 }
+
+.createEvent{
+   margin-left: 20px;
+   background-color: #816898;
+   border: none;
+   border-radius: 20px;
+   width: 100px;
+   height: 50px;
+   align-self: center;
+   color:#e8e5e7;
+   cursor: pointer;
+   transition: background-color 0.3s;
+}
+
+.createEvent:hover{
+    background-color: #26293d;
+    color: #816898;
+}
+
+.hidden{
+    display: none;
+}
+
+.no-events-message{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}

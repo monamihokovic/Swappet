@@ -16,7 +16,7 @@ public class Korisnik {
     @Column(name = "idkorisnik", unique = true, nullable = false)
     private Integer idKorisnik;
 
-    @Column(name = "username", unique = true, nullable = false, length = 20)
+    @Column(name = "username", unique = true, nullable = false, length = 100)
     private String username;
 
     public Korisnik(Integer idKorisnik, String email, String username) {

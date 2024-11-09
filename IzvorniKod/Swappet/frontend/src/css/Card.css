@@ -1,12 +1,13 @@
 .card{
     background-color: #26293d;
     width: 100%;
+    min-width: 500px;
     flex-grow: 1;
     margin: 20px;
     border-radius: 20px;
     display: flex;
     gap: 10px;
-    height: 270px;
+    height: 250px;
 }
 
 .card-image{
@@ -26,7 +27,7 @@
     margin-right: auto;
 }
 
-.tip{
+.tip1{
     font-weight: bold;
     font-size: 24px;
     position: relative;
@@ -35,29 +36,16 @@
     color: #816898;
 }
 
-.adresa{
+.adresa1{
     position: relative;
     top: -70px;
 }
 
-.datum{
+.datum1{
     position: relative;
     top: -90px;
 }
-.ulaznice{
-    position: relative;
-    top: -110px;
-}
-.cijena{
-    position: relative;
-    top: -130px;
-}
 
-.quantity-controls{
-    position: relative;
-    top: -170px;
-    left: 150px;
-}
 
 .gumb{
     background: #816898;
@@ -69,4 +57,9 @@
     margin-right: 5px;
     color: aliceblue;
     font-size: 20px;
+}
+
+.cijena1{
+    position: relative;
+    top: 170px;
 }
