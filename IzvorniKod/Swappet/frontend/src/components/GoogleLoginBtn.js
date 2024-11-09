@@ -10,7 +10,7 @@ const GoogleLoginButton = ({ onLogin }) => {
 
   useEffect(() => {
     google.accounts.id.initialize({
-      client_id: "404309616776-t5m6tkc6akvv1ov8ai90ftbn6jl5bcjb.apps.googleusercontent.com",
+      client_id: "387623106615-s3rlc47mtqq4bccgf57t443v9jl8dk7o.apps.googleusercontent.com", // Replace with your client ID
       callback: handleCallbackResponse,
     });
 
