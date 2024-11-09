@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -35,6 +35,8 @@ public class VoliOglasId implements Serializable {
     }
 
     // hash
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

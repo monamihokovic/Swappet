@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import jakarta.persistence.*;
 

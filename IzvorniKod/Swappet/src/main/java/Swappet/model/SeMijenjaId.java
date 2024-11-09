@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -1,7 +1,7 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import jakarta.persistence.*;
-
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -58,4 +58,5 @@ public class Transakcija {
     public Integer getIdTransakcija() {
         return idTransakcija;
     }
+
 }

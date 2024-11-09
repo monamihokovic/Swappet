@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import jakarta.persistence.*;
 
@@ -16,6 +16,7 @@ public class JeUkljucen {
 
     @Column(name = "odluka", nullable = false)
     private Integer odluka;
+
 
     // kostruktor
     public JeUkljucen(String email, Integer odluka) {
@@ -47,5 +48,4 @@ public class JeUkljucen {
     public void setOdluka(Integer odluka) {
         this.odluka = odluka;
     }
-
 }

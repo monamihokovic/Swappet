@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +24,7 @@ public class JeTipId implements Serializable {
     public void setIdOglas(Integer idOglas) {
         this.idOglas = idOglas;
     }
+
 
     // Konstruktor
     public JeTipId() {

@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,5 +39,5 @@ public class TipDog {
     public void setNazivtipa(String nazivtipa) {
         this.nazivtipa = nazivtipa;
     }
-
 }
+

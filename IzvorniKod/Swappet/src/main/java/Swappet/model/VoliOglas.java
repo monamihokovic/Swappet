@@ -1,4 +1,4 @@
-package Swappet.model;
+package PROGI.Swappet.model;
 
 import jakarta.persistence.*;
 
@@ -17,6 +17,7 @@ public class VoliOglas {
 
     @Column(name = "voli", nullable = false)
     private Integer voli;
+
 
     public VoliOglas(String email, Integer voli, Integer idOglas) {
         this.email = email;
