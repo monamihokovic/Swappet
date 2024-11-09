@@ -7,10 +7,9 @@ CREATE TABLE korisnik
 (
   email VARCHAR(50) NOT NULL,
   idKorisnik INT NOT NULL,
-  username VARCHAR(20) NOT NULL,
+  username VARCHAR(100) NOT NULL,
   PRIMARY KEY (email),
-  UNIQUE (idKorisnik),
-  UNIQUE (username)
+  UNIQUE (idKorisnik)
 );
 
 CREATE TABLE oglas
