@@ -14,32 +14,29 @@ const StartPage = ({ onLogin }) => {
 
   return (
     <div className="start-page">
-      <div className="overlay">
-        <div className="header">
-          <h1>
-            Dobrodošli na{" "}
-            <span className="logo">
-              SWAP<span className="highlight">PET!</span>
-            </span>
-          </h1>
-        </div>
-        <div className="search-bar">
-          <FaSearch className="search-icon" />
-          <input type="text" placeholder="Pretraži događaje..." />
-        </div>
-        <GoogleLoginButton onLogin={onLogin} />
-        
-        <button className="redirect-button" onClick={handleRedirect}>
-          Idi na izbor kategorija <FaArrowRight />
-        </button>
-        
-        <footer className="footer">
-          {/* <a href="#about">O nama</a>
-          <a href="#contact">Kontakt</a>
-          <a href="#help">Pomoć</a> */}
-          <a href="#fer">@ FER 2024/2025</a>
-        </footer>
+      <div className="naslov">
+        <div id="dobrodosli">Dobrodošli na</div>
+        <div id="swap">SWAP<span id="pet">PET</span><span id="usklicnik">!</span></div>
       </div>
+
+      <div className="search-bar">
+        <FaSearch className="search-icon"/>
+        <input id="pretraga" type="text" placeholder="Pretraži događaje..."></input>
+      </div>
+
+      <GoogleLoginButton  className="googleLogin" onLogin={onLogin}></GoogleLoginButton>
+      
+      <button className="redirect-button" onClick={handleRedirect}>
+        <div id="kategorije">Idi na izbor kategorija</div>
+        <FaArrowRight className="FaArrowRight"/>
+      </button>
+
+      <footer className="footer">
+        <a href="#about">O nama</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#help">Pomoć</a>
+        <a href="#fer">@FER 2024/2025</a>
+      </footer>
     </div>
   );
 };
