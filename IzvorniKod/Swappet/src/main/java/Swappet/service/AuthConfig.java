@@ -27,8 +27,18 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 )
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
-                            //nakon uspješne registracije, korisnik se prosljeđuje na sljedeću rutu
-                            response.sendRedirect("http://localhost:3000/selection");
+                            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+
+                            //izvadi username i pošalji ga na frontend
+                            String username = oAuth2User.getAttribute("name");
+                            if(username == null){
+                                username = "gost";
+                            }
+
+                            String redirectUrl = "http://localhost:3000/selection?username=" + username + "&username=" + username;
+
+                            //redirect na frontend
+                            response.sendRedirect(redirectUrl);
                         })
                 )
                 .build();
