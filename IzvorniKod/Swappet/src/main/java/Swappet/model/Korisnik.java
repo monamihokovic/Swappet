@@ -1,4 +1,4 @@
-package PROGI.Swappet.model;
+package Swappet.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

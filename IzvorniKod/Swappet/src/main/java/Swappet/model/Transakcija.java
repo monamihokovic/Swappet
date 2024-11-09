@@ -1,4 +1,4 @@
-package PROGI.Swappet.model;
+package Swappet.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
