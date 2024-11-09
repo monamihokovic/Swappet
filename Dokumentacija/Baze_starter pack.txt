@@ -144,6 +144,24 @@ INSERT INTO tipDog (nazivtipa)
 INSERT INTO tipDog (nazivtipa)
 	VALUES ('Predstava');
 
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Putovanja');
+
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Tulumi');
+
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Kino');
+
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Sport');
+
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Prijevoz');
+
+INSERT INTO tipdog(nazivtipa) 
+	VALUES ('Ostalo');
+
 /* oglas */
 INSERT INTO Oglas (email, datum, ulica, grad, kucnibr, opis, aktivan, tipoglas)
 	VALUES ('lana@lanic.com', CURRENT_TIMESTAMP, 'Karlovačka cesta', 'Jastrebarsko', 2, 'Koncert Crvene Jabuke u caffe bar-u Mir', 1, 0);
