@@ -10,15 +10,29 @@ import AdvertisementsPage from './components/AdvertisementsPage';
 function App() {
   const [userToken, setUserToken] = useState(null); // Manage user token
   const [userName, setUserName] = useState("gost"); // State to hold username
+  const [profilePic, setProfilePic] = useState(null);
+  const defaultProfilePic='/defaultpfp.jpg';
 
-  const handleLogin = (token) => {
+  const handleLogin = async (token) => {
     setUserToken(token); // Store the token in the state
     const decoded = jwtDecode(token); // Call the jwtDecode function 
     setUserName(decoded.name || decoded.email || ""); // Extract username or email
     console.log("User logged in with token:", token);
+    
+    try {
+      const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers:{
+          Authorization: `Bearrer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setProfilePic(data.picture || defaultProfilePic);
+    }catch (error){
+      console.error("Error fetching profile picture:", error);
+      setProfilePic(defaultProfilePic);
+    }
   };
   
-
   const LoginRedirect = () => {
     const navigate = useNavigate(); // Initialize navigate
 
@@ -30,18 +44,12 @@ function App() {
     return <StartPage onLogin={onLogin} />;
   };
 
-  // Function to redirect to backend for OAuth2 login
-  const handleGoogleLogin = () => {
-    // Redirect user to the backend /register route, which will trigger OAuth2 login
-    window.location.href = 'http://localhost:8081/register'; // This will trigger the OAuth2 flow
-  };
-
   return (
     <Router>
        <Routes>
         <Route path="/" element={<LoginRedirect />} />
         <Route path="/selection" element={<SelectionPage userName={userName} />} />
-        <Route path="/advertisements" element={<AdvertisementsPage userName={userName} />} /> 
+        <Route path="/advertisements" element={<AdvertisementsPage userName={userName} profilePic={profilePic} />} />
       </Routes>
     </Router>
   );

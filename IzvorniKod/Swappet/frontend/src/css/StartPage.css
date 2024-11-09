@@ -3,145 +3,118 @@
 /* Background and overall layout */
 .start-page {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     background: rgb(65,67,97);
-    background: linear-gradient(180deg, rgba(65,67,97,1) 35%, rgba(39,42,61,1) 100%);
-    color: #ffffff;
-  }
-  
-  .overlay {
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  /* Header and logo styling */
-  .header h1 {
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 1em;
-  }
-  
-  .logo {
-    color: #ffffff;
-    font-family: 'League Spartan', sans-serif;
-    font-size: 2em;
-}
-  
-  .highlight {
-    color: #a184c5;
-  }
-  
-  /* Search bar styling */
-  .search-bar {
-    display: flex;
-    align-items: center;
-    background-color: #2b2544;
-    border-radius: 30px;
-    padding: 0.5em 1em;
-    margin-bottom: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-  }
-  
-  .search-icon {
-    color: #a184c5;
-    margin-right: 0.5em;
-  }
-  
-  .search-bar input {
-    border: none;
-    background: none;
-    color: #ffffff;
-    font-size: 1em;
-    outline: none;
-    width: 100%;
-  }
-  
-  /* Buttons */
-  .buttons {
-    display: flex;
-    gap: 1em;
-    justify-content: center;
-    margin-bottom: 1em;
-  }
-  
-  .login-button, .register-button {
-    padding: 0.7em 1.5em;
-    border: none;
-    border-radius: 20px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .login-button {
-    background-color: #a184c5;
-    color: #ffffff;
-  }
-  
-  .register-button {
-    background-color: #a184c5;
-    color: #ffffff;
-  }
-
-  .redirect-button {
-    background-color: #a184c5; 
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    padding: 0.7em 1.5em;
-    font-size: 1em;
-    cursor: pointer;
-    margin-bottom: 1em; 
-    transition: background-color 0.3s;
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
 }
 
-.redirect-button:hover {
-    background-color: #ffffff;
-    color: #a184c5; 
+.naslov{
+  color: #e8e5e7;
+  font-family: 'League Spartan', sans-serif;
+  cursor: pointer;
 }
 
-  /* Google signin button */
-  .google-sign-in-button {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1em;
-  }
-  
-  #sign-in-div {
-    width: 100%; 
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Footer */
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    font-size: 0.9em;
-    color: #a184c5;
-  }
-  
-  .footer p:last-child {
-    text-align: right;
-  }
-
-  .footer a {
-    color: inherit; 
-    text-decoration: none; 
+#dobrodosli{
+  text-align: center;
+  font-size: 1.5em;
+  padding-bottom: 10px;
 }
 
-.footer a {
-    color: inherit; 
-    text-decoration: none; 
+#swap{
+  font-size: 5em;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+#pet{
+  color: #816898;
 }
 
-.footer a:hover {
-    text-decoration: underline; 
-    color: #a184c5; 
+#usklicnik{
+  font-size: 1.2em;
 }
 
-  
+.search-bar{
+  display: flex;
+  align-items: center;
+  background-color: #26293d;
+  border-radius: 30px;
+  width: 20em;
+  height: 1.5em;
+  padding: 0.5em 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+}
+
+.search-icon:hover{
+  cursor: pointer;
+}
+
+.search-icon{
+  color: #816898;
+}
+
+.search-bar input{
+  background: none;
+  color: #816898;
+  font-size: 0.9em;
+}
+
+#pretraga{
+  border: none;
+}
+
+.search-bar input::placeholder{
+  color: #816898;
+  text-align: center;
+  margin-right: -50px;
+}
+
+.redirect-button{
+  display: flex;
+  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5em;
+  height: 2em;
+  width: 17em;
+  border-radius: 15px;
+  background-color: #816898;
+  border: none;
+  color: #e8e5e7;
+  transition: background-color 0.3s;
+ font-size: 15px;
+}
+
+.redirect-button:hover{
+  background-color: #e8e5e7;
+  color: #816898;
+  cursor: pointer;
+}
+
+#kategorije{
+  margin-left: 40px;
+}
+
+.footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  color: #e8e5e7;
+  position: fixed;
+  bottom: 20px;
+}
+
+.footer a{
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover{
+  text-decoration: underline;
+  color: #816898;
+}
