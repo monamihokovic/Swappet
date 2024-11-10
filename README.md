@@ -11,9 +11,11 @@ Swappet je idealno rješenje koje će omogućiti korisnicima izravnu razmjenu je
 ## Funkcionalni zahtjevi sustava
 Naša web aplikacija zamišljena je s funkcijama prijave korisnika, podrškom za više korisnika u isto vrijeme te slanjem obavijesti unutar aplikacije između korisnika, koje su aktualne i odmah vidljive aktivnim korisnicima.
 
-Neregistrirani korisnici mogu pregledavati popis događaja, gledati oglase za ulaznice i pristupiti stvaranju korisničkog računa. Registracija korisnika započinje unosom korisničkog imena i email adrese, nakon čega sustav šalje link za aktivaciju računa. Prilikom aktivacije korisnik unosi lozinku.
+Neregistrirani korisnici mogu pregledavati popis događaja, gledati oglase za ulaznice i pristupiti opciji za prijavu i registraciju putem Google naloga.
 
-Registrirani korisnici imaju dodatne mogućnosti. Mogu biti prodavači u jednoj transakciji i kupci u drugoj, pregledavati popis događaja i oglase za ulaznice te koristiti filtre za pronalazak željenih oglasa. Također mogu odgovarati na tuđe oglase, objavljivati oglase za zamjenu ili prodaju ulaznica, a imaju i pristup potencijalnim lancima razmjene za tuđe oglase. Registrirani korisnici mogu "lajkati" ili "dislajkati" oglase te započinjati interakciju prilikom kupnje ili zahtjeva za zamjenu ulaznice. 
+Registracija korisnika sada se odvija jednostavno kroz prijavu putem Google naloga, čime se izbegava unos korisničkog imena, e-mail adrese i lozinke. Prijavom putem Google naloga korisnik automatski aktivira svoj profil i može započeti korištenje aplikacije.
+
+Registrirani korisnici imaju dodatne mogućnosti. Mogu biti prodavači u jednoj transakciji i kupci u drugoj, pregledavati popis događaja i oglase za ulaznice te koristiti filtre za pronalazak željenih oglasa. Također mogu odgovarati na tuđe oglase, objavljivati oglase za zamjenu ili prodaju ulaznica, a imaju i pristup potencijalnim lancima razmjene za tuđe oglase. Registrirani korisnici mogu "lajkati" ili "dislajkati" oglase te započinjati interakciju prilikom kupnje ili zahtjeva za zamjenu ulaznice.
 
 Na taj način, naša web aplikacija osigurava jednostavno i učinkovito iskustvo za sve korisnike.
 
