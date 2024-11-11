@@ -1,29 +1,33 @@
-import React, { useState } from "react";
-import "../css/Card.css";
+import React from "react";
+
+const typeMapping = {
+  1: "Koncert",
+  2: "Izložba",
+  3: "Predstava",
+  4: "Putovanja",
+  5: "Tulumi",
+  6: "Kino",
+  7: "Sport",
+  8: "Prijevoz",
+  9: "Ostalo"
+};
 
 const Card = ({ ad }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const incrementQuantity = () => {
-    setQuantity((prev) => Math.min(prev + 1, ad.availableTickets));
-  };
-
-  const decrementQuantity = () => {
-    setQuantity((prev) => Math.max(prev - 1, 1));
-  };
+  const adType = typeMapping[ad.type];
 
   return (
     <div className="card">
-      <img src={ad.image} alt={ad.name} className="card-image" />
       <div className="card-info">
-        <h2>{ad.name}</h2>
-        <p className="tip1">{ad.type}</p>
-        <p className="adresa1">Adresa: {ad.address}</p>
-        <p className="datum1">Datum: {ad.date}</p>
-        <p className="cijena1">Cijena: €${ad.price}</p>
+        <div className="tip1">{adType}</div>
+        <div className="opis">{ad.description}</div>
+        <div className="adresa1">{ad.address}</div>
+        <div className="datum1">{ad.date}</div>
+        <div className="cijena1">{ad.price} €</div>
       </div>
     </div>
   );
 };
 
 export default Card;
+
+

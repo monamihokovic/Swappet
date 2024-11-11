@@ -1,16 +1,12 @@
 package Swappet.controller;
 
-import Swappet.model.Oglas;
 import Swappet.service.OglasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/homepage")
@@ -22,17 +18,23 @@ public class HomepageController {
     @Autowired
     private OglasService oglasService;
 
-    // stara verzija
-//    @PostMapping("/homepage/oglas") //ako dobiješ error, vrati ovo na /oglas
-//    public ResponseEntity<List<Oglas>> getOglasByCategories(@RequestBody List<Integer> categories) {
-//        List<Oglas> oglasi = oglasService.getOglasByCategories(categories);
-//        return ResponseEntity.ok(oglasi);
-//    }
+    private List<OglasDTO> storedOglasiData;
 
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
-    @PostMapping("/homepage/oglas")
-    public ResponseEntity<List<Map<String, Object>>> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
-        List<Map<String, Object>> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
-        return ResponseEntity.ok(oglasi);
+    @PostMapping("/oglas")
+    public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
+        List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
+        storedOglasiData = oglasi;
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //ovom rutom vraćamo oglase na frontend
+    @GetMapping("/advertisements")
+    public ResponseEntity<List<OglasDTO>> getStoredOglasiData() {
+        if (storedOglasiData != null) {
+            return ResponseEntity.ok(storedOglasiData); // Return the stored data
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // If no data found
+        }
     }
 }
