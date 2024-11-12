@@ -8,36 +8,55 @@ Kupnja ulaznice za bilo koju vrstu događanja, bilo da se radi o sportskom doga�
 
 Swappet je idealno rješenje koje će omogućiti korisnicima izravnu razmjenu jedan-na-jedan ili olakšati razmjenu između više sudionika ako se pronađu prikladna podudaranja.
 
-## Funkcionalni zahtjevi sustava
-Naša web aplikacija zamišljena je s funkcijama prijave korisnika, podrškom za više korisnika u isto vrijeme te slanjem obavijesti unutar aplikacije između korisnika, koje su aktualne i odmah vidljive aktivnim korisnicima.
+Naravno, evo kako bi tekst izgledao s ispravljenim i jasno izdvojenim funkcionalnim i nefunkcionalnim zahtjevima:
 
-Neregistrirani korisnici mogu pregledavati popis događaja, gledati oglase za ulaznice i pristupiti opciji za prijavu i registraciju putem Google naloga.
+---
 
-Registracija korisnika sada se odvija jednostavno kroz prijavu putem Google naloga, čime se izbegava unos korisničkog imena, e-mail adrese i lozinke. Prijavom putem Google naloga korisnik automatski aktivira svoj profil i može započeti korištenje aplikacije.
+### Funkcionalni zahtjevi sustava
+Naša web aplikacija zamišljena je tako da omogućava korisnicima jednostavno upravljanje događajima, razmjenu i prodaju ulaznica te povezivanje s drugim korisnicima. Evo ključnih funkcionalnosti koje podržava aplikacija:
 
-Registrirani korisnici imaju dodatne mogućnosti. Mogu biti prodavači u jednoj transakciji i kupci u drugoj, pregledavati popis događaja i oglase za ulaznice te koristiti filtre za pronalazak željenih oglasa. Također mogu odgovarati na tuđe oglase, objavljivati oglase za zamjenu ili prodaju ulaznica, a imaju i pristup potencijalnim lancima razmjene za tuđe oglase. Registrirani korisnici mogu "lajkati" ili "dislajkati" oglase te započinjati interakciju prilikom kupnje ili zahtjeva za zamjenu ulaznice.
+- **Prijava i registracija korisnika:**  
+   Registracija korisnika omogućena je putem prijave preko Google naloga, čime se izbjegava ručni unos podataka kao što su korisničko ime, e-mail adresa i lozinka. Prijavom putem Google naloga korisnik automatski aktivira svoj profil i može započeti korištenje aplikacije.
 
-Na taj način, naša web aplikacija osigurava jednostavno i učinkovito iskustvo za sve korisnike.
+- **Pristup i interakcija s oglasima:**  
+   - **Neregistrirani korisnici** mogu pregledavati popis događaja i oglase za ulaznice, te pristupiti opcijama za prijavu i registraciju putem Google naloga.
+   - **Registrirani korisnici** imaju dodatne mogućnosti, poput objavljivanja i uređivanja oglasa za prodaju ili zamjenu ulaznica, odgovaranja na tuđe oglase, korištenja filtara za pretragu oglasa te započinjanja interakcije s drugim korisnicima za kupnju ili zamjenu ulaznica. Oglasi uključuju sve ključne podatke kao što su vrsta, naziv, datumi i mjesto događaja, uz opcionalne informacije poput broja sjedala i vrste ulaznica.
 
-Transakcija sadržava podatke o uključenim korisnicima, odlukama, vrsti te vremenski okvir odluke.
+- **Komunikacija među korisnicima:**  
+   Unutar aplikacije omogućena je razmjena obavijesti među korisnicima, koje su odmah vidljive aktivnim korisnicima. Obavijesti o novim oglasima relevantnim za interese korisnika šalju se putem emaila i unutar aplikacije.
 
-Platforma se povezuje na vanjski servis s katalogom izvođača, čime korisnici mogu lako pristupiti informacijama o izvođačima. Također, integrira se s vanjskom uslugom za vremensku prognozu, što omogućava korisnicima da budu informirani o vremenskim uvjetima na dan događaja.
+- **Praćenje preferencija korisnika:**  
+   Aplikacija prati "lajkove" i "dislajkove" na oglase, prilagođavajući prikaz sadržaja na temelju korisničkih preferencija.
 
-Registriranim korisnicima prikaz se prilagođava ovisno o njihovim preferencijama, temeljenim na "lajkovima" i "dislajkovima". Obavijesti se šalju putem emaila i unutar aplikacije, a korisnici su obaviješteni o novim oglasima koji odgovaraju njihovim interesima. Također, mogu pregledati svoje prošle transakcije, a sustav automatski popunjava podatke o transakciji na temelju detektirane interakcije.
+- **Pregled i upravljanje transakcijama:**  
+   Registrirani korisnici imaju mogućnost pregledavanja povijesti svojih transakcija, dok sustav automatski popunjava podatke za nove transakcije na temelju prethodnih interakcija.
 
-Kada je riječ o oglasima, oni sadrže sve bitne informacije kao što su vrsta, naziv, datumi i mjesto događaja, uz opcionalne podatke o broju sjedala i vrsti ulaznica. U slučaju zamjene, korisnici mogu navesti željeni događaj ili vrstu ulaznice koja će se prihvatiti kao zamjena. Oglasi se automatski uklanjaju istekom datuma događaja, a ako se radi o glazbenom koncertu, sustav automatski preuzima podatke o izvođaču i žanru iz vanjske aplikacije.
+- **Automatsko uklanjanje i ažuriranje oglasa:**  
+   Oglasi se automatski uklanjaju nakon isteka datuma događaja, a za glazbene koncerte sustav automatski preuzima informacije o izvođaču i glazbenom žanru iz vanjske aplikacije.
 
-Administrator sustava ima ključnu ulogu u upravljanju aplikacijom. Generira izvještaje o aktivnostima korisnika, razmjenama ulaznica i prijavama o lažnom oglašavanju. Također, upravlja korisničkim računima, rješava sporove te deaktivira račune korisnika kada je to potrebno.
+- **Vanjske integracije:**  
+   Aplikacija se povezuje s vanjskim servisima kako bi korisnicima pružila dodatne informacije o izvođačima i vremenskim uvjetima na dan događaja, omogućavajući lakše planiranje dolaska na događaj.
 
-Ove funkcionalnosti osiguravaju da naša web aplikacija bude korisna, efikasna i prilagođena potrebama svih korisnika. 
+- **Uloga administratora:**  
+   Administrator sustava ima ključnu ulogu u održavanju aplikacije, uključujući generiranje izvještaja o korisničkim aktivnostima i prijavama za lažno oglašavanje, upravljanje korisničkim računima, rješavanje sporova i deaktivaciju računa po potrebi.
 
-## Nefunkcionalni zahtjevi sustava
-Naša web aplikacija je dizajnirana s naglaskom na korisničko iskustvo i fleksibilnost. 
 
-Prvo, aplikacija je prilagođena različitim veličinama ekrana putem responsive designa, što omogućava korisnicima da je koriste na raznim uređajima, uključujući pametne telefone, tablete i računala.
+---
 
-Drugo, aplikacija je izvedena u arhitekturi klijent-poslužitelj. Ova arhitektura omogućava jasnu podjelu između klijentske strane, koja se brine za interakciju s korisnicima, i poslužiteljske strane, koja upravlja podacima i logikom aplikacije.
-Sve ove karakteristike čine našu web aplikaciju modernom i prilagodljivom potrebama korisnika.
+### Nefunkcionalni zahtjevi sustava
+Naša web aplikacija dizajnirana je s naglaskom na korisničko iskustvo, sigurnost i prilagodljivost različitim uređajima, kako bi korisnicima omogućila što lakše i učinkovitije korištenje.
+
+- **Korisničko iskustvo i prilagodljivost:**  
+   Dizajn aplikacije izrađen je s ciljem jednostavnosti korištenja, uz prilagodbu različitim korisničkim potrebama. 
+
+- **Prilagodljiv dizajn (responsive design):**  
+   Aplikacija je prilagođena različitim veličinama ekrana i uređajima (od pametnih telefona do računala), osiguravajući konzistentno korisničko iskustvo bez obzira na vrstu uređaja.
+
+- **Arhitektura klijent-poslužitelj:**  
+   Aplikacija je razvijena prema klijent-poslužitelj arhitekturi, koja omogućava jasnu podjelu između klijentske strane (koja upravlja korisničkim sučeljem) i poslužiteljske strane (koja upravlja podacima i poslovnom logikom). 
+
+
+---
 
 ## Tehnologije
 Za učinkovitu komunikaciju unutar našeg tima koristimo Discord, koji nam omogućava brzu razmjenu ideja i suradnju u realnom vremenu. Za razvoj web aplikacije, odabrali smo React za frontend, što nam omogućava izradu interaktivnih i dinamičnih korisničkih sučelja. 
