@@ -1,5 +1,6 @@
 package Swappet.service;
 
+import Swappet.controller.OglasDTO;
 import Swappet.model.JeTip;
 import Swappet.model.Oglas;
 import Swappet.model.TipDog;
@@ -32,34 +33,35 @@ public class OglasService {
     @Autowired
     private UlaznicaRepository ulaznicaRepository;
 
-
-    // stara verzija
-    // public List<Oglas> getOglasByCategories(List<Integer> categories) {
-    //     return oglasRepository.findOglasByTipOglasIn(categories);
-    // }
-
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
-    public List<Map<String, Object>> getOglasWithCijenaByCategories(List<Integer> categories) {
-        List<Object[]> results = oglasRepository.findOglasWithCijenaByCategories(categories);
-        List<Map<String, Object>> response = new ArrayList<>();
+    public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
+        List<Object[]> rawData = oglasRepository.findOglasWithCijenaByCategories(categories);
+        List<OglasDTO> result = new ArrayList<>();
 
-        for (Object[] result : results) {
-            Oglas oglas = (Oglas) result[0];
-            Float cijena = (Float) result[1];
+        for (Object[] row : rawData) {
+            Oglas oglas = (Oglas) row[0];  // Oglas objekt
+            Double price = (Double) row[1];  // cijena iz Ulaznice
 
-            Map<String, Object> oglasData= new HashMap<>();
-            oglasData.put("idoglas", oglas.getIdOglas());
-            oglasData.put("datum", oglas.getDatum());
-            oglasData.put("ulica", oglas.getUlica());
-            oglasData.put("grad", oglas.getGrad());
-            oglasData.put("opis", oglas.getOpis());
-            oglasData.put("aktivan", oglas.getTipOglas());
-            oglasData.put("opisZamjene", oglas.getOpisZamjene());
-            oglasData.put("cijena", cijena);
+            //formatiraj adresu
+            String address = oglas.getUlica() + ", " + oglas.getGrad();
 
-            response.add(oglasData);
+            //formatiraj datum po potrebu
+            String date = oglas.getDatum().toString();
+
+            //konvertiraj u DTO
+            OglasDTO dto = new OglasDTO(
+                    oglas.getIdOglas(),
+                    oglas.getOpis(),
+                    oglas.getTipOglas().toString(),
+                    price,
+                    address,
+                    date
+            );
+
+            result.add(dto);
         }
-        return response;
+
+        return result;
     }
 
     //spremanje oglasa u bazu

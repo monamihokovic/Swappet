@@ -16,11 +16,11 @@ public class Ulaznica {
     @Column(name = "broj", nullable = true)
     private Integer broj;
 
-    @Column(name = "vrstaulaznice")
+    @Column(name = "vrstaulaznice", nullable = true)
     private Integer vrstaUlaznice;
 
     @Column(name = "cijena", nullable = true )
-    private Float cijena;
+    private Double cijena;
 
     @ManyToOne
     @JoinColumn(name = "idoglas", nullable = false)
@@ -28,7 +28,7 @@ public class Ulaznica {
 
     // konsturkotor
 
-    public Ulaznica(Integer red, Integer vrstaUlaznice, Integer broj, Float cijena, Oglas oglas) {
+    public Ulaznica(Integer red, Integer vrstaUlaznice, Integer broj, Double cijena, Oglas oglas) {
         this.red = red;
         this.vrstaUlaznice = vrstaUlaznice;
         this.broj = broj;
@@ -66,11 +66,11 @@ public class Ulaznica {
         this.vrstaUlaznice = vrstaUlaznice;
     }
 
-    public Float getCijena() {
+    public Double getCijena() {
         return cijena;
     }
 
-    public void setCijena(Float cijena) {
+    public void setCijena(Double cijena) {
         this.cijena = cijena;
     }
 

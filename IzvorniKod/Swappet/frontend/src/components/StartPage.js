@@ -24,7 +24,7 @@ const StartPage = ({ onLogin }) => {
         <input id="pretraga" type="text" placeholder="Pretraži događaje..."></input>
       </div>
 
-      <GoogleLoginButton  className="googleLogin" onLogin={onLogin}></GoogleLoginButton>
+      <GoogleLoginButton className="google-login-btn" onLogin={onLogin} />
       
       <button className="redirect-button" onClick={handleRedirect}>
         <div id="kategorije">Idi na izbor kategorija</div>

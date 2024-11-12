@@ -1,40 +1,78 @@
 package Swappet.controller;
 
-import Swappet.model.Oglas;
-import Swappet.model.TipDog;
-import Swappet.model.Ulaznica;
-
-import java.util.List;
-
 public class OglasRequest {
 
-    //komponente zahtjeva
-    private Oglas oglas;
-    private TipDog tipDog;
-    private List<Ulaznica> ulaznice;
+    private String description;     //opis ulaznice
+    private Integer categoryId; // id kategorije
+    private Double price;    //cijena ulaznice
+    private String street;  //ulica
+    private String houseNumber; //kucni broj
+    private String city;    //grad
+    private String date; // datum događaja
+    private String email; // email ulogiranog korisnika
 
-    //getteri i setteri
-    public Oglas getOglas() {
-        return oglas;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setOglas(Oglas oglas) {
-        this.oglas = oglas;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public TipDog getTipDog() {
-        return tipDog;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setTipDog(TipDog tipDog) {
-        this.tipDog = tipDog;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public List<Ulaznica> getUlaznice() {
-        return ulaznice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setUlaznice(List<Ulaznica> ulaznice) {
-        this.ulaznice = ulaznice;
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

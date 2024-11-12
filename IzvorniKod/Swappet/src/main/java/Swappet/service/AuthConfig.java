@@ -20,14 +20,16 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         //na ove rute može doći i neregistrirani korisnik
-                        .requestMatchers("/", "/register", "/homepage/").permitAll()
+                        .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
+                                "/homepage/advertisements", "/oglas", "/user-info").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
-                            //nakon uspješne registracije, korisnik se prosljeđuje na sljedeću rutu
+                            //redirect na frontend
                             response.sendRedirect("http://localhost:3000/selection");
                         })
                 )

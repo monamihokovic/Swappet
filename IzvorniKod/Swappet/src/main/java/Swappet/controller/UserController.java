@@ -1,23 +1,22 @@
 package Swappet.controller;
 
-import Swappet.model.Korisnik;
-import Swappet.service.KorisnikService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/") //rute treba prilagoditi
+@RequestMapping("/")
 public class UserController {
-
-    @Autowired
-    private KorisnikService userService;
-
-    @GetMapping("/getAll")
-    public List<Korisnik> getAllUsers() {
-        //vraća listu svih korisnika iz baze, za debugging
-        return userService.getAllUsers();
+    
+    @GetMapping("/user-info")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return principal.getAttributes();
     }
-
+    
+    @GetMapping("/info")
+    public String user1(@AuthenticationPrincipal OAuth2User principal) {
+        return "Pitaj boga";
+    }
 }
