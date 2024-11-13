@@ -3,6 +3,7 @@ package Swappet.service;
 import Swappet.model.Korisnik;
 import Swappet.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
+    @Value("${FRONTEND_URL:http://localhost:3000}")
+    private String frontendUrl;
 
     //Funkcija za autentifikaciju korisnika preko Google OAuth2
     @Bean
@@ -30,7 +33,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             //redirect na frontend
-                            response.sendRedirect("http://localhost:3000/selection");
+                            response.sendRedirect(frontendUrl + "/selection");
                         })
                 )
                 .build();
