@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../.github/workflows/build-and-push-backend.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.github/workflows/build-and-push-backend.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.github/workflows/build-and-push-frontend.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.github/workflows/build-and-push-frontend.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.github/workflows/trigger_redeploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.github/workflows/trigger_redeploy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/compiler.xml" afterDir="false" />
