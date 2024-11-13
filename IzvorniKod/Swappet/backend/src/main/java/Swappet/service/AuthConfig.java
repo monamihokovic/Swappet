@@ -33,7 +33,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             //redirect na frontend
-                            response.sendRedirect(frontendUrl + "/selection");
+                            response.sendRedirect("https://swappet-app.onrender.com/selection");
                         })
                 )
                 .build();
