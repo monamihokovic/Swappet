@@ -47,7 +47,7 @@ jobs:
         with:
           context: ./IzvorniKod/Swappet/backend
           push: true
-          tags: ghcr.io/${{ github.repository }}/backend:latest
+          tags: ghcr.io/gt726/swappet/backend:latest
 
       - name: Trigger release
         if: ${{ env.BACKEND_DEPLOY_HOOK }}
