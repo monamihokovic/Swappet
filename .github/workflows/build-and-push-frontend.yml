@@ -19,6 +19,11 @@ jobs:
       - name: Clone the repository
         uses: actions/checkout@v3
 
+      # Set Docker CLI timeout configuration
+      - name: Set Docker CLI timeout
+        run: |
+          echo '{"debug": true, "experimental": "enabled", "timeouts": {"connect": "60s", "read": "60s"}}' > ~/.docker/config.json
+
       - name: Set Node.js 22
         uses: actions/setup-node@v4
         with:
