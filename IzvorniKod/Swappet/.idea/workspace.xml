@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/../../CODE_OF_CONDUCT.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../CODE_OF_CONDUCT.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Dokumentacija/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Dokumentacija/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/51089d56-f3e9-48ad-a23b-584d7a2cae30.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -205,7 +204,7 @@
       <workItem from="1731421090790" duration="2587000" />
       <workItem from="1731429475080" duration="3012000" />
       <workItem from="1731493267143" duration="3084000" />
-      <workItem from="1731504864269" duration="49000" />
+      <workItem from="1731504864269" duration="945000" />
     </task>
     <servers />
   </component>
