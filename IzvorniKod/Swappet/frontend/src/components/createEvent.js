@@ -36,10 +36,10 @@ const CreateEvent = ({ userName, profilePic }) => {
 
     // Fetch user info
     useEffect(() => {
-        const backendUrl =
-            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get(`${backendUrl}/user-info`, { withCredentials: true })
+            .get("https://swappet.onrender.com/user-info", {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
             })
@@ -85,10 +85,8 @@ const CreateEvent = ({ userName, profilePic }) => {
         };
 
         // Send event data to backend
-        const backendUrl =
-            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .post(`${backendUrl}/oglas`, eventData, {
+            .post("https://swappet.onrender.com/oglas", eventData, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json", // Ensure correct content type

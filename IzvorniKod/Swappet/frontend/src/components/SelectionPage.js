@@ -23,10 +23,10 @@ const SelectionPage = ({ userName }) => {
     ];
 
     useEffect(() => {
-        const backendUrl =
-            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get(`${backendUrl}/user-info`, { withCredentials: true })
+            .get("https://swappet.onrender.com/user-info", {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
             })
@@ -46,12 +46,14 @@ const SelectionPage = ({ userName }) => {
     const handleContinueClick = () => {
         if (selectedCategoryIds.length > 0) {
             console.log("Selected category IDs:", selectedCategoryIds);
-            const backendUrl =
-                process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
             axios
-                .post(`${backendUrl}/homepage/oglas`, selectedCategoryIds, {
-                    withCredentials: true,
-                })
+                .post(
+                    "https://swappet.onrender.com/homepage/oglas",
+                    selectedCategoryIds,
+                    {
+                        withCredentials: true,
+                    }
+                )
                 .then((response) => {
                     console.log("Post response:", response.data);
                     // Redirect to advertisements page after successful post

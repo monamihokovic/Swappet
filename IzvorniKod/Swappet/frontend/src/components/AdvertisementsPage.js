@@ -22,10 +22,10 @@ const AdvertisementsPage = ({ profilePic }) => {
 
     // Fetch user information
     useEffect(() => {
-        const backendUrl =
-            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get(`${backendUrl}/user-info`, { withCredentials: true })
+            .get("https://swappet.onrender.com/user-info", {
+                withCredentials: true,
+            })
             .then((response) => setUser(response.data))
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -38,10 +38,8 @@ const AdvertisementsPage = ({ profilePic }) => {
 
     // Fetch advertisements from the backend
     useEffect(() => {
-        const backendUrl =
-            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get(`${backendUrl}/homepage/advertisements`, {
+            .get("https://swappet.onrender.com/homepage/advertisements", {
                 headers: {
                     "Content-Type": "application/json",
                 },
