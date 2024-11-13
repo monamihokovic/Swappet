@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/GoogleLoginBtn.css";
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
+//const backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
 
 const GoogleLoginButton = () => {
     const handleLoginRedirect = () => {
