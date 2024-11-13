@@ -22,8 +22,10 @@ const AdvertisementsPage = ({ profilePic }) => {
 
     // Fetch user information
     useEffect(() => {
+        const backendUrl =
+            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get("http://localhost:8081/user-info", { withCredentials: true })
+            .get(`${backendUrl}/user-info`, { withCredentials: true })
             .then((response) => setUser(response.data))
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -36,8 +38,10 @@ const AdvertisementsPage = ({ profilePic }) => {
 
     // Fetch advertisements from the backend
     useEffect(() => {
+        const backendUrl =
+            process.env.REACT_APP_BACKEND_URL || "http://localhost:8081";
         axios
-            .get("http://localhost:8081/homepage/advertisements", {
+            .get(`${backendUrl}/homepage/advertisements`, {
                 headers: {
                     "Content-Type": "application/json",
                 },
