@@ -5,48 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/HomepageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTip.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTipId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucenId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Korisnik.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Oglas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenja.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenjaId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/TipDog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Transakcija.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Ulaznica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglasId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeTipRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeUkljucenRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/KorisnikRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/OglasRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/SeMijenjaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TipDogRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TransakcijaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/VoliOglasRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SwappetApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/test/java/Fullstack/web/app/SwappetApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/compiler.xml" afterDir="false" />
@@ -59,16 +17,54 @@
       <change beforePath="$PROJECT_DIR$/../../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../CODE_OF_CONDUCT.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../CODE_OF_CONDUCT.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Dokumentacija/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../Dokumentacija/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/51089d56-f3e9-48ad-a23b-584d7a2cae30.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/51089d56-f3e9-48ad-a23b-584d7a2cae30.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/HomepageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTip.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTipId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeTipId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucen.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucenId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/JeUkljucenId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Korisnik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Oglas.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Oglas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenja.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenja.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenjaId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/SeMijenjaId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/TipDog.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/TipDog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Transakcija.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Transakcija.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Ulaznica.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Ulaznica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglas.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglasId.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/VoliOglasId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeTipRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeTipRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeUkljucenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/JeUkljucenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/KorisnikRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/KorisnikRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/OglasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/OglasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/SeMijenjaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/SeMijenjaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TipDogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TipDogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TransakcijaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/TransakcijaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/VoliOglasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/VoliOglasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/KorisnikServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SwappetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SwappetApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/Fullstack/web/app/SwappetApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/Fullstack/web/app/SwappetApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.vscode/launch.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/nginx.conf" afterDir="false" />
@@ -96,44 +92,6 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/reportWebVitals.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/setupTests.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/HomepageController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/OglasController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/OglasDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/OglasRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTip.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeTipId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeUkljucen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/JeUkljucenId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/Korisnik.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/Oglas.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/SeMijenja.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/SeMijenjaId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/TipDog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/Transakcija.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/Ulaznica.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/VoliOglas.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/model/VoliOglasId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeTipRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/JeUkljucenRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/KorisnikRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/OglasRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/SeMijenjaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/TipDogRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/TransakcijaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/UlaznicaRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/repository/VoliOglasRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/KorisnikService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/KorisnikServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/OglasService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/SwappetApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Swappet/service/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Fullstack/web/app/SwappetApplicationTests.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../../LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../package-lock.json" afterDir="false" />
@@ -171,32 +129,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.SwappetApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsDialog.application.dockerMachine",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.SwappetApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsDialog.application.dockerMachine&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Goran\Documents\GitHub\Swappet\IzvorniKod\Swappet\src\main\java\Swappet" />
@@ -241,7 +199,7 @@
       <workItem from="1731412077287" duration="3569000" />
       <workItem from="1731421090790" duration="2587000" />
       <workItem from="1731429475080" duration="3012000" />
-      <workItem from="1731493267143" duration="1931000" />
+      <workItem from="1731493267143" duration="2414000" />
     </task>
     <servers />
   </component>
