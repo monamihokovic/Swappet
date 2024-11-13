@@ -1,4 +1,5 @@
-FROM ubuntu:latest
-LABEL authors="Goran"
+FROM alpine/java:21-jre
+COPY target/*.jar /app.jar
 
-ENTRYPOINT ["top", "-b"]
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","/app.jar"]

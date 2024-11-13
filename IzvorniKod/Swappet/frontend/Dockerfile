@@ -1,10 +1,12 @@
-FROM node:lts-alpine
-ENV NODE_ENV=production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
-COPY . .
+FROM nginx:alpine
+
+COPY build /usr/share/nginx/html
+
+# Izlozi port
 EXPOSE 8081
-RUN chown -R node /usr/src/app
-USER node
-CMD ["npm", "start"]
+
+# Kopira konfiguraciju nginx-a
+COPY nginx.conf /etc/nginx/conf.d/default.template
+
+# postavlja entrypoint
+ENTRYPOINT ["/bin/sh", "-c", "envsubst '${BACKEND_URL}' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
