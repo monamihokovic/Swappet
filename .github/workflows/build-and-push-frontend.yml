@@ -1,11 +1,11 @@
 name: Build and Push Frontend Image
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - 'IzvorniKod/Swappet/frontend/**'      # Trigger only on changes in the /frontend directory
+#  push:
+#    branches:
+#      - dev
+#    paths:
+#      - 'IzvorniKod/Swappet/frontend/**'      # Trigger only on changes in the /frontend directory
   workflow_dispatch:
 
 jobs:
