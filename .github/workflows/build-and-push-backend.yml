@@ -1,11 +1,11 @@
 name: Build and Push Backend Image
 
 on:
-  push:
-    branches:
-      - dev
-    paths:
-      - 'IzvorniKod/Swappet/backend/**'      # Trigger only on changes in the /backend directory
+  #push:
+  #  branches:
+  #    - dev
+  #  paths:
+  #    - 'IzvorniKod/Swappet/backend/**'      # Trigger only on changes in the /backend directory
   workflow_dispatch:
 
 jobs:
