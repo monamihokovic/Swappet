@@ -23,7 +23,7 @@ const AdvertisementsPage = ({ profilePic }) => {
     // Fetch user information
     useEffect(() => {
         axios
-            .get("https://swappet.onrender.com/user-info", {
+            .get("http://localhost:8081/user-info", {
                 withCredentials: true,
             })
             .then((response) => setUser(response.data))
@@ -39,7 +39,7 @@ const AdvertisementsPage = ({ profilePic }) => {
     // Fetch advertisements from the backend
     useEffect(() => {
         axios
-            .get("https://swappet.onrender.com/homepage/advertisements", {
+            .get("http://localhost:8081/homepage/advertisements", {
                 headers: {
                     "Content-Type": "application/json",
                 },

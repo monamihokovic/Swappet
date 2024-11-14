@@ -37,7 +37,7 @@ const CreateEvent = ({ userName, profilePic }) => {
     // Fetch user info
     useEffect(() => {
         axios
-            .get("https://swappet.onrender.com/user-info", {
+            .get("http://localhost:8081/user-info", {
                 withCredentials: true,
             })
             .then((response) => {
@@ -86,7 +86,7 @@ const CreateEvent = ({ userName, profilePic }) => {
 
         // Send event data to backend
         axios
-            .post("https://swappet.onrender.com/oglas", eventData, {
+            .post("http://localhost:8081/oglas", eventData, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json", // Ensure correct content type

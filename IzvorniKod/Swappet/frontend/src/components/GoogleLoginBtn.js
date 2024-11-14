@@ -7,7 +7,7 @@ const GoogleLoginButton = () => {
     const handleLoginRedirect = () => {
         // Redirecting to the backend authentication URL
 
-        window.location.href = "https://swappet.onrender.com/login"; // Redirect to backend to handle OAuth
+        window.location.href = "http://localhost:8081/login"; // Redirect to backend to handle OAuth
     };
 
     return (

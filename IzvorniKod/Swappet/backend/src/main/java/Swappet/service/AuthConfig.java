@@ -16,9 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
-    @Value("${FRONTEND_URL:http://localhost:3000}")
-    private String frontendUrl;
-
     //Funkcija za autentifikaciju korisnika preko Google OAuth2
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,7 +30,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             //redirect na frontend
-                            response.sendRedirect("https://swappet-app.onrender.com/selection");
+                            response.sendRedirect("http://localhost:3000/selection");
                         })
                 )
                 .build();

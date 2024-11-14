@@ -24,7 +24,7 @@ const SelectionPage = ({ userName }) => {
 
     useEffect(() => {
         axios
-            .get("https://swappet.onrender.com/user-info", {
+            .get("http://localhost:8081/user-info", {
                 withCredentials: true,
             })
             .then((response) => {
@@ -48,7 +48,7 @@ const SelectionPage = ({ userName }) => {
             console.log("Selected category IDs:", selectedCategoryIds);
             axios
                 .post(
-                    "https://swappet.onrender.com/homepage/oglas",
+                    "http://localhost:8081/homepage/oglas",
                     selectedCategoryIds,
                     {
                         withCredentials: true,
