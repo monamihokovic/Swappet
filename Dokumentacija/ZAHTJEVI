@@ -1,0 +1,60 @@
+
+FUNKCIONALNI ZAHTJEVI:
+
+Neregistrirani korisnik može:
+  1) pregledati popis događaja.
+  2) pregledati oglas za ulaznice.
+  3) pristupiti stvaranju korisničkog računa.
+
+4) Registracija korisnika započinje unosom korisničkog imena te email adrese.
+5) Sustav šalje link za aktivaciju korisničkog računa.
+6) Prilikom aktivacije unosi se lozinka. 
+
+Registrirani korisnik može:
+  7) biti prodavač u jednoj transakciji, a kupac u drugoj transakciji.
+  8) pregledati popis događaja.
+  9) pregledati oglas za ulaznice.
+  10) koristiti filtere (događaja/žanru) za pronalazak željenih oglasa.
+  11) odgovoriti na (tuđi) oglas za ulaznice.
+  12) objaviti oglas za zamjenu ulaznice.
+  13) objaviti oglas za prodaju ulaznice.
+  14) vidjeti potencijalne lance razmjene (struktura u kojoj više korisnika mijenja ulaznice) za tuđr oglase razmjene.
+  15) "lajkati" oglase za koje su zainteresirani.
+  16) "dislajkati" oglase za koje nisu zainteresirani.
+  17) započinje interakciju kada kupuju ili zatraži zamjenu ulaznice.
+
+
+18) Transakcija sadržava podatke o uključenim korisnicima, odlukama, vrsti te vremenski okvir odluke.
+   
+Platforma (sustav):
+  19) se povezuje na vanjski servis s katalogom izvođača.
+  20) se integrira s vanjskom uslugom za vremensku prognozu
+  21) prilagođava prikaz registriranim korisnicima, ovisno o "lajku" ili "dislajku"
+  22) šalje registriranim korisnicma obavjest putem emaila.
+  23) šalje registriranim korisnicma obavjesti u aplikaciji.
+  24) obavještava registrirane korisnike o novim oglasima koji su prilagođeni njihovim preferencijama.
+  25) registriranim korsnicima omogućava pregled prošlih transakcija.
+  26) detektiranjem interakcije popunjava podatke o tansakciji.
+  27) upravlja tijekom transakcije (početak, odluke, završetak).
+  28) obavještava korisnike uključene u transkaciji o svakom koraku transakcije (početak, odluke, završetak)
+
+Oglas(i):
+  29) sadržava vrstu, naziv, datumi  mjesto događaja.
+  30) sadržava opcionalno broj sjedala i vrsta ulaznica.
+  31) ako se radi o zamjeni, opcionalno navodi željeni događaj ili vrsta ulaznice (koja će se prihvatiti kao zamjena).
+  32) se automatski ukalanja istekom datuma događaja.
+  33) ako je događaj glazbeni kocert, automatski preuzima iz vanjske aplikacije podatke o izvođaču i žanru. 
+
+Adminstrator sutava:
+  34) generira izvještaj o aktivnostima korisnika
+  35) generira izvještaj o razmjenama ulaznica
+  36) generira izvještaj o prijavama o lažnom oglašavanju
+  37) upravlja korisničkim računima
+  38) rješava sporove 
+  39) deaktivira korisničke račune 
+
+NEFUKCIONALNI
+Aplikacija je:
+  40) prilagođena različitim veličinama ekrana (responsive design)
+  41) izvedena u arhitekturi klijent - poslužitelj
+

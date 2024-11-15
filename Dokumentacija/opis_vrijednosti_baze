@@ -1,0 +1,30 @@
+tipDog
+    idDog = generira sutav
+    nazivtipa = naziv tipa događaja
+
+voliOglas
+    voli = ako ne želi vidjeti oglas više korisnik ga označi sa ne voli
+        (-1 => ne voli)
+oglas
+    idOglas = generira sutav
+    tipOglas = označava je li oglas prodaja ili zamjena 
+        (0 => zamjena karte), (1 => prodaja karte)
+    opisZamjene = kratak opis koje su prihvatljive opcije za zamjenu, popunjava se i ispisuje korisniku samo kada je tipOglasa=0 (može biti null)
+    aktivan = označava aktivnost oglasa u sustavu (privremeno nekativan= korisnik ga maknuo s tržišta prije manje od x dana, pa ga do isteka x dana može vratiti)
+        (0 => privremeno nekativan), (1 => aktivan), (-1 => nekativan)
+    datum = datum i vrijeme održavanja događaja (ne dodavanja oglasa)
+
+jeUključen
+    odluka = prihvaća li pojedini korisnik uključen u zamjenu ponuđenu zamjenu (popunjavaju i vlasnik oglasa i davtelj ponude)
+        (0 => nepoznato, nije odgovoreno), (1 => prihaćeno), (-1 => nije prihvaćeno)
+
+transakcija
+    idTransakcija = generira sutav
+    odluka = jesu li svi kojima je polan zahtjev za odobrenje odobrili transakciju (i u defeniranom vremenu)
+        (0 => nepoznato, nije još odgovoreno), (1 => svi prihvatili), (-1 => barem jedan korisnik nije odborio (ili nije na vrijeme odbrio))
+
+ulaznica
+    idUlaznica = generira sutav
+    vrstaUlaznice = kojeg je tipa ulaznica (VIP, obična, ...)
+        (0 => obična), (1 => vip), (2 => druženje sa zvijezdom), ...
+    cijena = cijena karte, ako u oglasu tipOglasa = 1
