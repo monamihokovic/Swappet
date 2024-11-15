@@ -1,0 +1,65 @@
+.card{
+    background-color: #26293d;
+    width: 100%;
+    min-width: 500px;
+    flex-grow: 1;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    gap: 10px;
+    height: 250px;
+}
+
+.card-image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.card-info{
+    margin-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: auto;
+}
+
+.tip1{
+    font-weight: bold;
+    font-size: 24px;
+    position: relative;
+    top: -40px;
+    margin-left: 10px;
+    color: #816898;
+}
+
+.adresa1{
+    position: relative;
+    top: -70px;
+}
+
+.datum1{
+    position: relative;
+    top: -90px;
+}
+
+
+.gumb{
+    background: #816898;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: aliceblue;
+    font-size: 20px;
+}
+
+.cijena1{
+    position: relative;
+    top: 170px;
+}
