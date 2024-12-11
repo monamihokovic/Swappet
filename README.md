@@ -1,6 +1,6 @@
 # Swappet
 
-U svrhu izrade projektnog zadatka kolegija Programsko inženjerstvo, na temu web aplikacije ,,Preprodaja i razmjena karata i ulaznica", izrađena je web aplikacija Swappet. 
+Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
 
 Glavni cilj web aplikacije nije samo uspješna preprodaja ulaznica, već i zamjena istih.
 
