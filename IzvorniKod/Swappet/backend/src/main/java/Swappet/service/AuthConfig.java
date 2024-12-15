@@ -24,7 +24,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .authorizeHttpRequests(auth -> auth
                         //na ove rute može doći i neregistrirani korisnik
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                                "/homepage/advertisements", "/oglas", "/user-info").permitAll()
+                                "/homepage/advertisements", "/oglas", "/user-info", "/ulaznica", 
+                                "/ulaznica/all").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2login -> oauth2login

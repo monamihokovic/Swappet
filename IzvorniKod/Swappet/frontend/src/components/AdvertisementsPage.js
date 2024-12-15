@@ -10,12 +10,9 @@ const defaultProfilePic = "/defaultpfp.jpg";
 const AdvertisementsPage = ({ profilePic }) => {
     const navigate = useNavigate();
 
-    const handleCreate = () => {
-        navigate("/createEvent");
-    };
-
     const [user, setUser] = useState(null);
-    const [ads, setAds] = useState([]);
+    const [ads, setAds] = useState([]); // List of advertisements
+    const [ulaznice, setUlaznice] = useState([]); // List of tickets
     const [categories] = useState([1, 2, 3]);
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -36,21 +33,24 @@ const AdvertisementsPage = ({ profilePic }) => {
             });
     }, []);
 
-    // Fetch advertisements from the backend
+    // Fetch advertisements and tickets
     useEffect(() => {
-        axios
-            .get("http://localhost:8081/homepage/advertisements", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((response) => {
-                setAds(response.data); // Assuming the response is the List<OglasDTO>
+        const fetchAds = axios.get("http://localhost:8081/homepage/advertisements");
+        const fetchTickets = axios.get("http://localhost:8081/ulaznica/all");
+
+        // Fetch both ads and tickets simultaneously
+        Promise.all([fetchAds, fetchTickets])
+            .then(([adsResponse, ticketsResponse]) => {
+                setAds(adsResponse.data); // List of OglasDTO
+                setUlaznice(ticketsResponse.data); // List of Ulaznice
+
+                // Log the fetched tickets data
+                console.log("Fetched tickets:", ticketsResponse.data);
             })
             .catch((error) => {
-                console.error("Error fetching ads:", error);
+                console.error("Error fetching data:", error);
             });
-    }, [categories]);
+    }, []);
 
     // Handle category selection
     const handleCategoryClick = (category) => {
@@ -63,14 +63,23 @@ const AdvertisementsPage = ({ profilePic }) => {
         });
     };
 
-    // Filter ads based on price and selected categories
-    const filteredAds = ads.filter((ad) => {
-        const priceFilter = ad.price <= price;
-        const categoryFilter =
-            selectedCategories.length === 0 ||
-            selectedCategories.includes(ad.type);
-        return priceFilter && categoryFilter;
-    });
+    // Filter and connect ads and tickets
+    const filteredAdsWithTickets = ads
+        .filter((ad) => {
+            const priceFilter = ad.price <= price;
+            const categoryFilter =
+                selectedCategories.length === 0 ||
+                selectedCategories.includes(ad.type);
+            return priceFilter && categoryFilter;
+        })
+        .map((ad) => {
+            // Associate tickets with the current ad based on idOglas
+            const associatedTickets = ulaznice.filter(
+                (ticket) => ticket.oglas.idOglas === ad.id // Corrected to match ticket.oglas.idOglas with ad.id
+            );
+            return { ...ad, tickets: associatedTickets }; // Combine ad with its tickets
+        });
+
 
     return (
         <div className="advertisements-page">
@@ -97,9 +106,9 @@ const AdvertisementsPage = ({ profilePic }) => {
                 </div>
 
                 <button
-                    className={user ? "createEvent" : "createEvent hidden"} // Conditionally hide the button when not logged in
-                    onClick={handleCreate}
-                    disabled={!user} // Disable the button when user is not logged in
+                    className={user ? "createEvent" : "createEvent hidden"}
+                    onClick={() => navigate("/createEvent")}
+                    disabled={!user}
                 >
                     Dodaj događaj
                 </button>
@@ -157,12 +166,18 @@ const AdvertisementsPage = ({ profilePic }) => {
                 </div>
 
                 <div className="cards-container">
-                    {filteredAds.length === 0 ? (
+                    {filteredAdsWithTickets.length === 0 ? (
                         <div className="no-events-message">
                             Nema još takvih događaja... :(
                         </div>
                     ) : (
-                        filteredAds.map((ad) => <Card key={ad.id} ad={ad} />)
+                        filteredAdsWithTickets.map((adWithTickets) => (
+                            <Card
+                                key={adWithTickets.id}
+                                ad={adWithTickets}
+                                tickets={adWithTickets.tickets}
+                            />
+                        ))
                     )}
                 </div>
             </div>

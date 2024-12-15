@@ -12,6 +12,7 @@ const CreateEvent = ({ userName, profilePic }) => {
         name: "",
         category: "",
         date: "",
+        time: "",
         price: "",
         description: "",
         street: "",
@@ -68,8 +69,13 @@ const CreateEvent = ({ userName, profilePic }) => {
 
         // Add default time if date is provided in yyyy-MM-dd format
         let date = eventDetails.date;
-        if (date && !date.includes("T")) {
-            date = `${date}T00:00:00`; // Append default time
+        let time = eventDetails.time;
+        if (date) {
+            if (time) {
+                date = `${date}T${time}`; // Append the selected time
+            } else {
+                date = `${date}T12:00:00`; // Default time
+            }
         }
 
         // Prepare event data
@@ -123,14 +129,14 @@ const CreateEvent = ({ userName, profilePic }) => {
                     </div>
                 </div>
 
-                <div className="search-bar">
+                {/*<div className="search-bar">
                     <FaSearch className="search-icon" />
                     <input
                         id="pretraga"
                         type="text"
                         placeholder="Pretraži događaje..."
                     />
-                </div>
+                </div>*/}
 
                 <div className="logo">
                     S<span id="usklicnik">!</span>
@@ -179,6 +185,15 @@ const CreateEvent = ({ userName, profilePic }) => {
                         type="date"
                         name="date"
                         value={eventDetails.date}
+                        onChange={handleInputChange}
+                        required
+                    />
+                    <div className="datum">Vrijeme događaja:</div> {/* New time input */}
+                    <input
+                        className="datumInput"
+                        type="time"
+                        name="time"
+                        value={eventDetails.time}
                         onChange={handleInputChange}
                         required
                     />

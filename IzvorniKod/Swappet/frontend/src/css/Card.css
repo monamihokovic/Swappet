@@ -1,65 +1,161 @@
-.card{
+.card {
     background-color: #26293d;
     width: 100%;
     min-width: 500px;
+    max-width: 95%; /* Restrict card's maximum width */
     flex-grow: 1;
     margin: 20px;
     border-radius: 20px;
     display: flex;
-    gap: 10px;
-    height: 250px;
+    justify-content: space-between; /* Separate content */
+    gap: 20px;
+    height: auto;
+    max-height: 400px; /* Restrict maximum card height */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+    overflow: hidden; /* Hide overflowing content */
 }
 
-.card-image{
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-left: 20px;
-}
+    .card:hover {
+        transform: scale(1.01);
+    }
 
-.card-info{
-    margin-left: 20px;
+.card-info {
     display: flex;
-    justify-content: flex-start;
     flex-direction: column;
-    margin-right: auto;
+    justify-content: space-between;
+    flex: 1;
+    overflow: hidden; /* Prevent overflow */
 }
 
-.tip1{
+    .card-info div {
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add '...' to indicate overflow */
+        margin-bottom: 8px;
+    }
+
+.weather-info {
+    flex: 0 0 250px; /* Fixed width for weather section */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #1e2235;
+    padding: 15px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1em;
+    overflow: hidden; /* Prevent weather content overflow */
+    word-wrap: break-word; /* Ensure long words wrap properly */
+}
+
+    .weather-info div {
+        margin-bottom: 8px;
+        text-overflow: ellipsis; /* Add '...' for long content */
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+.tip1 {
+    font-family: 'League Spartan', sans-serif;
     font-weight: bold;
-    font-size: 24px;
-    position: relative;
-    top: -40px;
-    margin-left: 10px;
+    font-size: 1.2em;
     color: #816898;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
-.adresa1{
-    position: relative;
-    top: -70px;
+.opis, .adresa1, .datum1, .cijena1 {
+    font-size: 1.1em;
+    color: #65696b;
+    margin: 5px 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.datum1{
-    position: relative;
-    top: -90px;
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .weather-info {
+        flex: 1;
+        margin-top: 20px;
+    }
 }
 
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-.gumb{
-    background: #816898;
+.weather-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    color: #ffffff;
+}
+
+    .weather-item svg {
+        color: #816898; /* Icon color */
+        font-size: 1.5em;
+    }
+
+/* Counter Section */
+.counter-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.counter-btn {
+    background-color: #816898; 
     border: none;
-    width: 40px;
-    height: 40px;
     border-radius: 50%;
-    margin-left: 5px;
-    margin-right: 5px;
-    color: aliceblue;
-    font-size: 20px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
 }
 
-.cijena1{
-    position: relative;
-    top: 170px;
+.counter-btn:hover {
+    background-color: #6b4e8d; 
 }
+
+.counter-value {
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+.buy-btn {
+    background-color: #816898;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+    .buy-btn:hover {
+        background-color: #6b4e8d; 
+    }
