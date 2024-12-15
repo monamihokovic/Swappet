@@ -8,15 +8,17 @@ public class OglasDTO {
     private Double price;  // cijena iz Ulaznice
     private String address;  // combination ulice i grada iz Oglasa
     private String date;  // datum iz Oglasa
+    private Integer numberOfTickets; // broj ulaznica
 
 
-    public OglasDTO(int id, String description, String type, Double price, String address, String date) {
+    public OglasDTO(int id, String description, String type, Double price, String address, String date,Integer numberOfTickets) {
         this.id = id;
         this.description = description;
         this.type = type;
         this.price = price;
         this.address = address;
         this.date = date;
+        this.numberOfTickets = numberOfTickets;
     }
 
     public int getId() {
@@ -65,5 +67,13 @@ public class OglasDTO {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public Integer getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public void setNumberOfTickets(int numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
     }
 }

@@ -10,6 +10,7 @@ public class OglasRequest {
     private String city;    //grad
     private String date; // datum događaja
     private String email; // email ulogiranog korisnika
+    private Integer numberOfTickets; // broj ulaznica
 
 
     public String getDescription() {
@@ -74,5 +75,13 @@ public class OglasRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public void setNumberOfTickets(Integer numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
     }
 }

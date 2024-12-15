@@ -55,6 +55,7 @@ public class OglasController {
         String description = oglasRequest.getDescription();
         Integer categoryId = oglasRequest.getCategoryId();
         Double price = oglasRequest.getPrice();
+        Integer numberOfTickets = oglasRequest.getNumberOfTickets();
         String street = oglasRequest.getStreet();
         String houseNumber = oglasRequest.getHouseNumber();
         String city = oglasRequest.getCity();
@@ -80,16 +81,23 @@ public class OglasController {
         oglas.setOpisZamjene("");
         oglas.setKorisnik(korisnik);
 
-        // Napraviti objekat Ulaznica
-        Ulaznica ulaznica = new Ulaznica();
-        ulaznica.setCijena(price);
-        ulaznica.setVrstaUlaznice(null);
-        ulaznica.setRed(null);
-        ulaznica.setBroj(null);
-        ulaznica.setOglas(oglas);
+        // Napraviti objekte za svaku ulaznicu
 
         List<Ulaznica> ulaznice = new ArrayList<>();
-        ulaznice.add(ulaznica);
+
+        if (numberOfTickets == null || numberOfTickets == 0) {
+            numberOfTickets = 1;
+        }
+        for (int i = 0; i < numberOfTickets; i++) {
+            Ulaznica ulaznica = new Ulaznica();
+            ulaznica.setCijena(price);
+            ulaznica.setVrstaUlaznice(null);
+            ulaznica.setRed(null);
+            ulaznica.setBroj(null);
+            ulaznica.setOglas(oglas);
+
+            ulaznice.add(ulaznica);
+        }
 
         // Spremiti TipDog
         TipDog tipDog = tipDogRepository.findById(categoryId)
