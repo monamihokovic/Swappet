@@ -48,6 +48,9 @@ public class OglasService {
             //formatiraj datum po potrebu
             String date = oglas.getDatum().toString();
 
+            // dohvati broj ulaznica za taj oglas
+            Integer numberOfTickets = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).size();
+
             //konvertiraj u DTO
             OglasDTO dto = new OglasDTO(
                     oglas.getIdOglas(),
@@ -55,7 +58,8 @@ public class OglasService {
                     oglas.getTipOglas().toString(),
                     price,
                     address,
-                    date
+                    date,
+                    numberOfTickets
             );
 
             result.add(dto);
