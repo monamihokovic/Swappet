@@ -1,0 +1,78 @@
+ALTER TABLE IF EXISTS public.transakcija
+    ALTER COLUMN uspjesna SET DEFAULT 0;
+
+ALTER TABLE transakcija
+ALTER COLUMN dvPocetak SET DEFAULT CURRENT_TIMESTAMP;
+
+INSERT INTO TRANSAKCIJA (idUlaznica) VALUES (11);
+
+/*----------------------------------------------------------------------
+ 1) TRIGGER ZA brojanje karata */
+
+CREATE OR REPLACE FUNCTION fjaPrebrojiKarte() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+
+	BEGIN 
+		brojac = (SELECT COUNT(*) FROM ulaznica WHERE idOglas= NEW.idOglas AND vrstaUlaznice>0) ;
+	
+		IF(brojac > 0) THEN
+			UPDATE oglas 
+            SET aktivan = brojac
+            WHERE idOglas = NEW.idOglas;
+			
+			-- Ako je brojac 0, sve prodane =>neaktivan
+        ELSIF brojac = 0 THEN
+            UPDATE oglas 
+             SET aktivan = -1
+            WHERE idOglas = NEW.idOglas;
+		END IF;
+		
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER PrebrojiKarte 
+	AFTER INSERT OR UPDATE ON ulaznica
+		FOR EACH ROW EXECUTE PROCEDURE fjaPrebrojiKarte();
+
+/*----------------------------------------------------------------------
+ 2) TRIGGER za dodavanje odluke prodavača */
+
+CREATE OR REPLACE FUNCTION fjaZgotoviKupnju() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+		tip INT = 0.0;
+		mail VARCHAR;
+
+	BEGIN 
+		brojac = (SELECT tipOglas FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
+	
+		IF(brojac = 1) THEN
+			mail = (SELECT email FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
+			INSERT INTO jeUkljucen (email, idTransakcija, odluka) VALUES ( mail ,NEW.idTransakcija, 1);
+			
+			/* za dovrsetak tranakcije */
+			UPDATE transakcija SET uspjesna = 1 WHERE NEW.idTransakcija = idTransakcija;
+			
+			/* za prikaz neaktivnosti */
+			tip = (SELECT vrstaUlaznice FROM ulaznica NATURAL JOIN transakcija WHERE NEW.idTransakcija = idTransakcija) ;
+			tip = -tip;
+			UPDATE ulaznica SET vrstaUlaznice = tip  WHERE NEW.idUlaznica = idUlaznica;
+
+		END IF;
+		
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER ZgotoviKupnju 
+	AFTER INSERT ON transakcija
+		FOR EACH ROW EXECUTE PROCEDURE fjaZgotoviKupnju();
