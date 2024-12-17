@@ -28,4 +28,33 @@ public class UlaznicaController {
         Ulaznica ulaznica = ulaznicaService.getUlaznicaById(id);
         return ulaznica != null ? ResponseEntity.ok(ulaznica) : ResponseEntity.notFound().build();
     }
+
+    // Kupnja ulaznica (1 ili više)
+    @PostMapping("/kupnja")
+    public ResponseEntity<String> purchaseTickets(@RequestBody TicketPurchaseRequest request) {
+        ulaznicaService.purchaseTickets(request.getBuyerEmail(), request.getTicketIds());
+        return ResponseEntity.ok("Ulaznica/e uspješno kupljena/e.");
+    }
 }
+
+class TicketPurchaseRequest {
+    private String buyerEmail;
+    private List<Integer> ticketIds;
+
+    // Getters and Setters
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
+    }
+
+    public List<Integer> getTicketIds() {
+        return ticketIds;
+    }
+    public void setTicketIds(List<Integer> ticketIds) {
+        this.ticketIds = ticketIds;
+    }
+}
+
