@@ -18,6 +18,8 @@ const CreateEvent = ({ userName, profilePic }) => {
         street: "",
         houseNumber: "",
         city: "",
+        numberOfTickets: "", // Količina ulaznica
+        ticketType: "", // Tip ulaznice
     });
 
     const navigate = useNavigate();
@@ -78,7 +80,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             }
         }
 
-        // Prepare event data
+        // Prepare event data including number of tickets and ticket type
         const eventData = {
             description: eventDetails.description,
             categoryId: eventDetails.category,
@@ -88,6 +90,8 @@ const CreateEvent = ({ userName, profilePic }) => {
             city: eventDetails.city,
             date: date,
             email: user?.email, // Include user email
+            numberOfTickets: eventDetails.numberOfTickets, // Include number of tickets
+            ticketType: eventDetails.ticketType, // Include ticket type
         };
 
         // Send event data to backend
@@ -129,15 +133,6 @@ const CreateEvent = ({ userName, profilePic }) => {
                     </div>
                 </div>
 
-                {/*<div className="search-bar">
-                    <FaSearch className="search-icon" />
-                    <input
-                        id="pretraga"
-                        type="text"
-                        placeholder="Pretraži događaje..."
-                    />
-                </div>*/}
-
                 <div className="logo">
                     S<span id="usklicnik">!</span>
                 </div>
@@ -146,38 +141,19 @@ const CreateEvent = ({ userName, profilePic }) => {
             <form className="eventCreator" onSubmit={handleSubmit}>
                 <h1 className="noviDog">Stvori novi događaj:</h1>
                 <div className="container1">
-                    {/* <div className="dogadaj">Događaj:</div>
-          <input
-            className="dogadajInput"
-            type="text"
-            placeholder="Unesi ime događaja"
-            name="name"
-            value={eventDetails.name}
-            onChange={handleInputChange}
-            required
-          /> */}
                     <div className="kategorija">Kategorija:</div>
-                    {[
-                        "Koncerti",
-                        "Izložbe",
-                        "Predstave",
-                        "Putovanja",
-                        "Tulumi",
-                        "Kino",
-                        "Sport",
-                        "Prijevoz",
-                        "Ostalo",
-                    ].map((category) => (
-                        <label className="kategorijaInput" key={category}>
-                            <input
-                                type="radio"
-                                name="category"
-                                value={category}
-                                onChange={handleCategoryChange}
-                                required
-                            />
-                            {category}
-                        </label>
+                    {[ "Koncerti", "Izložbe", "Predstave", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo" ]
+                        .map((category) => (
+                            <label className="kategorijaInput" key={category}>
+                                <input
+                                    type="radio"
+                                    name="category"
+                                    value={category}
+                                    onChange={handleCategoryChange}
+                                    required
+                                />
+                                {category}
+                            </label>
                     ))}
                     <div className="datum">Datum događaja:</div>
                     <input
@@ -188,7 +164,7 @@ const CreateEvent = ({ userName, profilePic }) => {
                         onChange={handleInputChange}
                         required
                     />
-                    <div className="datum">Vrijeme događaja:</div> {/* New time input */}
+                    <div className="datum">Vrijeme događaja:</div>
                     <input
                         className="datumInput"
                         type="time"
@@ -207,11 +183,12 @@ const CreateEvent = ({ userName, profilePic }) => {
                         placeholder="Unesi cijenu karte"
                         required
                     />
-                    <input
+                     <input
                         className="submit"
                         type="submit"
                         value="Kreiraj događaj!"
                     />
+                    
                 </div>
                 <div className="container2">
                     <div className="opis">Opis događaja:</div>
@@ -253,6 +230,30 @@ const CreateEvent = ({ userName, profilePic }) => {
                         placeholder="Unesi ime grada"
                         required
                     />
+                    <div className="kolicina">Količina ulaznica:</div>
+                    <input
+                        className="kolicinaInput"
+                        type="number"
+                        name="numberOfTickets"
+                        value={eventDetails.numberOfTickets}
+                        onChange={handleInputChange}
+                        placeholder="Unesi količinu ulaznica"
+                        required
+                    />
+                    <div className="tipUlaznice">Tip ulaznice:</div>
+                    <select
+                        className="ticketType"
+                        name="ticketType"
+                        value={eventDetails.ticketType}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Odaberi tip ulaznice</option>
+                        <option value="1">Obična</option>
+                        <option value="2">VIP</option>
+                        <option value="3">Druženje sa zvijezdom</option>
+                    </select>
+                   
                 </div>
             </form>
         </div>
@@ -260,3 +261,4 @@ const CreateEvent = ({ userName, profilePic }) => {
 };
 
 export default CreateEvent;
+

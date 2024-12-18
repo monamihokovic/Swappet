@@ -13,7 +13,6 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [user, setUser] = useState(null);
     const [ads, setAds] = useState([]); // List of advertisements
     const [ulaznice, setUlaznice] = useState([]); // List of tickets
-    const [categories] = useState([1, 2, 3]);
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
 
@@ -63,23 +62,34 @@ const AdvertisementsPage = ({ profilePic }) => {
         });
     };
 
-    // Filter and connect ads and tickets
-    const filteredAdsWithTickets = ads
-        .filter((ad) => {
-            const priceFilter = ad.price <= price;
+    // Filter tickets based on price, category, and ad type
+    const filteredTickets = ulaznice
+        .filter((ticket) => {
+            console.log("Selected Categories:", selectedCategories);
+            console.log("Ticket:", ticket.oglas.tipOglas);
+            console.log(selectedCategories.includes(ticket.oglas.tipOglas));
+
+            // Price filter for tickets
+            const priceFilter = ticket.cijena <= price;
+            // Category filter for tickets
             const categoryFilter =
                 selectedCategories.length === 0 ||
-                selectedCategories.includes(ad.type);
+                selectedCategories.includes(ticket.oglas.tipOglas);
+
+            // Return true if all filters pass
             return priceFilter && categoryFilter;
-        })
-        .map((ad) => {
-            // Associate tickets with the current ad based on idOglas
-            const associatedTickets = ulaznice.filter(
-                (ticket) => ticket.oglas.idOglas === ad.id // Corrected to match ticket.oglas.idOglas with ad.id
-            );
-            return { ...ad, tickets: associatedTickets }; // Combine ad with its tickets
         });
 
+    // Now connect filtered tickets with corresponding ads based on idOglas
+    const filteredAdsWithTickets = ads
+        .map((ad) => {
+            // Find matching tickets for the current ad
+            const associatedTickets = filteredTickets.filter(
+                (ticket) => ticket.oglas.idOglas === ad.id // Match tickets with ad by idOglas
+            );
+            return { ...ad, tickets: associatedTickets }; // Combine ad with its tickets
+        })
+        .filter((adWithTickets) => adWithTickets.tickets.length > 0); // Only include ads with tickets
 
     return (
         <div className="advertisements-page">

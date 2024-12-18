@@ -24,7 +24,7 @@ const typeMapping = {
 };
 
 const Card = ({ ad, tickets }) => {
-    const adType = typeMapping[ad.type];
+    const adType = typeMapping[ad.tipOglas];
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(0); // Counter state
@@ -68,11 +68,11 @@ const Card = ({ ad, tickets }) => {
         setIsTransactionProcessing(true);
 
         const transactionData = {
-            //placeholder data
+            // placeholder data
         };
 
         try {
-            const response = await axios.post("/transakcije", transactionData); //placeholder backend url
+            const response = await axios.post("/transakcije", transactionData); // placeholder backend url
             console.log("Transaction successful:", response.data);
         } catch (error) {
             console.error("Error during transaction:", error);
@@ -81,14 +81,30 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
+    // Determine ticket type description
+    const getTicketTypeDescription = (ticketType) => {
+        switch (ticketType) {
+            case 2:
+                return "VIP";
+            case 3:
+                return "Druženje sa zvijezdom";
+            default:
+                return ticketType ? "Obična" : "Obična"; // Default for null or other numbers
+        }
+    };
+
     return (
         <div className="card">
             <div className="card-info">
-                <div className="tip1">{adType}</div>
-                <div className="opis">{ad.description}</div>
+                <div className="tip1">{ad.description}</div>
                 <div className="adresa1">{ad.address}</div>
                 <div className="datum1">{ad.date}</div>
                 <div className="cijena1">{ad.price} €</div>
+                <div className="tip1">Broj ulaznica: {tickets.length}</div>
+                <div className="tip1">Korisnik: {ad.email}</div>
+                <div className="tip1">
+                    Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
+                </div>
 
                 {/* Removed Tickets Section */}
 
@@ -139,3 +155,4 @@ const Card = ({ ad, tickets }) => {
 };
 
 export default Card;
+

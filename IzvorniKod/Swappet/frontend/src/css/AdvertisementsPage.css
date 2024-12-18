@@ -79,6 +79,7 @@
 }
 li{
     color: #65696b;
+    cursor: pointer;
     list-style-type: none;
     margin-left: 20px;
 }

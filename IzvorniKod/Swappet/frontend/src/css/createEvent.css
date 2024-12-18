@@ -35,7 +35,7 @@
 .adresa,
 .datum,
 .cijena,
-.opis {
+.opis, .tipUlaznice, .kolicina{
     font-size: 20px;
     font-weight: bold;
     color: #816898;
@@ -46,12 +46,11 @@
 .adresaInput,
 .datumInput,
 .cijenaInput,
-.opisInput {
+.opisInput, .ticketType, .kolicinaInput {
     height: 40px;
     width: 100%;
     border: none;
     border-radius: 10px;
-    opacity: 0.2;
     margin-bottom: 10px;
 }
 
@@ -59,7 +58,9 @@
 .adresaInput::placeholder,
 .cijenaInput::placeholder,
 .datumInput::placeholder,
-.opisInput::placeholder {
+.opisInput::placeholder,
+.ticketType::placeholder,
+.kolicinaInput::placeholder {
     color: #26293d;
     font-size: 15px;
 }
@@ -92,7 +93,6 @@
 }
 
 .opisInput {
-    opacity: 0.2;
     width: 100%;
     height: 70px;
     border-radius: 10px;
