@@ -1,6 +1,7 @@
 package Swappet.service;
 
 import Swappet.model.JeUkljucen;
+import Swappet.model.JeUkljucenId;
 import Swappet.model.Transakcija;
 import Swappet.model.Ulaznica;
 import Swappet.repository.JeUkljucenRepository;
@@ -36,19 +37,43 @@ public class UlaznicaService {
         return ulaznica.orElse(null);
     }
 
-    // Kupnja ulaznica
+//    public void purchaseTickets(String buyerEmail, List<Integer> ticketIds) {
+//        for (Integer idUlaznica : ticketIds) {
+//            // Dohvati ulaznicu
+//            Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
+//                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
+//
+//            // Stvori i spremi uspješnu transakciju
+//            Transakcija transakcija = new Transakcija(1, ulaznica, LocalDateTime.now());
+//            transakcijaRepository.save(transakcija);
+//
+//            // Dodaj u JeUkljucen sa automatskim prihvaćanjem
+//            JeUkljucen jeUkljucen = new JeUkljucen(buyerEmail, 1);
+//            jeUkljucenRepository.save(jeUkljucen);
+//        }
+//    }
+
+    // Kupnja ulaznice
     public void purchaseTickets(String buyerEmail, List<Integer> ticketIds) {
         for (Integer idUlaznica : ticketIds) {
             // Dohvati ulaznicu
             Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
-                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
+                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica not found: " + idUlaznica));
 
             // Stvori i spremi uspješnu transakciju
-            Transakcija transakcija = new Transakcija(1, ulaznica, LocalDateTime.now());
+            Transakcija transakcija = new Transakcija();
+            transakcija.setUlaznica(ulaznica); // Set the ticket ID
+            transakcija.setUspjesna(1); // Mark as successful
+            transakcija.setDvPocetak(LocalDateTime.now());
             transakcijaRepository.save(transakcija);
 
-            // Dodaj u JeUkljucen sa automatskim prihvaćanjem
-            JeUkljucen jeUkljucen = new JeUkljucen(buyerEmail, 1);
+            // Stvori i spremi JeUkljucen koristeći JeUkljucenId
+            JeUkljucenId jeUkljucenId = new JeUkljucenId();
+            jeUkljucenId.setEmail(buyerEmail);
+            jeUkljucenId.setIdTransakcija(transakcija.getIdTransakcija());
+
+            JeUkljucen jeUkljucen = new JeUkljucen();
+            jeUkljucen.setOdluka(1);
             jeUkljucenRepository.save(jeUkljucen);
         }
     }
