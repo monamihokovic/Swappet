@@ -11,6 +11,7 @@ public class OglasRequest {
     private String date; // datum događaja
     private String email; // email ulogiranog korisnika
     private Integer numberOfTickets; // broj ulaznica
+    private Integer ticketType; // tip ulaznice
 
 
     public String getDescription() {
@@ -83,5 +84,13 @@ public class OglasRequest {
 
     public void setNumberOfTickets(Integer numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
+    }
+
+    public Integer getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(Integer ticketType) {
+        this.ticketType = ticketType;
     }
 }

@@ -51,6 +51,12 @@ public class OglasService {
             // dohvati broj ulaznica za taj oglas
             Integer numberOfTickets = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).size();
 
+            // dohvati tip ulaznice
+            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+
+            // dohvati email prodavača
+            String email = oglas.getKorisnik().getEmail();
+
             //konvertiraj u DTO
             OglasDTO dto = new OglasDTO(
                     oglas.getIdOglas(),
@@ -59,7 +65,9 @@ public class OglasService {
                     price,
                     address,
                     date,
-                    numberOfTickets
+                    numberOfTickets,
+                    ticketType,
+                    email
             );
 
             result.add(dto);

@@ -60,6 +60,11 @@ public class OglasController {
         String houseNumber = oglasRequest.getHouseNumber();
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
+        Integer ticketType = oglasRequest.getTicketType();
+
+        if (numberOfTickets == null || numberOfTickets == 0) {
+            numberOfTickets = 1;
+        }
 
         // parsiraj datum
         LocalDateTime eventDate;
@@ -77,7 +82,7 @@ public class OglasController {
         oglas.setKucnibr(houseNumber);
         oglas.setOpis(description);
         oglas.setTipOglas(categoryId);
-        oglas.setAktivan(1);
+        oglas.setAktivan(numberOfTickets);
         oglas.setOpisZamjene("");
         oglas.setKorisnik(korisnik);
 
@@ -85,13 +90,10 @@ public class OglasController {
 
         List<Ulaznica> ulaznice = new ArrayList<>();
 
-        if (numberOfTickets == null || numberOfTickets == 0) {
-            numberOfTickets = 1;
-        }
         for (int i = 0; i < numberOfTickets; i++) {
             Ulaznica ulaznica = new Ulaznica();
             ulaznica.setCijena(price);
-            ulaznica.setVrstaUlaznice(null);
+            ulaznica.setVrstaUlaznice(ticketType);
             ulaznica.setRed(null);
             ulaznica.setBroj(null);
             ulaznica.setOglas(oglas);

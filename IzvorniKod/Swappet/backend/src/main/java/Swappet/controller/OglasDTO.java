@@ -9,9 +9,11 @@ public class OglasDTO {
     private String address;  // combination ulice i grada iz Oglasa
     private String date;  // datum iz Oglasa
     private Integer numberOfTickets; // broj ulaznica
+    private Integer ticketType; // tip ulaznice
+    private String email; // email prodavača
 
 
-    public OglasDTO(int id, String description, String type, Double price, String address, String date,Integer numberOfTickets) {
+    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, String email) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -19,6 +21,8 @@ public class OglasDTO {
         this.address = address;
         this.date = date;
         this.numberOfTickets = numberOfTickets;
+        this.ticketType = ticketType;
+        this.email = email;
     }
 
     public int getId() {
@@ -75,5 +79,21 @@ public class OglasDTO {
 
     public void setNumberOfTickets(int numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
+    }
+
+    public Integer getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(int ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
