@@ -8,8 +8,6 @@ Kupnja ulaznice za bilo koju vrstu događanja, bilo da se radi o sportskom doga�
 
 Swappet je idealno rješenje koje će omogućiti korisnicima izravnu razmjenu jedan-na-jedan ili olakšati razmjenu između više sudionika ako se pronađu prikladna podudaranja.
 
-Naravno, evo kako bi tekst izgledao s ispravljenim i jasno izdvojenim funkcionalnim i nefunkcionalnim zahtjevima:
-
 ---
 
 ### Funkcionalni zahtjevi sustava
