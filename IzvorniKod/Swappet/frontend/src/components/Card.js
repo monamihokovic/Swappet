@@ -27,7 +27,7 @@ const Card = ({ ad, tickets }) => {
     const adType = typeMapping[ad.tipOglas];
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [count, setCount] = useState(0); // Counter state
+    const [count, setCount] = useState(1); // Counter state
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // State to track transaction
 
     const apiKey = "d0e4a536241b489889402925241412";
@@ -72,7 +72,7 @@ const Card = ({ ad, tickets }) => {
         };
 
         try {
-            const response = await axios.post("/transakcije", transactionData); // placeholder backend url
+            const response = await axios.post("http://localhost:8081/ulaznica/kupnja", transactionData);
             console.log("Transaction successful:", response.data);
         } catch (error) {
             console.error("Error during transaction:", error);
