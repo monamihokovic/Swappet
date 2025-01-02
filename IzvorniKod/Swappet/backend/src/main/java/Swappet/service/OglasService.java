@@ -12,11 +12,8 @@ import Swappet.repository.UlaznicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OglasService {
@@ -53,6 +50,7 @@ public class OglasService {
 
             // dohvati tip ulaznice
             Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+            //Integer ticketType = 1;
 
             // dohvati email prodavača
             String email = oglas.getKorisnik().getEmail();
@@ -100,6 +98,5 @@ public class OglasService {
 
         return savedOglas;
     }
-
 
 }

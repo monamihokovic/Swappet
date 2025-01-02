@@ -4,11 +4,10 @@ import Swappet.model.Korisnik;
 import Swappet.model.Oglas;
 import Swappet.model.TipDog;
 import Swappet.model.Ulaznica;
-import Swappet.service.KorisnikServiceImpl;
+import Swappet.service.UserService;
 import Swappet.service.OglasService;
 import Swappet.repository.TipDogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,7 @@ public class OglasController {
     private OglasService oglasService;
 
     @Autowired
-    private KorisnikServiceImpl korisnikServiceImpl;
+    private UserService userService;
 
     //dodavanje oglasa u bazu
     @PostMapping("")
@@ -46,7 +45,7 @@ public class OglasController {
         }
 
         // Proveravamo da li korisnik postoji u bazi
-        Korisnik korisnik = korisnikServiceImpl.findUserByEmail(email);
+        Korisnik korisnik = userService.findUserByEmail(email);
         if (korisnik == null) {
             throw new RuntimeException("User not found for email: " + email);
         }

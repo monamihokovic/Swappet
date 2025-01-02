@@ -19,14 +19,14 @@ public class Ulaznica {
     @Column(name = "vrstaulaznice", nullable = true)
     private Integer vrstaUlaznice;
 
-    @Column(name = "cijena", nullable = true )
+    @Column(name = "cijena", nullable = true)
     private Double cijena;
 
     @ManyToOne
     @JoinColumn(name = "idoglas", nullable = false)
     private Oglas oglas;
 
-    // konsturkotor
+    // konstruktor
 
     public Ulaznica(Integer red, Integer vrstaUlaznice, Integer broj, Double cijena, Oglas oglas) {
         this.red = red;
