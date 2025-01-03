@@ -24,8 +24,8 @@ transakcija
     odluka = jesu li svi kojima je polan zahtjev za odobrenje odobrili transakciju (i u defeniranom vremenu)
         (0 => nepoznato, nije još odgovoreno), (1 => svi prihvatili), (-1 => barem jedan korisnik nije odborio (ili nije na vrijeme odbrio))
 
-ulaznica
+ulaznica 
     idUlaznica = generira sutav
     vrstaUlaznice = kojeg je tipa ulaznica (VIP, obična, ...) = ako je - ispred prodana/zamjenjena
-        (0 => obična), (1 => vip), (2 => druženje sa zvijezdom), ...
+        (1 => obična), (2 => vip), (3 => druženje sa zvijezdom), ...
     cijena = cijena karte, ako u oglasu tipOglasa = 1
