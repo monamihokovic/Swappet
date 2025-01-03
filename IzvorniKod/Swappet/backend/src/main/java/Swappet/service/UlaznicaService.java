@@ -58,12 +58,12 @@ public class UlaznicaService {
         for (Integer idUlaznica : ticketIds) {
             // Dohvati ulaznicu
             Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
-                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica not found: " + idUlaznica));
+                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
 
             // Stvori i spremi uspješnu transakciju
             Transakcija transakcija = new Transakcija();
-            transakcija.setUlaznica(ulaznica); // Set the ticket ID
-            transakcija.setUspjesna(1); // Mark as successful
+            transakcija.setUlaznica(ulaznica);
+            transakcija.setUspjesna(1); // označi kao uspješno
             transakcija.setDvPocetak(LocalDateTime.now());
             transakcijaRepository.save(transakcija);
 
@@ -73,7 +73,7 @@ public class UlaznicaService {
             jeUkljucenId.setIdTransakcija(transakcija.getIdTransakcija());
 
             JeUkljucen jeUkljucen = new JeUkljucen();
-            jeUkljucen.setOdluka(1);
+            jeUkljucen.setOdluka(2);
             jeUkljucenRepository.save(jeUkljucen);
         }
     }
