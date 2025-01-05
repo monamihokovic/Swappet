@@ -4,7 +4,7 @@ ALTER TABLE IF EXISTS public.transakcija
 ALTER TABLE transakcija
 ALTER COLUMN dvPocetak SET DEFAULT CURRENT_TIMESTAMP;
 
-INSERT INTO TRANSAKCIJA (idUlaznica) VALUES (11);
+INSERT INTO TRANSAKCIJA (idUlaznica) VALUES (1);
 
 /*----------------------------------------------------------------------
  1) TRIGGER ZA brojanje karata */
