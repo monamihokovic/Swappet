@@ -40,7 +40,7 @@ public class OglasService {
             Double price = (Double) row[1];  // cijena iz Ulaznice
 
             //formatiraj adresu
-            String address = oglas.getUlica() + ", " + oglas.getGrad();
+            String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
 
             //formatiraj datum po potrebu
             String date = oglas.getDatum().toString();

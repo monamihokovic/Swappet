@@ -29,15 +29,15 @@ public class UserController {
         return "Pitaj boga";
     }
 
-    @GetMapping("/user/transaction/{email}")
+    /*@GetMapping("/user/transaction/{email}")
     public ResponseEntity<List<Transakcija>> getUserTransaction(@PathVariable String email) {
         List<Transakcija> transakcije = userService.getUserTransactions(email);
         return ResponseEntity.ok(transakcije);
-    }
+    }*/
 
-    @GetMapping("user/oglasi/{email}")
+    /*@GetMapping("user/oglasi/{email}")
     public ResponseEntity<List<Oglas>> getUserOglasi(@PathVariable String email) {
         List<Oglas> oglasi = userService.getUserOglas(email);
         return ResponseEntity.ok(oglasi);
-    }
+    }*/
 }

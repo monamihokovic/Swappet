@@ -22,6 +22,7 @@ function App() {
         setUserToken(token); // Store the token in the state
         const decoded = jwtDecode(token); // Call the jwtDecode function
         setUserName(decoded.name || decoded.email || ""); // Extract username or email
+        console.log(sessionStorage.getItem("userEmail"));
         console.log("User logged in with token:", token);
 
         try {

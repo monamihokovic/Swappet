@@ -67,13 +67,13 @@ public class UlaznicaService {
             transakcija.setDvPocetak(LocalDateTime.now());
             transakcijaRepository.save(transakcija);
 
-            // Stvori i spremi JeUkljucen koristeći JeUkljucenId
-            JeUkljucenId jeUkljucenId = new JeUkljucenId();
-            jeUkljucenId.setEmail(buyerEmail);
-            jeUkljucenId.setIdTransakcija(transakcija.getIdTransakcija());
-
+            // Stvori JeUkljucen s idTransakcija
             JeUkljucen jeUkljucen = new JeUkljucen();
-            jeUkljucen.setOdluka(2);
+            jeUkljucen.setEmail(buyerEmail); // Set the email correctly
+            jeUkljucen.setIdTransakcija(transakcija.getIdTransakcija()); // Set the transakcija ID
+            jeUkljucen.setOdluka(2); // Assuming this means "accepted" or another status
+
+            // Spremi u bazu
             jeUkljucenRepository.save(jeUkljucen);
         }
     }

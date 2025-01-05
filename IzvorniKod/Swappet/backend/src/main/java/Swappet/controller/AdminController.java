@@ -1,4 +1,4 @@
-package Swappet.controller;
+/*package Swappet.controller;
 
 import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
@@ -29,4 +29,4 @@ public class AdminController {
         List<Transakcija> transakcija = adminService.getAllTransactions();
         return ResponseEntity.ok(transakcija);
     }
-}
+}*/

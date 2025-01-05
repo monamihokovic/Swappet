@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\createEvent.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\createEvent.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\css\\createEvent.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\Card.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\css\\Card.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\Card.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\Card.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\createEvent.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\AdvertisementsPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\AdvertisementsPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\Card.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\css\\Card.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\SelectionPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\SelectionPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\AdvertisementsPage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\css\\AdvertisementsPage.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\StartPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\StartPage.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,80 +43,87 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "createEvent.js",
-              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js",
-              "RelativeDocumentMoniker": "src\\components\\createEvent.js",
-              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js",
-              "RelativeToolTip": "src\\components\\createEvent.js",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAEwAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-15T17:31:55.019Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "createEvent.css",
-              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\createEvent.css",
-              "RelativeDocumentMoniker": "src\\css\\createEvent.css",
-              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\createEvent.css",
-              "RelativeToolTip": "src\\css\\createEvent.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-15T17:31:53.14Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Card.css",
               "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\Card.css",
               "RelativeDocumentMoniker": "src\\css\\Card.css",
               "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\Card.css",
               "RelativeToolTip": "src\\css\\Card.css",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAAAHYAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAswJ8AAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-14T16:26:25.887Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Card.js",
-              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\Card.js",
-              "RelativeDocumentMoniker": "src\\components\\Card.js",
-              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\Card.js",
-              "RelativeToolTip": "src\\components\\Card.js",
-              "ViewState": "AgIAABgAAAAAAAAAAAAQwDAAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-14T16:26:24.611Z",
+              "WhenOpened": "2025-01-04T23:59:18.41Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "createEvent.js",
+              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js",
+              "RelativeDocumentMoniker": "src\\components\\createEvent.js",
+              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\createEvent.js",
+              "RelativeToolTip": "src\\components\\createEvent.js",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAAwGYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-03T22:43:01.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.js",
+              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\App.js",
+              "RelativeDocumentMoniker": "src\\App.js",
+              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\App.js",
+              "RelativeToolTip": "src\\App.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-03T21:54:38.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Card.js",
+              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\Card.js",
+              "RelativeDocumentMoniker": "src\\components\\Card.js",
+              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\Card.js",
+              "RelativeToolTip": "src\\components\\Card.js",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAQwKsAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-03T20:30:38.513Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SelectionPage.js",
+              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\SelectionPage.js",
+              "RelativeDocumentMoniker": "src\\components\\SelectionPage.js",
+              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\SelectionPage.js",
+              "RelativeToolTip": "src\\components\\SelectionPage.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-03T21:56:34.733Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StartPage.js",
+              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\StartPage.js",
+              "RelativeDocumentMoniker": "src\\components\\StartPage.js",
+              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\StartPage.js",
+              "RelativeToolTip": "src\\components\\StartPage.js",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAQwCwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-03T21:54:30.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AdvertisementsPage.js",
               "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\AdvertisementsPage.js",
               "RelativeDocumentMoniker": "src\\components\\AdvertisementsPage.js",
               "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\components\\AdvertisementsPage.js",
               "RelativeToolTip": "src\\components\\AdvertisementsPage.js",
-              "ViewState": "AgIAAJIAAAAAAAAAAAAQwLwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAAwAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-12-14T16:25:44.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AdvertisementsPage.css",
-              "DocumentMoniker": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\AdvertisementsPage.css",
-              "RelativeDocumentMoniker": "src\\css\\AdvertisementsPage.css",
-              "ToolTip": "C:\\Users\\Patrick Mraz\\Desktop\\swappet\\Swappet\\IzvorniKod\\Swappet\\frontend\\src\\css\\AdvertisementsPage.css",
-              "RelativeToolTip": "src\\css\\AdvertisementsPage.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-12-14T16:25:42.721Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-03T21:04:22.433Z"
             }
           ]
         }

@@ -40,6 +40,10 @@ public class JeUkljucen {
     public Integer getIdTransakcija() {
         return idTransakcija;
     }
+    
+    public void setIdTransakcija(Integer idTransakcija) {
+        this.idTransakcija = idTransakcija;
+    }
 
     public Integer getOdluka() {
         return odluka;

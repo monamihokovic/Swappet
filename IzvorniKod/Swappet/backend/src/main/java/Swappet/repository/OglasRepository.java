@@ -17,5 +17,5 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     List<Object[]> findOglasWithCijenaByCategories(@Param("categories") List<Integer> categories);
 
     
-    List<Oglas> findOglasByEmail(String email);
+    //List<Oglas> findOglasByEmail(String email);
 }

@@ -29,12 +29,12 @@ public class UserService {
     }
 
     //upit u bazu za transakcije u kojima je sudjelovao korisnik
-    public List<Transakcija> getUserTransactions(String email) {
+    /*public List<Transakcija> getUserTransactions(String email) {
         return transakcijaRepository.findByEmail(email);
-    }
+    }*/
 
     //upit u bazu za oglase koje je korisnik predao
-    public List<Oglas> getUserOglas(String email) {
+    /*public List<Oglas> getUserOglas(String email) {
         return oglasRepository.findOglasByEmail(email);
-    }
+    }*/
 }
