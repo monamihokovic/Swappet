@@ -39,7 +39,7 @@ public class OglasController {
         // izvadimo korisničke podatke iz principal objekta
         String email = principal.getAttribute("email");
 
-        // Provjera ako email iz principal-a nije prisutan
+        // provjera ako email iz principal-a nije prisutan
         if (email == null || email.isEmpty()) {
             throw new RuntimeException("Email is missing from user principal");
         }
