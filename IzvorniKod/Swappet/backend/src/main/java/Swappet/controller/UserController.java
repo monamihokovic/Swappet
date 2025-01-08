@@ -2,6 +2,7 @@ package Swappet.controller;
 
 import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
+import Swappet.service.OglasService;
 import Swappet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OglasService oglasService;
+
     @GetMapping("/user-info")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         return principal.getAttributes();
@@ -35,9 +39,16 @@ public class UserController {
         return ResponseEntity.ok(transakcije);
     }
 
-    @GetMapping("user/oglasi/{email}")
-    public ResponseEntity<List<Oglas>> getUserOglasi(@PathVariable String email) {
-        List<Oglas> oglasi = userService.getUserOglas(email);
+    @GetMapping("/user/oglasi/{email}")
+    public ResponseEntity<List<OglasDTO>> getUserOglasi(@PathVariable String email) {
+        List<OglasDTO> oglasi = oglasService.getAllOglasi(email);
         return ResponseEntity.ok(oglasi);
     }
+
+    @GetMapping("/user/trades/{email}")
+    public ResponseEntity<List<OglasDTO>> getUserTrades(@PathVariable String email) {
+        List<OglasDTO> oglasi = oglasService.getUserTrades(email);
+        return ResponseEntity.ok(oglasi);
+    }
+
 }

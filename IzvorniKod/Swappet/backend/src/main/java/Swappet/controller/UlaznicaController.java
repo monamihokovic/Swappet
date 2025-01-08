@@ -35,5 +35,15 @@ public class UlaznicaController {
         ulaznicaService.purchaseTickets(request.getBuyerEmail(), request.getTicketIds());
         return ResponseEntity.ok("Ulaznica/e uspješno kupljena/e.");
     }
+
+    @PostMapping("/razmjena")
+    public ResponseEntity<String> confirmTrade(@RequestBody TradePurchaseRequest request) {
+        ulaznicaService.tradeConfirmation(request.getSellerTickerIds(), request.getDecision());
+        if (request.getDecision() == 1) {
+            return ResponseEntity.ok("Ulaznica/e uspješno razmjenjene");
+        } else {
+            return ResponseEntity.ok("Razmjena odbijena");
+        }
+    }
 }
 

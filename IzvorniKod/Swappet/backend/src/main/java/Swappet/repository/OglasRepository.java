@@ -1,5 +1,6 @@
 package Swappet.repository;
 
+import Swappet.model.Korisnik;
 import Swappet.model.Oglas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,15 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas WHERE o.tipOglas IN :categories")
     List<Object[]> findOglasWithCijenaByCategories(@Param("categories") List<Integer> categories);
 
-    
-    List<Oglas> findOglasByEmail(String email);
+    //šalje upit za oglase i njihove cijene na temelju emaila
+    @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas WHERE o.korisnik = :korisnik")
+    List<Object[]> findOglasWithCijenaByEmail(Korisnik korisnik);
+
+    //vraća oglase za razmjenu od korisnika
+    @Query("SELECT DISTINCT o FROM Oglas o WHERE o.tipOglas = 2 AND o.korisnik = :korisnik")
+    List<Oglas> findTradesForUser(Korisnik korisnik);
+
+    //vraća sve oglase s cijenama, za admina
+    @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas")
+    List<Object[]> findAllOglasi();
 }

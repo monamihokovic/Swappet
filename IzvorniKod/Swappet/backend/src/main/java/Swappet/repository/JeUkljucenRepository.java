@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JeUkljucenRepository extends JpaRepository<JeUkljucen, JeUkljucenId> {
+
+    JeUkljucen findByIdTransakcija(Integer idTransakcija);
 }

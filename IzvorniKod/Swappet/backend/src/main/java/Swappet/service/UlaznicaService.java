@@ -5,6 +5,7 @@ import Swappet.model.JeUkljucenId;
 import Swappet.model.Transakcija;
 import Swappet.model.Ulaznica;
 import Swappet.repository.JeUkljucenRepository;
+import Swappet.repository.SeMijenjaRepository;
 import Swappet.repository.TransakcijaRepository;
 import Swappet.repository.UlaznicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class UlaznicaService {
 
     @Autowired
     private JeUkljucenRepository jeUkljucenRepository;
+
+    @Autowired
+    private SeMijenjaRepository seMijenjaRepository;
 
     // Fetch all Ulaznice
     public List<Ulaznica> getAllUlaznice() {
@@ -74,6 +78,16 @@ public class UlaznicaService {
 
             JeUkljucen jeUkljucen = new JeUkljucen();
             jeUkljucen.setOdluka(1);
+            jeUkljucenRepository.save(jeUkljucen);
+        }
+    }
+
+    //razmjena ulaznice
+    public void tradeConfirmation(List<Integer> sellerTickets, int decision) {
+        for (Integer idUlaznica : sellerTickets) {
+            Integer idTransakcija = seMijenjaRepository.findByIdUlaznica(idUlaznica).getIdTransakcija();
+            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(idTransakcija);
+            jeUkljucen.setOdluka(decision);
             jeUkljucenRepository.save(jeUkljucen);
         }
     }
