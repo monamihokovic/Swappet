@@ -1,4 +1,4 @@
-/*package Swappet.controller;
+package Swappet.controller;
 
 import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
@@ -19,8 +19,8 @@ public class AdminController {
     private AdminService adminService;
 
     @GetMapping("/oglasi")
-    public ResponseEntity<List<Oglas>> getAllOglasi() {
-        List<Oglas> oglasi = adminService.getAllOglasi();
+    public ResponseEntity<List<OglasDTO>> getAllOglasi() {
+        List<OglasDTO> oglasi = adminService.getAllOglasi();
         return ResponseEntity.ok(oglasi);
     }
 
@@ -29,4 +29,4 @@ public class AdminController {
         List<Transakcija> transakcija = adminService.getAllTransactions();
         return ResponseEntity.ok(transakcija);
     }
-}*/
+}

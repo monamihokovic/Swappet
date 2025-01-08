@@ -1,10 +1,8 @@
 package Swappet.service;
 
 import Swappet.model.Korisnik;
-import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
 import Swappet.repository.KorisnikRepository;
-import Swappet.repository.OglasRepository;
 import Swappet.repository.TransakcijaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +19,7 @@ public class UserService {
     private TransakcijaRepository transakcijaRepository;
 
     @Autowired
-    private OglasRepository oglasRepository;
+    private KorisnikRepository korisnikRepository;
 
     //upit u bazu za korisnika na temelju emaila (ključ)
     public Korisnik findUserByEmail(String email) {
@@ -29,12 +27,8 @@ public class UserService {
     }
 
     //upit u bazu za transakcije u kojima je sudjelovao korisnik
-    /*public List<Transakcija> getUserTransactions(String email) {
-        return transakcijaRepository.findByEmail(email);
-    }*/
-
-    //upit u bazu za oglase koje je korisnik predao
-    /*public List<Oglas> getUserOglas(String email) {
-        return oglasRepository.findOglasByEmail(email);
-    }*/
+    public List<Transakcija> getUserTransactions(String email) {
+        Korisnik korisnik = korisnikRepository.findByEmail(email);
+        return transakcijaRepository.findByEmail(korisnik);
+    }
 }

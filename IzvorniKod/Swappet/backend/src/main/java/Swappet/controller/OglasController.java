@@ -39,12 +39,12 @@ public class OglasController {
         // izvadimo korisničke podatke iz principal objekta
         String email = principal.getAttribute("email");
 
-        // Provjera ako email iz principal-a nije prisutan
+        // provjera ako email iz principal-a nije prisutan
         if (email == null || email.isEmpty()) {
             throw new RuntimeException("Email is missing from user principal");
         }
 
-        // Proveravamo da li korisnik postoji u bazi
+        // Provjeravamo postoji li korisnik u bazi
         Korisnik korisnik = userService.findUserByEmail(email);
         if (korisnik == null) {
             throw new RuntimeException("User not found for email: " + email);
@@ -60,6 +60,10 @@ public class OglasController {
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
         Integer ticketType = oglasRequest.getTicketType();
+        Integer transactionType = oglasRequest.getTransactionType();
+        String tradeDescription = oglasRequest.getTradeDescription();
+        Integer red = oglasRequest.getRed();
+        Integer broj = oglasRequest.getBroj();
 
         if (numberOfTickets == null || numberOfTickets == 0) {
             numberOfTickets = 1;
@@ -80,10 +84,15 @@ public class OglasController {
         oglas.setGrad(city);
         oglas.setKucnibr(houseNumber);
         oglas.setOpis(description);
-        oglas.setTipOglas(categoryId);
+        oglas.setTipOglas(transactionType);
         oglas.setAktivan(numberOfTickets);
-        oglas.setOpisZamjene("");
         oglas.setKorisnik(korisnik);
+
+        if (!tradeDescription.isEmpty()) {
+            oglas.setOpisZamjene(tradeDescription);
+        } else {
+            oglas.setOpisZamjene("");
+        }
 
         // Napraviti objekte za svaku ulaznicu
 
@@ -93,8 +102,8 @@ public class OglasController {
             Ulaznica ulaznica = new Ulaznica();
             ulaznica.setCijena(price);
             ulaznica.setVrstaUlaznice(ticketType);
-            ulaznica.setRed(null);
-            ulaznica.setBroj(null);
+            ulaznica.setRed(red);
+            ulaznica.setBroj(broj);
             ulaznica.setOglas(oglas);
 
             ulaznice.add(ulaznica);

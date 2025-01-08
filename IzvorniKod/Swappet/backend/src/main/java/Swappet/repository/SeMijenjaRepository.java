@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SeMijenjaRepository extends JpaRepository<SeMijenja, SeMijenjaId> {
+
+    SeMijenja findByIdUlaznica(Integer idUlaznica);
+
 }
