@@ -1,4 +1,4 @@
-/*package Swappet.service;
+package Swappet.service;
 
 import Swappet.controller.OglasDTO;
 import Swappet.model.Oglas;
@@ -74,4 +74,4 @@ public class AdminService {
     public List<Transakcija> getAllTransactions() {
         return transakcijaRepository.findAll();
     }
-}*/
+}
