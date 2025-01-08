@@ -62,22 +62,22 @@ public class UlaznicaService {
         for (Integer idUlaznica : ticketIds) {
             // Dohvati ulaznicu
             Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
-                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica not found: " + idUlaznica));
+                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
 
             // Stvori i spremi uspješnu transakciju
             Transakcija transakcija = new Transakcija();
-            transakcija.setUlaznica(ulaznica); // Set the ticket ID
-            transakcija.setUspjesna(1); // Mark as successful
+            transakcija.setUlaznica(ulaznica);
+            transakcija.setUspjesna(1); // označi kao uspješno
             transakcija.setDvPocetak(LocalDateTime.now());
             transakcijaRepository.save(transakcija);
 
-            // Stvori i spremi JeUkljucen koristeći JeUkljucenId
-            JeUkljucenId jeUkljucenId = new JeUkljucenId();
-            jeUkljucenId.setEmail(buyerEmail);
-            jeUkljucenId.setIdTransakcija(transakcija.getIdTransakcija());
-
+            // Stvori JeUkljucen s idTransakcija
             JeUkljucen jeUkljucen = new JeUkljucen();
-            jeUkljucen.setOdluka(1);
+            jeUkljucen.setEmail(buyerEmail); // Set the email correctly
+            jeUkljucen.setIdTransakcija(transakcija.getIdTransakcija()); // Set the transakcija ID
+            jeUkljucen.setOdluka(2); // Assuming this means "accepted" or another status
+
+            // Spremi u bazu
             jeUkljucenRepository.save(jeUkljucen);
         }
     }

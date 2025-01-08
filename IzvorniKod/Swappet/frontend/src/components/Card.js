@@ -24,16 +24,34 @@ const typeMapping = {
 };
 
 const Card = ({ ad, tickets }) => {
+    console.log("Ad details:", ad); // Log the contents of the ad object
+
     const adType = typeMapping[ad.tipOglas];
+    const [user, setUser] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [count, setCount] = useState(1); // Counter state
+    const [count, setCount] = useState(1); // Counter state for selected tickets
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // State to track transaction
+    const [availableTickets, setAvailableTickets] = useState(tickets.length); // Track available tickets
+    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Track how many tickets have been purchased
 
-    const apiKey = "d0e4a536241b489889402925241412";
+    const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";
     const eventDate = ad.date.split("T")[0];
     const eventTime = ad.date.split("T")[1].split(":")[0];
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:8081/user-info", {
+                withCredentials: true,
+            })
+            .then((response) => {
+                setUser(response.data);
+            })
+            .catch((error) => {
+                console.error("Error occurred: ", error);
+            });
+    }, []); // Ensure the effect only runs once when the component is mounted
 
     useEffect(() => {
         const fetchWeather = async () => {
@@ -60,23 +78,50 @@ const Card = ({ ad, tickets }) => {
     }, [ad.date, eventDate, eventTime, city]);
 
     // Increment and Decrement functions
-    const increment = () => setCount((prev) => (prev < tickets.length ? prev + 1 : prev));
-    const decrement = () => setCount((prev) => (prev > 0 ? prev - 1 : 0));
+    const increment = () => {
+        if (count < availableTickets) {
+            setCount(prev => prev + 1);
+        }
+    };
+
+    const decrement = () => {
+        if (count > 1) {
+            setCount(prev => prev - 1);
+        }
+    };
 
     // Handle "Kupi" button click and send POST request
     const handlePurchase = async () => {
         setIsTransactionProcessing(true);
 
+        // Determine the starting index for ticket selection
+        const startingIndex = purchasedTicketCount;
+
+        // Select the ticket IDs starting from the current purchased ticket count
+        const ticketIds = ad.tickets.slice(startingIndex, startingIndex + count).map(ticket => ticket.idUlaznica);
+        console.log("Selected Ticket IDs:", ticketIds);
+
+        // Collect the necessary data for the transaction
         const transactionData = {
-            // placeholder data
+            buyerEmail: user.email,  // Use the email from session storage
+            ticketIds: ticketIds, // Assuming tickets is an array of ticket objects
         };
 
         try {
-            const response = await axios.post("http://localhost:8081/ulaznica/kupnja", transactionData);
+            const response = await axios.post("http://localhost:8081/ulaznica/kupnja", transactionData, {
+                withCredentials: true,
+            });
             console.log("Transaction successful:", response.data);
+
+            // Update purchased ticket count and available tickets
+            const newPurchasedTicketCount = purchasedTicketCount + count;
+            setPurchasedTicketCount(newPurchasedTicketCount);
+            setAvailableTickets(availableTickets - count);
+
+            // Update transaction state to disable button
+            setIsTransactionProcessing(false);
         } catch (error) {
             console.error("Error during transaction:", error);
-        } finally {
             setIsTransactionProcessing(false);
         }
     };
@@ -100,27 +145,29 @@ const Card = ({ ad, tickets }) => {
                 <div className="adresa1">{ad.address}</div>
                 <div className="datum1">{ad.date}</div>
                 <div className="cijena1">{ad.price} €</div>
-                <div className="tip1">Broj ulaznica: {tickets.length}</div>
+                <div className="tip1">Broj ulaznica: {availableTickets}</div>
                 <div className="tip1">Korisnik: {ad.email}</div>
                 <div className="tip1">
                     Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
                 </div>
 
-                {/* Removed Tickets Section */}
-
                 {/* Counter Section */}
                 <div className="counter-section">
-                    <button className="counter-btn" onClick={decrement}>
+                    <button className="counter-btn" onClick={decrement} disabled={isTransactionProcessing}>
                         <FontAwesomeIcon icon={faMinus} />
                     </button>
                     <span className="counter-value">{count}</span>
-                    <button className="counter-btn" onClick={increment}>
+                    <button className="counter-btn" onClick={increment} disabled={isTransactionProcessing}>
                         <FontAwesomeIcon icon={faPlus} />
                     </button>
                 </div>
 
                 {/* Buy Button */}
-                <button className="buy-btn" onClick={handlePurchase} disabled={isTransactionProcessing}>
+                <button
+                    className={`buy-btn ${availableTickets === 0 ? 'disabled-btn' : ''}`}
+                    onClick={handlePurchase}
+                    disabled={isTransactionProcessing || availableTickets === 0}
+                >
                     {isTransactionProcessing ? "Processing..." : "Kupi"}
                 </button>
             </div>
@@ -155,4 +202,3 @@ const Card = ({ ad, tickets }) => {
 };
 
 export default Card;
-
