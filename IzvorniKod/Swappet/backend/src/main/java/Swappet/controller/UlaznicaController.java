@@ -38,12 +38,23 @@ public class UlaznicaController {
 
     @PostMapping("/razmjena")
     public ResponseEntity<String> confirmTrade(@RequestBody TradePurchaseRequest request) {
-        ulaznicaService.tradeConfirmation(request.getSellerTickerIds(), request.getDecision());
+        ulaznicaService.tradeConfirmation(
+                request.getSellerTickerIds(),
+                request.getBuyerTickerIds(),
+                request.getDecision()
+        );
         if (request.getDecision() == 1) {
             return ResponseEntity.ok("Ulaznica/e uspješno razmjenjene");
         } else {
             return ResponseEntity.ok("Razmjena odbijena");
         }
     }
+
+    @PostMapping("/podnesi-razmjenu")
+    public ResponseEntity<String> submitExchangeAd(@RequestParam Integer idUlaznica, @RequestParam String opisZamjene) {
+        ulaznicaService.submitExchangeAd(idUlaznica, opisZamjene);
+        return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
+    }
+
 }
 

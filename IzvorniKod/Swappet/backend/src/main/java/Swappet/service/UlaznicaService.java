@@ -1,13 +1,7 @@
 package Swappet.service;
 
-import Swappet.model.JeUkljucen;
-import Swappet.model.JeUkljucenId;
-import Swappet.model.Transakcija;
-import Swappet.model.Ulaznica;
-import Swappet.repository.JeUkljucenRepository;
-import Swappet.repository.SeMijenjaRepository;
-import Swappet.repository.TransakcijaRepository;
-import Swappet.repository.UlaznicaRepository;
+import Swappet.model.*;
+import Swappet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +24,9 @@ public class UlaznicaService {
     @Autowired
     private SeMijenjaRepository seMijenjaRepository;
 
+    @Autowired
+    private OglasRepository oglasRepository;
+
     // Fetch all Ulaznice
     public List<Ulaznica> getAllUlaznice() {
         return ulaznicaRepository.findAll();
@@ -40,22 +37,6 @@ public class UlaznicaService {
         Optional<Ulaznica> ulaznica = ulaznicaRepository.findById(id);
         return ulaznica.orElse(null);
     }
-
-//    public void purchaseTickets(String buyerEmail, List<Integer> ticketIds) {
-//        for (Integer idUlaznica : ticketIds) {
-//            // Dohvati ulaznicu
-//            Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
-//                    .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
-//
-//            // Stvori i spremi uspješnu transakciju
-//            Transakcija transakcija = new Transakcija(1, ulaznica, LocalDateTime.now());
-//            transakcijaRepository.save(transakcija);
-//
-//            // Dodaj u JeUkljucen sa automatskim prihvaćanjem
-//            JeUkljucen jeUkljucen = new JeUkljucen(buyerEmail, 1);
-//            jeUkljucenRepository.save(jeUkljucen);
-//        }
-//    }
 
     // Kupnja ulaznice
     public void purchaseTickets(String buyerEmail, List<Integer> ticketIds) {
@@ -83,12 +64,57 @@ public class UlaznicaService {
     }
 
     //razmjena ulaznice
-    public void tradeConfirmation(List<Integer> sellerTickets, int decision) {
-        for (Integer idUlaznica : sellerTickets) {
-            Integer idTransakcija = seMijenjaRepository.findByIdUlaznica(idUlaznica).getIdTransakcija();
-            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(idTransakcija);
+//    public void tradeConfirmation(List<Integer> sellerTickets, int decision) {
+//        for (Integer idUlaznica : sellerTickets) {
+//            Integer idTransakcija = seMijenjaRepository.findByIdUlaznica(idUlaznica).getIdTransakcija();
+//            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(idTransakcija);
+//            jeUkljucen.setOdluka(decision);
+//            jeUkljucenRepository.save(jeUkljucen);
+//        }
+//    }
+
+    // Razmjena ulaznica
+    public void tradeConfirmation(List<Integer> sellerTicketIds, List<Integer> buyerTicketIds, int decision) {
+        // Provjera je li broj ulaznica jednak
+        if (sellerTicketIds.size() != buyerTicketIds.size()) {
+            throw new IllegalArgumentException("Zamjena ulaznica mora uključivati jednak broj ulaznica.");
+        }
+
+        for (Integer sellerTicketId : sellerTicketIds) {
+            Ulaznica sellerTicket = ulaznicaRepository.findById(sellerTicketId)
+                    .orElseThrow(() -> new IllegalArgumentException("Prodavatelj ulaznice nije pronađen: " + sellerTicketId));
+
+            Oglas sellerOglas = sellerTicket.getOglas();
+
+            // Provjera je li prodavateljev oglas označen za zamjenu
+            if (sellerOglas.getTipOglas() != 2) {
+                throw new IllegalArgumentException("Ulaznica nije označena za zamjenu.");
+            }
+
+            Integer transactionId = seMijenjaRepository.findByIdUlaznica(sellerTicketId).getIdTransakcija();
+
+            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transactionId);
             jeUkljucen.setOdluka(decision);
             jeUkljucenRepository.save(jeUkljucen);
         }
     }
+
+    public void submitExchangeAd(Integer idUlaznica, String opisZamjene) {
+        Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
+                .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
+
+        Oglas oglas = ulaznica.getOglas();
+
+        // Provjera da ulaznica nije označena za prodaju
+        if (oglas.getTipOglas() == 1) { // 1 = za prodaju
+            throw new IllegalStateException("Ulaznica ne može biti označena za prodaju i razmjenu u isto vrijeme.");
+        }
+
+        // Ažuriranje polja Oglasa za razmjenu
+        oglas.setTipOglas(2); // Označimo da je oglas za zamjenu
+        oglas.setOpisZamjene(opisZamjene); // Ažuriramo opis razmjene
+
+        oglasRepository.save(oglas);
+    }
+
 }
