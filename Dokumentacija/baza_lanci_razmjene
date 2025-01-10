@@ -8,9 +8,9 @@ CREATE TABLE nadtransakcija
 );
 
 ALTER TABLE IF EXISTS public.transakcija
-    ADD COLUMN nadtransakcija integer;
+    ADD COLUMN idnadtransakcija integer;
 ALTER TABLE IF EXISTS public.transakcija
-    ADD CONSTRAINT transakcija_idnadtransakcija_fkey FOREIGN KEY (nadtransakcija)
+    ADD CONSTRAINT transakcija_idNadtransakcija_fkey FOREIGN KEY (idNadtransakcija)
     REFERENCES public.nadtransakcija (idnadtransakcija) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
