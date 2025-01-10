@@ -1,10 +1,3 @@
-Opis lanaca razmjene, pogled baze.
-Sastoji se od dva dijela:
-   I) općenitiji koji opisuje I/U argumente u bazi (dovoljan za implementaciju na backednu)
-   II) specifičniji, koji detaljnije opisuje funkcionalnosti
-
-
-I) OPĆENITO
 Višestruki lanci razmjene se razdvajaju na n transkacija kupovine, gdje lanac razmjene duljine n, ako je u njemu n ljudi (karata).
 Svaki čovjek u razmjeni treba dati točno jednu kartu i primiti točno 1 kartu zauzvrat. 
 
