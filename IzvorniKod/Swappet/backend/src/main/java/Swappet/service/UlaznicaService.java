@@ -27,12 +27,12 @@ public class UlaznicaService {
     @Autowired
     private OglasRepository oglasRepository;
 
-    // Fetch all Ulaznice
+    // dohvati sve ulznice
     public List<Ulaznica> getAllUlaznice() {
         return ulaznicaRepository.findAll();
     }
 
-    // Fetch a single Ulaznica by ID
+    // dohvati jednu ulaznicu preko id
     public Ulaznica getUlaznicaById(Integer id) {
         Optional<Ulaznica> ulaznica = ulaznicaRepository.findById(id);
         return ulaznica.orElse(null);
@@ -54,9 +54,9 @@ public class UlaznicaService {
 
             // Stvori JeUkljucen s idTransakcija
             JeUkljucen jeUkljucen = new JeUkljucen();
-            jeUkljucen.setEmail(buyerEmail); // Set the email correctly
-            jeUkljucen.setIdTransakcija(transakcija.getIdTransakcija()); // Set the transakcija ID
-            jeUkljucen.setOdluka(2); // Assuming this means "accepted" or another status
+            jeUkljucen.setEmail(buyerEmail); // postavi email kupca
+            jeUkljucen.setIdTransakcija(transakcija.getIdTransakcija()); // postavi id transakcije
+            jeUkljucen.setOdluka(2); // postavi odluku na 2 (uspješno)
 
             // Spremi u bazu
             jeUkljucenRepository.save(jeUkljucen);
