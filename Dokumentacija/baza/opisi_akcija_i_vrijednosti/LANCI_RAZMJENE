@@ -34,3 +34,6 @@ primjeri (koje naredbe treba dodavati) i redosljed istih:
 
      INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 25, 2);
      INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('ivo@ivic.com', 26, 2);
+
+
+DOKUMENTI: trigeri_3 + baza_lanci_razmjene
