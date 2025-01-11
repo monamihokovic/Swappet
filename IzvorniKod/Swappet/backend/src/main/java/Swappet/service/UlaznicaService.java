@@ -27,6 +27,9 @@ public class UlaznicaService {
     @Autowired
     private OglasRepository oglasRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     // dohvati sve ulznice
     public List<Ulaznica> getAllUlaznice() {
         return ulaznicaRepository.findAll();
@@ -61,6 +64,13 @@ public class UlaznicaService {
             // Spremi u bazu
             jeUkljucenRepository.save(jeUkljucen);
         }
+
+        String sellerEmail = ulaznicaRepository.findById(ticketIds.get(0)).get().getOglas().getKorisnik().getEmail();
+        String opis = ulaznicaRepository.findById(ticketIds.get(0)).get().getOglas().getOpis();
+        Integer numberOfTickets = ticketIds.size();
+
+        // obavijesti prodavaca da je ulaznica prodana
+        emailService.notifyTicketSold(sellerEmail, opis, numberOfTickets);
     }
 
     //razmjena ulaznice
