@@ -1,5 +1,6 @@
 package Swappet.controller;
 
+import Swappet.model.Oglas;
 import Swappet.model.Ulaznica;
 import Swappet.service.UlaznicaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,14 @@ public class UlaznicaController {
     }
 
     @PostMapping("/podnesi-razmjenu")
-    public ResponseEntity<String> submitExchangeAd(@RequestParam Integer idUlaznica, @RequestParam String opisZamjene) {
-        ulaznicaService.submitExchangeAd(idUlaznica, opisZamjene);
+    public ResponseEntity<String> submitExchangeAd(@RequestParam Integer idOglasBuyer, @RequestParam Integer idOglasSeller) {
+        ulaznicaService.submitExchangeAd(idOglasBuyer, idOglasSeller);
         return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
     }
 
+    @PostMapping("/razmjena")
+    public ResponseEntity<List<Oglas>> retrieveExchangeAds(@RequestParam Integer idOglasSeller) {
+        List<Oglas> exchangeAds = ulaznicaService.getExchangeAds(idOglasSeller);
+        return ResponseEntity.ok(exchangeAds);
+    }
 }

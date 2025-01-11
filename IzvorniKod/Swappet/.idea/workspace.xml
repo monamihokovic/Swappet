@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Nadtransakcija.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/NadtransakcijaRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/OglasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Transakcija.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/model/Transakcija.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SwappetApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SwappetApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/UlaznicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/UlaznicaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
@@ -70,7 +72,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.SwappetApplication.executor": "Run",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "Merging dev",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend",
@@ -79,7 +81,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "settings.editor.selected.configurable": "actions.on.save",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -98,10 +100,6 @@
   </component>
   <component name="RunManager">
     <configuration name="SwappetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <envs>
-        <env name="MAIL_PASSWORD" value="tcal lxok wwpr dojy" />
-        <env name="MAIL_USERNAME" value="swappet.progi@gmail.com" />
-      </envs>
       <module name="Swappet" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="Swappet.service.SwappetApplication" />
       <method v="2">
@@ -156,6 +154,8 @@
       <workItem from="1736526684201" duration="783000" />
       <workItem from="1736527627439" duration="149000" />
       <workItem from="1736546503636" duration="3944000" />
+      <workItem from="1736607250790" duration="1249000" />
+      <workItem from="1736630392839" duration="3800000" />
     </task>
     <servers />
   </component>
@@ -176,8 +176,5 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Swappet$SwappetApplication.ic" NAME="SwappetApplication Coverage Results" MODIFIED="1736611611026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>

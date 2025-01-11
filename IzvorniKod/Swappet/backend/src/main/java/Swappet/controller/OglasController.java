@@ -69,10 +69,6 @@ public class OglasController {
             numberOfTickets = 1;
         }
 
-        if (transactionType == null) {
-            transactionType = 1;
-        }
-
         // parsiraj datum
         LocalDateTime eventDate;
         try {
@@ -88,16 +84,11 @@ public class OglasController {
         oglas.setGrad(city);
         oglas.setKucnibr(houseNumber);
         oglas.setOpis(description);
-        //oglas.setTipOglas(categoryId);
         oglas.setTipOglas(transactionType);
         oglas.setAktivan(numberOfTickets);
         oglas.setKorisnik(korisnik);
 
-        if (tradeDescription == null) {
-            tradeDescription = "";
-        }
-
-        if (!tradeDescription.isEmpty()) {
+        if (tradeDescription != null) {
             oglas.setOpisZamjene(tradeDescription);
         } else {
             oglas.setOpisZamjene("");
