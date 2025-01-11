@@ -26,3 +26,11 @@ UNOS U BAZU
   -> (ako je 1 odluka i sve ostale odluke (ostalih transakcija) su 1 upisuje se 1 u ukupno nadtransakcije, inače se ne događa ništa) // radi baza
 
 
+primjeri (koje naredbe treba dodavati) i redosljed istih:
+     INSERT INTO nadtransakcija (ukupno) VALUES (0);
+
+     INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (25,1);
+     INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (28,1);
+
+     INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 25, 2);
+     INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('ivo@ivic.com', 26, 2);
