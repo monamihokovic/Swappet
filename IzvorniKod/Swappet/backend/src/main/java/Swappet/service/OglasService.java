@@ -49,6 +49,12 @@ public class OglasService {
             // dohvati tip ulaznice
             Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
 
+            //dohvati red sjedala
+            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+
+            //dohvati broj sjedala
+            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+
             // dohvati email prodavača
             String email = oglas.getKorisnik().getEmail();
 
@@ -65,6 +71,8 @@ public class OglasService {
                     date,
                     numberOfTickets,
                     ticketType,
+                    broj,
+                    red,
                     email,
                     tradeDescription
             );
@@ -122,6 +130,12 @@ public class OglasService {
             // dohvati tip ulaznice
             Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
 
+            //dohvati red sjedala
+            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+
+            //dohvati broj sjedala
+            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+
             //dohvati opis zamjene
             String tradeDescription = oglas.getOpisZamjene();
 
@@ -135,6 +149,8 @@ public class OglasService {
                     date,
                     numberOfTickets,
                     ticketType,
+                    broj,
+                    red,
                     email,
                     tradeDescription
             );
@@ -163,6 +179,12 @@ public class OglasService {
             // dohvati tip ulaznice
             Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
 
+            //dohvati red sjedala
+            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+
+            //dohvati broj sjedala
+            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+
             //dohvati opis zamjene
             String tradeDescription = oglas.getOpisZamjene();
 
@@ -179,6 +201,8 @@ public class OglasService {
                     date,
                     numberOfTickets,
                     ticketType,
+                    red,
+                    broj,
                     email,
                     tradeDescription
             );
