@@ -17,7 +17,7 @@ npr. osoba   | posjed  | interes
       Cis        |    2    |   Borna
 
 UNOS U BAZU
-1) Stvori se nadtransakcija 
+1) Stvori se nadtransakcija stavi se ukupno = 0 (baza popunjava defaultima)
 2) Stvori se n transakcija unosom idNadtransakcija, idUlaznica, uspjesna = 0
   -> (baza sama deaktivira ulaznice uključene u razmjenu (vrstaUlaznicee u -trenutna vrijednost) // radi baza
 3) Stvori se n transakcija jeUkljucen unosom idTransakcija, odluka = 0
