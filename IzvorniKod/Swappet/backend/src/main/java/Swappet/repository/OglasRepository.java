@@ -13,6 +13,8 @@ import java.util.List;
 public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     //List<Oglas> findOglasByTipOglasIn(@Param("categories") List<Integer> categories); - stara verzija
 
+    Oglas findByIdOglasId(Integer id);
+
     // nova verzija - šalje upit za spajanje Oglasa i Ulaznice za dobivanje podataka o idoglas i cijena
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas WHERE o.tipOglas IN :categories AND o.aktivan > 0")
     List<Object[]> findOglasWithCijenaByCategories(@Param("categories") List<Integer> categories);
@@ -28,4 +30,8 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     //vraća sve oglase s cijenama, za admina
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas")
     List<Object[]> findAllOglasi();
+
+    //vraća oglase za razmjenu koji zadovoljavaju broj i opis zamjene
+    @Query("SELECT DISTINCT o FROM Oglas o WHERE o.aktivan = :brojUlaznica AND o.opis = :opisZamjene")
+    List<Oglas> findExchangeAds(int brojUlaznica, String opisZamjene);
 }

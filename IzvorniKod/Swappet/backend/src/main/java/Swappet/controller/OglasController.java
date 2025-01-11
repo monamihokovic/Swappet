@@ -88,7 +88,7 @@ public class OglasController {
         oglas.setAktivan(numberOfTickets);
         oglas.setKorisnik(korisnik);
 
-        if (!tradeDescription.isEmpty()) {
+        if (tradeDescription != null) {
             oglas.setOpisZamjene(tradeDescription);
         } else {
             oglas.setOpisZamjene("");
