@@ -1,0 +1,22 @@
+osoba Z = započinje razmjenu i stavlja ponudu na neku kartu ("kupac")
+osoba O = odgovara na ponudu i prihvaća je ili odbija ("prodavatelj")
+
+UPUTE:
+1) unosite samo idUlaznice (osobe O za koju je Z zainteresiran)  u transakciju sustav sve ostalo sam generira
+2) jeUkljucen popunjavate 
+   email = email  osobe Z,
+   idTransakcija = dobiven od transakcije u 1)  koraku
+   odluka = 2
+3) seMijenja popunjavate 
+   idUlaznice sa ulaznicom koju osoba B nudi u zamjenu
+   idTransakcija = dobiven od transakcije u 1)  koraku
+4) osobi O se trebaju prikazati obavijesti iz jeUkljucen u kojima je odluka = 0 (tj. čeka se na njenu odluku)
+5) kada osoba O donese odluku treba UPDATATI jeUkljucen atribut odluka = 1 (prihvaćeno) ili odluka = -1 (odbijeno), 
+dok će baza obaviti ostalo (popunjavanje transakcije i smanjivanje broja dostupnih karata, te uklanjane te deaktiviranje te ulaznice iz oglasa)
+
+PRIMJER SQL KODOVA:
+    INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 13, 2);
+    INSERT INTO seMijenja (idUlaznica , idTransakcija) VALUES (20, 13);
+    UPDATE jeukljucen SET odluka = 2 WHERE email = 'ivo@ivic.com' AND idTransakcija =13;
+
+DOKUMNETI: trigeri_2
