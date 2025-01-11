@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TransakcijaRepository extends JpaRepository<Transakcija, Integer> {
 
-    List<Transakcija> findByEmail(Korisnik korisnik);
+    Transakcija findByIdTransakcija(int id);
 
 }

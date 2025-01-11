@@ -10,23 +10,12 @@ public class OglasDTO {
     private String date;  // datum iz Oglasa
     private Integer numberOfTickets; // broj ulaznica
     private Integer ticketType; // tip ulaznice
+    private Integer broj;
+    private Integer red;
     private String email; // email prodavača
     private String tradeDescription; //opis zamjene
 
-
-//    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, String email) {
-//        this.id = id;
-//        this.description = description;
-//        this.type = type;
-//        this.price = price;
-//        this.address = address;
-//        this.date = date;
-//        this.numberOfTickets = numberOfTickets;
-//        this.ticketType = ticketType;
-//        this.email = email;
-//    }
-
-    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, String email, String tradeDescription) {
+    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, String email, String tradeDescription) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -35,6 +24,8 @@ public class OglasDTO {
         this.date = date;
         this.numberOfTickets = numberOfTickets;
         this.ticketType = ticketType;
+        this.broj = broj;
+        this.red = red;
         this.email = email;
         this.tradeDescription = tradeDescription;
     }
@@ -117,5 +108,29 @@ public class OglasDTO {
 
     public void setTradeDescription(String tradeDescription) {
         this.tradeDescription = tradeDescription;
+    }
+
+    public Integer getBroj() {
+        return broj;
+    }
+
+    public void setBroj(Integer broj) {
+        this.broj = broj;
+    }
+
+    public Integer getRed() {
+        return red;
+    }
+
+    public void setRed(Integer red) {
+        this.red = red;
+    }
+
+    public void setTicketType(Integer ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public void setNumberOfTickets(Integer numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
     }
 }

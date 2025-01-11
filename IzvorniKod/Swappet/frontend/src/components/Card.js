@@ -32,7 +32,7 @@ const Card = ({ ad, tickets }) => {
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(1); // Counter state for selected tickets
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // State to track transaction
-    const [availableTickets, setAvailableTickets] = useState(tickets.length); // Track available tickets
+    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets); // Track available tickets
     const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Track how many tickets have been purchased
 
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
@@ -124,6 +124,7 @@ const Card = ({ ad, tickets }) => {
             console.error("Error during transaction:", error);
             setIsTransactionProcessing(false);
         }
+
     };
 
     // Determine ticket type description

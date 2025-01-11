@@ -45,6 +45,12 @@ public class AdminService {
             // dohvati tip ulaznice
             Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
 
+            //dohvati red sjedala
+            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+
+            //dohvati broj sjedala
+            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+
             // dohvati email prodavača
             String email = oglas.getKorisnik().getEmail();
 
@@ -61,6 +67,8 @@ public class AdminService {
                     date,
                     numberOfTickets,
                     ticketType,
+                    broj,
+                    red,
                     email,
                     tradeDescription
             );
