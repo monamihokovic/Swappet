@@ -140,6 +140,21 @@ public class UlaznicaService {
             index++;
         }
 
+        // dohvati podatke o prodavacu
+        Oglas oglasSeller = ulazniceSeller.get(0).getOglas();
+        String sellerEmail = oglasSeller.getKorisnik().getEmail();
+        String sellerOpis = oglasSeller.getOpis();
+
+        // dohvati podatke o kupcu (inicijatoru razmjene)
+        String buyerEmail = oglasBuyer.getKorisnik().getEmail();
+        String buyerOpis = oglasBuyer.getOpis();
+
+        // dohvati broj ulaznica za razmjenu
+        Integer numberOfTickets = ulazniceSeller.size();
+
+        // obavijesti prodavaca da mu je poslan zahtjev za razmjenu
+        emailService.notifyExchangeRequest(buyerEmail, sellerEmail, buyerOpis, sellerOpis, numberOfTickets);
+
     }
 
     public List<Oglas> getExchangeAds(Integer idOglasSeller) {
