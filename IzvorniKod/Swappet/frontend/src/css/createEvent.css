@@ -13,7 +13,7 @@
     border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
-    height: auto; /* Adjust height to auto to allow for content overflow */
+    height: auto;
     padding: 20px;
 }
 
@@ -35,18 +35,20 @@
 .adresa,
 .datum,
 .cijena,
-.opis, .tipUlaznice, .kolicina{
+.opis, .tipUlaznice, .kolicina, .red, .broj, .tipTransakcije{
     font-size: 20px;
     font-weight: bold;
     color: #816898;
-    margin-bottom: 10px; /* Add some spacing between label and input */
+    margin-bottom: 10px; 
 }
 
 .dogadajInput,
 .adresaInput,
 .datumInput,
 .cijenaInput,
-.opisInput, .ticketType, .kolicinaInput {
+.opisInput, .ticketType,
+.kolicinaInput, .redInput,
+.brojInput{
     height: 40px;
     width: 100%;
     border: none;
@@ -84,7 +86,8 @@
     color: #ffffff;
     background-color: #816898;
     transition: background-color 0.3s;
-    margin-top: 20px; /* Add space from the input fields */
+    margin-top: 20px; 
+    margin-left: 40px;
 }
 
 .submit:hover {
@@ -102,8 +105,33 @@
 
 .container1 .adresaInput,
 .container2 .adresaInput {
-    margin-bottom: 20px; /* Adjust margin for clarity */
+    margin-bottom: 20px;
 }
+
+.redInput,
+.brojInput {
+    background-color: #d3d3d3; 
+    pointer-events: none; 
+    color: #555; 
+}
+
+.redInput:enabled,
+.brojInput:enabled {
+    background-color: #ffffff;
+    pointer-events: auto; 
+    color: #000; 
+}
+
+.hidden {
+    display: none;
+}
+
+.redInput,
+.brojInput {
+    transition: all 0.3s ease-in-out;
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

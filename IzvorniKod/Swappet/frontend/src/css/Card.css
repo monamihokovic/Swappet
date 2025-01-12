@@ -67,7 +67,7 @@
     margin-top: 10px;
 }
 
-.opis, .adresa1, .datum1, .cijena1 {
+.opis, .adresa1, .datum1, .cijena1, .red_i_broj{
     font-size: 1.1em;
     color: #65696b;
     margin: 5px 0;

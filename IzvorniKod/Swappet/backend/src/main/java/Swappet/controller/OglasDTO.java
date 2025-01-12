@@ -12,6 +12,7 @@ public class OglasDTO {
     private Integer ticketType; // tip ulaznice
     private Integer broj;
     private Integer red;
+    private Integer transactionType;
     private String email; // email prodavača
     private String tradeDescription; //opis zamjene
 
@@ -133,4 +134,13 @@ public class OglasDTO {
     public void setNumberOfTickets(Integer numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
     }
+
+    public Integer getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(Integer transactionType) {
+        this.transactionType = transactionType;
+    }
+
 }

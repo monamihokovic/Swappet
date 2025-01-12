@@ -24,16 +24,18 @@ const typeMapping = {
 };
 
 const Card = ({ ad, tickets }) => {
-    console.log("Ad details:", ad); // Log the contents of the ad object
+    console.log("Ad details:", ad);
 
     const adType = typeMapping[ad.tipOglas];
     const [user, setUser] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [count, setCount] = useState(1); // Counter state for selected tickets
-    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // State to track transaction
-    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets); // Track available tickets
-    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Track how many tickets have been purchased
+
+    const [count, setCount] = useState(1);
+    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false);
+    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets);
+    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); 
+
 
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";
@@ -162,6 +164,13 @@ const Card = ({ ad, tickets }) => {
                         <FontAwesomeIcon icon={faPlus} />
                     </button>
                 </div>
+
+                {availableTickets === 1 && ad.red > 0 && ad.broj > 0 && (
+                    <div className="red_i_broj">
+                        <span>Red: {ad.red}  </span>
+                        <span>Broj: {ad.broj}</span>
+                    </div>
+                )}
 
                 {/* Buy Button */}
                 <button

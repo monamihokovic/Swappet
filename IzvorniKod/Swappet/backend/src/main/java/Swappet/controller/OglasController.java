@@ -30,7 +30,7 @@ public class OglasController {
     private UserService userService;
 
     //dodavanje oglasa u bazu
-    @PostMapping("")
+    @PostMapping("/add")
     public Oglas addOglas(@RequestBody OglasRequest oglasRequest, @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
             throw new RuntimeException("User not authenticated");

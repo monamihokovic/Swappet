@@ -11,6 +11,8 @@ import StartPage from "./components/StartPage";
 import SelectionPage from "./components/SelectionPage";
 import AdvertisementsPage from "./components/AdvertisementsPage";
 import CreateEvent from "./components/createEvent";
+import AdminOglasi from "./components/AdminOglasi";
+import AdminTransakcije from "./components/AdminTransakcije";
 
 function App() {
     const [, setUserToken] = useState(null); // Manage user token
@@ -74,6 +76,24 @@ function App() {
                     path="/createEvent"
                     element={
                         <CreateEvent
+                            userName={userName}
+                            profilePic={profilePic}
+                        />
+                    }
+                />
+                <Route
+                    path="/admin/oglasi"
+                    element={
+                        <AdminOglasi
+                            userName={userName}
+                            profilePic={profilePic}
+                        />
+                    }
+                />
+                <Route
+                    path="/admin/transakcije"
+                    element={
+                        <AdminTransakcije
                             userName={userName}
                             profilePic={profilePic}
                         />

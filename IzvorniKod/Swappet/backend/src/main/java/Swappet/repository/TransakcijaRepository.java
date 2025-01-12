@@ -13,6 +13,8 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Intege
 
     Transakcija findByIdTransakcija(int id);
 
+
     Transakcija findByUlaznica(Ulaznica ulaznica);
+
 
 }

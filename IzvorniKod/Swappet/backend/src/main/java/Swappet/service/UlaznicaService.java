@@ -27,8 +27,10 @@ public class UlaznicaService {
     @Autowired
     private OglasRepository oglasRepository;
 
+
     @Autowired
     private EmailService emailService;
+
 
     // dohvati sve ulznice
     public List<Ulaznica> getAllUlaznice() {
