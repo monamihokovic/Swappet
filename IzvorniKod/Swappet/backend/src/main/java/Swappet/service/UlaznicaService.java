@@ -27,6 +27,11 @@ public class UlaznicaService {
     @Autowired
     private OglasRepository oglasRepository;
 
+
+    @Autowired
+    private EmailService emailService;
+
+
     // dohvati sve ulznice
     public List<Ulaznica> getAllUlaznice() {
         return ulaznicaRepository.findAll();
@@ -61,6 +66,13 @@ public class UlaznicaService {
             // Spremi u bazu
             jeUkljucenRepository.save(jeUkljucen);
         }
+
+        String sellerEmail = ulaznicaRepository.findById(ticketIds.get(0)).get().getOglas().getKorisnik().getEmail();
+        String opis = ulaznicaRepository.findById(ticketIds.get(0)).get().getOglas().getOpis();
+        Integer numberOfTickets = ticketIds.size();
+
+        // obavijesti prodavaca da je ulaznica prodana
+        emailService.notifyTicketSold(sellerEmail, opis, numberOfTickets);
     }
 
     //razmjena ulaznice
@@ -99,22 +111,44 @@ public class UlaznicaService {
         }
     }
 
-    public void submitExchangeAd(Integer idUlaznica, String opisZamjene) {
-        Ulaznica ulaznica = ulaznicaRepository.findById(idUlaznica)
-                .orElseThrow(() -> new IllegalArgumentException("Ulaznica nije pronađena: " + idUlaznica));
+    public void submitExchangeAd(Integer idOglasBuyer, Integer idOglasSeller) {
+        List<Ulaznica> ulazniceSeller = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
+        List<Ulaznica> ulazniceBuyer = ulaznicaRepository.findUlazniceByOglas(idOglasBuyer);
+        Oglas oglasBuyer = oglasRepository.findByIdOglasId(idOglasBuyer);
+        int index = 0;
 
-        Oglas oglas = ulaznica.getOglas();
+        for (Ulaznica ulaznica : ulazniceSeller) {
+            Transakcija transakcija = new Transakcija();
+            transakcija.setUlaznica(ulaznica);
+            transakcija.setDvPocetak(LocalDateTime.now());
+            transakcija.setUspjesna(0);
+            transakcijaRepository.save(transakcija);
 
-        // Provjera da ulaznica nije označena za prodaju
-        if (oglas.getTipOglas() == 1) { // 1 = za prodaju
-            throw new IllegalStateException("Ulaznica ne može biti označena za prodaju i razmjenu u isto vrijeme.");
+            Integer idTransakcija = transakcijaRepository.findByUlaznica(ulaznica).getIdTransakcija();
+            JeUkljucen jeUkljucen = new JeUkljucen();
+            jeUkljucen.setEmail(oglasBuyer.getKorisnik().getEmail());
+            jeUkljucen.setOdluka(2);
+            jeUkljucen.setIdTransakcija(idTransakcija);
+            jeUkljucenRepository.save(jeUkljucen);
+
+            SeMijenja seMijenja = new SeMijenja();
+            Ulaznica buyer = ulazniceBuyer.get(index);
+            seMijenja.setIdUlaznica(buyer.getIdUlaznica());
+            seMijenja.setIdTransakcija(idTransakcija);
+            seMijenjaRepository.save(seMijenja);
+
+            index++;
         }
 
-        // Ažuriranje polja Oglasa za razmjenu
-        oglas.setTipOglas(2); // Označimo da je oglas za zamjenu
-        oglas.setOpisZamjene(opisZamjene); // Ažuriramo opis razmjene
+    }
 
-        oglasRepository.save(oglas);
+    public List<Oglas> getExchangeAds(Integer idOglasSeller) {
+        Oglas oglas = oglasRepository.findByIdOglasId(idOglasSeller);
+        Integer brojUlaznica = oglas.getAktivan();
+        String opisZamjene = oglas.getOpisZamjene();
+
+        List<Oglas> exchangeAds = oglasRepository.findExchangeAds(brojUlaznica, opisZamjene);
+        return exchangeAds;
     }
 
 }

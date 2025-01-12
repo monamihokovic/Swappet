@@ -30,10 +30,12 @@ const Card = ({ ad, tickets }) => {
     const [user, setUser] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
     const [loading, setLoading] = useState(true);
+
     const [count, setCount] = useState(1);
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false);
     const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets);
     const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); 
+
 
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";

@@ -142,4 +142,5 @@ public class OglasDTO {
     public void setTransactionType(Integer transactionType) {
         this.transactionType = transactionType;
     }
+
 }
