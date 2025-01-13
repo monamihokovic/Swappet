@@ -30,11 +30,7 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/createEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/createEvent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/css/AdvertisementsPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/AdvertisementsPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/css/Card.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/Card.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/css/createEvent.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/createEvent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +174,7 @@
       <workItem from="1736607250790" duration="1249000" />
       <workItem from="1736630392839" duration="3800000" />
       <workItem from="1736635732787" duration="82000" />
-      <workItem from="1736795149504" duration="13245000" />
+      <workItem from="1736795149504" duration="13880000" />
     </task>
     <servers />
   </component>

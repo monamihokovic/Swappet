@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "./Card";
 import "../css/AdminTransakcije.css";
 import axios from "axios";
-
 const defaultProfilePic = "/defaultpfp.jpg";
 
 const AdminTransakcije = ({ profilePic }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
+    const [transactions, setTransactions] = useState([]);
+
 
     // Fetch user info
     useEffect(() => {
@@ -24,6 +24,33 @@ const AdminTransakcije = ({ profilePic }) => {
                 console.error("Error occurred: ", error);
             });
     }, []);
+
+    useEffect(() => {
+        const fetchTransactions= axios.get("http://localhost:8081/admin/transakcije");
+
+        Promise.all([fetchTransactions])
+            .then(([transactionsResponse]) => {
+                setTransactions(transactionsResponse.data);
+                console.log("Fetched transactions:", transactionsResponse.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }, []);
+
+    const uspjesnostTransakcije = (uspjesna) => {
+        switch (uspjesna){
+            case 0:
+                return "Čeka odluku";
+            case 1:
+                return "Uspješna";
+            case -1:
+                return "Neuspješna";
+            default:
+                return uspjesna ? "Nije definirano": "Nije definirano";
+        }
+    }
+
 
 
     return (
@@ -49,16 +76,18 @@ const AdminTransakcije = ({ profilePic }) => {
             </div>
 
             <div className="container">
-   
-
                 <div className="container2">
                     <h2 id="transakcije">Sve transakcije</h2>
                     <div className="transakcije">
-                       
-                        <div className="item">Transakcija 1</div>
-                        <div className="item">Transakcija 2</div>
-                        <div className="item">Transakcija 3</div>
-                        <div className="item">Transakcija 4</div>
+                        {transactions.map((transaction) =>(
+                            <div className="item" key={transaction.idtransakcija}>
+                               <div>ID transakcije: {transaction.idTransakcija}</div>
+                               <div>Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
+                               <div>Početak transakcije: {transaction.dvPocetak}</div>
+                               <div>ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
+                            </div>
+                        ))}
+
                         
                     </div>
                 </div>

@@ -109,12 +109,10 @@ function App() {
                     path="/user/transactions" 
                     element={<UserTransakcije />} 
                  />
-
                 <Route 
                     path="/user/oglasi"
                     element={<UserOglasi />} 
                 />
-
                 <Route
                     path="/myTransactions"
                     element={
@@ -122,7 +120,6 @@ function App() {
                         userName={userName}
                         profilePic={profilePic}/>}
                 />
-
             </Routes>
         </Router>
     );
