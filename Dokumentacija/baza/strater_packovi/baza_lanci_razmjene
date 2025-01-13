@@ -15,3 +15,15 @@ ALTER TABLE IF EXISTS public.transakcija
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
+
+
+/* ako se javi error pokušajete: (ako i nakon toga je error javite se Dominiku Mandiću ili napiste u discord na general)
+ALTER TABLE IF EXISTS public.transakcija
+    ADD COLUMN idNadtransakcija INTEGER;
+ALTER TABLE IF EXISTS public.transakcija
+    ADD CONSTRAINT transakcija_idNadtransakcija_fkey FOREIGN KEY (idNadtransakcija)
+    REFERENCES public.nadtransakcija (idNadtransakcija) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID
+*/
