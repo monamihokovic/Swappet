@@ -141,6 +141,22 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
+    // Je li zamjena ili prodaja
+    const getTicketTradeDescription = (type) => {
+        switch (type){
+            case "0":
+                return "Prodaja";
+            case "1":
+                return "Zamjena";
+            case "2":
+                return "Lanac zamjene";
+            default:
+                return type ? "Nije definirano": "Nije definirano";
+        }
+    }
+
+    
+
     return (
         <div className="card">
             <div className="card-info">
@@ -152,6 +168,12 @@ const Card = ({ ad, tickets }) => {
                 <div className="tip1">Korisnik: {ad.email}</div>
                 <div className="tip1">
                     Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
+                </div>
+                <div className="tip1">
+                    Tip transakcije: {getTicketTradeDescription(ad.type)}
+                </div>
+                <div className={`adresa1 ${ad.type==="1" ? "" : "hidden"}`}>
+                    {ad.tradeDescription}
                 </div>
 
                 {/* Counter Section */}

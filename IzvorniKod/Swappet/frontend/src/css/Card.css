@@ -4,17 +4,17 @@
     min-width: 500px;
     max-width: 95%; /* Restrict card's maximum width */
     flex-grow: 1;
-    margin: 20px;
+    margin: 15px;
     border-radius: 20px;
     display: flex;
     justify-content: space-between; /* Separate content */
     gap: 20px;
     height: auto;
-    max-height: 400px; /* Restrict maximum card height */
+    max-height: 500px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     padding: 20px;
-    overflow: hidden; /* Hide overflowing content */
+    overflow: visible; /* Hide overflowing content */
 }
 
     .card:hover {
@@ -26,11 +26,12 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    overflow: hidden; /* Prevent overflow */
+    overflow: visible; /* Prevent overflow */
+    background-color: transparent;
 }
 
     .card-info div {
-        white-space: nowrap; /* Prevent text from wrapping */
+        white-space: normal; /* Prevent text from wrapping */
         overflow: hidden; /* Hide overflowing text */
         text-overflow: ellipsis; /* Add '...' to indicate overflow */
         margin-bottom: 8px;
@@ -71,9 +72,9 @@
     font-size: 1.1em;
     color: #65696b;
     margin: 5px 0;
-    white-space: nowrap;
+    white-space: normal;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: visible;
 }
 
 @media (max-width: 768px) {
@@ -163,4 +164,8 @@
 .disabled-btn {
     background-color: #b0b0b0;
     cursor: not-allowed;
+}
+
+.hidden {
+    display: none;
 }

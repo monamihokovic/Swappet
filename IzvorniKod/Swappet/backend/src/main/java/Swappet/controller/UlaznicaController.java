@@ -57,7 +57,7 @@ public class UlaznicaController {
         return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
     }
 
-    @PostMapping("/razmjena")
+    @PostMapping("/razmjene")
     public ResponseEntity<List<Oglas>> retrieveExchangeAds(@RequestParam Integer idOglasSeller) {
         List<Oglas> exchangeAds = ulaznicaService.getExchangeAds(idOglasSeller);
         return ResponseEntity.ok(exchangeAds);

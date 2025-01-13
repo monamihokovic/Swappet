@@ -126,7 +126,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     Dodaj događaj
                 </button>
 
-                {user && user.email === "ivrodak@gmail.com" && (
+                {user && user.email === "majcik.b@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
