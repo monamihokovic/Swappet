@@ -13,6 +13,10 @@ import AdvertisementsPage from "./components/AdvertisementsPage";
 import CreateEvent from "./components/createEvent";
 import AdminOglasi from "./components/AdminOglasi";
 import AdminTransakcije from "./components/AdminTransakcije";
+import UserTransakcije from "./components/UserTransakcije";
+import UserOglasi from "./components/UserOglasi";
+import TransactionPage from "./components/TransactionPage";
+
 
 function App() {
     const [, setUserToken] = useState(null); // Manage user token
@@ -23,7 +27,7 @@ function App() {
     const handleLogin = async (token) => {
         setUserToken(token); // Store the token in the state
         const decoded = jwtDecode(token); // Call the jwtDecode function
-        setUserName(decoded.name || decoded.email || ""); // Extract username or email
+        setUserName(decoded.email || ""); // Extract username or email
         console.log(sessionStorage.getItem("userEmail"));
         console.log("User logged in with token:", token);
 
@@ -32,7 +36,7 @@ function App() {
                 "https://www.googleapis.com/oauth2/v3/userinfo",
                 {
                     headers: {
-                        Authorization: `Bearrer ${token}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
@@ -54,6 +58,8 @@ function App() {
 
         return <StartPage onLogin={onLogin} />;
     };
+
+    
 
     return (
         <Router>
@@ -99,6 +105,24 @@ function App() {
                         />
                     }
                 />
+                <Route
+                    path="/user/transactions" 
+                    element={<UserTransakcije />} 
+                 />
+
+                <Route 
+                    path="/user/oglasi"
+                    element={<UserOglasi />} 
+                />
+
+                <Route
+                    path="/myTransactions"
+                    element={
+                    <TransactionPage
+                        userName={userName}
+                        profilePic={profilePic}/>}
+                />
+
             </Routes>
         </Router>
     );

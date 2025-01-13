@@ -30,7 +30,7 @@ public class OglasController {
     private UserService userService;
 
     //dodavanje oglasa u bazu
-    @PostMapping("")
+    @PostMapping("/add")
     public Oglas addOglas(@RequestBody OglasRequest oglasRequest, @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
             throw new RuntimeException("User not authenticated");
@@ -60,7 +60,7 @@ public class OglasController {
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
         Integer ticketType = oglasRequest.getTicketType();
-        Integer transactionType = oglasRequest.getTransactionType();
+        Integer transactionType = oglasRequest.getType();
         String tradeDescription = oglasRequest.getTradeDescription();
         Integer red = oglasRequest.getRed();
         Integer broj = oglasRequest.getBroj();

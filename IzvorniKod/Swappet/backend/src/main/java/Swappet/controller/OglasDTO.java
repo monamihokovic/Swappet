@@ -4,12 +4,12 @@ public class OglasDTO {
 
     private int id;  // idOglas iz Oglasa
     private String description;  // opis iz Oglasa
-    private String type;  // tipOglas iz Oglasa
+    private String type;  //tip transakcije -> prodaja, zamjena, lanac
     private Double price;  // cijena iz Ulaznice
     private String address;  // combination ulice i grada iz Oglasa
     private String date;  // datum iz Oglasa
     private Integer numberOfTickets; // broj ulaznica
-    private Integer ticketType; // tip ulaznice
+    private Integer ticketType; // tip ulaznice -> obična, VIP, druženje sa zvijezdom
     private Integer broj;
     private Integer red;
     private String email; // email prodavača
@@ -133,4 +133,5 @@ public class OglasDTO {
     public void setNumberOfTickets(Integer numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
     }
+
 }

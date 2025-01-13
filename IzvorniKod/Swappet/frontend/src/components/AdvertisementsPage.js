@@ -15,6 +15,8 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [ulaznice, setUlaznice] = useState([]); // List of tickets
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); 
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
 
     // Fetch user information
     useEffect(() => {
@@ -80,16 +82,19 @@ const AdvertisementsPage = ({ profilePic }) => {
             return priceFilter && categoryFilter;
         });
 
-    // Now connect filtered tickets with corresponding ads based on idOglas
+   
     const filteredAdsWithTickets = ads
         .map((ad) => {
-            // Find matching tickets for the current ad
+            
             const associatedTickets = filteredTickets.filter(
-                (ticket) => ticket.oglas.idOglas === ad.id // Match tickets with ad by idOglas
+                (ticket) => ticket.oglas.idOglas === ad.id
             );
-            return { ...ad, tickets: associatedTickets }; // Combine ad with its tickets
+            return { ...ad, tickets: associatedTickets };
         })
-        .filter((adWithTickets) => adWithTickets.tickets.length > 0); // Only include ads with tickets
+        .filter((adWithTickets) => adWithTickets.tickets.length > 0);
+
+    const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen); 
+    const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
     return (
         <div className="advertisements-page">
@@ -121,9 +126,68 @@ const AdvertisementsPage = ({ profilePic }) => {
                     disabled={!user}
                 >
                     Dodaj događaj
+                    
                 </button>
 
-                <div className="logo">
+                <button
+                    className={user ? "user" : "user hidden"}
+                    onClick={toggleUserMenu}
+                >
+                    User usluge
+                </button>
+
+                {user && user.email === "ivrodak@gmail.com" && (
+                    <button
+                        className="admin"
+                        onClick={toggleAdminMenu} // Toggle admin menu
+                    >
+                        Admin usluge
+                    </button>
+                )}
+
+                {isUserMenuOpen &&(
+                    <div className="user-menu">
+                        <button
+                         className="user-option"
+                         onClick={()=>navigate(`/user/oglasi`)}>
+                            Pregledaj svoje oglase
+                        </button>
+                        <button
+                         className="user-option"
+                         onClick={()=>navigate(`/user/transactions`)}>
+                            Pregledaj svoje transakcije
+                        </button>
+
+
+                    </div>
+                )}
+
+                <button
+                    className={user ? "createEvent" : "createEvent hidden"}
+                    onClick={() => navigate("/myTransactions")}
+                    disabled={!user}
+                >
+                    Moje razmjene
+            </button>
+
+                {isAdminMenuOpen && (
+                    <div className="admin-menu">
+                        <button
+                            className="admin-option"
+                            onClick={() => navigate("/admin/oglasi")}
+                        >
+                            Pregledaj oglase
+                        </button>
+                        <button
+                            className="admin-option"
+                            onClick={() => navigate("/admin/transakcije")}
+                        >
+                            Pregledaj transakcije
+                        </button>
+                    </div>
+                )}
+
+                <div className="logo" onClick={() => navigate("/")}>
                     S<span id="usklicnik">!</span>
                 </div>
             </div>

@@ -10,4 +10,6 @@ public interface SeMijenjaRepository extends JpaRepository<SeMijenja, SeMijenjaI
 
     SeMijenja findByIdUlaznica(Integer idUlaznica);
 
+    SeMijenja findByIdTransakcija(Integer idTransakcija);
+
 }

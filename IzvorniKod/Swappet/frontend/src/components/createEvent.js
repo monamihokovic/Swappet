@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/createEvent.css";
 import axios from "axios";
-import { FaSearch } from "react-icons/fa";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
@@ -18,13 +17,20 @@ const CreateEvent = ({ userName, profilePic }) => {
         street: "",
         houseNumber: "",
         city: "",
-        numberOfTickets: "", // Količina ulaznica
-        ticketType: "", // Tip ulaznice
+        numberOfTickets: "",
+        ticketType: "",
+        type: "", // tip transakcije
+        tradeDescription: "", //opis zamjene
+        red: -1,
+        broj: -1
+        
     });
+
+    const [isSeatSelectionDisabled, setSeatSelectionDisabled] = useState(true);
 
     const navigate = useNavigate();
 
-    // Category mapping from name to categoryId
+    // Mapa kategorija
     const categoryMapping = {
         Koncerti: 1,
         Izložbe: 2,
@@ -37,7 +43,7 @@ const CreateEvent = ({ userName, profilePic }) => {
         Ostalo: 9,
     };
 
-    // Fetch user info
+    // Dohvati korisničke informacije
     useEffect(() => {
         axios
             .get("http://localhost:8081/user-info", {
@@ -49,38 +55,52 @@ const CreateEvent = ({ userName, profilePic }) => {
             .catch((error) => {
                 console.error("Error occurred: ", error);
             });
-    }, []); // Ensure the effect only runs once when the component is mounted
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEventDetails((prevDetails) => ({
-            ...prevDetails,
-            [name]: value,
-        }));
+        setEventDetails((prevDetails) => {
+            const updatedDetails = { ...prevDetails, [name]: value };
+
+            // Provjera promjene za "numberOfTickets"
+            if (name === "numberOfTickets") {
+                if (value === "1") {
+                    setSeatSelectionDisabled(false);
+                    updatedDetails.red = 0;
+                    updatedDetails.broj = 0;
+                } else {
+                    setSeatSelectionDisabled(true);
+                    updatedDetails.red = -1;
+                    updatedDetails.broj = -1;
+                }
+            }
+
+            return updatedDetails;
+        });
     };
 
     const handleCategoryChange = (e) => {
         setEventDetails((prevDetails) => ({
             ...prevDetails,
-            category: categoryMapping[e.target.value], // Map category name to ID
+            category: categoryMapping[e.target.value],
         }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Add default time if date is provided in yyyy-MM-dd format
+        // Priprema datuma
         let date = eventDetails.date;
         let time = eventDetails.time;
         if (date) {
             if (time) {
-                date = `${date}T${time}`; // Append the selected time
+                date = `${date}T${time}`;
             } else {
-                date = `${date}T12:00:00`; // Default time
+                date = `${date}T12:00:00`;
             }
         }
 
-        // Prepare event data including number of tickets and ticket type
+        // Priprema podataka
         const eventData = {
             description: eventDetails.description,
             categoryId: eventDetails.category,
@@ -89,31 +109,36 @@ const CreateEvent = ({ userName, profilePic }) => {
             houseNumber: eventDetails.houseNumber,
             city: eventDetails.city,
             date: date,
-            email: user?.email, // Include user email
-            numberOfTickets: eventDetails.numberOfTickets, // Include number of tickets
-            ticketType: eventDetails.ticketType, // Include ticket type
+            email: user?.email,
+            numberOfTickets: eventDetails.numberOfTickets,
+            ticketType: eventDetails.ticketType,
+            type: eventDetails.type,
+            tradeDescription: eventDetails.tradeDescription,
+            red: eventDetails.red,
+            broj: eventDetails.broj,
         };
 
-        // Send event data to backend
+        // Slanje podataka na backend
         axios
-            .post("http://localhost:8081/oglas", eventData, {
+            .post("http://localhost:8081/oglas/add", eventData, {
                 withCredentials: true,
                 headers: {
-                    "Content-Type": "application/json", // Ensure correct content type
+                    "Content-Type": "application/json",
                 },
             })
             .then((response) => {
                 console.log("Event created successfully:", response.data);
-                navigate("/selection"); // Redirect after successful event creation
+                navigate("/selection");
             })
             .catch((error) => {
-                // Log detailed error response
                 console.error(
                     "Error creating event:",
                     error.response ? error.response.data : error.message
                 );
             });
     };
+    const isSingleTicket = eventDetails.numberOfTickets === "1";
+    const isZamjena = eventDetails.type==="2";
 
     return (
         <div className="create-event">
@@ -127,13 +152,13 @@ const CreateEvent = ({ userName, profilePic }) => {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    {/* Add conditional rendering to avoid errors */}
-                    <div className="username">
+                    <div className="username" onClick={() => navigate("/advertisements")}>
                         {user ? user.name : "Loading..."}
+                        
                     </div>
                 </div>
 
-                <div className="logo">
+                <div className="logo" onClick={() => navigate("/")}>
                     S<span id="usklicnik">!</span>
                 </div>
             </div>
@@ -142,7 +167,7 @@ const CreateEvent = ({ userName, profilePic }) => {
                 <h1 className="noviDog">Stvori novi događaj:</h1>
                 <div className="container1">
                     <div className="kategorija">Kategorija:</div>
-                    {[ "Koncerti", "Izložbe", "Predstave", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo" ]
+                    {["Koncerti", "Izložbe", "Predstave", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo"]
                         .map((category) => (
                             <label className="kategorijaInput" key={category}>
                                 <input
@@ -183,12 +208,62 @@ const CreateEvent = ({ userName, profilePic }) => {
                         placeholder="Unesi cijenu karte"
                         required
                     />
-                     <input
+                    <div className={`red ${isSingleTicket ? "" : "hidden"}`}>Red:</div>
+                    <input
+                        className={`redInput ${isSingleTicket ? "" : "hidden"}`}
+                        type="number"
+                        name="red"
+                        value={eventDetails.red}
+                        onChange={handleInputChange}
+                        disabled={isSeatSelectionDisabled}
+                    />
+                    <div className={`broj ${isSingleTicket ? "" : "hidden"}`}>Broj:</div>
+                    <input
+                        className={`brojInput ${isSingleTicket ? "" : "hidden"}`}
+                        type="number"
+                        name="broj"
+                        value={eventDetails.broj}
+                        onChange={handleInputChange}
+                        disabled={isSeatSelectionDisabled}
+                    />
+                    <div className="tipTransakcije">Tip transakcije:</div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="type"
+                            value="0"
+                            onChange={handleInputChange}
+                            required
+                            className="tipTransakcijeInput"
+                        />
+                        Prodaja
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="type"
+                            value="1"
+                            onChange={handleInputChange}
+                            required
+                            className="tipTransakcijeInput"
+                        />
+                        Zamjena
+                    </label>
+                    <div className={`opisZamjene ${isZamjena ? "" : "hidden"}`}>Opis zamjene:</div>
+                    <input
+                        className={`opisInput ${isZamjena ? "" : "hidden"}`}
+                        type="text"
+                        name="tradeDescription"
+                        value={eventDetails.tradeDescription}
+                        onChange={handleInputChange}
+                        placeholder="Opiši zamjenu karata!"
+                    />
+
+                    <input
                         className="submit"
                         type="submit"
                         value="Kreiraj događaj!"
                     />
-                    
                 </div>
                 <div className="container2">
                     <div className="opis">Opis događaja:</div>
@@ -198,7 +273,7 @@ const CreateEvent = ({ userName, profilePic }) => {
                         name="description"
                         value={eventDetails.description}
                         onChange={handleInputChange}
-                        placeholder="Opiši događaj..."
+                        placeholder="Opiši događaj sa što više detalja!"
                     />
                     <div className="adresa">Ulica događaja:</div>
                     <input
@@ -253,7 +328,6 @@ const CreateEvent = ({ userName, profilePic }) => {
                         <option value="2">VIP</option>
                         <option value="3">Druženje sa zvijezdom</option>
                     </select>
-                   
                 </div>
             </form>
         </div>
@@ -261,4 +335,6 @@ const CreateEvent = ({ userName, profilePic }) => {
 };
 
 export default CreateEvent;
+
+
 

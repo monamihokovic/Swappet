@@ -13,5 +13,8 @@ public interface JeUkljucenRepository extends JpaRepository<JeUkljucen, JeUkljuc
 
     JeUkljucen findByIdTransakcija(Integer idTransakcija);
 
-    List<JeUkljucen> findByEmail(Korisnik korisnik);
+    List<JeUkljucen> findByEmail(String email);
+
 }
+
+

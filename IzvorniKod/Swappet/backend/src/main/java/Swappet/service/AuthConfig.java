@@ -22,10 +22,11 @@ public class AuthConfig extends DefaultOAuth2UserService {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        //na ove rute može doći i neregistrirani korisnik
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                                "/homepage/advertisements", "/oglas", "/user-info", "/ulaznica", 
-                                "/ulaznica/all", "/ulaznica/kupnja").permitAll()
+                                "/homepage/advertisements", "/oglas", "/user-info", "/ulaznica",
+                                "/ulaznica/all", "/ulaznica/kupnja", "/admin", "/admin/oglasi",
+                                "/admin/transakcije", "/oglas/add", "/user/**", "/ulaznica/razmjene"
+                                , "/ulaznica/podnesi-razmjenu").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2login -> oauth2login
@@ -53,7 +54,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
         int id = Integer.parseInt(idlong.substring(idlong.length() - 7));
 
         //provjera i spremanje korisnika u bazu
-        if(userRepository.findByEmail(email) == null) {
+        if (userRepository.findByEmail(email) == null) {
             Korisnik user = new Korisnik(id, email, username);
             System.out.println(user.getUsername());
             System.out.println(user.getIdKorisnik());

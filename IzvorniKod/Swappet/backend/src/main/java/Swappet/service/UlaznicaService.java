@@ -27,8 +27,12 @@ public class UlaznicaService {
     @Autowired
     private OglasRepository oglasRepository;
 
+
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private KorisnikRepository korisnikRepository;
+
 
     // dohvati sve ulznice
     public List<Ulaznica> getAllUlaznice() {
@@ -84,24 +88,19 @@ public class UlaznicaService {
 //    }
 
     // Razmjena ulaznica
-    public void tradeConfirmation(List<Integer> sellerTicketIds, List<Integer> buyerTicketIds, int decision) {
-        // Provjera je li broj ulaznica jednak
-        if (sellerTicketIds.size() != buyerTicketIds.size()) {
-            throw new IllegalArgumentException("Zamjena ulaznica mora uključivati jednak broj ulaznica.");
+    public void tradeConfirmation(Integer idOglasSeller, Integer idOglasBuyer, Integer amount, int decision) {
+        List<Ulaznica> sellerTickets = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
+        Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
+
+        // Provjera je li prodavateljev oglas označen za zamjenu
+        if (sellerOglas.getTipOglas() != 1) {
+            throw new IllegalArgumentException("Ulaznica nije označena za zamjenu.");
         }
 
-        for (Integer sellerTicketId : sellerTicketIds) {
-            Ulaznica sellerTicket = ulaznicaRepository.findById(sellerTicketId)
-                    .orElseThrow(() -> new IllegalArgumentException("Prodavatelj ulaznice nije pronađen: " + sellerTicketId));
+        for (int i = 0; i < amount; i++) {
 
-            Oglas sellerOglas = sellerTicket.getOglas();
-
-            // Provjera je li prodavateljev oglas označen za zamjenu
-            if (sellerOglas.getTipOglas() != 2) {
-                throw new IllegalArgumentException("Ulaznica nije označena za zamjenu.");
-            }
-
-            Integer transactionId = seMijenjaRepository.findByIdUlaznica(sellerTicketId).getIdTransakcija();
+            Ulaznica sellerTicket = sellerTickets.get(i);
+            Integer transactionId = seMijenjaRepository.findByIdUlaznica(sellerTicket.getIdUlaznica()).getIdTransakcija();
 
             JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transactionId);
             jeUkljucen.setOdluka(decision);
@@ -109,13 +108,15 @@ public class UlaznicaService {
         }
     }
 
-    public void submitExchangeAd(Integer idOglasBuyer, Integer idOglasSeller) {
+    public void submitExchangeAd(Integer idOglasSeller, Integer idOglasBuyer, Integer amount) {
         List<Ulaznica> ulazniceSeller = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
         List<Ulaznica> ulazniceBuyer = ulaznicaRepository.findUlazniceByOglas(idOglasBuyer);
-        Oglas oglasBuyer = oglasRepository.findByIdOglasId(idOglasBuyer);
-        int index = 0;
+        Oglas oglasBuyer = oglasRepository.findByIdOglas(idOglasBuyer);
+        //System.out.println(amount);
 
-        for (Ulaznica ulaznica : ulazniceSeller) {
+        for (int i = 0; i < amount; i++) {
+            Ulaznica ulaznica = ulazniceSeller.get(i);
+
             Transakcija transakcija = new Transakcija();
             transakcija.setUlaznica(ulaznica);
             transakcija.setDvPocetak(LocalDateTime.now());
@@ -130,22 +131,33 @@ public class UlaznicaService {
             jeUkljucenRepository.save(jeUkljucen);
 
             SeMijenja seMijenja = new SeMijenja();
-            Ulaznica buyer = ulazniceBuyer.get(index);
+            Ulaznica buyer = ulazniceBuyer.get(i);
             seMijenja.setIdUlaznica(buyer.getIdUlaznica());
             seMijenja.setIdTransakcija(idTransakcija);
             seMijenjaRepository.save(seMijenja);
 
-            index++;
         }
+
+        // dohvati podatke o prodavacu
+        Oglas oglasSeller = ulazniceSeller.get(0).getOglas();
+        String sellerEmail = oglasSeller.getKorisnik().getEmail();
+        String sellerOpis = oglasSeller.getOpis();
+
+        // dohvati podatke o kupcu (inicijatoru razmjene)
+        String buyerEmail = oglasBuyer.getKorisnik().getEmail();
+        String buyerOpis = oglasBuyer.getOpis();
+
+        // dohvati broj ulaznica za razmjenu
+        Integer numberOfTickets = amount;
+
+        // obavijesti prodavaca da mu je poslan zahtjev za razmjenu
+        emailService.notifyExchangeRequest(buyerEmail, sellerEmail, buyerOpis, sellerOpis, numberOfTickets);
 
     }
 
-    public List<Oglas> getExchangeAds(Integer idOglasSeller) {
-        Oglas oglas = oglasRepository.findByIdOglasId(idOglasSeller);
-        Integer brojUlaznica = oglas.getAktivan();
-        String opisZamjene = oglas.getOpisZamjene();
-
-        List<Oglas> exchangeAds = oglasRepository.findExchangeAds(brojUlaznica, opisZamjene);
+    public List<Oglas> getExchangeAds(String mail) {
+        Korisnik korisnik = korisnikRepository.findByEmail(mail);
+        List<Oglas> exchangeAds = oglasRepository.findTradesForUser(korisnik);
         return exchangeAds;
     }
 
