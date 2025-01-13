@@ -20,8 +20,10 @@ const CreateEvent = ({ userName, profilePic }) => {
         numberOfTickets: "",
         ticketType: "",
         type: "", // tip transakcije
+        tradeDescription: "", //opis zamjene
         red: -1,
         broj: -1
+        
     });
 
     const [isSeatSelectionDisabled, setSeatSelectionDisabled] = useState(true);
@@ -111,13 +113,14 @@ const CreateEvent = ({ userName, profilePic }) => {
             numberOfTickets: eventDetails.numberOfTickets,
             ticketType: eventDetails.ticketType,
             type: eventDetails.type,
+            tradeDescription: eventDetails.tradeDescription,
             red: eventDetails.red,
             broj: eventDetails.broj,
         };
 
         // Slanje podataka na backend
         axios
-            .post("http://localhost:8081/oglas", eventData, {
+            .post("http://localhost:8081/oglas/add", eventData, {
                 withCredentials: true,
                 headers: {
                     "Content-Type": "application/json",
@@ -135,6 +138,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             });
     };
     const isSingleTicket = eventDetails.numberOfTickets === "1";
+    const isZamjena = eventDetails.type==="2";
 
     return (
         <div className="create-event">
@@ -227,7 +231,7 @@ const CreateEvent = ({ userName, profilePic }) => {
                         <input
                             type="radio"
                             name="type"
-                            value="1"
+                            value="0"
                             onChange={handleInputChange}
                             required
                             className="tipTransakcijeInput"
@@ -238,13 +242,23 @@ const CreateEvent = ({ userName, profilePic }) => {
                         <input
                             type="radio"
                             name="type"
-                            value="2"
+                            value="1"
                             onChange={handleInputChange}
                             required
                             className="tipTransakcijeInput"
                         />
                         Zamjena
                     </label>
+                    <div className={`opisZamjene ${isZamjena ? "" : "hidden"}`}>Opis zamjene:</div>
+                    <input
+                        className={`opisInput ${isZamjena ? "" : "hidden"}`}
+                        type="text"
+                        name="tradeDescription"
+                        value={eventDetails.tradeDescription}
+                        onChange={handleInputChange}
+                        placeholder="Opiši zamjenu karata!"
+                    />
+
                     <input
                         className="submit"
                         type="submit"

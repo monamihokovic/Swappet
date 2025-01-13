@@ -13,7 +13,7 @@ import java.util.List;
 public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     //List<Oglas> findOglasByTipOglasIn(@Param("categories") List<Integer> categories); - stara verzija
 
-    Oglas findByIdOglasId(Integer id);
+    Oglas findByIdOglas(Integer id);
 
     // nova verzija - šalje upit za spajanje Oglasa i Ulaznice za dobivanje podataka o idoglas i cijena
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas WHERE o.tipOglas IN :categories AND o.aktivan > 0")

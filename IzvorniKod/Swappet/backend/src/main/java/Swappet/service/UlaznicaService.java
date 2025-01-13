@@ -114,7 +114,7 @@ public class UlaznicaService {
     public void submitExchangeAd(Integer idOglasBuyer, Integer idOglasSeller) {
         List<Ulaznica> ulazniceSeller = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
         List<Ulaznica> ulazniceBuyer = ulaznicaRepository.findUlazniceByOglas(idOglasBuyer);
-        Oglas oglasBuyer = oglasRepository.findByIdOglasId(idOglasBuyer);
+        Oglas oglasBuyer = oglasRepository.findByIdOglas(idOglasBuyer);
         int index = 0;
 
         for (Ulaznica ulaznica : ulazniceSeller) {
@@ -158,7 +158,7 @@ public class UlaznicaService {
     }
 
     public List<Oglas> getExchangeAds(Integer idOglasSeller) {
-        Oglas oglas = oglasRepository.findByIdOglasId(idOglasSeller);
+        Oglas oglas = oglasRepository.findByIdOglas(idOglasSeller);
         Integer brojUlaznica = oglas.getAktivan();
         String opisZamjene = oglas.getOpisZamjene();
 

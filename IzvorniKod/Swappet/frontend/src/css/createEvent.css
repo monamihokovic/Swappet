@@ -35,7 +35,13 @@
 .adresa,
 .datum,
 .cijena,
-.opis, .tipUlaznice, .kolicina, .red, .broj, .tipTransakcije{
+.opis,
+ .tipUlaznice, 
+ .kolicina, 
+ .red, 
+ .broj, 
+ .tipTransakcije,
+ .opisZamjene{
     font-size: 20px;
     font-weight: bold;
     color: #816898;
