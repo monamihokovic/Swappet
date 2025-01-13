@@ -34,8 +34,8 @@ public class UserService {
 
     //upit u bazu za transakcije u kojima je sudjelovao korisnik
     public List<Transakcija> getUserTransactions(String email) {
-        Korisnik korisnik = korisnikRepository.findByEmail(email);
-        List<JeUkljucen> ids = jeUkljucenRepository.findByEmail(korisnik);
+//        Korisnik korisnik = korisnikRepository.findByEmail(email);
+        List<JeUkljucen> ids = jeUkljucenRepository.findByEmail(email);
         List<Transakcija> transakcije = new ArrayList<>();
 
         for (JeUkljucen jeUkljucen : ids) {

@@ -98,11 +98,11 @@ public class OglasRequest {
         this.ticketType = ticketType;
     }
 
-    public Integer getTransactionType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setTransactionType(Integer transactionType) {
+    public void setType(Integer transactionType) {
         this.type = transactionType;
     }
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
-import "../css/AdminOglasi.css";
+import "../css/UserOglasi.css";
 import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const AdminOglasi = ({ profilePic }) => {
+const UserOglasi = ({ profilePic }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
@@ -28,7 +28,7 @@ const AdminOglasi = ({ profilePic }) => {
     }, []);
 
     useEffect(() => {
-        const fetchAds = axios.get("http://localhost:8081/admin/oglasi");
+        const fetchAds = axios.get("http://localhost:8081/homepage/advertisements");
         const fetchTickets = axios.get("http://localhost:8081/ulaznica/all");
 
         Promise.all([fetchAds, fetchTickets])
@@ -90,4 +90,4 @@ const AdminOglasi = ({ profilePic }) => {
     );
 };
 
-export default AdminOglasi;
+export default UserOglasi;

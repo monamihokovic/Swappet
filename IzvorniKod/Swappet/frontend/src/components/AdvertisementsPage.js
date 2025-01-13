@@ -15,7 +15,8 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [ulaznice, setUlaznice] = useState([]); // List of tickets
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); // State to toggle admin menu
+    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); 
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
 
     // Fetch user information
     useEffect(() => {
@@ -93,6 +94,7 @@ const AdvertisementsPage = ({ profilePic }) => {
         .filter((adWithTickets) => adWithTickets.tickets.length > 0);
 
     const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen); 
+    const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
     return (
         <div className="advertisements-page">
@@ -124,9 +126,17 @@ const AdvertisementsPage = ({ profilePic }) => {
                     disabled={!user}
                 >
                     Dodaj događaj
+                    
                 </button>
 
-                {user && user.email === "majcik.b@gmail.com" && (
+                <button
+                    className={user ? "user" : "user hidden"}
+                    onClick={toggleUserMenu}
+                >
+                    User usluge
+                </button>
+
+                {user && user.email === "ivrodak@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
@@ -134,6 +144,31 @@ const AdvertisementsPage = ({ profilePic }) => {
                         Admin usluge
                     </button>
                 )}
+
+                {isUserMenuOpen &&(
+                    <div className="user-menu">
+                        <button
+                         className="user-option"
+                         onClick={()=>navigate(`/user/oglasi`)}>
+                            Pregledaj svoje oglase
+                        </button>
+                        <button
+                         className="user-option"
+                         onClick={()=>navigate(`/user/transactions`)}>
+                            Pregledaj svoje transakcije
+                        </button>
+
+
+                    </div>
+                )}
+
+                <button
+                    className={user ? "createEvent" : "createEvent hidden"}
+                    onClick={() => navigate("/myTransactions")}
+                    disabled={!user}
+                >
+                    Moje razmjene
+            </button>
 
                 {isAdminMenuOpen && (
                     <div className="admin-menu">
@@ -225,4 +260,3 @@ const AdvertisementsPage = ({ profilePic }) => {
 };
 
 export default AdvertisementsPage;
-

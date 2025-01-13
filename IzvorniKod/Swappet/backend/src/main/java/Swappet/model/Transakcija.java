@@ -22,30 +22,25 @@ public class Transakcija {
     @ManyToOne
     @JoinColumn(name = "idulaznica", nullable = false)
     private Ulaznica ulaznica;
-
-    // novo dodadno
+    
     @ManyToOne(optional = true)
     @JoinColumn(name = "idnadtransakcija", referencedColumnName = "idnadtransakcija")
     private Nadtransakcija nadtransakcija;
-    // kraj novo
 
-    /*
-    stari
+
     public Transakcija(Integer uspjesna, Ulaznica ulaznica, LocalDateTime dvPocetak) {
         this.uspjesna = uspjesna;
         this.ulaznica = ulaznica;
         this.dvPocetak = dvPocetak;
     }
-     */
 
-    // Konstruktor s parametrima novi
     public Transakcija(Integer uspjesna, Ulaznica ulaznica, LocalDateTime dvPocetak, Nadtransakcija nadtransakcija) {
         this.uspjesna = uspjesna;
         this.ulaznica = ulaznica;
         this.dvPocetak = dvPocetak;
         this.nadtransakcija = nadtransakcija;
     }
-    // kraj novo
+
 
     public Transakcija() {
     }
@@ -78,7 +73,6 @@ public class Transakcija {
         return idTransakcija;
     }
 
-    // novo
     public Nadtransakcija getNadtransakcija() {
         return nadtransakcija;
     }
@@ -86,6 +80,5 @@ public class Transakcija {
     public void setNadtransakcija(Nadtransakcija nadtransakcija) {
         this.nadtransakcija = nadtransakcija;
     }
-    // kraj novo
 
 }

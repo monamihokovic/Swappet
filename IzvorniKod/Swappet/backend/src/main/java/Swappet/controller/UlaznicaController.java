@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/ulaznica")
@@ -24,11 +25,11 @@ public class UlaznicaController {
     }
 
     // Fetch a specific Ulaznica by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Ulaznica> getUlaznicaById(@PathVariable Integer id) {
-        Ulaznica ulaznica = ulaznicaService.getUlaznicaById(id);
-        return ulaznica != null ? ResponseEntity.ok(ulaznica) : ResponseEntity.notFound().build();
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Ulaznica> getUlaznicaById(@PathVariable Integer id) {
+//        Ulaznica ulaznica = ulaznicaService.getUlaznicaById(id);
+//        return ulaznica != null ? ResponseEntity.ok(ulaznica) : ResponseEntity.notFound().build();
+//    }
 
     // Kupnja ulaznica (1 ili više)
     @PostMapping("/kupnja")
@@ -37,13 +38,16 @@ public class UlaznicaController {
         return ResponseEntity.ok("Ulaznica/e uspješno kupljena/e.");
     }
 
+    //potvrda razmjene
     @PostMapping("/razmjena")
     public ResponseEntity<String> confirmTrade(@RequestBody TradePurchaseRequest request) {
         ulaznicaService.tradeConfirmation(
-                request.getSellerTickerIds(),
-                request.getBuyerTickerIds(),
+                request.getSellerId(),
+                request.getBuyerId(),
+                request.getAmount(),
                 request.getDecision()
         );
+
         if (request.getDecision() == 1) {
             return ResponseEntity.ok("Ulaznica/e uspješno razmjenjene");
         } else {
@@ -51,15 +55,21 @@ public class UlaznicaController {
         }
     }
 
+    //obrada zahtjeva za razmjenu
     @PostMapping("/podnesi-razmjenu")
-    public ResponseEntity<String> submitExchangeAd(@RequestParam Integer idOglasBuyer, @RequestParam Integer idOglasSeller) {
-        ulaznicaService.submitExchangeAd(idOglasBuyer, idOglasSeller);
+    public ResponseEntity<String> submitExchangeAd(@RequestBody Map<String, Integer> payload) {
+        Integer sellerId = payload.get("sellerAd");
+        Integer buyerId = payload.get("buyerAd");
+        Integer amount = payload.get("count");
+        System.out.println(amount);
+        ulaznicaService.submitExchangeAd(sellerId, buyerId, amount);
         return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
     }
 
     @PostMapping("/razmjene")
-    public ResponseEntity<List<Oglas>> retrieveExchangeAds(@RequestParam Integer idOglasSeller) {
-        List<Oglas> exchangeAds = ulaznicaService.getExchangeAds(idOglasSeller);
+    public ResponseEntity<List<Oglas>> retrieveExchangeAds(@RequestBody Map<String, String> payload) {
+        String mail = payload.get("mail");
+        List<Oglas> exchangeAds = ulaznicaService.getExchangeAds(mail);
         return ResponseEntity.ok(exchangeAds);
     }
 }

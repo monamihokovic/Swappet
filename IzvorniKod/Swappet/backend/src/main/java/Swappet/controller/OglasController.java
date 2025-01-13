@@ -60,7 +60,7 @@ public class OglasController {
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
         Integer ticketType = oglasRequest.getTicketType();
-        Integer transactionType = oglasRequest.getTransactionType();
+        Integer transactionType = oglasRequest.getType();
         String tradeDescription = oglasRequest.getTradeDescription();
         Integer red = oglasRequest.getRed();
         Integer broj = oglasRequest.getBroj();

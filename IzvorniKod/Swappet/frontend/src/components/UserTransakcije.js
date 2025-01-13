@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "./Card";
-import "../css/AdminOglasi.css";
+import "../css/AdminTransakcije.css";
 import axios from "axios";
-
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const AdminOglasi = ({ profilePic }) => {
+const UserTransakcije = ({ profilePic }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
-    const [ads, setAds] = useState([]);
-    const [ulaznice, setUlaznice] = useState([]);
+    const [transactions, setTransactions] = useState([]);
+
 
     // Fetch user info
     useEffect(() => {
@@ -28,21 +26,32 @@ const AdminOglasi = ({ profilePic }) => {
     }, []);
 
     useEffect(() => {
-        const fetchAds = axios.get("http://localhost:8081/admin/oglasi");
-        const fetchTickets = axios.get("http://localhost:8081/ulaznica/all");
+        const fetchTransactions= axios.get("http://localhost:8081/admin/transakcije");
 
-        Promise.all([fetchAds, fetchTickets])
-            .then(([adsResponse, ticketsResponse]) => {
-                setAds(adsResponse.data);
-                setUlaznice(ticketsResponse.data);
-                console.log("Fetched tickets:", ticketsResponse.data);
+        Promise.all([fetchTransactions])
+            .then(([transactionsResponse]) => {
+                setTransactions(transactionsResponse.data);
+                console.log("Fetched transactions:", transactionsResponse.data);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
     }, []);
 
-    const filteredAds = ads.filter(ad => ad.numberOfTickets > 0);
+    const uspjesnostTransakcije = (uspjesna) => {
+        switch (uspjesna){
+            case 0:
+                return "Čeka odluku";
+            case 1:
+                return "Uspješna";
+            case -1:
+                return "Neuspješna";
+            default:
+                return uspjesna ? "Nije definirano": "Nije definirano";
+        }
+    }
+
+
 
     return (
         <div className="admin-page">
@@ -67,27 +76,24 @@ const AdminOglasi = ({ profilePic }) => {
             </div>
 
             <div className="container">
-                    <h2 id="oglasi">Svi oglasi</h2>
-                    
-                    <div className="oglasi">
-                        {filteredAds.length === 0 ? (
-                            <div className="no-events-message">
-                                Nema aktivnih oglasa.
+                <div className="container2">
+                    <h2 id="transakcije">Sve transakcije</h2>
+                    <div className="transakcije">
+                        {transactions.map((transaction) =>(
+                            <div className="item" key={transaction.idtransakcija}>
+                               <div>ID transakcije: {transaction.idTransakcija}</div>
+                               <div>Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
+                               <div>Početak transakcije: {transaction.dvPocetak}</div>
+                               <div>ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
                             </div>
-                        ) : (
-                            filteredAds.map((adWithTickets) => (
-                                <Card
-                                    key={adWithTickets.id}
-                                    ad={adWithTickets}
-                                    tickets={adWithTickets.tickets}
-                                />
-                            ))
-                        )}
-                    
+                        ))}
+
+                        
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default AdminOglasi;
+export default UserTransakcije;

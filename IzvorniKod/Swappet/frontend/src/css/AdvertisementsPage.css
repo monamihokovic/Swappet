@@ -280,7 +280,7 @@ li.selected {
     background: #9aa0a3;
 }
 
-.admin {
+.admin, .user {
     margin-left: 20px;
     background-color: #816898;
     border: none;
@@ -294,12 +294,12 @@ li.selected {
     position: relative; 
 }
 
-.admin:hover {
+.admin:hover, .user:hover{
     background-color: #26293d;
     color: #816898;
 }
 
-.admin-menu {
+.admin-menu, .user-menu{
     position: absolute; 
     top: 60px;
     left: 50%;
@@ -316,7 +316,7 @@ li.selected {
     align-items: center;      
 }
 
-.admin-option {
+.admin-option{
     background-color: #816898;
     color: #e8e5e7;
     border: none;
@@ -328,7 +328,25 @@ li.selected {
     width: 200px;
 }
 
-.admin-option:hover {
+.admin-option:hover{
     background-color: #26293d;
     color: #816898;
+}
+.user-option {
+    background-color: #26293d;
+    color: #816898;
+}
+.user-option {
+    background-color: #816898;
+    color: #e8e5e7;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    width: 200px;
+}
+.user-menu{
+    left: 45%;
 }
