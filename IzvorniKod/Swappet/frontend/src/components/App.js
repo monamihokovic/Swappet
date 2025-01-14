@@ -110,7 +110,7 @@ function App() {
                     element={<UserTransakcije />} 
                  />
                 <Route 
-                    path="/user/oglasi"
+                    path="/user/oglasi/:email"
                     element={<UserOglasi />} 
                 />
                 <Route

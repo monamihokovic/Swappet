@@ -138,7 +138,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             });
     };
     const isSingleTicket = eventDetails.numberOfTickets === "1";
-    const isZamjena = eventDetails.type==="2";
+    const isZamjena = eventDetails.type==="1";
 
     return (
         <div className="create-event">
