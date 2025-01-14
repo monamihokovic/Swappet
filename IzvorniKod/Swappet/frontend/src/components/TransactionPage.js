@@ -4,7 +4,7 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../css/TransactionPage.css";
 import axios from "axios";
 
-function TransactionPage({ userName, profilePic }) {
+function TransactionPage({ profilePic }) {
     const [transactions, setTransactions] = useState([]);
     const [user, setUser] = useState(null);
     const defaultProfilePic = "/defaultpfp.jpg";
@@ -82,7 +82,7 @@ function TransactionPage({ userName, profilePic }) {
                         src={profilePic || defaultProfilePic}
                         alt="Profile"
                     />
-                    <span className="username">{user.name}</span>
+                    <span className="username">{user?.name || "Guest"}</span>
                 </div>
                 <h1 className="logo">
                     S<span id="usklicnik">!</span>
