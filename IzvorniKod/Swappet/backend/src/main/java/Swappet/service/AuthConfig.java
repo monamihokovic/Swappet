@@ -2,8 +2,8 @@ package Swappet.service;
 
 import Swappet.model.Korisnik;
 import Swappet.repository.KorisnikRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,11 +23,18 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                                "/homepage/advertisements", "/oglas", "/user-info", "/ulaznica",
-                                "/ulaznica/all", "/ulaznica/kupnja", "/admin", "/admin/oglasi",
-                                "/admin/transakcije", "/oglas/add", "/user/**", "/ulaznica/razmjene"
-                                , "/ulaznica/podnesi-razmjenu").permitAll()
+                                "/homepage/advertisements", "/ulaznica/all").permitAll()
                         .anyRequest().authenticated()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // Ruta za odjavu
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            // Dodatne akcije nakon odjave, npr. preusmjeravanje
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.sendRedirect("http://localhost:3000");
+                        })
+                        .deleteCookies("JSESSIONID") // Brisanje kolačića sesije
+                        .invalidateHttpSession(true) // Invalidacija sesije
                 )
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
