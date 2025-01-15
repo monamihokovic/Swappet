@@ -33,4 +33,8 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     //vraća sve oglase s cijenama, za admina
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas")
     List<Object[]> findAllOglasi();
+
+    //vraća sve oglase čiji datum događanja još nije prošao
+    @Query("SELECT DISTINCT o FROM Oglas o WHERE o.datum > CURRENT_DATE AND o.aktivan > 0")
+    List<Oglas> findRelevantOglasi();
 }

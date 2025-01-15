@@ -7,9 +7,15 @@ import Swappet.repository.JeTipRepository;
 import Swappet.repository.OglasRepository;
 import Swappet.repository.TransakcijaRepository;
 import Swappet.repository.UlaznicaRepository;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,5 +94,56 @@ public class AdminService {
 
     public List<Transakcija> getAllTransactions() {
         return transakcijaRepository.findAll();
+    }
+
+    public byte[] generateReport() {
+        List<Transakcija> transactions = transakcijaRepository.reportTransactions();
+        int brojOglasa = oglasRepository.findRelevantOglasi().size();
+        int brojUlaznica = transactions.size();
+        double avgcijena = 0;
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            PdfWriter writer = new PdfWriter(outputStream);
+
+            com.itextpdf.kernel.pdf.PdfDocument pdf = new com.itextpdf.kernel.pdf.PdfDocument(writer);
+            Document document = new Document(pdf);
+            document.add(new Paragraph("Izvještaj generiran dana " + LocalDate.now()));
+
+            for (Transakcija transakcija : transactions) {
+                int id = transakcija.getIdTransakcija();
+                String uspjesnost = "Greška";
+                if (transakcija.getUspjesna() > 0) {
+                    uspjesnost = "Uspješna";
+                } else if (transakcija.getUspjesna() < 0) {
+                    uspjesnost = "Neuspješna";
+                } else if (transakcija.getUspjesna() == 0) {
+                    uspjesnost = "Na čekanju";
+                }
+                String datum = transakcija.getDvPocetak().toString();
+                int idulaznica = transakcija.getUlaznica().getIdUlaznica();
+                double cijena = transakcija.getUlaznica().getCijena();
+                avgcijena += cijena;
+
+                document.add(new Paragraph("Id transakcije: " + id));
+                document.add(new Paragraph("Uspjeh: " + uspjesnost));
+                document.add(new Paragraph("Datum: " + datum));
+                document.add(new Paragraph("Prodana ulaznica: " + idulaznica));
+                document.add(new Paragraph("Cijena ulaznice: " + cijena));
+                document.add(new Paragraph("\n"));
+            }
+
+            avgcijena = avgcijena / brojUlaznica;
+            document.add(new Paragraph("Broj aktivnih oglasa: " + brojOglasa));
+            document.add(new Paragraph("Broj prodanih ulaznica: " + brojUlaznica));
+            document.add(new Paragraph("Prosječna cijena prodane ulaznice: " + String.format("%.2f", avgcijena)));
+
+            document.close();
+            byte[] pdfBytes = outputStream.toByteArray();
+
+            return pdfBytes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

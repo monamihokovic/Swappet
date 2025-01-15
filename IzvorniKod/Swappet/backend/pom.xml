@@ -65,6 +65,16 @@
             <artifactId>postgresql</artifactId>
             <version>42.5.4</version> <!-- or the latest version -->
         </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>kernel</artifactId>
+            <version>7.2.6</version> <!-- Check for the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>layout</artifactId>
+            <version>7.2.6</version> <!-- Required for layout-related features -->
+        </dependency>
     </dependencies>
 
     <build>
