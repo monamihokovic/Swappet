@@ -3,6 +3,7 @@ package Swappet.service;
 import Swappet.controller.OglasDTO;
 import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
+import Swappet.repository.JeTipRepository;
 import Swappet.repository.OglasRepository;
 import Swappet.repository.TransakcijaRepository;
 import Swappet.repository.UlaznicaRepository;
@@ -23,6 +24,9 @@ public class AdminService {
 
     @Autowired
     private UlaznicaRepository ulaznicaRepository;
+    
+    @Autowired
+    private JeTipRepository jeTipRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -57,6 +61,8 @@ public class AdminService {
             //dohvati opis zamjene
             String tradeDescription = oglas.getOpisZamjene();
 
+            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
+            
             //konvertiraj u DTO
             OglasDTO dto = new OglasDTO(
                     oglas.getIdOglas(),
@@ -69,9 +75,10 @@ public class AdminService {
                     ticketType,
                     broj,
                     red,
+                    eventType,
                     email,
                     tradeDescription
-            );
+                );
 
             result.add(dto);
         }

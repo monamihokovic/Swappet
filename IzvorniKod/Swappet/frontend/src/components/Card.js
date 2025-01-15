@@ -1,5 +1,3 @@
-//Provjeri parametara koji se šalju između backenda i frontenda, ako dođe do greška znatna je mogućnost da je tu greška
-
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,8 +14,8 @@ import "../css/Card.css";
 import axios from "axios";
 
 const Card = ({ ad, tickets }) => {
-    const [user, setUser] = useState(null); // User data
-    console.log("Seller ad:",ad); // Console for seller ad
+    const [user, setUser] = useState(null);
+    console.log("Seller ad:", ad);
     const [buyerAds, setBuyerAds] = useState(null); // All buyer ads fetched from his email
     const [weatherData, setWeatherData] = useState(null); // Weather data
     const [loading, setLoading] = useState(true);
@@ -25,7 +23,7 @@ const Card = ({ ad, tickets }) => {
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold tickets
     const [availableTickets, setAvailableTickets] = useState(tickets.length); // Avaible tickets after purchase
-    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount -- note ovo bi se trebalo promijeniti s obzirom kako se parametar aktivan dto-a koristi za praćenje količine sada
+    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount
     const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
 
@@ -71,11 +69,11 @@ const Card = ({ ad, tickets }) => {
     }, [ad.date, eventDate, eventTime, city]);
 
     useEffect(() => {
-        if (ad.type === "1" && user) { // If ad is exchange, fetch buyer ads
+        if (ad.type === "0" && user) {
             const fetchBuyerAds = async () => {
                 try {
                     const response = await axios.get(
-                        `http://localhost:8081/user/oglasi/${user.email}`, // This should be replaced by http://localhost:8081/ulaznica/razmjena eventually
+                        `http://localhost:8081/user/oglasi/${user.email}`,
                         { withCredentials: true }
                     );
                     setBuyerAds(response.data);
@@ -90,13 +88,13 @@ const Card = ({ ad, tickets }) => {
     const increment = () => {
         if (count < availableTickets) setCount((prev) => prev + 1);
     };
-	
-	const decrement = () => {
-        if (count > 1) setCount((prev) => prev - 1);
+
+    const incrementTrade = () => {
+        if (tradeCount < buyerAd.numberOfTickets) setTradeCount((prev) => prev + 1);
     };
-	// Trade increment and decrement
-    const incrementTrade = () => { 
-        if (tradeCount < buyerAd.numberOfTickets) setTradeCount((prev) => prev + 1); 
+
+    const decrement = () => {
+        if (count > 1) setCount((prev) => prev - 1);
     };
 
     const decrementTrade = () => {
@@ -111,8 +109,7 @@ const Card = ({ ad, tickets }) => {
         console.log("Ticket Purchase");
 
         try {
-            if (ad.type === "0") {
-				console.log("Buy option Selected");
+            if (ad.type === "1") {
                 await axios.post(
                     "http://localhost:8081/ulaznica/kupnja",
                     { buyerEmail: user.email, ticketIds },
@@ -121,24 +118,22 @@ const Card = ({ ad, tickets }) => {
 
                 setPurchasedTicketCount((prev) => prev + count);
                 setAvailableTickets((prev) => prev - count);
-            } else if(ad.type === "1"){
+            } else {
                 // Handle trade when ad.type is "0"
                 if (selectedOption) {
                     console.log("Trade Option Selected:", selectedOption);
 
                     if (buyerAd) {
-                            await axios.post(
-                                "http://localhost:8081/ulaznica/podnesi-razmjenu",
-                                    buyerAd.id,
-                                    ad.id,
-                                { withCredentials: true }
-                            );
-                            console.log("Exchange submitted successfully");
-                        } else {
-                            console.log("Buyer ad not found for selected option");
-                        }
+                        await axios.post(
+                            `http://localhost:8081/ulaznica/podnesi-razmjenu?idOglasBuyer=${buyerAd.id}&idOglasSeller=${ad.id}`,
+                            { withCredentials: true }
+                        );
+                        console.log("Exchange submitted successfully");
+                    } else {
+                        console.log("Buyer ad not found for selected option");
                     }
-                 else {
+                }
+                else {
                     console.log("Please select an option for trade.");
                 }
             }
@@ -150,13 +145,13 @@ const Card = ({ ad, tickets }) => {
     };
 
 
-    const handleSelectChange = (e) => { // Promjena karte koju kupac nudi
+    const handleSelectChange = (e) => {
         const selectedValue = e.target.value;
         setSelectedOption(e.target.value);
         const selectedAd = buyerAds.find((buyerAd) => buyerAd.description === selectedValue);
         setBuyerAd(selectedAd);
         if (selectedAd) {
-            console.log("Buyer ad:",selectedAd);
+            console.log("Buyer ad:", selectedAd);
             setTradeCount(1); // Reset trade count to 1 after selection
         }
     };
@@ -179,7 +174,7 @@ const Card = ({ ad, tickets }) => {
                 <div className="adresa1">{ad.address}</div>
                 <div className="datum1">{ad.date}</div>
                 <div className="cijena1">
-                    {ad.type === "0" ? `${ad.price} €` : ad.tradeDescription}
+                    {ad.type === "1" ? `${ad.price} €` : ad.tradeDescription}
                 </div>
                 <div className="tip1">Broj ulaznica: {availableTickets}</div>
                 <div className="tip1">Korisnik: {ad.email}</div>
@@ -197,7 +192,7 @@ const Card = ({ ad, tickets }) => {
                 </div>
 
                 {/* Exchange Dropdown Always Visible */}
-                {ad.type !== "0" && buyerAds && (
+                {ad.type !== "1" && buyerAds && (
                     <div className="exchange-dropdown">
                         <select onChange={handleSelectChange} value={selectedOption}>
                             <option value="">Select matching tickets</option>
@@ -211,7 +206,7 @@ const Card = ({ ad, tickets }) => {
                 )}
 
                 {/* Trade Counter Controls When Option is Selected */}
-                {/* {selectedOption && (
+                {selectedOption && (
                     <div className="counter-section">
                         <FontAwesomeIcon icon={faHandHolding} className="counter-icon" title="Offer" />
                         <button className="counter-btn" onClick={decrementTrade} disabled={isTransactionProcessing}>
@@ -223,14 +218,14 @@ const Card = ({ ad, tickets }) => {
                         </button>
                         <span className="selected-option-text">{selectedOption}</span>
                     </div>
-                )} */}
+                )}
 
                 <button
-                    className={`buy-btn ${selectedOption || ad.type === "0" ? "" : "disabled-btn"}`}
+                    className={`buy-btn ${selectedOption || ad.type === "1" ? "" : "disabled-btn"}`}
                     onClick={handlePurchase}
                     disabled={isTransactionProcessing || (ad.type === "0" && !selectedOption)}
                 >
-                    {ad.type === "0" ? "Kupi" : "Razmjeni"}
+                    {ad.type === "1" ? "Kupi" : "Razmjeni"}
                 </button>
             </div>
 

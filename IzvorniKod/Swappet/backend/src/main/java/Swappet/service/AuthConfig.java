@@ -23,7 +23,9 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                                "/homepage/advertisements", "/ulaznica/all").permitAll()
+                                "/homepage/advertisements", "/ulaznica/all", "/createEvent", 
+                                "/admin/oglasi", "/admin/transakcije", "/user/transactions", 
+                                "/user/oglasi/", "/myTransactions", "/oglas/add").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
