@@ -13,7 +13,7 @@ oglas
     aktivan = označava aktivnost oglasa u sustavu (privremeno nekativan= korisnik ga maknuo s tržišta prije manje od x dana, pa ga do isteka x dana može vratiti)
          ( > 1 => aktivan, broj označava broj nekativnih karata ), 
          (-1 => privremeno nekativan),
-         (-1 => trajno nekativan), 
+         (-2 => trajno nekativan), //backedn mora osigurati da se nikada ne mijenja ako je -2
          (0 => sustav označava kao privremeno nekativan),
          (-10 => postavlja se kada se želi reaktivirati oglas pa trigger baze prebaci u pozitivan)
     datum = datum i vrijeme održavanja događaja (ne dodavanja oglasa)
