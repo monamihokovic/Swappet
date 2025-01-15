@@ -42,50 +42,51 @@ public class AdminService {
             Oglas oglas = (Oglas) row[0];  // Oglas objekt
             Double price = (Double) row[1];  // cijena iz Ulaznice
 
-            //formatiraj adresu
-            String address = oglas.getUlica() + ", " + oglas.getGrad();
+//            //formatiraj adresu
+//            String address = oglas.getUlica() + ", " + oglas.getGrad();
+//
+//            //formatiraj datum po potrebu
+//            String date = oglas.getDatum().toString();
+//
+//            // dohvati broj ulaznica za taj oglas
+////            Integer numberOfTickets = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).size();
+//            Integer numberOfTickets = oglas.getAktivan();
+//
+//            // dohvati tip ulaznice
+//            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+//
+//            //dohvati red sjedala
+//            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+//
+//            //dohvati broj sjedala
+//            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+//
+//            // dohvati email prodavača
+//            String email = oglas.getKorisnik().getEmail();
+//
+//            //dohvati opis zamjene
+//            String tradeDescription = oglas.getOpisZamjene();
+//
+//            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
+//
+//            //konvertiraj u DTO
+//            OglasDTO dto = new OglasDTO(
+//                    oglas.getIdOglas(),
+//                    oglas.getOpis(),
+//                    oglas.getTipOglas().toString(),
+//                    price,
+//                    address,
+//                    date,
+//                    numberOfTickets,
+//                    ticketType,
+//                    broj,
+//                    red,
+//                    eventType,
+//                    email,
+//                    tradeDescription
+//                );
 
-            //formatiraj datum po potrebu
-            String date = oglas.getDatum().toString();
-
-            // dohvati broj ulaznica za taj oglas
-//            Integer numberOfTickets = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).size();
-            Integer numberOfTickets = oglas.getAktivan();
-
-            // dohvati tip ulaznice
-            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-
-            //dohvati red sjedala
-            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-
-            //dohvati broj sjedala
-            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
-
-            // dohvati email prodavača
-            String email = oglas.getKorisnik().getEmail();
-
-            //dohvati opis zamjene
-            String tradeDescription = oglas.getOpisZamjene();
-
-            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-            
-            //konvertiraj u DTO
-            OglasDTO dto = new OglasDTO(
-                    oglas.getIdOglas(),
-                    oglas.getOpis(),
-                    oglas.getTipOglas().toString(),
-                    price,
-                    address,
-                    date,
-                    numberOfTickets,
-                    ticketType,
-                    broj,
-                    red,
-                    eventType,
-                    email,
-                    tradeDescription
-                );
-
+            OglasDTO dto = buildOglasDTO(oglas, price, null);
             result.add(dto);
         }
 
@@ -145,5 +146,34 @@ public class AdminService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // pomoć za konstrukciju OglasDTO
+    private OglasDTO buildOglasDTO(Oglas oglas, Double price, Integer likedStatus) {
+        String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
+        String date = oglas.getDatum().toString();
+        Integer numberOfTickets = oglas.getAktivan();
+        Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+        Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+        Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+        String tradeDescription = oglas.getOpisZamjene();
+        Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
+
+        return new OglasDTO(
+                oglas.getIdOglas(),
+                oglas.getOpis(),
+                oglas.getTipOglas().toString(),
+                price,
+                address,
+                date,
+                numberOfTickets,
+                ticketType,
+                broj,
+                red,
+                eventType,
+                oglas.getKorisnik().getEmail(),
+                tradeDescription,
+                likedStatus
+        );
     }
 }
