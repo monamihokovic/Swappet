@@ -24,7 +24,7 @@ const Card = ({ ad, tickets }) => {
     const [count, setCount] = useState(1); // How much is buyer buying
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold tickets
-    const [availableTickets, setAvailableTickets] = useState(tickets.length); // Avaible tickets after purchase
+    const [availableTickets, setAvailableTickets] = useState(tickets?.length || 0); // Avaible tickets after purchase
     const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount -- note ovo bi se trebalo promijeniti s obzirom kako se parametar aktivan dto-a koristi za praćenje količine sada
     const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
