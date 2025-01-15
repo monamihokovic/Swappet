@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import "../css/AdvertisementsPage.css";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaSignOutAlt } from "react-icons/fa";
 import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
@@ -180,6 +180,15 @@ const AdvertisementsPage = ({ profilePic }) => {
                         </button>
                     </div>
                 )}
+
+                <button
+                    className="logout"
+                    onClick={() => {
+                        window.location.href = "http://localhost:8081/logout"
+                    }}
+                >
+                    <FaSignOutAlt className="logout-icon" />
+                </button>
 
                 <div className="logo" onClick={() => navigate("/")}>
                     S<span id="usklicnik">!</span>

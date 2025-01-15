@@ -1,6 +1,5 @@
 package Swappet.controller;
 
-import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
 import Swappet.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

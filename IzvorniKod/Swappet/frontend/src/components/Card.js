@@ -22,7 +22,8 @@ const Card = ({ ad, tickets }) => {
     const [count, setCount] = useState(1); // How much is buyer buying
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold tickets
-    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets); // Avaible tickets after purchase
+
+    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets || 0); // Avaible tickets after purchase
     const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount
     const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
