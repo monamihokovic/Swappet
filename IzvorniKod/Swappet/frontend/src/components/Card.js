@@ -22,11 +22,10 @@ const Card = ({ ad, tickets }) => {
     const [count, setCount] = useState(1); // How much is buyer buying
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
     const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold tickets
-    const [availableTickets, setAvailableTickets] = useState(tickets.length); // Avaible tickets after purchase
+    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets); // Avaible tickets after purchase
     const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount
     const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
-
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";
     const eventDate = ad.date.split("T")[0];
@@ -37,7 +36,7 @@ const Card = ({ ad, tickets }) => {
             .get("http://localhost:8081/user-info", { withCredentials: true })
             .then((response) => {
                 setUser(response.data);
-                console.log("User email:", response.data.email);
+                console.log("User data:", response.data.email);
             })
             .catch((error) => {
                 console.error("Error occurred: ", error);
@@ -167,6 +166,9 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
+    const isSameUser = user?.email === ad.email;
+  
+
     return (
         <div className="card">
             <div className="card-info">
@@ -221,9 +223,9 @@ const Card = ({ ad, tickets }) => {
                 )}
 
                 <button
-                    className={`buy-btn ${selectedOption || ad.type === "1" ? "" : "disabled-btn"}`}
+                    className={`buy-btn ${selectedOption || ad.type === "1"  && !isSameUser? "" : "disabled-btn"}`}
                     onClick={handlePurchase}
-                    disabled={isTransactionProcessing || (ad.type === "0" && !selectedOption)}
+                    disabled={isTransactionProcessing || (ad.type === "0" && !selectedOption) || isSameUser}
                 >
                     {ad.type === "1" ? "Kupi" : "Razmjeni"}
                 </button>

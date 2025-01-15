@@ -79,7 +79,7 @@ function TransactionPage({ profilePic }) {
                 <div className="profile">
                     <img
                         className="pfp"
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                     />
                     <span className="username">{user?.name || "Guest"}</span>

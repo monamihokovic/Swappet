@@ -58,7 +58,7 @@ const UserTransakcije = ({ profilePic }) => {
             <div className="header">
                 <div className="profile">
                     <img
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                         className="pfp"
                         onError={(e) => {
@@ -77,18 +77,22 @@ const UserTransakcije = ({ profilePic }) => {
 
             <div className="container">
                 <div className="container2">
-                    <h2 id="transakcije">Sve transakcije</h2>
+                    <h2 id="transakcije">Sve moje transakcije</h2>
                     <div className="transakcije">
-                        {transactions.map((transaction) =>(
-                            <div className="item" key={transaction.idtransakcija}>
-                               <div>ID transakcije: {transaction.idTransakcija}</div>
-                               <div>Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
-                               <div>Početak transakcije: {transaction.dvPocetak}</div>
-                               <div>ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
+                    {transactions.length === 0 ? (
+                            <div className="no-events-message">
+                                Nemaš još transakcija.
                             </div>
-                        ))}
-
-                        
+                            ) : (
+                            transactions.map((transaction) => (
+                                <div className="item" key={transaction.idtransakcija}>
+                                <div>ID transakcije: {transaction.idTransakcija}</div>
+                                <div>Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
+                                <div>Početak transakcije: {transaction.dvPocetak}</div>
+                                <div>ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
+                             </div>
+                            ))
+                        )}                      
                     </div>
                 </div>
             </div>

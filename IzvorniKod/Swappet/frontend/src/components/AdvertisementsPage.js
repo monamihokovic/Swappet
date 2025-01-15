@@ -24,7 +24,8 @@ const AdvertisementsPage = ({ profilePic }) => {
             .get("http://localhost:8081/user-info", {
                 withCredentials: true,
             })
-            .then((response) => setUser(response.data))
+            .then((response) => {
+                setUser(response.data)})
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     setUser(null);
@@ -33,6 +34,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                 }
             });
     }, []);
+
 
     // Fetch advertisements and tickets
     useEffect(() => {
@@ -94,8 +96,9 @@ const AdvertisementsPage = ({ profilePic }) => {
         <div className="advertisements-page">
             <div className="header">
                 <div className="profile">
+                    {/* Provjera postoji li user prije pristupa picture */}
                     <img
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                         className="pfp"
                         onError={(e) => {
@@ -120,7 +123,6 @@ const AdvertisementsPage = ({ profilePic }) => {
                     disabled={!user}
                 >
                     Dodaj događaj
-                    
                 </button>
 
                 <button
@@ -130,7 +132,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "ivrodak@gmail.com" && (
+                {user && user.email === "majcik.b@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
@@ -143,16 +145,14 @@ const AdvertisementsPage = ({ profilePic }) => {
                     <div className="user-menu">
                         <button
                          className="user-option"
-                         onClick={()=>navigate(`/user/oglasi`)}>
+                         onClick={()=>navigate(`/user/oglasi`)} >
                             Pregledaj svoje oglase
                         </button>
                         <button
                          className="user-option"
-                         onClick={()=>navigate(`/user/transactions`)}>
+                         onClick={()=>navigate(`/user/transactions`)} >
                             Pregledaj svoje transakcije
                         </button>
-
-
                     </div>
                 )}
 
@@ -162,7 +162,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     disabled={!user}
                 >
                     Moje razmjene
-            </button>
+                </button>
 
                 {isAdminMenuOpen && (
                     <div className="admin-menu">
@@ -192,24 +192,10 @@ const AdvertisementsPage = ({ profilePic }) => {
 
                     <div className="Vrsta">
                         <div className="lista">Vrsta</div>
-                        {[
-                            "Koncert",
-                            "Izložba",
-                            "Predstava",
-                            "Putovanja",
-                            "Tulumi",
-                            "Kino",
-                            "Sport",
-                            "Prijevoz",
-                            "Ostalo",
-                        ].map((category, index) => (
+                        {[ "Koncert", "Izložba", "Predstava", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo",].map((category, index) => (
                             <li
                                 key={category}
-                                className={
-                                    selectedCategories.includes(index + 1)
-                                        ? "selected"
-                                        : ""
-                                }
+                                className={selectedCategories.includes(index + 1) ? "selected" : ""}
                                 onClick={() => handleCategoryClick(index + 1)}
                             >
                                 {category}
