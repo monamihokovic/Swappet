@@ -116,25 +116,6 @@ li.selected {
     background: #9aa0a3;
 }
 
-.createEvent,
-.admin {
-    margin-left: 20px;
-    background-color: #816898;
-    border: none;
-    border-radius: 20px;
-    width: 100px;
-    height: 50px;
-    align-self: center;
-    color: #e8e5e7;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.createEvent:hover,
-.admin:hover {
-    background-color: #26293d;
-    color: #816898;
-}
 
 .hidden {
     display: none;
@@ -154,10 +135,17 @@ li.selected {
     flex-direction: column; 
     gap: 20px;
     padding: 20px;
-    background-color: #816898; 
+    background-color:#626a7d; 
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 80%;
     margin: 0 auto; 
     margin-top: 100px; 
+}
+
+.header{
+    background-color: #e8e5e7;
+    display: flex;
+    justify-content: left;
+    min-height: 50px;
 }

@@ -132,7 +132,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             })
             .then((response) => {
                 console.log("Event created successfully:", response.data);
-                navigate("/selection");
+                navigate("/advertisements");
             })
             .catch((error) => {
                 console.error(
@@ -147,7 +147,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             <div className="header">
                 <div className="profile">
                     <img
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                         className="pfp"
                         onError={(e) => {
