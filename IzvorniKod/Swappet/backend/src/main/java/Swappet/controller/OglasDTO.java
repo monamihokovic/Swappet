@@ -4,18 +4,19 @@ public class OglasDTO {
 
     private int id;  // idOglas iz Oglasa
     private String description;  // opis iz Oglasa
-    private String type;  //tip transakcije -> prodaja, zamjena, lanac
+    private String type;  // tipOglas iz Oglasa
     private Double price;  // cijena iz Ulaznice
-    private String address;  // combination ulice i grada iz Oglasa
+	private String address;  // combination ulice i grada iz Oglasa
     private String date;  // datum iz Oglasa
     private Integer numberOfTickets; // broj ulaznica
-    private Integer ticketType; // tip ulaznice -> obična, VIP, druženje sa zvijezdom
+    private Integer ticketType; // tip ulaznice
     private Integer broj;
     private Integer red;
+    private Integer eventType;
     private String email; // email prodavača
     private String tradeDescription; //opis zamjene
 
-    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, String email, String tradeDescription) {
+    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, Integer eventType, String email, String tradeDescription) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -26,6 +27,7 @@ public class OglasDTO {
         this.ticketType = ticketType;
         this.broj = broj;
         this.red = red;
+        this.eventType = eventType;
         this.email = email;
         this.tradeDescription = tradeDescription;
     }
@@ -133,5 +135,32 @@ public class OglasDTO {
     public void setNumberOfTickets(Integer numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
     }
+    
+    public Integer geteventType() {
+		return eventType;
+	}
+
+	public void seteventType(Integer eventType) {
+		this.eventType = eventType;
+	}
+	
+	@Override
+	public String toString() {
+	    return "OglasDTO{" +
+	            "id=" + id +
+	            ", description='" + description + '\'' +
+	            ", type='" + type + '\'' +
+	            ", price=" + price +
+	            ", address='" + address + '\'' +
+	            ", date='" + date + '\'' +
+	            ", numberOfTickets=" + numberOfTickets +
+	            ", ticketType=" + ticketType +
+	            ", broj=" + broj +
+	            ", red=" + red +
+	            ", eventType=" + eventType +
+	            ", email='" + email + '\'' +
+	            ", tradeDescription='" + tradeDescription + '\'' +
+	            '}';
+	}
 
 }

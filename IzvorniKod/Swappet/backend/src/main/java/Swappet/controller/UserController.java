@@ -45,8 +45,8 @@ public class UserController {
     }
 
     @GetMapping("/user/trades/{email}")
-    public ResponseEntity<List<TradeDTO>> getUserTrades(@PathVariable String email) {
-        List<TradeDTO> oglasi = oglasService.getUserTrades(email);
+    public ResponseEntity<List<OglasDTO>> getUserTrades(@PathVariable String email) {
+        List<OglasDTO> oglasi = oglasService.getUserTrades(email);
         return ResponseEntity.ok(oglasi);
     }
 

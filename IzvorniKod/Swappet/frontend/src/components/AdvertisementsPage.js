@@ -65,30 +65,24 @@ const AdvertisementsPage = ({ profilePic }) => {
     };
 
     // Filter tickets based on price, category, and ad type
-    const filteredTickets = ulaznice
-        .filter((ticket) => {
-            console.log("Selected Categories:", selectedCategories);
-            console.log("Ticket:", ticket.oglas.tipOglas);
-            console.log(selectedCategories.includes(ticket.oglas.tipOglas));
+    const filteredTickets = ulaznice.filter((ticket) => {
+        const ad = ads.find((ad) => ad.id === ticket.oglas.idOglas);
+        const eventType = ad ? ad.eventType : null;
 
-            // Price filter for tickets
-            const priceFilter = ticket.cijena <= price;
-            // Category filter for tickets
-            const categoryFilter =
-                selectedCategories.length === 0 ||
-                selectedCategories.includes(ticket.oglas.tipOglas);
+        const priceFilter = ticket.cijena <= price;
+        const categoryFilter =
+            selectedCategories.length === 0 ||
+            (eventType !== null && selectedCategories.includes(eventType));
 
-            // Return true if all filters pass
-            return priceFilter && categoryFilter;
-        });
+        return priceFilter && categoryFilter;
+    });
 
-   
     const filteredAdsWithTickets = ads
         .map((ad) => {
-            
             const associatedTickets = filteredTickets.filter(
                 (ticket) => ticket.oglas.idOglas === ad.id
             );
+
             return { ...ad, tickets: associatedTickets };
         })
         .filter((adWithTickets) => adWithTickets.tickets.length > 0);

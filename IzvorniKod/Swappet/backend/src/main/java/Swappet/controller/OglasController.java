@@ -60,7 +60,7 @@ public class OglasController {
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
         Integer ticketType = oglasRequest.getTicketType();
-        Integer transactionType = oglasRequest.getType();
+        Integer transactionType = oglasRequest.getTransactionType();
         String tradeDescription = oglasRequest.getTradeDescription();
         Integer red = oglasRequest.getRed();
         Integer broj = oglasRequest.getBroj();
@@ -87,8 +87,8 @@ public class OglasController {
         oglas.setTipOglas(transactionType);
         oglas.setAktivan(numberOfTickets);
         oglas.setKorisnik(korisnik);
-
-        if (tradeDescription != null) {
+        
+        if (!tradeDescription.isEmpty()) {
             oglas.setOpisZamjene(tradeDescription);
         } else {
             oglas.setOpisZamjene("");

@@ -19,7 +19,7 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
 
     // nova verzija - šalje upit za spajanje Oglasa i Ulaznice za dobivanje podataka o idoglas i cijena
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas " +
-            "LEFT JOIN JeTip j on j.idOglas = o.idOglas WHERE j.idDog IN :categories AND o.aktivan > 0")
+            "LEFT JOIN JeTip j on j.idOglas = o.idOglas WHERE o.aktivan > 0")
     List<Object[]> findOglasWithCijenaByCategories(@Param("categories") List<Integer> categories);
 
     //šalje upit za oglase i njihove cijene na temelju emaila

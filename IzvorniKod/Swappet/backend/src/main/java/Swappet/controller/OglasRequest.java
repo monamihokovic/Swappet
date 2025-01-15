@@ -12,7 +12,7 @@ public class OglasRequest {
     private String email; // email ulogiranog korisnika
     private Integer numberOfTickets; // broj ulaznica
     private Integer ticketType; // tip ulaznice
-    private Integer type; //tip transakcije -> prodaja, zamjena ili lanac
+    private Integer transactionType; //tip transakcije -> prodaja, zamjena ili lanac
     private String tradeDescription; //opis zamjene-
     private Integer red; //red sjedala, optional
     private Integer broj; //broj sjedala, optional
@@ -98,12 +98,12 @@ public class OglasRequest {
         this.ticketType = ticketType;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getTransactionType() {
+        return transactionType;
     }
 
-    public void setType(Integer transactionType) {
-        this.type = transactionType;
+    public void setTransactionType(Integer transactionType) {
+        this.transactionType = transactionType;
     }
 
     public String getTradeDescription() {
