@@ -8,6 +8,7 @@ import Swappet.service.UserService;
 import Swappet.service.OglasService;
 import Swappet.repository.TipDogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -116,4 +117,19 @@ public class OglasController {
         // Spremiti Oglas i Ulaznicu u bazu
         return oglasService.saveOglasWithDetails(oglas, tipDog, ulaznice);
     }
+
+    // spremanje interakcije
+    @PostMapping("/interact")
+    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action) {
+        oglasService.saveUserInteraction(email, idOglas, action);
+        return ResponseEntity.ok("Interakcija s oglasom uspješno spremljena.");
+    }
+
+    // dohvaćanje filtriranih oglasa
+    @GetMapping("/filtered")
+    public ResponseEntity<List<OglasDTO>> getFilteredOglasi(@RequestParam String email) {
+        List<OglasDTO> oglasi = oglasService.getAllOglasi(email);
+        return ResponseEntity.ok(oglasi);
+    }
+
 }

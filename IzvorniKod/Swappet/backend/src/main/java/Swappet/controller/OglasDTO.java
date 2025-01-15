@@ -15,8 +15,9 @@ public class OglasDTO {
     private Integer eventType;
     private String email; // email prodavača
     private String tradeDescription; //opis zamjene
+    private Integer liked; // korisnik može lajkati, dislajkati, reportati oglas
 
-    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, Integer eventType, String email, String tradeDescription) {
+    public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, Integer eventType, String email, String tradeDescription, Integer liked) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -30,6 +31,7 @@ public class OglasDTO {
         this.eventType = eventType;
         this.email = email;
         this.tradeDescription = tradeDescription;
+        this.liked = liked;
     }
 
     public int getId() {
@@ -143,6 +145,10 @@ public class OglasDTO {
 	public void seteventType(Integer eventType) {
 		this.eventType = eventType;
 	}
+
+    public Integer getLiked() { return liked; }
+
+    public void setLiked(Integer liked) { this.liked = liked; }
 	
 	@Override
 	public String toString() {
@@ -160,6 +166,7 @@ public class OglasDTO {
 	            ", eventType=" + eventType +
 	            ", email='" + email + '\'' +
 	            ", tradeDescription='" + tradeDescription + '\'' +
+                ", liked=" + liked +
 	            '}';
 	}
 
