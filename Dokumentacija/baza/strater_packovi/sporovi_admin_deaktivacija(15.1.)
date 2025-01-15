@@ -22,3 +22,5 @@ CREATE TABLE spor
 );
 
 GRANT ALL PRIVILEGES ON TABLE spor TO pone;
+/* primjer naredbe INSERT INTO spor (opisSpor, tuzioEmail, tuzenEmail)
+	VALUES ('proba sporne situacije', 'ivo@ivic.com', 'lana@lanic.com'); */
