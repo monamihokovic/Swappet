@@ -1,6 +1,7 @@
 package Swappet.service;
 
 import Swappet.controller.OglasDTO;
+import Swappet.controller.TradeDTO;
 import Swappet.model.*;
 import Swappet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,12 @@ public class OglasService {
 
     @Autowired
     private UlaznicaRepository ulaznicaRepository;
+    @Autowired
+    private TransakcijaRepository transakcijaRepository;
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
     public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
-        System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
+        //System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
 
         List<Object[]> rawData = oglasRepository.findOglasWithCijenaByCategories(categories);
         List<OglasDTO> result = new ArrayList<>();
@@ -37,6 +40,8 @@ public class OglasService {
         for (Object[] row : rawData) {
             Oglas oglas = (Oglas) row[0];
             Double price = (Double) row[1];
+
+            System.out.println("[SERVICE] Oglas: " + oglas.getOpis());
 
             String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
             String date = oglas.getDatum().toString();
@@ -49,26 +54,26 @@ public class OglasService {
             Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
 
             OglasDTO dto = new OglasDTO(
-                oglas.getIdOglas(),
-                oglas.getOpis(),
-                oglas.getTipOglas().toString(),
-                price,
-                address,
-                date,
-                numberOfTickets,
-                ticketType,
-                broj,
-                red,
-                eventType,
-                email,
-                tradeDescription
+                    oglas.getIdOglas(),
+                    oglas.getOpis(),
+                    oglas.getTipOglas().toString(),
+                    price,
+                    address,
+                    date,
+                    numberOfTickets,
+                    ticketType,
+                    broj,
+                    red,
+                    eventType,
+                    email,
+                    tradeDescription
             );
 
-            System.out.println("[SERVICE] Processed advertisement: " + dto);
+            //System.out.println("[SERVICE] Processed advertisement: " + dto);
             result.add(dto);
         }
 
-        System.out.println("[SERVICE] All advertisements processed: " + result);
+        //System.out.println("[SERVICE] All advertisements processed: " + result);
         return result;
     }
 
@@ -127,7 +132,7 @@ public class OglasService {
 
             //dohvati opis zamjene
             String tradeDescription = oglas.getOpisZamjene();
-            
+
             // dohvati tip događaja
             Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
 
@@ -154,57 +159,45 @@ public class OglasService {
         return result;
     }
 
-    public List<OglasDTO> getUserTrades(String email) {
-        Korisnik korisnik = korisnikRepository.findByEmail(email);
-        List<OglasDTO> result = new ArrayList<>();
-        List<Oglas> trades = oglasRepository.findTradesForUser(korisnik);
+    public List<TradeDTO> getUserTrades(String email) {
+        List<Object[]> rawData = transakcijaRepository.findUserTrades(email);
+        List<TradeDTO> result = new ArrayList<>();
 
-        for (Oglas oglas : trades) {
-            //formatiraj adresu
-            String address = oglas.getUlica() + ", " + oglas.getGrad();
+        int di = -1;
+        int counter = 0;
 
-            //formatiraj datum po potrebu
-            String date = oglas.getDatum().toString();
+        for (Object[] row : rawData) {
+            Integer idOglasSeller = (Integer) row[3];
+            if (idOglasSeller == di) {
+                counter++;
+                continue;
+            }
 
-            // dohvati broj ulaznica za taj oglas
-            Integer numberOfTickets = oglas.getAktivan();
+            di = idOglasSeller;
 
-            // dohvati tip ulaznice
-            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+            Integer odluka = (Integer) row[0];
+            Integer idSeller = (Integer) row[1];
+            Integer idBuyer = (Integer) row[2];
 
-            //dohvati red sjedala
-            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+            Oglas oglasSeller = oglasRepository.findByIdOglas(idOglasSeller);
+            String sellerDesc = oglasSeller.getOpis();
+            String sellerTradeDesc = oglasSeller.getOpisZamjene();
 
-            //dohvati broj sjedala
-            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+            Oglas oglasBuyer = ulaznicaRepository.findById(idBuyer).get().getOglas();
+            Integer buyerId = oglasBuyer.getIdOglas();
+            String buyerDesc = oglasBuyer.getOpis();
 
-            //dohvati opis zamjene
-            String tradeDescription = oglas.getOpisZamjene();
-
-            //cijena je 0 jer se radi o razmjeni
-            Double price = 0.0;
-            
-         // dohvati tip događaja
-            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-
-            //konvertiraj u DTO
-            OglasDTO dto = new OglasDTO(
-                    oglas.getIdOglas(),
-                    oglas.getOpis(),
-                    oglas.getTipOglas().toString(),
-                    price,
-                    address,
-                    date,
-                    numberOfTickets,
-                    ticketType,
-                    red,
-                    broj,
-                    eventType,
-                    email,
-                    tradeDescription
+            TradeDTO tradeDTO = new TradeDTO(
+                    idSeller,
+                    sellerDesc,
+                    sellerTradeDesc,
+                    buyerId,
+                    buyerDesc,
+                    counter
             );
 
-            result.add(dto);
+            result.add(tradeDTO);
+
         }
 
         return result;

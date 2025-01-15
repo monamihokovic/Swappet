@@ -24,7 +24,7 @@ function TransactionPage({ profilePic }) {
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/user/oglasi/user/trades/${user.email}`);
+                const response = await axios.get(`http://localhost:8081/user/trades/${user.email}`);
                 setTransactions(response.data);
             } catch (error) {
                 console.error("Error fetching transactions:", error);

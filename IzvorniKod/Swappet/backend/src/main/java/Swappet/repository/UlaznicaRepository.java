@@ -12,7 +12,7 @@ import java.util.Map;
 @Repository
 public interface UlaznicaRepository extends JpaRepository<Ulaznica, Integer> {
 
-    @Query("SELECT u FROM Ulaznica u WHERE u.oglas.idOglas = :idOglas")
+    @Query("SELECT u FROM Ulaznica u WHERE u.oglas.idOglas = :idOglas AND u.vrstaUlaznice > 0")
     List<Ulaznica> findUlazniceByOglas(@Param("idOglas") Integer idOglas);
 
 }
