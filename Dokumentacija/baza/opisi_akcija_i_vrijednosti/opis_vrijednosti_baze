@@ -5,6 +5,13 @@ tipDog
 voliOglas
     voli = ako ne želi vidjeti oglas više korisnik ga označi sa ne voli
         (-1 => ne voli)
+
+korisnik
+    uloga = koju ulogu unutar stranice ima korisnik
+        (0 => običan korisnik(defoult), 1=> administrator)
+    koristi = je li korisnik deaktiviran 
+        (0 => deaktiviran, 1=> aktiviran (defoult))
+
 oglas
     idOglas = generira sutav
     tipOglas = označava je li oglas prodaja ili zamjena 
@@ -38,4 +45,14 @@ nadtranksacija
     idNadtransakcija = generira sutav
     ukupno = jesu li svi kojima je polan zahtjev za odobrenje odobrili transakciju (i u defeniranom vremenu)
         (0 => nepoznato, nije još odgovoreno), (1 => svi prihvatili), (-1 => barem jedan korisnik nije odborio (ili nije na vrijeme odbrio))
+
+spor 
+    idSpor = generira sustav (INT)
+    opisSpor = Tekstualni opis zašto netko tuži
+    odlukaSpor = što je administrator nakon pregleda spora odlučio 
+        (0 => spor ceka razmatranje), (1=> prihavcen zahtjev=, (-1=> odbijen) 
+    obrazlozenje = Tekstualni opis obrzalozenja
+    tuzioEmail => email osobe koja je tuzila 
+    tuzeniEmail => email osobe koja je optuzena
+
 
