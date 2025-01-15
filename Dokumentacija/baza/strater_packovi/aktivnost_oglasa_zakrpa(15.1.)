@@ -1,0 +1,53 @@
+
+/* update za trigger br 1 iz trigeri_1, VEZAN UZ BROJANJE */
+CREATE OR REPLACE FUNCTION fjaPrebrojiKarte() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+		aktivanoglas INT = 0.0;
+
+	BEGIN 
+		brojac = (SELECT COUNT(*) FROM ulaznica WHERE idOglas= NEW.idOglas AND vrstaUlaznice>0) ;
+		aktivanoglas = (SELECT aktivan FROM oglas WHERE idOglas= NEW.idOglas);
+	
+		IF(brojac > 0 AND aktivanoglas <> -2 AND aktivanoglas <> -1 AND aktivanoglas <> -10) THEN
+			UPDATE oglas 
+            SET aktivan = brojac
+            WHERE idOglas = NEW.idOglas;
+			
+		-- Ako je brojac 0, sve prodane =>neaktivan kao sustav
+        ELSIF brojac = 0 THEN
+            UPDATE oglas 
+             SET aktivan = 0
+            WHERE idOglas = NEW.idOglas;
+		END IF;
+		
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+/*----------------------------------------------------------------------
+ 11) TRIGGER za reaktivaciju oglasa */
+
+CREATE OR REPLACE FUNCTION fjaReaktivacijaOglasa() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+	BEGIN 
+	
+		IF(NEW.aktivan  = -10 ) THEN
+			brojac = (SELECT COUNT(*) FROM ulaznica WHERE idOglas= NEW.idOglas AND vrstaUlaznice>0) ;
+			
+			UPDATE oglas SET aktivan = brojac WHERE idOglas = NEW.idOglas;
+		END IF;
+			
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER reaktivacijaOglasa
+	AFTER UPDATE ON oglas
+		FOR EACH ROW EXECUTE PROCEDURE fjaReaktivacijaOglasa();
