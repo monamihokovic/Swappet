@@ -1,0 +1,39 @@
+Višestruki lanci razmjene se razdvajaju na n transkacija kupovine, gdje lanac razmjene duljine n, ako je u njemu n ljudi (karata).
+Svaki čovjek u razmjeni treba dati točno jednu kartu i primiti točno 1 kartu zauzvrat. 
+
+Baza modelira razmjne tako da za svaku kartu u razmjeni stvori 1 transakciju "povezane" prodaje. 
+Transacija se stvara kod svakog vlasnika karte, a osoba koja je zainteresirana za tu kartu se upisuje u jeUkljucen.
+
+npr. osoba   | posjed  | interes
+     ----------------------------
+      Ana    |    3    |   1
+      Borna  |    1    |   2
+      Cis    |    2    |   3
+
+     transkcija  | karta   |  jeUključen (kupac)
+     --------------------------------------------
+      Ana        |    3    |    Cis
+      Borna      |    1    |    Ana 
+      Cis        |    2    |   Borna
+
+UNOS U BAZU
+1) Stvori se nadtransakcija stavi se ukupno = 0 (baza popunjava defaultima)
+2) Stvori se n transakcija unosom idNadtransakcija, idUlaznica, uspjesna = 0
+  -> (baza sama deaktivira ulaznice uključene u razmjenu (vrstaUlaznicee u -trenutna vrijednost) // radi baza
+3) Stvori se n transakcija jeUkljucen unosom idTransakcija, odluka = 0
+4) Kada korisnik pošalje odluku (1 prihvća, -1 ne prihvaća) u jeUkljucen
+  -> (ako je -1 odluka, baza nadtransakciju (ukupno stavlja u -1) i sve transakcije koje povezuje stavlja u -1) // radi baza
+  -> (ako je 1 odluka i sve ostale odluke (ostalih transakcija) su 1 upisuje se 1 u ukupno nadtransakcije, inače se ne događa ništa) // radi baza
+
+
+primjeri (koje naredbe treba dodavati) i redosljed istih:
+     INSERT INTO nadtransakcija (ukupno) VALUES (0);
+
+     INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (25,1);
+     INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (28,1);
+
+     INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 25, 2);
+     INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('ivo@ivic.com', 26, 2);
+
+
+DOKUMENTI: trigeri_3 + baza_lanci_razmjene

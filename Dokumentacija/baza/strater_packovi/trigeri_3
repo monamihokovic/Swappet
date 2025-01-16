@@ -1,0 +1,150 @@
+/*----------------------------------------------------------------------
+ 8) TRIGGER za mijenjanje ukupno u nadtransakciji svi 1 => ukupno 1, narem 1  -1 => 1 */
+		
+CREATE OR REPLACE FUNCTION fjaUkupnaOdlukaLanca() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+		postavljeno INT = 0.0;
+		suma INT = 0.0;
+		minus INT = 0.0;
+		zastavica INT = 0.0 ;
+
+	BEGIN 
+		brojac = (SELECT tipOglas FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
+		zastavica = (SELECT ukupno FROM transakcija NATURAL JOIN nadtransakcija WHERE NEW.idTransakcija = idTransakcija);
+	
+		IF(brojac = 2 AND zastavica = 0) THEN
+				 
+			suma = (SELECT SUM (odluka) FROM transakcija NATURAL JOIN jeUkljucen WHERE idNadtransakcija = NEW.idNadtransakcija);
+			postavljeno = (SELECT COUNT (*) FROM transakcija WHERE idNadtransakcija = NEW.idNadtransakcija);
+			minus = (SELECT COUNT (*) FROM transakcija NATURAL JOIN jeUkljucen WHERE idNadtransakcija = NEW.idNadtransakcija AND odluka = -1);
+				 
+			IF (minus = 0 AND (postavljeno*3) = suma) THEN
+				UPDATE nadtransakcija SET ukupno = 1  WHERE idNadtransakcija = NEW.idNadtransakcija;
+
+			ELSIF (minus > 0)  THEN
+				UPDATE nadtransakcija SET ukupno = -1  WHERE idNadtransakcija = NEW.idNadtransakcija;
+			END IF;
+			
+		END IF;
+		
+		RETURN NEW;
+	END;		
+	
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER ukupnaOdlukaLanca 
+	AFTER UPDATE ON transakcija
+		FOR EACH ROW EXECUTE PROCEDURE fjaUkupnaOdlukaLanca();
+		
+
+
+/*----------------------------------------------------------------------
+ 9) TRIGGER za zapis odluka kupca jeUklucen nakon -1 odluke  */
+
+CREATE OR REPLACE FUNCTION fjaOdlukaLanaca() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+
+	BEGIN 
+		brojac = (SELECT tipOglas FROM 
+				  	ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas NATURAL JOIN jeUkljucen 
+				  		WHERE NEW.idTransakcija = idTransakcija );
+	
+		IF(brojac = 2 AND NEW.odluka = -1 ) THEN
+			UPDATE transakcija SET uspjesna = -1 WHERE NEW.idTransakcija = idTransakcija;
+			
+		ELSIF (brojac = 2 AND NEW.odluka = 0)  THEN 
+			UPDATE transakcija SET uspjesna = 0 WHERE NEW.idTransakcija = idTransakcija;
+		
+		ELSIF (brojac = 2 AND NEW.odluka = 0)  THEN 
+			UPDATE transakcija SET uspjesna = 2 WHERE NEW.idTransakcija = idTransakcija;
+		END IF;
+		
+		
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER odlukaLanaca 
+	AFTER INSERT OR UPDATE ON jeUkljucen
+		FOR EACH ROW EXECUTE PROCEDURE fjaOdlukaLanaca();
+
+
+/*----------------------------------------------------------------------
+ 10) TRIGGER za potvrdu ili odbacivanje transakcija */
+
+CREATE OR REPLACE FUNCTION fjaNeagtivanLanac() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+		tip INT = 0.0;
+	BEGIN 
+	
+		IF(NEW.ukupno = -1) THEN
+			UPDATE transakcija SET uspjesna = -1  WHERE idNadtransakcija = NEW.idNadtransakcija;
+			
+		ELSIF (NEW.ukupno = 1) THEN 
+			UPDATE transakcija SET uspjesna = 1  WHERE idNadtransakcija = NEW.idNadtransakcija;
+			
+		END IF;
+			
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER neagtivanLanac 
+	AFTER INSERT OR UPDATE ON nadtransakcija
+		FOR EACH ROW EXECUTE PROCEDURE fjaNeagtivanLanac();
+
+/*----------------------------------------------------------------------
+ 11) TRIGGER za reaktivaciju karata, poništavanje transakcija (jeUklucen oba staviti u -1 transakciji se mijenja u -1) u slučaju negativne odluke */
+
+
+CREATE OR REPLACE FUNCTION fjaReaktivacijaLanac() RETURNS trigger AS
+
+$$
+	DECLARE 
+		brojac INT = 0.0;
+		tip INT = 0.0;
+	BEGIN 
+	
+		IF(NEW.uspjesna = -1 ) THEN
+			tip = (SELECT vrstaUlaznice FROM ulaznica NATURAL JOIN transakcija WHERE NEW.idTransakcija = idTransakcija) ;
+			tip = -tip;
+			
+			IF(tip>0) THEN /*provjera jer se tjekom odbijanja transakcije okine 2 puta*/
+				UPDATE ulaznica SET vrstaUlaznice = tip  WHERE NEW.idUlaznica = idUlaznica;
+				/* mozda nekad kasnije UPDATE jeUkljucen SET odluka = -1  WHERE NEW.idTransakcija = idTransakcija;*/
+			END IF;
+		END IF;
+			
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER reaktivacijaLanac 
+	AFTER UPDATE ON transakcija
+		FOR EACH ROW EXECUTE PROCEDURE fjaReaktivacijaLanac();
+
+
+
+/*-----------------------------------------------------------------------*/
+/* primjeri (koje naredbe treba dodavati 
+INSERT INTO nadtransakcija (ukupno) VALUES (0);
+
+INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (25,1);
+INSERT INTO TRANSAKCIJA (idUlaznica, idnadtransakcija) VALUES (28,1);
+
+INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 25, 2);
+INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('ivo@ivic.com', 26, 2);
+*/

@@ -1,0 +1,7 @@
+UPUTE ZA IZVOĐENJE PRODAJE KARATA:
+1) unosite samo idUlaznice u transakciju sustav sve ostalo sam generira
+2) jeUključen  popunjavate 
+   email = email  kupca (osobe kojoj se prodaje),
+   odluka = 2  
+   idTransakcija = dobiven od transakcije u prošlom koraku
+3) Baza sve ostalo radi sama (deaktivira tu ulaznicu, zapisuje jeUključen za vlasnika, mijenja broj preostalih karata u oglasu (ako ih je 0 deaktivira cijeli oglas))
