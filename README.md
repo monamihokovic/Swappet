@@ -80,5 +80,5 @@ Za vrijeme rada na projektu očekuje se praćenje etičkog kodeksa IEEE-a i kode
 
 # 📝 Licenca
 
-Ovaj projekt licenciran je pod MIT licencom. Pogledati [LICENCE](LICENCE.md) datoteku za više detalja.
+Ovaj projekt licenciran je pod MIT licencom. Pogledati [LICENSE](LICENSE.md) datoteku za više detalja.
 
