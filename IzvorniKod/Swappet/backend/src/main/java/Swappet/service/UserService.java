@@ -3,9 +3,8 @@ package Swappet.service;
 import Swappet.model.JeUkljucen;
 import Swappet.model.Korisnik;
 import Swappet.model.Transakcija;
-import Swappet.repository.JeUkljucenRepository;
-import Swappet.repository.KorisnikRepository;
-import Swappet.repository.TransakcijaRepository;
+import Swappet.model.Oglas;
+import Swappet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +21,13 @@ public class UserService {
     private TransakcijaRepository transakcijaRepository;
 
     @Autowired
-    private KorisnikRepository korisnikRepository;
+    private JeUkljucenRepository jeUkljucenRepository;
 
     @Autowired
-    private JeUkljucenRepository jeUkljucenRepository;
+    private UlaznicaRepository ulaznicaRepository;
+
+    @Autowired
+    private OglasRepository oglasRepository;
 
     //upit u bazu za korisnika na temelju emaila (ključ)
     public Korisnik findUserByEmail(String email) {
@@ -34,7 +36,6 @@ public class UserService {
 
     //upit u bazu za transakcije u kojima je sudjelovao korisnik
     public List<Transakcija> getUserTransactions(String email) {
-//        Korisnik korisnik = korisnikRepository.findByEmail(email);
         List<JeUkljucen> ids = jeUkljucenRepository.findByEmail(email);
         List<Transakcija> transakcije = new ArrayList<>();
 
@@ -45,5 +46,20 @@ public class UserService {
         }
 
         return transakcije;
+    }
+
+    //aktivacija/deaktivacija korisnikovih oglasa
+    public void oglasActivation(Integer idOglas, Integer activation) {
+        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
+        Oglas oglas = oglasRepository.findByIdOglas(idOglas);
+        if (activation > 0) {
+            if (oglas.getAktivan() <= 0) {
+                oglas.setAktivan(brojUlaznica);
+                oglasRepository.save(oglas);
+            }
+        } else if (activation <= 0) {
+            oglas.setAktivan(0);
+            oglasRepository.save(oglas);
+        }
     }
 }

@@ -3,14 +3,14 @@ package Swappet.controller;
 import Swappet.model.Transakcija;
 import Swappet.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
@@ -43,4 +43,27 @@ public class AdminController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
+    @PostMapping("/activation")
+    public ResponseEntity<String> oglasActivation(@RequestBody Map<String, Integer> payload) {
+        Integer idOglas = payload.get("idOglas");
+        Integer activation = payload.get("activation");
+        adminService.activationRequest(idOglas, activation);
+        if (activation > 0) {
+            return ResponseEntity.ok("Oglas reaktiviran");
+        } else {
+            return ResponseEntity.ok("Oglas deaktiviran");
+        }
+    }
+
+    @PostMapping("/ban")
+    public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest) {
+
+        if (banRequest.getBan() > 0) {
+            return ResponseEntity.ok("User freed");
+        } else {
+            return ResponseEntity.ok("User banned");
+        }
+    }
+
 }
