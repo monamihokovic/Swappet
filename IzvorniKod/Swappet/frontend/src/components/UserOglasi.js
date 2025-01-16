@@ -49,7 +49,7 @@ const UserOglasi = ({ profilePic }) => {
             <div className="header">
                 <div className="profile">
                     <img
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                         className="pfp"
                         onError={(e) => {
@@ -67,7 +67,7 @@ const UserOglasi = ({ profilePic }) => {
             </div>
 
             <div className="container">
-                    <h2 id="oglasi">Svi oglasi</h2>
+                    <h2 id="oglasi">Svi moji oglasi</h2>
                     
                     <div className="oglasi">
                         {filteredAds.length === 0 ? (

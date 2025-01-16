@@ -58,7 +58,7 @@ const AdminTransakcije = ({ profilePic }) => {
             <div className="header">
                 <div className="profile">
                     <img
-                        src={profilePic || defaultProfilePic}
+                        src={user?.picture || defaultProfilePic}
                         alt="Profile"
                         className="pfp"
                         onError={(e) => {
