@@ -50,4 +50,16 @@ public class UserController {
         return ResponseEntity.ok(oglasi);
     }
 
+    @PostMapping("/user/activation")
+    public ResponseEntity<String> activateOglas(@RequestBody Map<String, Integer> payload) {
+        Integer idOglas = payload.get("id");
+        Integer activation = payload.get("activation");
+        userService.oglasActivation(idOglas, activation);
+        if (activation > 0) {
+            return ResponseEntity.ok("Oglas reaktiviran");
+        } else {
+            return ResponseEntity.ok("Oglas deaktiviran");
+        }
+    }
+
 }

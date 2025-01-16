@@ -3,10 +3,9 @@ package Swappet.service;
 import Swappet.controller.OglasDTO;
 import Swappet.model.Oglas;
 import Swappet.model.Transakcija;
-import Swappet.repository.JeTipRepository;
-import Swappet.repository.OglasRepository;
-import Swappet.repository.TransakcijaRepository;
-import Swappet.repository.UlaznicaRepository;
+import Swappet.model.Ulaznica;
+import Swappet.model.VoliOglas;
+import Swappet.repository.*;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
@@ -30,7 +29,7 @@ public class AdminService {
 
     @Autowired
     private UlaznicaRepository ulaznicaRepository;
-    
+
     @Autowired
     private JeTipRepository jeTipRepository;
 
@@ -41,50 +40,6 @@ public class AdminService {
         for (Object[] row : rawData) {
             Oglas oglas = (Oglas) row[0];  // Oglas objekt
             Double price = (Double) row[1];  // cijena iz Ulaznice
-
-//            //formatiraj adresu
-//            String address = oglas.getUlica() + ", " + oglas.getGrad();
-//
-//            //formatiraj datum po potrebu
-//            String date = oglas.getDatum().toString();
-//
-//            // dohvati broj ulaznica za taj oglas
-////            Integer numberOfTickets = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).size();
-//            Integer numberOfTickets = oglas.getAktivan();
-//
-//            // dohvati tip ulaznice
-//            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-//
-//            //dohvati red sjedala
-//            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-//
-//            //dohvati broj sjedala
-//            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
-//
-//            // dohvati email prodavača
-//            String email = oglas.getKorisnik().getEmail();
-//
-//            //dohvati opis zamjene
-//            String tradeDescription = oglas.getOpisZamjene();
-//
-//            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-//
-//            //konvertiraj u DTO
-//            OglasDTO dto = new OglasDTO(
-//                    oglas.getIdOglas(),
-//                    oglas.getOpis(),
-//                    oglas.getTipOglas().toString(),
-//                    price,
-//                    address,
-//                    date,
-//                    numberOfTickets,
-//                    ticketType,
-//                    broj,
-//                    red,
-//                    eventType,
-//                    email,
-//                    tradeDescription
-//                );
 
             OglasDTO dto = buildOglasDTO(oglas, price, null);
             result.add(dto);
@@ -108,7 +63,7 @@ public class AdminService {
 
             com.itextpdf.kernel.pdf.PdfDocument pdf = new com.itextpdf.kernel.pdf.PdfDocument(writer);
             Document document = new Document(pdf);
-            document.add(new Paragraph("Izvještaj generiran dana " + LocalDate.now()));
+            document.add(new Paragraph("Izvještaj generiran dana " + LocalDate.now() + ":\n"));
 
             for (Transakcija transakcija : transactions) {
                 int id = transakcija.getIdTransakcija();
@@ -136,7 +91,7 @@ public class AdminService {
             avgcijena = avgcijena / brojUlaznica;
             document.add(new Paragraph("Broj aktivnih oglasa: " + brojOglasa));
             document.add(new Paragraph("Broj prodanih ulaznica: " + brojUlaznica));
-            document.add(new Paragraph("Prosječna cijena prodane ulaznice: " + String.format("%.2f", avgcijena)));
+            document.add(new Paragraph("Prosjecna cijena prodane ulaznice: " + String.format("%.2f", avgcijena) + "€"));
 
             document.close();
             byte[] pdfBytes = outputStream.toByteArray();
@@ -146,6 +101,27 @@ public class AdminService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //aktivacija/deaktivacija oglasa
+    public void activationRequest(Integer idOglas, Integer activationStatus) {
+        Oglas oglas = oglasRepository.findByIdOglas(idOglas);
+        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
+
+        if (activationStatus > 0) {
+            if (oglas.getAktivan() <= 0) {
+                oglas.setAktivan(brojUlaznica);
+                oglasRepository.save(oglas);
+            }
+        } else if (activationStatus <= 0) {
+            oglas.setAktivan(0);
+            oglasRepository.save(oglas);
+        }
+    }
+
+    //ban usera
+    public void banUser(String email, Integer ban) {
+        //TODO kad zalijepim tablicu u bazu
     }
 
     // pomoć za konstrukciju OglasDTO

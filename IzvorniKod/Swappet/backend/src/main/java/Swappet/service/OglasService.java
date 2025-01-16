@@ -45,32 +45,6 @@ public class OglasService {
             Oglas oglas = (Oglas) row[0];
             Double price = (Double) row[1];
 
-//            String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
-//            String date = oglas.getDatum().toString();
-//            Integer numberOfTickets = oglas.getAktivan();
-//            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-//            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-//            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
-//            String email = oglas.getKorisnik().getEmail();
-//            String tradeDescription = oglas.getOpisZamjene();
-//            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-//
-//            OglasDTO dto = new OglasDTO(
-//                oglas.getIdOglas(),
-//                oglas.getOpis(),
-//                oglas.getTipOglas().toString(),
-//                price,
-//                address,
-//                date,
-//                numberOfTickets,
-//                ticketType,
-//                broj,
-//                red,
-//                eventType,
-//                email,
-//                tradeDescription
-//            );
-
             String email = oglas.getKorisnik().getEmail();
             Integer likedStatus = voliOglasRepository.findByEmailAndIdOglas(email, oglas.getIdOglas())
                     .map(VoliOglas::getVoli)
@@ -85,11 +59,6 @@ public class OglasService {
         System.out.println("[SERVICE] All advertisements processed: " + result);
         return result;
     }
-
-    //spremanje oglasa u bazu
-//    public Oglas saveOglas(Oglas oglas) {
-//        return oglasRepository.save(oglas);
-//    }
 
     //spremanje ulaznica i tipova dogadaja u bazu
     public Oglas saveOglasWithDetails(Oglas oglas, TipDog tipDog, List<Ulaznica> ulaznice) {
@@ -126,52 +95,10 @@ public class OglasService {
                     .map(VoliOglas::getVoli)
                     .orElse(0);
 
-            // isključimo dislajkane ili reportane oglase
-            if (likedStatus == -1 || likedStatus == 2) {
-                continue;
-            }
-//
-//            //formatiraj adresu
-//            String address = oglas.getUlica() + ", " + oglas.getGrad();
-//
-//            //formatiraj datum po potrebu
-//            String date = oglas.getDatum().toString();
-//
-//            // dohvati broj ulaznica za taj oglas
-//            Integer numberOfTickets = oglas.getAktivan();
-//
-//            // dohvati tip ulaznice
-//            Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-//
-//            //dohvati red sjedala
-//            Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-//
-//            //dohvati broj sjedala
-//            Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
-//
-//            //dohvati opis zamjene
-//            String tradeDescription = oglas.getOpisZamjene();
-//
-//            // dohvati tip događaja
-//            Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-//
-//            //konvertiraj u DTO
-//            OglasDTO dto = new OglasDTO(
-//                    oglas.getIdOglas(),
-//                    oglas.getOpis(),
-//                    oglas.getTipOglas().toString(),
-//                    price,
-//                    address,
-//                    date,
-//                    numberOfTickets,
-//                    ticketType,
-//                    broj,
-//                    red,
-//                    eventType,
-//                    email,
-//                    tradeDescription,
-//                    likedStatus
-//            );
+//            // isključimo dislajkane ili reportane oglase
+//            if (likedStatus == -1 || likedStatus == 2) {
+//                continue;
+//            }
 
             OglasDTO dto = buildOglasDTO(oglas, price, likedStatus);
             result.add(dto);
