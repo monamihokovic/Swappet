@@ -19,14 +19,44 @@ public class Korisnik {
     @Column(name = "username", unique = true, nullable = false, length = 100)
     private String username;
 
-    public Korisnik(Integer idKorisnik, String email, String username) {
-        this.idKorisnik = idKorisnik;
+    @Column(name = "uloga", nullable = false)
+    private Integer uloga = 0;
+
+    @Column(name = "koristi", nullable = false)
+    private Integer koristi = 1;
+
+    public Korisnik(String email, Integer idKorisnik, String username, Integer uloga, Integer koristi) {
         this.email = email;
+        this.idKorisnik = idKorisnik;
+        this.username = username;
+        this.uloga = uloga;
+        this.koristi = koristi;
+    }
+
+    public Korisnik(String email, Integer idKorisnik, String username) {
+        this.email = email;
+        this.idKorisnik = idKorisnik;
         this.username = username;
     }
 
     public Korisnik() {
 
+    }
+
+    public Integer getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Integer uloga) {
+        this.uloga = uloga;
+    }
+
+    public Integer getKoristi() {
+        return koristi;
+    }
+
+    public void setKoristi(Integer koristi) {
+        this.koristi = koristi;
     }
 
     // Getteri i setteri
@@ -53,4 +83,5 @@ public class Korisnik {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }
