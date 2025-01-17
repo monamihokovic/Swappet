@@ -1,6 +1,5 @@
 package Swappet.controller;
 
-import Swappet.model.Spor;
 import Swappet.model.Transakcija;
 import Swappet.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class AdminController {
 
     @PostMapping("/ban")
     public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest) {
-
+        adminService.banUser(banRequest.getEmail(), banRequest.getBan());
         if (banRequest.getBan() > 0) {
             return ResponseEntity.ok("User freed");
         } else {

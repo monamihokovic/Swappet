@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 import java.io.ByteArrayOutputStream;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class AdminService {
@@ -32,6 +30,14 @@ public class AdminService {
     @Autowired
     private JeTipRepository jeTipRepository;
 
+    @Autowired
+    private SporRepository sporRepository;
+<<<<<<< HEAD
+
+    @Autowired
+=======
+>>>>>>> 39785b8f209a35c9a4aa4285a1517098630c8f69
+    private KorisnikRepository korisnikRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -106,22 +112,15 @@ public class AdminService {
     //aktivacija/deaktivacija oglasa
     public void activationRequest(Integer idOglas, Integer activationStatus) {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
-        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
-
-        if (activationStatus > 0) {
-            if (oglas.getAktivan() <= 0) {
-                oglas.setAktivan(brojUlaznica);
-                oglasRepository.save(oglas);
-            }
-        } else if (activationStatus <= 0) {
-            oglas.setAktivan(0);
-            oglasRepository.save(oglas);
-        }
+        oglas.setAktivan(activationStatus);
+        oglasRepository.save(oglas);
     }
 
     //ban usera
     public void banUser(String email, Integer ban) {
-        //TODO kad zalijepim tablicu u bazu
+        Korisnik korisnik = korisnikRepository.findByEmail(email);
+        Spor spor = sporRepository.findByTuzen(korisnik);
+        spor.setOdlukaSpor(ban);
     }
 
     // pomoć za konstrukciju OglasDTO
@@ -152,4 +151,4 @@ public class AdminService {
                 likedStatus
         );
     }
- }
+}
