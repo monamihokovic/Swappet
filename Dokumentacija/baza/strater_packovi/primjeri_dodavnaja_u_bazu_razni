@@ -40,9 +40,15 @@ INSERT INTO tipdog(nazivtipa)
 
 /* oglas */
 INSERT INTO Oglas (email, datum, ulica, grad, kucnibr, opis, aktivan, tipoglas)
-	VALUES ('lana@lanic.com', CURRENT_TIMESTAMP, 'Karlovačka cesta', 'Jastrebarsko', 2, 'Koncert Crvene Jabuke u caffe bar-u Mir', 1, 0);
+	VALUES ('lana@lanic.com', CURRENT_TIMESTAMP, 'Karlovačka cesta', 'Jastrebarsko', 2, 'Koncert Crvene Jabuke u caffe bar-u Mir', 1, 1);
 INSERT INTO Oglas (email, datum, ulica, grad, kucnibr, opis, aktivan, tipoglas, opiszamjene)
-	VALUES ('ivo@ivic.com', CURRENT_TIMESTAMP, 'Lanište 2', 'Zagreb', 2, 'Mišo Kovač u Areni Zagreb', 1, 1, 'zamjena za VANNINE koncerte');
+	VALUES ('ivo@ivic.com', CURRENT_TIMESTAMP, 'Lanište 2', 'Zagreb', 2, 'Mišo Kovač u Areni Zagreb', 1, 0, 'zamjena za VANNINE koncerte');
+
+/* jeTip*/
+INSERT INTO jeTip (iddog, idoglas)
+	VALUES (1, 1);
+INSERT INTO jeTip (iddog, idoglas)
+	VALUES (1, 2);
 
 /* ULAZNICA */
 INSERT INTO ULAZNICA (red, broj, vrstaulaznice, idoglas, cijena)
