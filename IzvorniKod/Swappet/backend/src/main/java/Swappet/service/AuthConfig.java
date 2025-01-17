@@ -64,7 +64,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
 
         //provjera i spremanje korisnika u bazu
         if (userRepository.findByEmail(email) == null) {
-            Korisnik user = new Korisnik(id, email, username);
+            Korisnik user = new Korisnik(email, id, username);
             System.out.println(user.getUsername());
             System.out.println(user.getIdKorisnik());
             System.out.println(user.getEmail());

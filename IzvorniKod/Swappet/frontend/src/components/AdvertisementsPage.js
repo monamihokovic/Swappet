@@ -132,7 +132,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "majcik.b@gmail.com" && (
+                {user && user.email === "ivrodak@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
