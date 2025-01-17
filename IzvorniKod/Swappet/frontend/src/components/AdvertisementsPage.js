@@ -15,8 +15,10 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [ulaznice, setUlaznice] = useState([]); // List of tickets
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); 
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
+    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(""); // Search term state
+
 
     // Fetch user information
     useEffect(() => {
@@ -25,7 +27,8 @@ const AdvertisementsPage = ({ profilePic }) => {
                 withCredentials: true,
             })
             .then((response) => {
-                setUser(response.data)})
+                setUser(response.data)
+            })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     setUser(null);
@@ -48,6 +51,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                 setUlaznice(ticketsResponse.data); // List of Ulaznice
 
                 // Log the fetched tickets data
+                console.log("Fetched ads:", adsResponse.data);
                 console.log("Fetched tickets:", ticketsResponse.data);
             })
             .catch((error) => {
@@ -66,7 +70,7 @@ const AdvertisementsPage = ({ profilePic }) => {
         });
     };
 
-    // Filter tickets based on price, category, and ad type
+    // Filter tickets based on price, category, ad type, and search term
     const filteredTickets = ulaznice.filter((ticket) => {
         const ad = ads.find((ad) => ad.id === ticket.oglas.idOglas);
         const eventType = ad ? ad.eventType : null;
@@ -75,8 +79,11 @@ const AdvertisementsPage = ({ profilePic }) => {
         const categoryFilter =
             selectedCategories.length === 0 ||
             (eventType !== null && selectedCategories.includes(eventType));
+        const searchFilter =
+            searchTerm.trim() === "" ||
+            (ad && ad.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        return priceFilter && categoryFilter;
+        return priceFilter && categoryFilter && searchFilter;
     });
 
     const filteredAdsWithTickets = ads
@@ -89,7 +96,7 @@ const AdvertisementsPage = ({ profilePic }) => {
         })
         .filter((adWithTickets) => adWithTickets.tickets.length > 0);
 
-    const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen); 
+    const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen);
     const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
     return (
@@ -114,6 +121,8 @@ const AdvertisementsPage = ({ profilePic }) => {
                         id="pretraga"
                         type="text"
                         placeholder="Pretraži događaje..."
+                        value={searchTerm} 
+                        onChange={(e) => setSearchTerm(e.target.value)} 
                     />
                 </div>
 
@@ -132,7 +141,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "majcik.b@gmail.com" && (
+                {user && user.email === "patrickmraz99@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
@@ -141,28 +150,38 @@ const AdvertisementsPage = ({ profilePic }) => {
                     </button>
                 )}
 
-                {isUserMenuOpen &&(
+                {isUserMenuOpen && (
                     <div className="user-menu">
                         <button
-                         className="user-option"
-                         onClick={()=>navigate(`/user/oglasi`)} >
+                            className="user-option"
+                            onClick={() => navigate("/user/oglasi")} >
                             Pregledaj svoje oglase
                         </button>
                         <button
-                         className="user-option"
-                         onClick={()=>navigate(`/user/transactions`)} >
+                            className="user-option"
+                            onClick={() => navigate("/user/transactions")} >
                             Pregledaj svoje transakcije
+                        </button>
+                        <button
+                            className="user-option"
+                            onClick={() => navigate("/user/trades")}
+                        >
+                            Pregledaj svoje razmjene
+                        </button>
+                        <button
+                            className="user-option"
+                            onClick={() => navigate("/user/liked-ads")}
+                        >
+                            Pregledaj likeane oglase
+                        </button>
+                        <button
+                            className="user-option"
+                            onClick={() => navigate("/user/disliked-ads")}
+                        >
+                            Pregledaj dislikeane oglase
                         </button>
                     </div>
                 )}
-
-                <button
-                    className={user ? "createEvent" : "createEvent hidden"}
-                    onClick={() => navigate("/myTransactions")}
-                    disabled={!user}
-                >
-                    Moje razmjene
-                </button>
 
                 {isAdminMenuOpen && (
                     <div className="admin-menu">
@@ -182,10 +201,13 @@ const AdvertisementsPage = ({ profilePic }) => {
                 )}
 
                 <button
-                    className="logout"
+                    className={user ? "logout" : "logout hidden"}
                     onClick={() => {
-                        window.location.href = "http://localhost:8081/logout"
+                        if (user) {
+                            window.location.href = "http://localhost:8081/logout";
+                        }
                     }}
+                    disabled={!user}
                 >
                     <FaSignOutAlt className="logout-icon" />
                 </button>
@@ -201,7 +223,7 @@ const AdvertisementsPage = ({ profilePic }) => {
 
                     <div className="Vrsta">
                         <div className="lista">Vrsta</div>
-                        {[ "Koncert", "Izložba", "Predstava", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo",].map((category, index) => (
+                        {["Koncert", "Izložba", "Predstava", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo",].map((category, index) => (
                             <li
                                 key={category}
                                 className={selectedCategories.includes(index + 1) ? "selected" : ""}
@@ -226,6 +248,12 @@ const AdvertisementsPage = ({ profilePic }) => {
                         />
                         <span id="price-value">{price}</span>
                     </div>
+                    <button
+                        className="back-to-selection"
+                        onClick={() => navigate("/selection")}
+                    >
+                        Natrag na selection
+                    </button>
                 </div>
 
                 <div className="cards-container">

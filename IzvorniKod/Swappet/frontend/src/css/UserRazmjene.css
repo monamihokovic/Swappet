@@ -61,9 +61,9 @@
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.card p {
-	margin: 5px 0;
-}
+	.card p {
+		margin: 5px 0;
+	}
 
 .card-buttons {
 	display: flex;
@@ -87,19 +87,19 @@
 	margin-left: 10px
 }
 
-.checkmark-btn:hover {
-	background-color: #28a745;
-	color: #ffffff;
-	transform: scale(1.1);
-}
+	.checkmark-btn:hover {
+		background-color: #28a745;
+		color: #ffffff;
+		transform: scale(1.1);
+	}
 
-.cross-btn:hover {
-	background-color: #dc3545;
-	color: #ffffff;
-	transform: scale(1.1);
-}
+	.cross-btn:hover {
+		background-color: #dc3545;
+		color: #ffffff;
+		transform: scale(1.1);
+	}
 
-.no-transactions {
+.no-trades {
 	text-align: center;
 	color: #aaa;
 	font-size: 1.2em;

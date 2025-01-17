@@ -27,7 +27,7 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     List<Object[]> findOglasWithCijenaByEmail(@Param("korisnik") Korisnik korisnik);
 
     //vraća oglase za razmjenu od korisnika
-    @Query("SELECT DISTINCT o FROM Oglas o WHERE o.tipOglas = 1 AND o.korisnik = :korisnik AND o.aktivan > 0")
+    @Query("SELECT DISTINCT o FROM Oglas o WHERE o.tipOglas = 0 AND o.korisnik = :korisnik AND o.aktivan > 0")
     List<Oglas> findTradesForUser(@Param("korisnik") Korisnik korisnik);
 
     //vraća sve oglase s cijenama, za admina

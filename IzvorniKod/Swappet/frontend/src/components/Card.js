@@ -9,11 +9,18 @@ import {
     faMinus,
     faShoppingCart,
     faHandHolding,
+    faEllipsisVertical,
+    faThumbsUp,
+    faThumbsDown,
+    faFlag
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Card.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Card = ({ ad, tickets }) => {
+    const navigate = useNavigate();
+
     const [user, setUser] = useState(null);
     console.log("Seller ad:", ad);
     const [buyerAds, setBuyerAds] = useState(null); // All buyer ads fetched from his email
@@ -21,16 +28,16 @@ const Card = ({ ad, tickets }) => {
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(1); // How much is buyer buying
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
-    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold tickets
-
+    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold 
     const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets || 0); // Avaible tickets after purchase
-    const [purchasedTicketCount, setPurchasedTicketCount] = useState(0); // Purchased ticket amount
     const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";
     const eventDate = ad.date.split("T")[0];
     const eventTime = ad.date.split("T")[1].split(":")[0];
+    const [dropdownVisible, setDropdownVisible] = useState(false);  // State for dropdown visibility
+    const [selectedAction, setSelectedAction] = useState('');
 
     useEffect(() => {
         axios
@@ -72,25 +79,39 @@ const Card = ({ ad, tickets }) => {
         if (ad.type === "0" && user) {
             const fetchBuyerAds = async () => {
                 try {
-                    const response = await axios.get(
-                        `http://localhost:8081/user/oglasi/${user.email}`,
+                    // Kreiranje tijela zahtjeva sa user.email
+                    const payload = {
+                        mail: user.email,
+                    };
+
+                    // Slanje POST zahtjeva sa payload podacima
+                    const response = await axios.post(
+                        "http://localhost:8081/ulaznica/razmjene",
+                        payload,
                         { withCredentials: true }
                     );
+
+                    // Ispisivanje podataka u konzolu
+                    console.log("Ulaznice za razmjenu:", response.data);
+
+                    // Postavljanje podataka u state
                     setBuyerAds(response.data);
                 } catch (error) {
                     console.error("Error fetching buyer ads:", error);
                 }
             };
+
             fetchBuyerAds();
         }
     }, [ad.type, user]);
+
 
     const increment = () => {
         if (count < availableTickets) setCount((prev) => prev + 1);
     };
 
     const incrementTrade = () => {
-        if (tradeCount < buyerAd.numberOfTickets) setTradeCount((prev) => prev + 1);
+        if (tradeCount < buyerAd.aktivan) setTradeCount((prev) => prev + 1);
     };
 
     const decrement = () => {
@@ -104,9 +125,15 @@ const Card = ({ ad, tickets }) => {
     const handlePurchase = async () => {
         setIsTransactionProcessing(true);
 
-        const startingIndex = purchasedTicketCount;
-        const ticketIds = ad.tickets.slice(startingIndex, startingIndex + count).map((ticket) => ticket.idUlaznica);
-        console.log("Ticket Purchase");
+        // Calculate the starting and ending indices for the tickets to purchase
+        const startingIndex = ad.numberOfTickets - 1;
+        const endingIndex = startingIndex - count + 1;
+
+        // Slice the tickets array to get the selected tickets
+        const ticketIds = ad.tickets
+            .slice(endingIndex, startingIndex + 1) // Slice from endingIndex to startingIndex (inclusive)
+            .map((ticket) => ticket.idUlaznica);
+        console.log("Selected Ticket IDs for Purchase:", ticketIds);
 
         try {
             if (ad.type === "1") {
@@ -115,45 +142,76 @@ const Card = ({ ad, tickets }) => {
                     { buyerEmail: user.email, ticketIds },
                     { withCredentials: true }
                 );
-
-                setPurchasedTicketCount((prev) => prev + count);
+                console.log("Purchase submitted successfully");
+                alert("Ulaznice kupljene!");
+                // Update the state to reflect purchased tickets
                 setAvailableTickets((prev) => prev - count);
             } else {
                 // Handle trade when ad.type is "0"
                 if (selectedOption) {
                     console.log("Trade Option Selected:", selectedOption);
+                    console.log("Seller ad id:", ad.id);
+                    console.log("Buyer ad id:", buyerAd.idOglas);
+                    console.log("Buyer count:", tradeCount);
 
                     if (buyerAd) {
                         await axios.post(
-                            `http://localhost:8081/ulaznica/podnesi-razmjenu?idOglasBuyer=${buyerAd.id}&idOglasSeller=${ad.id}`,
+                            `http://localhost:8081/ulaznica/podnesi-razmjenu`,
+                            {
+                                sellerAd: ad.id,
+                                buyerAd: buyerAd.idOglas,
+                                count: tradeCount,
+                            },
                             { withCredentials: true }
                         );
                         console.log("Exchange submitted successfully");
+                        alert("Ulaznice kupljene!");
                     } else {
                         console.log("Buyer ad not found for selected option");
                     }
-                }
-                else {
+                } else {
                     console.log("Please select an option for trade.");
                 }
             }
         } catch (error) {
-            console.error("Error occurred:", error);
+            console.error("Error occurred during the transaction:", error);
         } finally {
             setIsTransactionProcessing(false);
+            navigate("/selection");
         }
     };
-
 
     const handleSelectChange = (e) => {
         const selectedValue = e.target.value;
         setSelectedOption(e.target.value);
-        const selectedAd = buyerAds.find((buyerAd) => buyerAd.description === selectedValue);
+        const selectedAd = buyerAds.find((buyerAd) => buyerAd.opis === selectedValue);
         setBuyerAd(selectedAd);
         if (selectedAd) {
             console.log("Buyer ad:", selectedAd);
             setTradeCount(1); // Reset trade count to 1 after selection
         }
+    };
+
+    const toggleDropdown = () => {
+        setDropdownVisible(!dropdownVisible);
+    };
+
+    const handleActionSelect = (action) => {
+        setSelectedAction(action);
+        setDropdownVisible(false);  // Close dropdown after selection
+    };
+
+    const getMatchingBuyerAds = () => {
+        if (!buyerAds || !ad.tradeDescription) return [];
+
+        // Split the seller's trade description into words
+        const sellerWords = ad.tradeDescription.split(/\s+/).map(word => word.toLowerCase());
+
+        // Filter buyer ads based on common words in their 'opis' and seller's 'tradeDescription'
+        return buyerAds.filter(buyerAd => {
+            const buyerWords = buyerAd.opis.split(/\s+/).map(word => word.toLowerCase());
+            return buyerWords.some(word => sellerWords.includes(word)); // Check for common words
+        });
     };
 
     const getTicketTypeDescription = (ticketType) => {
@@ -168,6 +226,8 @@ const Card = ({ ad, tickets }) => {
     };
 
     const isSameUser = user?.email === ad.email;
+
+
   
 
     return (
@@ -182,6 +242,34 @@ const Card = ({ ad, tickets }) => {
                 <div className="tip1">Broj ulaznica: {availableTickets}</div>
                 <div className="tip1">Korisnik: {ad.email}</div>
                 <div className="tip1">Vrsta karte: {getTicketTypeDescription(ad.ticketType)}</div>
+
+                {/* Tridot Dropdown */}
+                <div className="tridot-dropdown">
+                    <FontAwesomeIcon
+                        icon={faEllipsisVertical}
+                        className="tridot-icon"
+                        onClick={toggleDropdown}
+                        title="Options"
+                    />
+                    {dropdownVisible && (
+                        <div className="dropdown-menu">
+                            <button onClick={() => handleActionSelect('like')}>
+                                <FontAwesomeIcon icon={faThumbsUp} className="dropdown-icon" /> Like
+                            </button>
+                            <button onClick={() => handleActionSelect('dislike')}>
+                                <FontAwesomeIcon icon={faThumbsDown} className="dropdown-icon" /> Dislike
+                            </button>
+                            <button onClick={() => handleActionSelect('report')}>
+                                <FontAwesomeIcon icon={faFlag} className="dropdown-icon" /> Report
+                            </button>
+                        </div>
+                    )}
+                </div>
+                {selectedAction && (
+                    <div className="selected-action">
+                        <span>Action selected: {selectedAction}</span>
+                    </div>
+                )}
 
                 <div className="counter-section">
                     <FontAwesomeIcon icon={faShoppingCart} className="counter-icon" title="Buy" />
@@ -199,9 +287,9 @@ const Card = ({ ad, tickets }) => {
                     <div className="exchange-dropdown">
                         <select onChange={handleSelectChange} value={selectedOption}>
                             <option value="">Select matching tickets</option>
-                            {buyerAds.map((buyerAd) => (
-                                <option key={buyerAd.id} value={buyerAd.description}>
-                                    {buyerAd.description}
+                            {getMatchingBuyerAds().map((buyerAd) => (
+                                <option key={buyerAd.idOglas} value={buyerAd.opis}>
+                                    {buyerAd.opis}
                                 </option>
                             ))}
                         </select>
@@ -224,9 +312,12 @@ const Card = ({ ad, tickets }) => {
                 )}
 
                 <button
-                    className={`buy-btn ${selectedOption || ad.type === "1"  && !isSameUser? "" : "disabled-btn"}`}
+                    className={`buy-btn ${!isTransactionProcessing && /*!isSameUser && */(ad.type === "1" || (ad.type === "0" && selectedOption))
+                            ? ""
+                            : "disabled-btn"
+                        }`}
                     onClick={handlePurchase}
-                    disabled={isTransactionProcessing || (ad.type === "0" && !selectedOption) || isSameUser}
+                    disabled={isTransactionProcessing /*|| isSameUser*/ || (ad.type === "0" && !selectedOption)}
                 >
                     {ad.type === "1" ? "Kupi" : "Razmjeni"}
                 </button>

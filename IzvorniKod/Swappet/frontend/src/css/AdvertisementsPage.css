@@ -61,6 +61,9 @@
     border-radius: 20px;
     height: 370px;
     min-width: 250px;
+    height:contain;
+    display:flex;
+    flex-flow:column;
 }
 
 .imeFiltra{
@@ -198,15 +201,6 @@ li.selected{
 .item:hover {
     background-color: #626a7d;
     color: #26293d;
-}
-
-.filter {
-    background-color: #e8e5e7;
-    width: 250px;
-    margin: 10px;
-    border-radius: 20px;
-    height: 370px;
-    min-width: 250px;
 }
 
 .imeFiltra {
@@ -349,3 +343,51 @@ li.selected {
 .user-menu{
     left: 45%;
 }
+
+.logout {
+    margin-left: auto;
+    background-color: #816898;
+    border: none;
+    border-radius: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e8e5e7;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .logout:hover {
+        background-color: #9aa0a3;
+    }
+
+.logout-icon {
+    font-size: 1.5em;
+}
+
+.hidden {
+    display: none;
+}
+
+.back-to-selection {
+    padding:5px;
+    margin-top: 5px;
+    background-color: #816898;
+    border: none;
+    border-radius: 20px;
+    width: 200px;
+    height: 40px;
+    color: #e8e5e7;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+    text-align: center;
+}
+
+    .back-to-selection:hover {
+        background-color: #26293d;
+        color: #816898;
+    }

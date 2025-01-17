@@ -132,7 +132,7 @@ const CreateEvent = ({ userName, profilePic }) => {
             })
             .then((response) => {
                 console.log("Event created successfully:", response.data);
-                navigate("/advertisements");
+                navigate("/selection");
             })
             .catch((error) => {
                 console.error(
