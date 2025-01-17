@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +97,10 @@
   </component>
   <component name="RunManager">
     <configuration name="SwappetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="MAIL_USERNAME" value="swappet.progi@gmail.com" />
+        <env name="MAIL_PASSWORD" value="jdbe jayf kyhp yolm" />
+      </envs>
       <module name="Swappet" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="Swappet.service.SwappetApplication" />
       <method v="2">
@@ -108,8 +111,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -163,9 +166,8 @@
       <workItem from="1736887886203" duration="50000" />
       <workItem from="1736947417850" duration="15325000" />
       <workItem from="1736964869371" duration="467000" />
-      <workItem from="1737036259635" duration="3818000" />
-      <workItem from="1737115783291" duration="140000" />
-      <workItem from="1737115934734" duration="5705000" />
+      <workItem from="1737036259635" duration="2421000" />
+      <workItem from="1737114492669" duration="4052000" />
     </task>
     <servers />
   </component>

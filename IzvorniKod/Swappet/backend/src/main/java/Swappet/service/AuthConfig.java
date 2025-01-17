@@ -4,6 +4,7 @@ import Swappet.model.Korisnik;
 import Swappet.repository.KorisnikRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
+    // dohvati env varijablu
+    @Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
+    private String frontendUrl;
+
     //Funkcija za autentifikaciju korisnika preko Google OAuth2
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -23,8 +28,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                        		"/ulaznica/kupnja", "/ulaznica","/ulaznica/podnesi-razmjenu","/user",
-                        		"/user/oglasi", "/ulaznica/razmjene",
+                                "/ulaznica/kupnja", "/ulaznica", "/ulaznica/podnesi-razmjenu", "/user",
+                                "/user/oglasi", "/ulaznica/razmjene",
                                 "/homepage/advertisements", "/ulaznica/all", "/createEvent",
                                 "/admin/oglasi", "/admin/transakcije", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
@@ -36,7 +41,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                         .logoutSuccessHandler((request, response, authentication) -> {
                             // Dodatne akcije nakon odjave, npr. preusmjeravanje
                             response.setStatus(HttpServletResponse.SC_OK);
-                            response.sendRedirect("http://localhost:3000");
+                            response.sendRedirect(frontendUrl);
                         })
                         .deleteCookies("JSESSIONID") // Brisanje kolačića sesije
                         .invalidateHttpSession(true) // Invalidacija sesije
@@ -44,7 +49,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             //redirect na frontend
-                            response.sendRedirect("http://localhost:3000/selection");
+                            response.sendRedirect(frontendUrl + "/selection");
                         })
                 )
                 .build();
