@@ -1,10 +1,7 @@
 package Swappet.service;
 
 import Swappet.controller.OglasDTO;
-import Swappet.model.Oglas;
-import Swappet.model.Transakcija;
-import Swappet.model.Ulaznica;
-import Swappet.model.VoliOglas;
+import Swappet.model.*;
 import Swappet.repository.*;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -33,6 +30,10 @@ public class AdminService {
 
     @Autowired
     private JeTipRepository jeTipRepository;
+
+    @Autowired
+    private SporRepository sporRepository;
+    private KorisnikRepository korisnikRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -107,22 +108,16 @@ public class AdminService {
     //aktivacija/deaktivacija oglasa
     public void activationRequest(Integer idOglas, Integer activationStatus) {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
-        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
 
-        if (activationStatus > 0) {
-            if (oglas.getAktivan() <= 0) {
-                oglas.setAktivan(brojUlaznica);
-                oglasRepository.save(oglas);
-            }
-        } else if (activationStatus <= 0) {
-            oglas.setAktivan(0);
-            oglasRepository.save(oglas);
-        }
+        oglas.setAktivan(activationStatus);
+        oglasRepository.save(oglas);
     }
 
     //ban usera
     public void banUser(String email, Integer ban) {
-        //TODO kad zalijepim tablicu u bazu
+        Korisnik korisnik = korisnikRepository.findByEmail(email);
+        Spor spor = sporRepository.findByTuzen(korisnik);
+        spor.setOdlukaSpor(ban);
     }
 
     // pomoć za konstrukciju OglasDTO
