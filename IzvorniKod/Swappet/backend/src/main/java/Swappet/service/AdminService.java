@@ -32,10 +32,6 @@ public class AdminService {
     @Autowired
     private JeTipRepository jeTipRepository;
 
-    @Autowired
-    private SporRepository sporRepository;
-    @Autowired
-    private KorisnikRepository korisnikRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -155,29 +151,5 @@ public class AdminService {
                 tradeDescription,
                 likedStatus
         );
-    }
-
-    // stvaranje novog spora
-    public Spor createSpor(String opisSpor, String tuzioEmail, String tuzeniEmail) {
-        Korisnik tuzio = korisnikRepository.findByEmail(tuzioEmail);
-        Korisnik tuzen = korisnikRepository.findByEmail(tuzeniEmail);
-
-        Spor spor = new Spor(opisSpor, LocalDateTime.now(), tuzio, tuzen);
-        return sporRepository.save(spor);
-    }
-
-    // updateaj odluku spora
-    public Spor updateSporDecision(Integer idSpor, Integer odlukaSpor, String obrazlozenje) {
-        Spor spor = sporRepository.findById(idSpor)
-                .orElseThrow(() -> new IllegalArgumentException("Nije pronađen spor s id-ijem: " + idSpor));
-
-        spor.setOdlukaSpor(odlukaSpor);
-        spor.setObrazlozenje(obrazlozenje);
-        return sporRepository.save(spor);
-    }
-
-    // dohvati sve sporove
-    public List<Spor> getAllSporovi() {
-        return sporRepository.findAll();
     }
  }
