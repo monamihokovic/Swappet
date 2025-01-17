@@ -237,7 +237,7 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    const isSameUser = user?.email === ad.email;
+    //const isSameUser = user?.email === ad.email;
 
     return (
         <div className="card">

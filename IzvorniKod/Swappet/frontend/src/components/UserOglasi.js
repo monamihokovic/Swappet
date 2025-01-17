@@ -11,7 +11,7 @@ const UserOglasi = ({ profilePic }) => {
 
     const [user, setUser] = useState(null);
     const [ads, setAds] = useState([]);
-    const [ulaznice, setUlaznice] = useState([]);
+    const [, setUlaznice] = useState([]);
 
     // Fetch user info
     useEffect(() => {

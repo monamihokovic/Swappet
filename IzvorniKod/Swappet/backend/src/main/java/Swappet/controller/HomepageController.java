@@ -1,11 +1,17 @@
 package Swappet.controller;
 
+import Swappet.model.Korisnik;
+import Swappet.model.Spor;
+import Swappet.repository.KorisnikRepository;
+import Swappet.repository.SporRepository;
 import Swappet.service.OglasService;
+import Swappet.service.SporService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,6 +25,14 @@ public class HomepageController {
     private OglasService oglasService;
 
     private List<OglasDTO> storedOglasiData;
+
+    @Autowired
+    private KorisnikRepository korisnikRepository;
+
+    @Autowired
+    private SporRepository sporRepository;
+    @Autowired
+    private SporService sporService;
 
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
     @PostMapping("/oglas")
@@ -37,5 +51,26 @@ public class HomepageController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // If no data found
         }
+    }
+
+    // kreiraj novi spor
+    @PostMapping("/dispute")
+    public ResponseEntity<Spor> createSpor(@RequestParam String opisSpor, @RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
+        Spor spor = sporService.createSpor(opisSpor, tuzioEmail, tuzeniEmail);
+        return ResponseEntity.ok(spor);
+    }
+
+    // dohvati sve sporove
+    @GetMapping("/disputes")
+    public ResponseEntity<List<Spor>> getAllSporovi() {
+        List<Spor> disputes = sporService.getAllSporovi();
+        return ResponseEntity.ok(disputes);
+    }
+
+    // updateaj odluku spora
+    @PutMapping("/dispute/{id}")
+    public ResponseEntity<Spor> updateSporDecision(@PathVariable Integer id, @RequestParam Integer odlukaSpor, @RequestParam String obrazlozenje) {
+        Spor updatedSpor = sporService.updateSporDecision(id, odlukaSpor, obrazlozenje);
+        return ResponseEntity.ok(updatedSpor);
     }
 }
