@@ -11,7 +11,7 @@
     justify-content: space-between; /* Separate content */
     gap: 20px;
     height: auto;
-    max-height: 500px; /* Restrict maximum card height */
+    max-height: 600px; /* Restrict maximum card height */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     padding: 20px;
@@ -222,4 +222,61 @@
     margin: 5px 0; /* Adds spacing from surrounding elements */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.tridot-dropdown {
+    position: relative; /* For absolute positioning of dropdown menu */
+    display: inline-block; /* Ensure the tridot icon and dropdown align */
+    margin: 10px 0; /* Adds vertical spacing */
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}
+
+.tridot-icon {
+    font-size: 1.5em;
+    color: #816898; /* Primary color for the icon */
+    transition: color 0.3s ease;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+    .tridot-icon:hover {
+        color: #6b4e8d; /* Darker shade for hover effect */
+    }
+
+.dropdown-menu {
+    right: 0; /* Align menu to the right */
+    background-color: #1e2235; /* Matches the card's background */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    min-width: 150px; /* Fixed width for uniformity */
+    padding: 10px 5px; /* Vertical spacing inside menu */
+    display: flex;
+    flex-direction: row;
+}
+
+    .dropdown-menu button {
+        background: none; /* Transparent background */
+        border: none; /* No border */
+        color: #fff; /* White text for visibility */
+        font-size: 1em;
+        text-align: left;
+        padding: 10px 15px; /* Adds padding for clickable area */
+        cursor: pointer;
+        display: flex; /* Align icon and text */
+        align-items: center;
+        gap: 10px; /* Spacing between icon and text */
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+        .dropdown-menu button:hover {
+            background-color: #26293d; /* Slightly darker for hover feedback */
+        }
+
+.dropdown-icon {
+    font-size: 1.2em; /* Slightly smaller than the tridot */
+    color: #816898; /* Matches icon color */
+}
+
 

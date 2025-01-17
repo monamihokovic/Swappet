@@ -15,7 +15,7 @@ import AdminOglasi from "./components/AdminOglasi";
 import AdminTransakcije from "./components/AdminTransakcije";
 import UserTransakcije from "./components/UserTransakcije";
 import UserOglasi from "./components/UserOglasi";
-import TransactionPage from "./components/TransactionPage";
+import UserRazmjene from "./components/UserRazmjene";
 
 
 function App() {
@@ -114,11 +114,9 @@ function App() {
                     element={<UserOglasi />} 
                 />
                 <Route
-                    path="/myTransactions"
+                    path="/user/trades"
                     element={
-                    <TransactionPage
-                        userName={userName}
-                        profilePic={profilePic}/>}
+                    <UserRazmjene/>}
                 />
             </Routes>
         </Router>

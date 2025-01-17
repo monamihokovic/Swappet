@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import "../css/TransactionPage.css";
+import "../css/UserRazmjene.css";
 import axios from "axios";
 
-function TransactionPage({ profilePic }) {
-    const [transactions, setTransactions] = useState([]);
+function UserRazmjene({ profilePic }) {
+    const navigate = useNavigate();
+
+    const [trades, setTrades] = useState([]);
     const [user, setUser] = useState(null);
     const defaultProfilePic = "/defaultpfp.jpg";
 
@@ -14,7 +17,8 @@ function TransactionPage({ profilePic }) {
             .get("http://localhost:8081/user-info", { withCredentials: true })
             .then((response) => {
                 setUser(response.data);
-                console.log("User email:", response.data.email);
+                setTrades(getDummyTrades());
+                //console.log("User email:", response.data.email);
             })
             .catch((error) => {
                 console.error("Error occurred: ", error);
@@ -22,51 +26,74 @@ function TransactionPage({ profilePic }) {
     }, []);
 
     useEffect(() => {
-        const fetchTransactions = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8081/user/trades/${user.email}`);
-                setTransactions(response.data);
-            } catch (error) {
-                console.error("Error fetching transactions:", error);
-                // Dummy data in case of error
-                setTransactions([
-                    {
-                        selledId: 1,
-                        sellerAdDescription: "Koncert 1",
-                        sellerTradeDescription: "Za Koncert 2",
-                        buyerDescription: "Koncert 2",
-                        quantity: 1,
-                    },
-                    {
-                        selledId: 2,
-                        sellerAdDescription: "Posjet tvojoj mami",
-                        sellerTradeDescription: "Za Posjet tvom tati",
-                        buyerDescription: "Posjet tvom tati",
-                        quantity: 1,
-                    },
-                ]);
-            }
-        };
+        if (user) {
+            axios
+                .get(`http://localhost:8081/user/trades/${user.email}`, { withCredentials: true })
+                .then((response) => {
+                    setTrades(response.data);
+                    console.log("Trades fetched:", response.data);
+                    setTrades(getDummyTrades());
 
-        fetchTransactions();
+                })
+                .catch((error) => {
+                    console.error("Error occurred: ", error);
+                });
+        }
     }, [user]);
 
-    const handleCheckmarkClick = (selledId) => {
+    const getDummyTrades = () => [
+        {
+            selledId: "dummy1",
+            sellerAdDescription: "Selling 2 concert tickets",
+            sellerTradeDescription: "Looking for movie tickets",
+            buyerDescription: "Buyer interested in 2 tickets",
+            quantity: 2,
+            buyerId: "buyer123",
+        },
+        {
+            selledId: "dummy2",
+            sellerAdDescription: "Selling a rare comic book",
+            sellerTradeDescription: "Looking for a vintage vinyl record",
+            buyerDescription: "Buyer wants 1 comic book",
+            quantity: 1,
+            buyerId: "buyer456",
+        },
+    ];
+
+    const handleCheckmarkClick = (selledId, buyerId, quantity) => {
         console.log("Checkmark clicked for selledId:", selledId);
+        const requestBody = {
+            sellerId: selledId,
+            buyerId: buyerId,
+            amount: quantity,
+            decision: 1, 
+        };
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", null, {
-                params: { idOglasSeller: selledId, value: 1 },
+            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" },
+            }).then((response) => {
+                console.log("Trade approved:", response.data);
             })
             .catch((error) => {
                 console.error("Error during check request:", error);
             });
     };
 
-    const handleCrossClick = (selledId) => {
+    const handleCrossClick = (selledId, buyerId, quantity) => {
         console.log("Cross clicked for selledId:", selledId);
+        const requestBody = {
+            sellerId: selledId,
+            buyerId: buyerId,
+            amount: quantity,
+            decision: -1,
+        };
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", null, {
-                params: { idOglasSeller: selledId, value: -1 },
+            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" },
+            }).then((response) => {
+                console.log("Trade rejected:", response.data);
             })
             .catch((error) => {
                 console.error("Error during cross request:", error);
@@ -81,18 +108,22 @@ function TransactionPage({ profilePic }) {
                         className="pfp"
                         src={user?.picture || defaultProfilePic}
                         alt="Profile"
+                        onError={(e) => {
+                            e.target.src = defaultProfilePic;
+                        }}
                     />
-                    <span className="username">{user?.name || "Guest"}</span>
-                </div>
+                    <div className="username" onClick={() => navigate("/advertisements")}>
+                        {user ? user.name : "Loading..."}
+                    </div>                </div>
                 <h1 className="logo">
                     S<span id="usklicnik">!</span>
                 </h1>
             </header>
             <div className="cards-container">
-                {transactions.length === 0 ? (
-                    <p className="no-transactions">No transactions available.</p>
+                {trades.length === 0 ? (
+                    <p className="no-trades">No trades available.</p>
                 ) : (
-                    transactions.map((transaction) => (
+                    trades.map((transaction) => (
                         <div key={transaction.selledId} className="card">
                             <p>
                                 <strong>Seller Ad:</strong>{" "}
@@ -113,7 +144,7 @@ function TransactionPage({ profilePic }) {
                                 <button
                                     className="checkmark-btn"
                                     onClick={() =>
-                                        handleCheckmarkClick(transaction.selledId)
+                                        handleCheckmarkClick(transaction.selledId, transaction.buyerId, transaction.quantity)
                                     }
                                 >
                                     <FontAwesomeIcon icon={faCheck} />
@@ -121,7 +152,7 @@ function TransactionPage({ profilePic }) {
                                 <button
                                     className="cross-btn"
                                     onClick={() =>
-                                        handleCrossClick(transaction.selledId)
+                                        handleCrossClick(transaction.selledId, transaction.buyerId, transaction.quantity)
                                     }
                                 >
                                     <FontAwesomeIcon icon={faTimes} />
@@ -135,4 +166,4 @@ function TransactionPage({ profilePic }) {
     );
 }
 
-export default TransactionPage;
+export default UserRazmjene;

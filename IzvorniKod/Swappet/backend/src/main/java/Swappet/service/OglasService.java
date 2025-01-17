@@ -52,7 +52,6 @@ public class OglasService {
 
             OglasDTO dto = buildOglasDTO(oglas, price, likedStatus);
 
-            System.out.println("[SERVICE] Processed advertisement: " + dto);
             result.add(dto);
         }
 
