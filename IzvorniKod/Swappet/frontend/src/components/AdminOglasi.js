@@ -6,7 +6,7 @@ import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const AdminOglasi = ({}) => {
+const AdminOglasi = () => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
