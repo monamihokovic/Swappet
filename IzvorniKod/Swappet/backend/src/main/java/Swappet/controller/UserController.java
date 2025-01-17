@@ -55,10 +55,12 @@ public class UserController {
         Integer idOglas = payload.get("id");
         Integer activation = payload.get("activation");
         userService.oglasActivation(idOglas, activation);
-        if (activation > 0) {
+        if (activation == -10) {
             return ResponseEntity.ok("Oglas reaktiviran");
-        } else {
+        } else if (activation == -1) {
             return ResponseEntity.ok("Oglas deaktiviran");
+        }else{
+            return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno")
         }
     }
 

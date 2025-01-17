@@ -108,7 +108,6 @@ public class AdminService {
     //aktivacija/deaktivacija oglasa
     public void activationRequest(Integer idOglas, Integer activationStatus) {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
-
         oglas.setAktivan(activationStatus);
         oglasRepository.save(oglas);
     }
