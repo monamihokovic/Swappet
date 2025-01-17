@@ -18,7 +18,7 @@ oglas
         (0 => zamjena karte), (1 => prodaja karte), (2 => zamjena karte u lancu razmjene)
     opisZamjene = kratak opis koje su prihvatljive opcije za zamjenu, popunjava se i ispisuje korisniku samo kada je tipOglasa=0 (može biti null)
     aktivan = označava aktivnost oglasa u sustavu (privremeno nekativan= korisnik ga maknuo s tržišta prije manje od x dana, pa ga do isteka x dana može vratiti)
-         ( > 1 => aktivan, broj označava broj nekativnih karata ), 
+         ( > 1 => aktivan, broj označava broj aktivnih karata ), 
          (-1 => privremeno nekativan),
          (-2 => trajno nekativan), //backedn mora osigurati da se nikada ne mijenja ako je -2
          (0 => sustav označava kao privremeno nekativan),
