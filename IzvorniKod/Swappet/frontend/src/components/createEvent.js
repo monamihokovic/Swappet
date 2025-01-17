@@ -41,7 +41,9 @@ const CreateEvent = ({ userName, profilePic }) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", { withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
             })
@@ -75,7 +77,6 @@ const CreateEvent = ({ userName, profilePic }) => {
         }));
     };
 
-
     const handleNumberOfTicketsChange = (e) => {
         const numberOfTickets = e.target.value;
         setEventDetails((prevDetails) => ({
@@ -84,10 +85,13 @@ const CreateEvent = ({ userName, profilePic }) => {
         }));
 
         // Update seats based on the number of tickets
-        const newSeats = Array.from({ length: numberOfTickets }, (_, index) => ({
-            row: "",
-            seat: "",
-        }));
+        const newSeats = Array.from(
+            { length: numberOfTickets },
+            (_, index) => ({
+                row: "",
+                seat: "",
+            })
+        );
         setSeats(newSeats);
     };
 
@@ -109,7 +113,10 @@ const CreateEvent = ({ userName, profilePic }) => {
         const eventData = {
             description: eventDetails.description,
             categoryId: eventDetails.category,
-            price: eventDetails.transactionType === "1" ? eventDetails.price : null,
+            price:
+                eventDetails.transactionType === "1"
+                    ? eventDetails.price
+                    : null,
             numberOfTickets: eventDetails.numberOfTickets,
             street: eventDetails.street,
             houseNumber: eventDetails.houseNumber,
@@ -117,7 +124,10 @@ const CreateEvent = ({ userName, profilePic }) => {
             date: date,
             ticketType: eventDetails.ticketType,
             transactionType: eventDetails.transactionType,
-            tradeDescription: eventDetails.transactionType === "0" ? eventDetails.tradeDescription : "", // Include tradeDescription for "exchange"
+            tradeDescription:
+                eventDetails.transactionType === "0"
+                    ? eventDetails.tradeDescription
+                    : "", // Include tradeDescription for "exchange"
             email: user?.email,
             red: seats[0].row, // First row
             broj: seats[0].seat, // First seat number
@@ -126,7 +136,7 @@ const CreateEvent = ({ userName, profilePic }) => {
         console.log("Event data being submitted:", eventData);
 
         axios
-            .post("http://localhost:8081/oglas/add", eventData, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/oglas/add`, eventData, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
             })
@@ -158,7 +168,9 @@ const CreateEvent = ({ userName, profilePic }) => {
                         {user ? user.name : "Loading..."}
                     </div>
                 </div>
-                <div className="logo">S<span id="usklicnik">!</span></div>
+                <div className="logo">
+                    S<span id="usklicnik">!</span>
+                </div>
             </div>
 
             <form className="eventCreator" onSubmit={handleSubmit}>
@@ -249,7 +261,9 @@ const CreateEvent = ({ userName, profilePic }) => {
                             />
                         </>
                     )}
-                    <div className="kolicina">Količina ulaznica za prodaju:</div>
+                    <div className="kolicina">
+                        Količina ulaznica za prodaju:
+                    </div>
                     <input
                         className="kolicinaInput"
                         type="number"
@@ -275,7 +289,11 @@ const CreateEvent = ({ userName, profilePic }) => {
                                                 type="number"
                                                 value={seat.row}
                                                 onChange={(e) =>
-                                                    handleSeatChange(index, "row", e.target.value)
+                                                    handleSeatChange(
+                                                        index,
+                                                        "row",
+                                                        e.target.value
+                                                    )
                                                 }
                                                 placeholder="Unesi red"
                                             />
@@ -285,7 +303,11 @@ const CreateEvent = ({ userName, profilePic }) => {
                                                 type="number"
                                                 value={seat.seat}
                                                 onChange={(e) =>
-                                                    handleSeatChange(index, "seat", e.target.value)
+                                                    handleSeatChange(
+                                                        index,
+                                                        "seat",
+                                                        e.target.value
+                                                    )
                                                 }
                                                 placeholder="Unesi broj sjedala"
                                             />
@@ -351,7 +373,11 @@ const CreateEvent = ({ userName, profilePic }) => {
                         required
                     />
                 </div>
-                <input className="submit" type="submit" value="Kreiraj događaj!" />
+                <input
+                    className="submit"
+                    type="submit"
+                    value="Kreiraj događaj!"
+                />
             </form>
         </div>
     );
