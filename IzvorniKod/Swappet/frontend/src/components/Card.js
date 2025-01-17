@@ -238,7 +238,7 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    const isSameUser = user?.email === ad.email;
+    //const isSameUser = user?.email === ad.email;
 
     
     const location = useLocation();
