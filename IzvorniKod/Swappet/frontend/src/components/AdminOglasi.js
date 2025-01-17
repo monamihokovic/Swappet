@@ -6,12 +6,12 @@ import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const AdminOglasi = ({ profilePic }) => {
+const AdminOglasi = ({}) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
     const [ads, setAds] = useState([]);
-    const [ulaznice, setUlaznice] = useState([]);
+    const [, setUlaznice] = useState([]);
 
     // Fetch user info
     useEffect(() => {
