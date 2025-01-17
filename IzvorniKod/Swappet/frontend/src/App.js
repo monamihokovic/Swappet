@@ -16,6 +16,7 @@ import AdminTransakcije from "./components/AdminTransakcije";
 import UserTransakcije from "./components/UserTransakcije";
 import UserOglasi from "./components/UserOglasi";
 import UserRazmjene from "./components/UserRazmjene";
+import AdminReported from "./components/AdminReported";
 
 
 function App() {
@@ -117,6 +118,11 @@ function App() {
                     path="/user/trades"
                     element={
                     <UserRazmjene/>}
+                />
+                <Route
+                    path="/admin/reported"
+                    element={
+                    <AdminReported />}
                 />
             </Routes>
         </Router>
