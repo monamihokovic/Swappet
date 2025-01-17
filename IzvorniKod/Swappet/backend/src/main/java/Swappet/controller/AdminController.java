@@ -66,25 +66,4 @@ public class AdminController {
             return ResponseEntity.ok("User banned");
         }
     }
-
-    // kreiraj novi spor
-    @PostMapping("/dispute")
-    public ResponseEntity<Spor> createSpor(@RequestParam String opisSpor, @RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
-        Spor spor = adminService.createSpor(opisSpor, tuzioEmail, tuzeniEmail);
-        return ResponseEntity.ok(spor);
-    }
-
-    // dohvati sve sporove
-    @GetMapping("/disputes")
-    public ResponseEntity<List<Spor>> getAllSporovi() {
-        List<Spor> disputes = adminService.getAllSporovi();
-        return ResponseEntity.ok(disputes);
-    }
-
-    // updateaj odluku spora
-    @PutMapping("/dispute/{id}")
-    public ResponseEntity<Spor> updateSporDecision(@PathVariable Integer id, @RequestParam Integer odlukaSpor, @RequestParam String obrazlozenje) {
-        Spor updatedSpor = adminService.updateSporDecision(id, odlukaSpor, obrazlozenje);
-        return ResponseEntity.ok(updatedSpor);
-    }
 }
