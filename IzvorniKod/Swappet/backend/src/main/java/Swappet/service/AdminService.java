@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AdminService {
@@ -129,9 +130,9 @@ public class AdminService {
         String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
         String date = oglas.getDatum().toString();
         Integer numberOfTickets = oglas.getAktivan();
-        Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-        Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-        Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+        Integer ticketType = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+        Integer red = red = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getRed();
+        Integer broj = broj = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getBroj();
         String tradeDescription = oglas.getOpisZamjene();
         Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
 
