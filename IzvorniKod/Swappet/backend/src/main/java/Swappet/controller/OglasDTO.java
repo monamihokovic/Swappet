@@ -6,7 +6,7 @@ public class OglasDTO {
     private String description;  // opis iz Oglasa
     private String type;  // tipOglas iz Oglasa
     private Double price;  // cijena iz Ulaznice
-	private String address;  // combination ulice i grada iz Oglasa
+    private String address;  // combination ulice i grada iz Oglasa
     private String date;  // datum iz Oglasa
     private Integer numberOfTickets; // broj ulaznica
     private Integer ticketType; // tip ulaznice
@@ -16,6 +16,8 @@ public class OglasDTO {
     private String email; // email prodavača
     private String tradeDescription; //opis zamjene
     private Integer liked; // korisnik može lajkati, dislajkati, reportati oglas
+
+    //numberOfTIckets = aktivan
 
     public OglasDTO(int id, String description, String type, Double price, String address, String date, Integer numberOfTickets, Integer ticketType, Integer broj, Integer red, Integer eventType, String email, String tradeDescription, Integer liked) {
         this.id = id;
@@ -137,37 +139,41 @@ public class OglasDTO {
     public void setNumberOfTickets(Integer numberOfTickets) {
         this.numberOfTickets = numberOfTickets;
     }
-    
+
     public Integer geteventType() {
-		return eventType;
-	}
+        return eventType;
+    }
 
-	public void seteventType(Integer eventType) {
-		this.eventType = eventType;
-	}
+    public void seteventType(Integer eventType) {
+        this.eventType = eventType;
+    }
 
-    public Integer getLiked() { return liked; }
+    public Integer getLiked() {
+        return liked;
+    }
 
-    public void setLiked(Integer liked) { this.liked = liked; }
-	
-	@Override
-	public String toString() {
-	    return "OglasDTO{" +
-	            "id=" + id +
-	            ", description='" + description + '\'' +
-	            ", type='" + type + '\'' +
-	            ", price=" + price +
-	            ", address='" + address + '\'' +
-	            ", date='" + date + '\'' +
-	            ", numberOfTickets=" + numberOfTickets +
-	            ", ticketType=" + ticketType +
-	            ", broj=" + broj +
-	            ", red=" + red +
-	            ", eventType=" + eventType +
-	            ", email='" + email + '\'' +
-	            ", tradeDescription='" + tradeDescription + '\'' +
+    public void setLiked(Integer liked) {
+        this.liked = liked;
+    }
+
+    @Override
+    public String toString() {
+        return "OglasDTO{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                ", address='" + address + '\'' +
+                ", date='" + date + '\'' +
+                ", numberOfTickets=" + numberOfTickets +
+                ", ticketType=" + ticketType +
+                ", broj=" + broj +
+                ", red=" + red +
+                ", eventType=" + eventType +
+                ", email='" + email + '\'' +
+                ", tradeDescription='" + tradeDescription + '\'' +
                 ", liked=" + liked +
-	            '}';
-	}
+                '}';
+    }
 
 }

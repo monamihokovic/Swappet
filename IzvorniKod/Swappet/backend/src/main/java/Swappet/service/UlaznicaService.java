@@ -93,12 +93,11 @@ public class UlaznicaService {
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
 
         // Provjera je li prodavateljev oglas označen za zamjenu
-        if (sellerOglas.getTipOglas() != 1) {
+        if (sellerOglas.getTipOglas() == 1) {
             throw new IllegalArgumentException("Ulaznica nije označena za zamjenu.");
         }
 
         for (int i = 0; i < amount; i++) {
-
             Ulaznica sellerTicket = sellerTickets.get(i);
             Integer transactionId = seMijenjaRepository.findByIdUlaznica(sellerTicket.getIdUlaznica()).getIdTransakcija();
 

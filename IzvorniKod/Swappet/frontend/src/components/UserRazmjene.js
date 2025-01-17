@@ -14,12 +14,10 @@ function UserRazmjene({ profilePic }) {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
-                withCredentials: true,
-            })
+            .get("http://localhost:8081/user-info", { withCredentials: true })
             .then((response) => {
                 setUser(response.data);
-                setTrades(response.data);
+                setTrades(getDummyTrades());
                 //console.log("User email:", response.data.email);
             })
             .catch((error) => {
@@ -30,14 +28,10 @@ function UserRazmjene({ profilePic }) {
     useEffect(() => {
         if (user) {
             axios
-                .get(
-                    `${process.env.REACT_APP_BACKEND_URL}/user/trades/${user.email}`,
-                    { withCredentials: true }
-                )
+                .get(`http://localhost:8081/user/trades/${user.email}`, { withCredentials: true })
                 .then((response) => {
                     setTrades(response.data);
                     console.log("Trades fetched:", response.data);
-                    setTrades(getDummyTrades());
                 })
                 .catch((error) => {
                     console.error("Error occurred: ", error);
@@ -70,18 +64,14 @@ function UserRazmjene({ profilePic }) {
             sellerId: selledId,
             buyerId: buyerId,
             amount: quantity,
-            decision: 1,
+            decision: 1, 
         };
+        console.log("Request body:", requestBody);
         axios
-            .post(
-                `${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`,
-                requestBody,
-                {
-                    withCredentials: true,
-                    headers: { "Content-Type": "application/json" },
-                }
-            )
-            .then((response) => {
+            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" },
+            }).then((response) => {
                 console.log("Trade approved:", response.data);
             })
             .catch((error) => {
@@ -97,16 +87,12 @@ function UserRazmjene({ profilePic }) {
             amount: quantity,
             decision: -1,
         };
+        console.log("Request body:", requestBody);
         axios
-            .post(
-                `${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`,
-                requestBody,
-                {
-                    withCredentials: true,
-                    headers: { "Content-Type": "application/json" },
-                }
-            )
-            .then((response) => {
+            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+                withCredentials: true,
+                headers: { "Content-Type": "application/json" },
+            }).then((response) => {
                 console.log("Trade rejected:", response.data);
             })
             .catch((error) => {
@@ -126,13 +112,9 @@ function UserRazmjene({ profilePic }) {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    <div
-                        className="username"
-                        onClick={() => navigate("/advertisements")}
-                    >
+                    <div className="username" onClick={() => navigate("/advertisements")}>
                         {user ? user.name : "Loading..."}
-                    </div>{" "}
-                </div>
+                    </div>                </div>
                 <h1 className="logo">
                     S<span id="usklicnik">!</span>
                 </h1>
@@ -156,30 +138,21 @@ function UserRazmjene({ profilePic }) {
                                 {transaction.buyerDescription}
                             </p>
                             <p>
-                                <strong>Quantity:</strong>{" "}
-                                {transaction.quantity}
+                                <strong>Quantity:</strong> {transaction.quantity}
                             </p>
                             <div className="card-buttons">
                                 <button
                                     className="checkmark-btn"
-                                    onClick={() =>
-                                        handleCheckmarkClick(
-                                            transaction.selledId,
-                                            transaction.buyerId,
-                                            transaction.quantity
-                                        )
-                                    }
+                                    onClick={() => {
+                                        handleCheckmarkClick(transaction.sellerId, transaction.buyerId, transaction.quantity);
+                                    }}
                                 >
                                     <FontAwesomeIcon icon={faCheck} />
                                 </button>
                                 <button
                                     className="cross-btn"
                                     onClick={() =>
-                                        handleCrossClick(
-                                            transaction.selledId,
-                                            transaction.buyerId,
-                                            transaction.quantity
-                                        )
+                                        handleCrossClick(transaction.selledId, transaction.buyerId, transaction.quantity)
                                     }
                                 >
                                     <FontAwesomeIcon icon={faTimes} />

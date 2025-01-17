@@ -59,8 +59,8 @@ public class UserController {
             return ResponseEntity.ok("Oglas reaktiviran");
         } else if (activation == -1) {
             return ResponseEntity.ok("Oglas deaktiviran");
-        }else{
-            return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno")
+        } else {
+            return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno");
         }
     }
 

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OglasService {
@@ -94,11 +96,6 @@ public class OglasService {
                     .map(VoliOglas::getVoli)
                     .orElse(0);
 
-//            // isključimo dislajkane ili reportane oglase
-//            if (likedStatus == -1 || likedStatus == 2) {
-//                continue;
-//            }
-
             OglasDTO dto = buildOglasDTO(oglas, price, likedStatus);
             result.add(dto);
         }
@@ -110,14 +107,20 @@ public class OglasService {
     public List<TradeDTO> getUserTrades(String email) {
         List<Object[]> rawData = transakcijaRepository.findUserTrades(email);
         List<TradeDTO> result = new ArrayList<>();
-        
-        int di = (Integer) rawData.getFirst()[3];
+        int di;
+
+        try {
+            di = (Integer) rawData.getFirst()[3];
+        } catch (NoSuchElementException e) {
+            return null;
+        }
         int counter = 0;
 
         for (Object[] row : rawData) {
             Integer idOglasSeller = (Integer) row[3];
-            if (idOglasSeller == di) {
+            if (idOglasSeller == di && Arrays.stream(row).iterator().hasNext()) {
                 counter++;
+                System.out.println("Counter = " + counter);
                 continue;
             }
 
@@ -125,18 +128,19 @@ public class OglasService {
 
             Integer odluka = (Integer) row[0];
             Integer idSeller = (Integer) row[1];
-            Integer idBuyer = (Integer) row[2];
+            Integer idBuyerUlaznica = (Integer) row[2];
 
             Oglas oglasSeller = oglasRepository.findByIdOglas(idOglasSeller);
             String sellerDesc = oglasSeller.getOpis();
             String sellerTradeDesc = oglasSeller.getOpisZamjene();
 
-            Oglas oglasBuyer = ulaznicaRepository.findById(idBuyer).get().getOglas();
+            Oglas oglasBuyer = ulaznicaRepository.findById(idBuyerUlaznica).get().getOglas();
+            Integer sellerId = oglasSeller.getIdOglas();
             Integer buyerId = oglasBuyer.getIdOglas();
             String buyerDesc = oglasBuyer.getOpis();
 
             TradeDTO tradeDTO = new TradeDTO(
-                    idSeller,
+                    sellerId,
                     sellerDesc,
                     sellerTradeDesc,
                     buyerId,
@@ -145,7 +149,8 @@ public class OglasService {
             );
 
             result.add(tradeDTO);
-
+            System.out.println("Id oglasa kupca: " + tradeDTO.getSellerId());
+            counter = 0;
         }
 
         return result;
