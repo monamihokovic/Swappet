@@ -106,11 +106,12 @@ public class OglasService {
         return result;
     }
 
+    //vraća nepotvrđene oglase za razmjenu od pojedinog korisnika
     public List<TradeDTO> getUserTrades(String email) {
         List<Object[]> rawData = transakcijaRepository.findUserTrades(email);
         List<TradeDTO> result = new ArrayList<>();
-
-        int di = -1;
+        
+        int di = (Integer) rawData.getFirst()[3];
         int counter = 0;
 
         for (Object[] row : rawData) {
@@ -150,6 +151,7 @@ public class OglasService {
         return result;
     }
 
+    //sprema like/dislike/report (ovo treba provjeriti)
     public void saveUserInteraction(String email, Integer idOglas, Integer action) {
         VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
         voliOglasRepository.save(voliOglas);

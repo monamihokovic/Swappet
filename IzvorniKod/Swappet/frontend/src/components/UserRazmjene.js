@@ -17,7 +17,7 @@ function UserRazmjene({ profilePic }) {
             .get("http://localhost:8081/user-info", { withCredentials: true })
             .then((response) => {
                 setUser(response.data);
-                setTrades(getDummyTrades());
+                setTrades(response.data);
                 //console.log("User email:", response.data.email);
             })
             .catch((error) => {

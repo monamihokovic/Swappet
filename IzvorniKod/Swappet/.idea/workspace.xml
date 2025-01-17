@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -163,6 +165,7 @@
       <workItem from="1736964869371" duration="467000" />
       <workItem from="1737036259635" duration="3818000" />
       <workItem from="1737115783291" duration="140000" />
+      <workItem from="1737115934734" duration="5705000" />
     </task>
     <servers />
   </component>

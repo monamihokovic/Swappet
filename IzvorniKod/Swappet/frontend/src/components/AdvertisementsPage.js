@@ -158,7 +158,7 @@ const AdvertisementsPage = ({ profilePic }) => {
 
                 <button
                     className={user ? "createEvent" : "createEvent hidden"}
-                    onClick={() => navigate("/myTransactions")}
+                    onClick={() => navigate("/user/trades")}
                     disabled={!user}
                 >
                     Moje razmjene
