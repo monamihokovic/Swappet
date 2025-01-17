@@ -16,7 +16,7 @@ const UserOglasi = ({ profilePic }) => {
     // Fetch user info
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
                 withCredentials: true,
             })
             .then((response) => {
@@ -28,8 +28,12 @@ const UserOglasi = ({ profilePic }) => {
     }, []);
 
     useEffect(() => {
-        const fetchAds = axios.get("http://localhost:8081/homepage/advertisements");
-        const fetchTickets = axios.get("http://localhost:8081/ulaznica/all");
+        const fetchAds = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`
+        );
+        const fetchTickets = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
+        );
 
         Promise.all([fetchAds, fetchTickets])
             .then(([adsResponse, ticketsResponse]) => {
@@ -42,7 +46,7 @@ const UserOglasi = ({ profilePic }) => {
             });
     }, []);
 
-    const filteredAds = ads.filter(ad => ad.numberOfTickets > 0);
+    const filteredAds = ads.filter((ad) => ad.numberOfTickets > 0);
 
     return (
         <div className="admin-page">
@@ -56,7 +60,10 @@ const UserOglasi = ({ profilePic }) => {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    <div className="username" onClick={() => navigate("/advertisements")}>
+                    <div
+                        className="username"
+                        onClick={() => navigate("/advertisements")}
+                    >
                         {user ? user.name : "Loading..."}
                     </div>
                 </div>
@@ -67,23 +74,22 @@ const UserOglasi = ({ profilePic }) => {
             </div>
 
             <div className="container">
-                    <h2 id="oglasi">Svi moji oglasi</h2>
-                    
-                    <div className="oglasi">
-                        {filteredAds.length === 0 ? (
-                            <div className="no-events-message">
-                                Nema aktivnih oglasa.
-                            </div>
-                        ) : (
-                            filteredAds.map((adWithTickets) => (
-                                <Card
-                                    key={adWithTickets.id}
-                                    ad={adWithTickets}
-                                    tickets={adWithTickets.tickets}
-                                />
-                            ))
-                        )}
-                    
+                <h2 id="oglasi">Svi moji oglasi</h2>
+
+                <div className="oglasi">
+                    {filteredAds.length === 0 ? (
+                        <div className="no-events-message">
+                            Nema aktivnih oglasa.
+                        </div>
+                    ) : (
+                        filteredAds.map((adWithTickets) => (
+                            <Card
+                                key={adWithTickets.id}
+                                ad={adWithTickets}
+                                tickets={adWithTickets.tickets}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ const GoogleLoginButton = () => {
     const handleLoginRedirect = () => {
         // Redirecting to the backend authentication URL
 
-        window.location.href = "http://localhost:8081/login"; // Redirect to backend to handle OAuth
+        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/login`; // Redirect to backend to handle OAuth
     };
 
     return (

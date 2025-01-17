@@ -10,11 +10,10 @@ const AdminTransakcije = ({ profilePic }) => {
     const [user, setUser] = useState(null);
     const [transactions, setTransactions] = useState([]);
 
-
     // Fetch user info
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
                 withCredentials: true,
             })
             .then((response) => {
@@ -26,7 +25,9 @@ const AdminTransakcije = ({ profilePic }) => {
     }, []);
 
     useEffect(() => {
-        const fetchTransactions= axios.get("http://localhost:8081/admin/transakcije");
+        const fetchTransactions = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije`
+        );
 
         Promise.all([fetchTransactions])
             .then(([transactionsResponse]) => {
@@ -39,7 +40,7 @@ const AdminTransakcije = ({ profilePic }) => {
     }, []);
 
     const uspjesnostTransakcije = (uspjesna) => {
-        switch (uspjesna){
+        switch (uspjesna) {
             case 0:
                 return "Čeka odluku";
             case 1:
@@ -47,11 +48,9 @@ const AdminTransakcije = ({ profilePic }) => {
             case -1:
                 return "Neuspješna";
             default:
-                return uspjesna ? "Nije definirano": "Nije definirano";
+                return uspjesna ? "Nije definirano" : "Nije definirano";
         }
-    }
-
-
+    };
 
     return (
         <div className="admin-page">
@@ -65,7 +64,10 @@ const AdminTransakcije = ({ profilePic }) => {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    <div className="username" onClick={() => navigate("/advertisements")}>
+                    <div
+                        className="username"
+                        onClick={() => navigate("/advertisements")}
+                    >
                         {user ? user.name : "Loading..."}
                     </div>
                 </div>
@@ -79,16 +81,29 @@ const AdminTransakcije = ({ profilePic }) => {
                 <div className="container2">
                     <h2 id="transakcije">Sve transakcije</h2>
                     <div className="transakcije">
-                        {transactions.map((transaction) =>(
-                            <div className="item" key={transaction.idtransakcija}>
-                               <div>ID transakcije: {transaction.idTransakcija}</div>
-                               <div>Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
-                               <div>Početak transakcije: {transaction.dvPocetak}</div>
-                               <div>ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
+                        {transactions.map((transaction) => (
+                            <div
+                                className="item"
+                                key={transaction.idtransakcija}
+                            >
+                                <div>
+                                    ID transakcije: {transaction.idTransakcija}
+                                </div>
+                                <div>
+                                    Uspjeh transakcije:{" "}
+                                    {uspjesnostTransakcije(
+                                        transaction.uspjesna
+                                    )}
+                                </div>
+                                <div>
+                                    Početak transakcije: {transaction.dvPocetak}
+                                </div>
+                                <div>
+                                    ID ulaznice:{" "}
+                                    {transaction.ulaznica.idUlaznica}
+                                </div>
                             </div>
                         ))}
-
-                        
                     </div>
                 </div>
             </div>
@@ -97,4 +112,3 @@ const AdminTransakcije = ({ profilePic }) => {
 };
 
 export default AdminTransakcije;
-

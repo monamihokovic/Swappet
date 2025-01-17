@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AdminOglasi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdminOglasi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AdminTransakcije.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdminTransakcije.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoogleLoginBtn.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoogleLoginBtn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SelectionPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SelectionPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserOglasi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserOglasi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserRazmjene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserRazmjene.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserTransakcije.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserTransakcije.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/createEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/createEvent.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +175,7 @@
       <workItem from="1736947417850" duration="15325000" />
       <workItem from="1736964869371" duration="467000" />
       <workItem from="1737036259635" duration="2421000" />
-      <workItem from="1737114492669" duration="4052000" />
+      <workItem from="1737114492669" duration="6362000" />
     </task>
     <servers />
   </component>
