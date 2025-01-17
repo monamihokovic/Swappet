@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "https://swappet-app-iod2.onrender.com")
 public class UserController {
 
     @Autowired
