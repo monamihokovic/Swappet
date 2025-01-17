@@ -4,7 +4,7 @@ tipDog
 
 voliOglas
     voli = ako ne želi vidjeti oglas više korisnik ga označi sa ne voli
-        (-1 => ne voli)
+        (-1 => ne voli, 1=> voli)
 
 korisnik
     uloga = koju ulogu unutar stranice ima korisnik
