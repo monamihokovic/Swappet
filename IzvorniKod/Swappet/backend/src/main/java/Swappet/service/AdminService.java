@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 import java.io.ByteArrayOutputStream;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class AdminService {
@@ -34,6 +32,7 @@ public class AdminService {
 
     @Autowired
     private SporRepository sporRepository;
+
     @Autowired
     private KorisnikRepository korisnikRepository;
 
@@ -110,22 +109,15 @@ public class AdminService {
     //aktivacija/deaktivacija oglasa
     public void activationRequest(Integer idOglas, Integer activationStatus) {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
-        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
-
-        if (activationStatus > 0) {
-            if (oglas.getAktivan() <= 0) {
-                oglas.setAktivan(brojUlaznica);
-                oglasRepository.save(oglas);
-            }
-        } else if (activationStatus <= 0) {
-            oglas.setAktivan(0);
-            oglasRepository.save(oglas);
-        }
+        oglas.setAktivan(activationStatus);
+        oglasRepository.save(oglas);
     }
 
     //ban usera
     public void banUser(String email, Integer ban) {
-        //TODO kad zalijepim tablicu u bazu
+        Korisnik korisnik = korisnikRepository.findByEmail(email);
+        Spor spor = sporRepository.findByTuzen(korisnik);
+        spor.setOdlukaSpor(ban);
     }
 
     // pomoć za konstrukciju OglasDTO
@@ -156,28 +148,4 @@ public class AdminService {
                 likedStatus
         );
     }
-
-    // stvaranje novog spora
-    public Spor createSpor(String opisSpor, String tuzioEmail, String tuzeniEmail) {
-        Korisnik tuzio = korisnikRepository.findByEmail(tuzioEmail);
-        Korisnik tuzen = korisnikRepository.findByEmail(tuzeniEmail);
-
-        Spor spor = new Spor(opisSpor, LocalDateTime.now(), tuzio, tuzen);
-        return sporRepository.save(spor);
-    }
-
-    // updateaj odluku spora
-    public Spor updateSporDecision(Integer idSpor, Integer odlukaSpor, String obrazlozenje) {
-        Spor spor = sporRepository.findById(idSpor)
-                .orElseThrow(() -> new IllegalArgumentException("Nije pronađen spor s id-ijem: " + idSpor));
-
-        spor.setOdlukaSpor(odlukaSpor);
-        spor.setObrazlozenje(obrazlozenje);
-        return sporRepository.save(spor);
-    }
-
-    // dohvati sve sporove
-    public List<Spor> getAllSporovi() {
-        return sporRepository.findAll();
-    }
- }
+}

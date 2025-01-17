@@ -50,16 +50,8 @@ public class UserService {
 
     //aktivacija/deaktivacija korisnikovih oglasa
     public void oglasActivation(Integer idOglas, Integer activation) {
-        Integer brojUlaznica = ulaznicaRepository.findUlazniceByOglas(idOglas).size();
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
-        if (activation > 0) {
-            if (oglas.getAktivan() <= 0) {
-                oglas.setAktivan(brojUlaznica);
-                oglasRepository.save(oglas);
-            }
-        } else if (activation <= 0) {
-            oglas.setAktivan(0);
-            oglasRepository.save(oglas);
-        }
+        oglas.setAktivan(activation);
+        oglasRepository.save(oglas);
     }
 }

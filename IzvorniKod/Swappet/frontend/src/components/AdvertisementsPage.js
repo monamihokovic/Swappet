@@ -136,7 +136,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "ivrodak@gmail.com" && (
+                {user && user.email === "majcik.b@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
@@ -191,6 +191,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     className="logout"
                     onClick={() => {
                         window.location.href = `${process.env.REACT_APP_BACKEND_URL}/logout`;
+                        alert("Uspješno ste odjavljeni iz sustava!");
                     }}
                 >
                     <FaSignOutAlt className="logout-icon" />

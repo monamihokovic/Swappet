@@ -46,7 +46,7 @@ const AdminOglasi = ({ profilePic }) => {
             });
     }, []);
 
-    const filteredAds = ads.filter((ad) => ad.numberOfTickets > 0);
+
 
     return (
         <div className="admin-page">
@@ -77,12 +77,12 @@ const AdminOglasi = ({ profilePic }) => {
                 <h2 id="oglasi">Svi oglasi</h2>
 
                 <div className="oglasi">
-                    {filteredAds.length === 0 ? (
+                    {ads.length === 0 ? (
                         <div className="no-events-message">
-                            Nema aktivnih oglasa.
+                            Nema oglasa.
                         </div>
                     ) : (
-                        filteredAds.map((adWithTickets) => (
+                        ads.map((adWithTickets) => (
                             <Card
                                 key={adWithTickets.id}
                                 ad={adWithTickets}
