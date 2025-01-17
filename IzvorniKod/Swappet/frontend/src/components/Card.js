@@ -12,7 +12,7 @@ import {
     faEllipsisVertical,
     faThumbsUp,
     faThumbsDown,
-    faFlag
+    faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Card.css";
 import { useNavigate } from "react-router-dom";
@@ -28,20 +28,25 @@ const Card = ({ ad, tickets }) => {
     const [loading, setLoading] = useState(true);
     const [count, setCount] = useState(1); // How much is buyer buying
     const [tradeCount, setTradeCount] = useState(1); // How much buyer is giving away
-    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); // Processing transaction, prevents buying sold 
-    const [availableTickets, setAvailableTickets] = useState(ad.numberOfTickets || 0); // Avaible tickets after purchase
-    const [selectedOption, setSelectedOption] = useState(''); // Track the descrpition of the selected ad
+    const [isTransactionProcessing, setIsTransactionProcessing] =
+        useState(false); // Processing transaction, prevents buying sold
+    const [availableTickets, setAvailableTickets] = useState(
+        ad.numberOfTickets || 0
+    ); // Avaible tickets after purchase
+    const [selectedOption, setSelectedOption] = useState(""); // Track the descrpition of the selected ad
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
     const apiKey = "2b1b4bd8fe954283ab3191954250301";
     const city = ad.address.split(",")[1]?.trim() || "Zagreb";
     const eventDate = ad.date.split("T")[0];
     const eventTime = ad.date.split("T")[1].split(":")[0];
-    const [dropdownVisible, setDropdownVisible] = useState(false);  // State for dropdown visibility
-    const [selectedAction, setSelectedAction] = useState('');
+    const [dropdownVisible, setDropdownVisible] = useState(false); // State for dropdown visibility
+    const [selectedAction, setSelectedAction] = useState("");
 
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", { withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
                 console.log("User data:", response.data.email);
@@ -59,9 +64,11 @@ const Card = ({ ad, tickets }) => {
                 );
 
                 if (response.data?.forecast) {
-                    const weatherForTime = response.data.forecast.forecastday[0].hour.find(
-                        (hour) => hour.time.split(" ")[1] === `${eventTime}:00`
-                    );
+                    const weatherForTime =
+                        response.data.forecast.forecastday[0].hour.find(
+                            (hour) =>
+                                hour.time.split(" ")[1] === `${eventTime}:00`
+                        );
                     setWeatherData(weatherForTime || null);
                 }
             } catch (error) {
@@ -86,7 +93,7 @@ const Card = ({ ad, tickets }) => {
 
                     // Slanje POST zahtjeva sa payload podacima
                     const response = await axios.post(
-                        "http://localhost:8081/ulaznica/razmjene",
+                        `${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjene`,
                         payload,
                         { withCredentials: true }
                     );
@@ -104,7 +111,6 @@ const Card = ({ ad, tickets }) => {
             fetchBuyerAds();
         }
     }, [ad.type, user]);
-
 
     const increment = () => {
         if (count < availableTickets) setCount((prev) => prev + 1);
@@ -138,7 +144,7 @@ const Card = ({ ad, tickets }) => {
         try {
             if (ad.type === "1") {
                 await axios.post(
-                    "http://localhost:8081/ulaznica/kupnja",
+                    `${process.env.REACT_APP_BACKEND_URL}/ulaznica/kupnja`,
                     { buyerEmail: user.email, ticketIds },
                     { withCredentials: true }
                 );
@@ -156,7 +162,7 @@ const Card = ({ ad, tickets }) => {
 
                     if (buyerAd) {
                         await axios.post(
-                            `http://localhost:8081/ulaznica/podnesi-razmjenu`,
+                            `${process.env.REACT_APP_BACKEND_URL}/ulaznica/podnesi-razmjenu`,
                             {
                                 sellerAd: ad.id,
                                 buyerAd: buyerAd.idOglas,
@@ -184,7 +190,9 @@ const Card = ({ ad, tickets }) => {
     const handleSelectChange = (e) => {
         const selectedValue = e.target.value;
         setSelectedOption(e.target.value);
-        const selectedAd = buyerAds.find((buyerAd) => buyerAd.opis === selectedValue);
+        const selectedAd = buyerAds.find(
+            (buyerAd) => buyerAd.opis === selectedValue
+        );
         setBuyerAd(selectedAd);
         if (selectedAd) {
             console.log("Buyer ad:", selectedAd);
@@ -198,19 +206,23 @@ const Card = ({ ad, tickets }) => {
 
     const handleActionSelect = (action) => {
         setSelectedAction(action);
-        setDropdownVisible(false);  // Close dropdown after selection
+        setDropdownVisible(false); // Close dropdown after selection
     };
 
     const getMatchingBuyerAds = () => {
         if (!buyerAds || !ad.tradeDescription) return [];
 
         // Split the seller's trade description into words
-        const sellerWords = ad.tradeDescription.split(/\s+/).map(word => word.toLowerCase());
+        const sellerWords = ad.tradeDescription
+            .split(/\s+/)
+            .map((word) => word.toLowerCase());
 
         // Filter buyer ads based on common words in their 'opis' and seller's 'tradeDescription'
-        return buyerAds.filter(buyerAd => {
-            const buyerWords = buyerAd.opis.split(/\s+/).map(word => word.toLowerCase());
-            return buyerWords.some(word => sellerWords.includes(word)); // Check for common words
+        return buyerAds.filter((buyerAd) => {
+            const buyerWords = buyerAd.opis
+                .split(/\s+/)
+                .map((word) => word.toLowerCase());
+            return buyerWords.some((word) => sellerWords.includes(word)); // Check for common words
         });
     };
 
@@ -227,9 +239,6 @@ const Card = ({ ad, tickets }) => {
 
     const isSameUser = user?.email === ad.email;
 
-
-  
-
     return (
         <div className="card">
             <div className="card-info">
@@ -241,7 +250,9 @@ const Card = ({ ad, tickets }) => {
                 </div>
                 <div className="tip1">Broj ulaznica: {availableTickets}</div>
                 <div className="tip1">Korisnik: {ad.email}</div>
-                <div className="tip1">Vrsta karte: {getTicketTypeDescription(ad.ticketType)}</div>
+                <div className="tip1">
+                    Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
+                </div>
 
                 {/* Tridot Dropdown */}
                 <div className="tridot-dropdown">
@@ -253,14 +264,30 @@ const Card = ({ ad, tickets }) => {
                     />
                     {dropdownVisible && (
                         <div className="dropdown-menu">
-                            <button onClick={() => handleActionSelect('like')}>
-                                <FontAwesomeIcon icon={faThumbsUp} className="dropdown-icon" /> Like
+                            <button onClick={() => handleActionSelect("like")}>
+                                <FontAwesomeIcon
+                                    icon={faThumbsUp}
+                                    className="dropdown-icon"
+                                />{" "}
+                                Like
                             </button>
-                            <button onClick={() => handleActionSelect('dislike')}>
-                                <FontAwesomeIcon icon={faThumbsDown} className="dropdown-icon" /> Dislike
+                            <button
+                                onClick={() => handleActionSelect("dislike")}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faThumbsDown}
+                                    className="dropdown-icon"
+                                />{" "}
+                                Dislike
                             </button>
-                            <button onClick={() => handleActionSelect('report')}>
-                                <FontAwesomeIcon icon={faFlag} className="dropdown-icon" /> Report
+                            <button
+                                onClick={() => handleActionSelect("report")}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faFlag}
+                                    className="dropdown-icon"
+                                />{" "}
+                                Report
                             </button>
                         </div>
                     )}
@@ -272,12 +299,24 @@ const Card = ({ ad, tickets }) => {
                 )}
 
                 <div className="counter-section">
-                    <FontAwesomeIcon icon={faShoppingCart} className="counter-icon" title="Buy" />
-                    <button className="counter-btn" onClick={decrement} disabled={isTransactionProcessing}>
+                    <FontAwesomeIcon
+                        icon={faShoppingCart}
+                        className="counter-icon"
+                        title="Buy"
+                    />
+                    <button
+                        className="counter-btn"
+                        onClick={decrement}
+                        disabled={isTransactionProcessing}
+                    >
                         <FontAwesomeIcon icon={faMinus} />
                     </button>
                     <span className="counter-value">{count}</span>
-                    <button className="counter-btn" onClick={increment} disabled={isTransactionProcessing}>
+                    <button
+                        className="counter-btn"
+                        onClick={increment}
+                        disabled={isTransactionProcessing}
+                    >
                         <FontAwesomeIcon icon={faPlus} />
                     </button>
                 </div>
@@ -285,10 +324,16 @@ const Card = ({ ad, tickets }) => {
                 {/* Exchange Dropdown Always Visible */}
                 {ad.type !== "1" && buyerAds && (
                     <div className="exchange-dropdown">
-                        <select onChange={handleSelectChange} value={selectedOption}>
+                        <select
+                            onChange={handleSelectChange}
+                            value={selectedOption}
+                        >
                             <option value="">Select matching tickets</option>
                             {getMatchingBuyerAds().map((buyerAd) => (
-                                <option key={buyerAd.idOglas} value={buyerAd.opis}>
+                                <option
+                                    key={buyerAd.idOglas}
+                                    value={buyerAd.opis}
+                                >
                                     {buyerAd.opis}
                                 </option>
                             ))}
@@ -299,25 +344,45 @@ const Card = ({ ad, tickets }) => {
                 {/* Trade Counter Controls When Option is Selected */}
                 {selectedOption && (
                     <div className="counter-section">
-                        <FontAwesomeIcon icon={faHandHolding} className="counter-icon" title="Offer" />
-                        <button className="counter-btn" onClick={decrementTrade} disabled={isTransactionProcessing}>
+                        <FontAwesomeIcon
+                            icon={faHandHolding}
+                            className="counter-icon"
+                            title="Offer"
+                        />
+                        <button
+                            className="counter-btn"
+                            onClick={decrementTrade}
+                            disabled={isTransactionProcessing}
+                        >
                             <FontAwesomeIcon icon={faMinus} />
                         </button>
                         <span className="counter-value">{tradeCount}</span>
-                        <button className="counter-btn" onClick={incrementTrade} disabled={isTransactionProcessing}>
+                        <button
+                            className="counter-btn"
+                            onClick={incrementTrade}
+                            disabled={isTransactionProcessing}
+                        >
                             <FontAwesomeIcon icon={faPlus} />
                         </button>
-                        <span className="selected-option-text">{selectedOption}</span>
+                        <span className="selected-option-text">
+                            {selectedOption}
+                        </span>
                     </div>
                 )}
 
                 <button
-                    className={`buy-btn ${!isTransactionProcessing && /*!isSameUser && */(ad.type === "1" || (ad.type === "0" && selectedOption))
+                    className={`buy-btn ${
+                        !isTransactionProcessing &&
+                        /*!isSameUser && */ (ad.type === "1" ||
+                            (ad.type === "0" && selectedOption))
                             ? ""
                             : "disabled-btn"
-                        }`}
+                    }`}
                     onClick={handlePurchase}
-                    disabled={isTransactionProcessing /*|| isSameUser*/ || (ad.type === "0" && !selectedOption)}
+                    disabled={
+                        isTransactionProcessing /*|| isSameUser*/ ||
+                        (ad.type === "0" && !selectedOption)
+                    }
                 >
                     {ad.type === "1" ? "Kupi" : "Razmjeni"}
                 </button>

@@ -15,17 +15,18 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [ulaznice, setUlaznice] = useState([]); // List of tickets
     const [price, setPrice] = useState(50);
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); 
-    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
+    const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
     // Fetch user information
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
                 withCredentials: true,
             })
             .then((response) => {
-                setUser(response.data)})
+                setUser(response.data);
+            })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     setUser(null);
@@ -35,11 +36,14 @@ const AdvertisementsPage = ({ profilePic }) => {
             });
     }, []);
 
-
     // Fetch advertisements and tickets
     useEffect(() => {
-        const fetchAds = axios.get("http://localhost:8081/homepage/advertisements");
-        const fetchTickets = axios.get("http://localhost:8081/ulaznica/all");
+        const fetchAds = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`
+        );
+        const fetchTickets = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
+        );
 
         // Fetch both ads and tickets simultaneously
         Promise.all([fetchAds, fetchTickets])
@@ -89,7 +93,7 @@ const AdvertisementsPage = ({ profilePic }) => {
         })
         .filter((adWithTickets) => adWithTickets.tickets.length > 0);
 
-    const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen); 
+    const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen);
     const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
 
     return (
@@ -141,16 +145,18 @@ const AdvertisementsPage = ({ profilePic }) => {
                     </button>
                 )}
 
-                {isUserMenuOpen &&(
+                {isUserMenuOpen && (
                     <div className="user-menu">
                         <button
-                         className="user-option"
-                         onClick={()=>navigate(`/user/oglasi`)} >
+                            className="user-option"
+                            onClick={() => navigate(`/user/oglasi`)}
+                        >
                             Pregledaj svoje oglase
                         </button>
                         <button
-                         className="user-option"
-                         onClick={()=>navigate(`/user/transactions`)} >
+                            className="user-option"
+                            onClick={() => navigate(`/user/transactions`)}
+                        >
                             Pregledaj svoje transakcije
                         </button>
                     </div>
@@ -184,7 +190,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                 <button
                     className="logout"
                     onClick={() => {
-                        window.location.href = "http://localhost:8081/logout"
+                        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/logout`;
                     }}
                 >
                     <FaSignOutAlt className="logout-icon" />
@@ -201,10 +207,24 @@ const AdvertisementsPage = ({ profilePic }) => {
 
                     <div className="Vrsta">
                         <div className="lista">Vrsta</div>
-                        {[ "Koncert", "Izložba", "Predstava", "Putovanja", "Tulumi", "Kino", "Sport", "Prijevoz", "Ostalo",].map((category, index) => (
+                        {[
+                            "Koncert",
+                            "Izložba",
+                            "Predstava",
+                            "Putovanja",
+                            "Tulumi",
+                            "Kino",
+                            "Sport",
+                            "Prijevoz",
+                            "Ostalo",
+                        ].map((category, index) => (
                             <li
                                 key={category}
-                                className={selectedCategories.includes(index + 1) ? "selected" : ""}
+                                className={
+                                    selectedCategories.includes(index + 1)
+                                        ? "selected"
+                                        : ""
+                                }
                                 onClick={() => handleCategoryClick(index + 1)}
                             >
                                 {category}

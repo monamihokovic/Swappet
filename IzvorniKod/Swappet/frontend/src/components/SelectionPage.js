@@ -24,7 +24,7 @@ const SelectionPage = ({ userName }) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
                 withCredentials: true,
             })
             .then((response) => {
@@ -48,7 +48,7 @@ const SelectionPage = ({ userName }) => {
             console.log("Selected category IDs:", selectedCategoryIds);
             axios
                 .post(
-                    "http://localhost:8081/homepage/oglas",
+                    `${process.env.REACT_APP_BACKEND_URL}/homepage/oglas`,
                     selectedCategoryIds,
                     {
                         withCredentials: true,
