@@ -465,7 +465,7 @@ const Card = ({ ad, tickets }) => {
                     onClick={handlePurchase}
                     disabled={
                         isTransactionProcessing ||
-                        isSameUser ||
+                        /*isSameUser ||*/
                         (ad.type === "0" && !selectedOption)
                     }
                 >

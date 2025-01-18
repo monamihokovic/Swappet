@@ -120,6 +120,16 @@ public class AdminService {
         spor.setOdlukaSpor(ban);
     }
 
+    //izvlači iz baze listu prijavljenih korisnika
+    public List<String> reportedUsers() {
+        List<Korisnik> reported = sporRepository.blame();
+        List<String> reportedUsers = new ArrayList<>();
+        for (Korisnik korisnik : reported) {
+            reportedUsers.add(korisnik.getEmail());
+        }
+        return reportedUsers;
+    }
+
     // pomoć za konstrukciju OglasDTO
     private OglasDTO buildOglasDTO(Oglas oglas, Double price, Integer likedStatus) {
         String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();

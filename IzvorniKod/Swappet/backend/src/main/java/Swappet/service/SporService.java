@@ -8,7 +8,6 @@ import Swappet.repository.SporRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Service
@@ -28,18 +27,4 @@ public class SporService {
         return sporRepository.save(spor);
     }
 
-    // updateaj odluku spora
-    public Spor updateSporDecision(Integer idSpor, Integer odlukaSpor, String obrazlozenje) {
-        Spor spor = sporRepository.findById(idSpor)
-                .orElseThrow(() -> new IllegalArgumentException("Nije pronađen spor s id-ijem: " + idSpor));
-
-        spor.setOdlukaSpor(odlukaSpor);
-        spor.setObrazlozenje(obrazlozenje);
-        return sporRepository.save(spor);
-    }
-
-    // dohvati sve sporove
-    public List<Spor> getAllSporovi() {
-        return sporRepository.findAll();
-    }
 }

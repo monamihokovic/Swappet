@@ -56,6 +56,12 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/guilty")
+    public ResponseEntity<List<String>> getGuilty() {
+        List<String> guiltyUsers = adminService.reportedUsers();
+        return ResponseEntity.ok(guiltyUsers);
+    }
+
     @PostMapping("/ban")
     public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest) {
         adminService.banUser(banRequest.getEmail(), banRequest.getBan());
