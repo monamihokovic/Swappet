@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+//@CrossOrigin(origins = "https://swappet-app-iod2.onrender.com", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -59,13 +60,8 @@ public class UserController {
             return ResponseEntity.ok("Oglas reaktiviran");
         } else if (activation == -1) {
             return ResponseEntity.ok("Oglas deaktiviran");
-        }else{
-<<<<<<< HEAD
+        } else {
             return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno");
-=======
-            return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno")
->>>>>>> 39785b8f209a35c9a4aa4285a1517098630c8f69
         }
     }
-
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "./Card";
 import "../css/AdminReported.css";
 import axios from "axios";
 
@@ -11,7 +10,7 @@ const AdminReported = ({ profilePic }) => {
 
     const [user, setUser] = useState(null);
     const [reportedAccounts, setReported] = useState([]);
- 
+
     // Fetch user info
     useEffect(() => {
         axios
@@ -30,15 +29,15 @@ const AdminReported = ({ profilePic }) => {
         const fetchReportedUsers = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/admin/reported`
         );
-        Promise.all([fetchReportedUsers]).then(reportedResponse=>{
-            setReported(reportedResponse.data);
-            console.log("Fetched reported users: ", reportedResponse.data);
-        }).catch((error)=>{
-            console.error("Error fetching reported users: ", error);
-        });
+        Promise.all([fetchReportedUsers])
+            .then((reportedResponse) => {
+                setReported(reportedResponse.data);
+                console.log("Fetched reported users: ", reportedResponse.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching reported users: ", error);
+            });
     }, []);
-
-
 
     return (
         <div className="admin-page">
@@ -75,8 +74,10 @@ const AdminReported = ({ profilePic }) => {
                         </div>
                     ) : (
                         reportedAccounts.map((user) => (
-                            <div>{user.email}
-                            <button>Generiraj izvještaj</button></div>
+                            <div>
+                                {user.email}
+                                <button>Generiraj izvještaj</button>
+                            </div>
                         ))
                     )}
                 </div>
