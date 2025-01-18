@@ -82,14 +82,14 @@ public class AuthConfig extends DefaultOAuth2UserService {
         if (userRepository.findByEmail(email) == null) {
             Korisnik user = new Korisnik(email, id, username);
             userRepository.save(user);
-        } else {
-            // provjera je li korisnik bio blokiran
-            List<Spor> disputes = sporRepository.findByTuzenEmail(email);
-            boolean isBanned = disputes.stream().anyMatch(spor -> spor.getOdlukaSpor() == 1);
-
-            if (isBanned) {
-                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
-            }
+//        } else {
+//            // provjera je li korisnik bio blokiran
+//            List<Spor> disputes = sporRepository.findByTuzenEmail(email);
+//            boolean isBanned = disputes.stream().anyMatch(spor -> spor.getOdlukaSpor() == 1);
+//
+//            if (isBanned) {
+//                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
+//            }
         }
         return oAuth2User;
     }

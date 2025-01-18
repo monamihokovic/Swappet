@@ -57,7 +57,7 @@ public class OglasService {
             result.add(dto);
         }
 
-        System.out.println("[SERVICE] All advertisements processed: " + result);
+        //System.out.println("[SERVICE] All advertisements processed: " + result);
         return result;
     }
 
@@ -120,7 +120,6 @@ public class OglasService {
             Integer idOglasSeller = (Integer) row[3];
             if (idOglasSeller == di && Arrays.stream(row).iterator().hasNext()) {
                 counter++;
-                System.out.println("Counter = " + counter);
                 continue;
             }
 
@@ -149,7 +148,6 @@ public class OglasService {
             );
 
             result.add(tradeDTO);
-            System.out.println("Id oglasa kupca: " + tradeDTO.getSellerId());
             counter = 0;
         }
 
@@ -167,13 +165,11 @@ public class OglasService {
         String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
         String date = oglas.getDatum().toString();
         Integer numberOfTickets = oglas.getAktivan();
-        System.out.println(oglas.getAktivan());
         Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
         Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
         Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
         String tradeDescription = oglas.getOpisZamjene();
         Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
-        System.out.println(numberOfTickets);
 
         return new OglasDTO(
                 oglas.getIdOglas(),

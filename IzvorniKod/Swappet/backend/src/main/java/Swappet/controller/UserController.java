@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+//@CrossOrigin(origins = "https://swappet-app-iod2.onrender.com", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -63,5 +64,4 @@ public class UserController {
             return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno");
         }
     }
-
 }

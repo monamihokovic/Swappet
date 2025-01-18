@@ -27,11 +27,6 @@ public class HomepageController {
     private List<OglasDTO> storedOglasiData;
 
     @Autowired
-    private KorisnikRepository korisnikRepository;
-
-    @Autowired
-    private SporRepository sporRepository;
-    @Autowired
     private SporService sporService;
 
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
@@ -58,19 +53,5 @@ public class HomepageController {
     public ResponseEntity<Spor> createSpor(@RequestParam String opisSpor, @RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
         Spor spor = sporService.createSpor(opisSpor, tuzioEmail, tuzeniEmail);
         return ResponseEntity.ok(spor);
-    }
-
-    // dohvati sve sporove
-    @GetMapping("/disputes")
-    public ResponseEntity<List<Spor>> getAllSporovi() {
-        List<Spor> disputes = sporService.getAllSporovi();
-        return ResponseEntity.ok(disputes);
-    }
-
-    // updateaj odluku spora
-    @PutMapping("/dispute/{id}")
-    public ResponseEntity<Spor> updateSporDecision(@PathVariable Integer id, @RequestParam Integer odlukaSpor, @RequestParam String obrazlozenje) {
-        Spor updatedSpor = sporService.updateSporDecision(id, odlukaSpor, obrazlozenje);
-        return ResponseEntity.ok(updatedSpor);
     }
 }
