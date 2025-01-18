@@ -5,3 +5,5 @@ CREATE TABLE deaktiviranOglas
   PRIMARY KEY (idOglas),
   FOREIGN KEY (idOglas) REFERENCES oglas(idOglas)
 );
+
+GRANT ALL PRIVILEGES ON DATABASE "deaktiviranOglas" TO pone;
