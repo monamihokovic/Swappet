@@ -1,7 +1,9 @@
 package Swappet.service;
 
 import Swappet.model.Korisnik;
+import Swappet.model.Spor;
 import Swappet.repository.KorisnikRepository;
+import Swappet.repository.SporRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.List;
 
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
@@ -33,7 +37,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
                                 "/homepage/advertisements", "/ulaznica/all", "/createEvent",
                                 "/admin/oglasi", "/admin/transakcije", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
-                                "/advertisements", "/ulaznica/razmjena").permitAll()
+                                "/advertisements", "/admin/activation", "/" +
+                                        "user/activation").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
@@ -58,6 +63,9 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Autowired
     private KorisnikRepository userRepository;
 
+    @Autowired
+    private SporRepository sporRepository;
+
     //funkcija koja provjerava postoji li korisnik u bazi te ga sprema ako nije
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -73,12 +81,16 @@ public class AuthConfig extends DefaultOAuth2UserService {
         //provjera i spremanje korisnika u bazu
         if (userRepository.findByEmail(email) == null) {
             Korisnik user = new Korisnik(email, id, username);
-            System.out.println(user.getUsername());
-            System.out.println(user.getIdKorisnik());
-            System.out.println(user.getEmail());
             userRepository.save(user);
-        }
+        } else {
+            // provjera je li korisnik bio blokiran
+            List<Spor> disputes = sporRepository.findByTuzenEmail(email);
+            boolean isBanned = disputes.stream().anyMatch(spor -> spor.getOdlukaSpor() == 1);
 
+            if (isBanned) {
+                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
+            }
+        }
         return oAuth2User;
     }
 }

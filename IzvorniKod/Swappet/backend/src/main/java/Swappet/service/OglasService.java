@@ -167,11 +167,13 @@ public class OglasService {
         String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
         String date = oglas.getDatum().toString();
         Integer numberOfTickets = oglas.getAktivan();
+        System.out.println(oglas.getAktivan());
         Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
         Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
         Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
         String tradeDescription = oglas.getOpisZamjene();
         Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
+        System.out.println(numberOfTickets);
 
         return new OglasDTO(
                 oglas.getIdOglas(),

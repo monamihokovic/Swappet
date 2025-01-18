@@ -191,6 +191,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     className="logout"
                     onClick={() => {
                         window.location.href = `${process.env.REACT_APP_BACKEND_URL}/logout`;
+                        alert("Uspješno ste odjavljeni iz sustava!");
                     }}
                 >
                     <FaSignOutAlt className="logout-icon" />

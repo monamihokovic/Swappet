@@ -32,6 +32,8 @@ public class AdminService {
 
     @Autowired
     private SporRepository sporRepository;
+
+    @Autowired
     private KorisnikRepository korisnikRepository;
 
     public List<OglasDTO> getAllOglasi() {

@@ -17,6 +17,7 @@ import {
 import "../css/Card.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 const Card = ({ ad, tickets }) => {
     const navigate = useNavigate();
@@ -237,7 +238,54 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    //const isSameUser = user?.email === ad.email;
+    const isSameUser = user?.email === ad.email;
+
+    
+    const location = useLocation();
+    const isAdvertisementsRoute = location.pathname === '/advertisements';
+    const isAdminOrUserRoute = (location.pathname==='/user/oglasi' || location.pathname==='/admin/oglasi');
+    const isAdminRoute = location.pathname==='/admin/oglasi';
+    const isUserRoute = location.pathname==='/user/oglasi';
+    const handleActivation = async () => {
+        const activation = (ad.numberOfTickets >= 1 ? -1 : -10);
+        const payload = { id: ad.id, activation: activation};
+    
+        try {
+            if (isAdminRoute) {
+                console.log("ID oglasa: ", ad.id, "| aktivacija: ", activation, "Broj karata: ", ad.numberOfTickets);
+                const response = await axios.post(
+                    "http://localhost:8081/admin/activation",
+                    payload,
+                    {
+                        withCredentials: true,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                console.log("Aktivacija i deaktivacija uspješni.", response.data);
+                alert("Deaktivacija ili reaktivacija oglasa uspješna");
+            } else if (isUserRoute) {
+                console.log("ID oglasa: ", ad.id, "| aktivacija: ", activation, "Broj karata: ", ad.numberOfTickets);
+                const response = await axios.post(
+                    "http://localhost:8081/user/activation",
+                    payload,
+                    {
+                        withCredentials: true,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+                console.log("Aktivacija i deaktivacija uspješni.", response.data);
+                alert("Deaktivacija ili reaktivacija oglasa uspješna");
+            }
+        } catch (error) {
+            console.error(
+                "Greška pri deaktivaciji ili reaktivaciji oglasa: ",
+                error.response ? error.response.data : error.message
+            );
+        }
+    };
+
+    const zauvijekDeaktiviran = ad.numberOfTickets===-2
+    
 
     return (
         <div className="card">
@@ -253,6 +301,14 @@ const Card = ({ ad, tickets }) => {
                 <div className="tip1">
                     Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
                 </div>
+                {isAdminOrUserRoute && (
+                    <button className={ad.numberOfTickets==-2 || isAdvertisementsRoute ? "activation hidden" : "activation"} 
+                    onClick={handleActivation}
+                    disabled={zauvijekDeaktiviran}>
+                        {ad.numberOfTickets>=1 ? "Deaktiviraj oglas" : "Aktiviraj oglas"}
+                        
+                    </button>
+                )}
 
                 {/* Tridot Dropdown */}
                 <div className="tridot-dropdown">
@@ -373,14 +429,14 @@ const Card = ({ ad, tickets }) => {
                 <button
                     className={`buy-btn ${
                         !isTransactionProcessing &&
-                        /*!isSameUser && */ (ad.type === "1" ||
+                        !isSameUser && isAdminOrUserRoute && (ad.type === "1" ||
                             (ad.type === "0" && selectedOption))
                             ? ""
                             : "disabled-btn"
                     }`}
                     onClick={handlePurchase}
                     disabled={
-                        isTransactionProcessing /*|| isSameUser*/ ||
+                        isTransactionProcessing || isSameUser ||
                         (ad.type === "0" && !selectedOption)
                     }
                 >
