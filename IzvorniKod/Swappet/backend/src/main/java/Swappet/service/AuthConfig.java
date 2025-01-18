@@ -38,7 +38,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                                 "/admin/oglasi", "/admin/transakcije", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
                                 "/advertisements", "/admin/activation", "/" +
-                                        "user/activation", "/user-info").permitAll()
+                                        "user/activation").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
