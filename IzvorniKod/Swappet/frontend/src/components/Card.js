@@ -324,7 +324,7 @@ const Card = ({ ad, tickets }) => {
                 {isAdminOrUserRoute && (
                     <button
                         className={
-                            ad.numberOfTickets == -2 || isAdvertisementsRoute
+                            ad.numberOfTickets === -2 || isAdvertisementsRoute
                                 ? "activation hidden"
                                 : "activation"
                         }
