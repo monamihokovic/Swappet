@@ -13,9 +13,5 @@ public interface SporRepository extends JpaRepository<Spor, Integer> {
 
     Spor findByTuzen(Korisnik korisniks);
 
-<<<<<<< HEAD
-}
-=======
     List<Spor> findByTuzenEmail(String tuzeniEmail);
 }
->>>>>>> 39785b8f209a35c9a4aa4285a1517098630c8f69

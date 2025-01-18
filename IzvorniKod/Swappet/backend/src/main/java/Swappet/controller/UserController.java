@@ -3,8 +3,6 @@ package Swappet.controller;
 import Swappet.model.Transakcija;
 import Swappet.service.OglasService;
 import Swappet.service.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "https://swappet-app-iod2.onrender.com", allowCredentials = "true")
+//@CrossOrigin(origins = "https://swappet-app-iod2.onrender.com", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -62,23 +60,8 @@ public class UserController {
             return ResponseEntity.ok("Oglas reaktiviran");
         } else if (activation == -1) {
             return ResponseEntity.ok("Oglas deaktiviran");
-        }else{
-<<<<<<< HEAD
+        } else {
             return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno");
-=======
-            return ResponseEntity.ok("Loša vrijednost, pokušaj ponovno")
->>>>>>> 39785b8f209a35c9a4aa4285a1517098630c8f69
         }
     }
-
-    @GetMapping("/set-cookie")
-    public String setCookie(@AuthenticationPrincipal OAuth2User principal, HttpServletResponse response) {
-
-        String sessionId = principal != null ? principal.getName() : "guest";
-
-        response.addHeader("Set-Cookie", "SESSIONID=" + sessionId + "; HttpOnly; Secure; Path=/; Domain=swappet-backend.onrender.com; Max-Age=86400; SameSite=None");
-
-        return "Cookie Set for user: " + sessionId;
-    }
-
 }
