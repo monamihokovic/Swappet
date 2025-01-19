@@ -1,0 +1,9 @@
+CREATE TABLE deaktiviranOglas
+(
+  idOglas INT NOT NULL,
+  dvDeaktivacije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (idOglas),
+  FOREIGN KEY (idOglas) REFERENCES oglas(idOglas)
+);
+
+GRANT ALL PRIVILEGES ON TABLE deaktiviranOglas TO pone;

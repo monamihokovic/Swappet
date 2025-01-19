@@ -15,8 +15,10 @@ UPUTE:
 dok će baza obaviti ostalo (popunjavanje transakcije i smanjivanje broja dostupnih karata, te uklanjane te deaktiviranje te ulaznice iz oglasa)
 
 PRIMJER SQL KODOVA:
-    INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 13, 2);
+    INSERT INTO TRANSAKCIJA (idUlaznica) VALUES (18);
     INSERT INTO seMijenja (idUlaznica , idTransakcija) VALUES (20, 13);
-    UPDATE jeukljucen SET odluka = 2 WHERE email = 'ivo@ivic.com' AND idTransakcija =13;
+    INSERT INTO jeukljucen (email, idTransakcija, odluka ) VALUES ('pero@peric.com', 13, 2);
+    UPDATE jeukljucen SET odluka = 1 WHERE email = 'ivo@ivic.com' AND idTransakcija =13; /* ako prihvaca */
+    UPDATE jeukljucen SET odluka = -1 WHERE email = 'ivo@ivic.com' AND idTransakcija =13; /* ako odbija */
 
 DOKUMNETI: trigeri_2

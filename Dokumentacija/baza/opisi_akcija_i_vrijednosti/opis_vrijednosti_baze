@@ -34,6 +34,7 @@ transakcija
     => unosi se samo idUlaznica sve ostalo generira sutav
     uspjesna = jesu li svi kojima je polan zahtjev za odobrenje odobrili transakciju (i u defeniranom vremenu)
         (0 => nepoznato, nije još odgovoreno), (1 => svi prihvatili), (-1 => barem jedan korisnik nije odborio (ili nije na vrijeme odbrio))
+    => dvPrekid = datum i vrijeme prekida transakcije 
 
 ulaznica 
     idUlaznica = generira sutav

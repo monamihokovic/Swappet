@@ -117,6 +117,16 @@ CREATE TABLE spor
   FOREIGN KEY (tuzioEmail) REFERENCES korisnik(email),
   FOREIGN KEY (tuzenEmail) REFERENCES korisnik(email)
 );
+
+CREATE TABLE deaktiviranOglas
+(
+  idOglas INT NOT NULL,
+  dvDeaktivacije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (idOglas),
+  FOREIGN KEY (idOglas) REFERENCES oglas(idOglas)
+);
+
+
 /* -------------------------------------------------------------------- */
 /* pripazite na port koji su vam baze i promjenite ga u aplication.properties*/
 
@@ -133,6 +143,7 @@ GRANT ALL PRIVILEGES ON TABLE ulaznica TO pone;
 GRANT ALL PRIVILEGES ON TABLE volioglas TO pone;
 GRANT ALL PRIVILEGES ON TABLE nadtransakcija TO pone;
 GRANT ALL PRIVILEGES ON TABLE spor TO pone;
+GRANT ALL PRIVILEGES ON TABLE deaktiviranOglas TO pone;
 
 /* -------------------------------------------------------------------- */
 /* triggeri */
@@ -210,7 +221,7 @@ CREATE TRIGGER ZgotoviKupnju
 		FOR EACH ROW EXECUTE PROCEDURE fjaZgotoviKupnju();
 
 /*----------------------------------------------------------------------
- 4) TRIGGER za slanje zahtjeva potvrde zamjene vlasniku karte */
+ 3) TRIGGER za slanje zahtjeva potvrde zamjene vlasniku karte */
 CREATE OR REPLACE FUNCTION fjaZapocniZamjenu() RETURNS trigger AS
 
 $$
@@ -222,9 +233,16 @@ $$
 	BEGIN 
 		brojac = (SELECT tipOglas FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
 	
-		IF(brojac = 0) THEN
+		IF(brojac = 0 ) THEN
+			/* unos odluke za vlasnika */
 			mail = (SELECT email FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
 			INSERT INTO jeUkljucen (email, idTransakcija, odluka) VALUES (mail, NEW.idTransakcija, 0);
+				
+			/* deaktiviranje karte iz oglasa */
+			tip = (SELECT vrstaUlaznice FROM ulaznica NATURAL JOIN transakcija WHERE NEW.idTransakcija = idTransakcija);
+			tip = -tip;
+			UPDATE ulaznica SET vrstaUlaznice = tip  WHERE  NEW.idUlaznica = idUlaznica;
+
 
 		END IF;
 		
@@ -236,6 +254,31 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER ZapocniZamjenu 
 	AFTER INSERT ON transakcija
 		FOR EACH ROW EXECUTE PROCEDURE fjaZapocniZamjenu();
+
+/*----------------------------------------------------------------------
+ 4) TRIGGER za deaktiviranje ponuđene karte */
+
+CREATE OR REPLACE FUNCTION fjaDeaktivirajVezanu() RETURNS trigger AS
+
+$$
+	DECLARE 
+		tip INT = 0.0;
+
+	BEGIN 
+
+		/* deaktiviranje karte seMijnja */
+			tip = (SELECT vrstaUlaznice FROM ulaznica NATURAL JOIN seMijenja WHERE NEW.idUlaznica = idUlaznica AND NEW.idTransakcija = idTransakcija);
+			tip = -tip;
+			UPDATE ulaznica SET vrstaUlaznice = tip  WHERE  NEW.idUlaznica = idUlaznica; /* oprez! samo jedna karta pa pazi na update (VIDI gornji upit) */
+		
+		RETURN NEW;
+	END;	
+	
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER DeaktivirajVezanu 
+	AFTER INSERT ON seMijenja
+		FOR EACH ROW EXECUTE PROCEDURE fjaDeaktivirajVezanu();
 
 
 /*----------------------------------------------------------------------
@@ -271,7 +314,7 @@ CREATE TRIGGER OdluciZamjenu
 
 
 /*----------------------------------------------------------------------
- 6) TRIGGER za dovršavanje zamjene nakon odluke (deaktivacije karta (i ponuditelja i primatelja)) */
+ 6) TRIGGER za dovršavanje zamjene nakon odluke (reaktivacije karta (i ponuditelja i primatelja)) */
 
 CREATE OR REPLACE FUNCTION fjaZgotoviZamjenu() RETURNS trigger AS
 
@@ -284,19 +327,28 @@ $$
 	BEGIN 
 		brojac = (SELECT tipOglas FROM ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas WHERE NEW.idTransakcija = idTransakcija) ;
 	
-		IF(brojac = 0 AND NEW.uspjesna = 1) THEN
+		IF(brojac = 0 AND NEW.uspjesna = -1) THEN 
+			/* neuspjesna jer treba reaktivirati karte, koje su već deaktivirane na početku transakcije*/
 			
-			/* za prikaz neaktivnosti karte onog koji je prihvatio "prodavac" */
+			/* za reaktivirnajei karte onog koji je prihvatio "prodavac" */
 			tip = (SELECT vrstaUlaznice FROM ulaznica NATURAL JOIN transakcija WHERE NEW.idTransakcija = idTransakcija) ;
-			tip = -tip;
+			IF(tip<0) THEN
+				tip = -tip;
+			END IF;
+			
 			UPDATE ulaznica SET vrstaUlaznice = tip  WHERE NEW.idUlaznica = idUlaznica;
 			
-			/* za prikaz neaktivnosti karte onog koji je ponudio "kupac" */
-			tip = (SELECT vrstaUlaznice FROM semijenja  NATURAL JOIN ulaznica NATURAL JOIN oglas 
+			/* za reaktivirnaje karte onog koji je ponudio "kupac" */
+			tip = (SELECT vrstaUlaznice FROM semijenja NATURAL JOIN ulaznica 
 				   	WHERE NEW.idTransakcija = idTransakcija);
-			drugaKarta = (SELECT idulaznica FROM semijenja NATURAL JOIN ulaznica NATURAL JOIN oglas
+			
+			drugaKarta = (SELECT idulaznica FROM semijenja NATURAL JOIN ulaznica
 					WHERE NEW.idTransakcija = idTransakcija);
-			tip = -tip;
+					
+			IF(tip<0) THEN
+				tip = -tip;
+			END IF;
+			
 			UPDATE ulaznica SET vrstaUlaznice = tip  WHERE  drugaKarta = idUlaznica;
 
 		END IF;

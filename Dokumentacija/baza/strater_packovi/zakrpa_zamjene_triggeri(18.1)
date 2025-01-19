@@ -1,4 +1,5 @@
-1) TRIGGER za slanje zahtjeva potvrde zamjene vlasniku karte */
+ /*----------------------------------------------------------------------
+ 3) TRIGGER za slanje zahtjeva potvrde zamjene vlasniku karte  i deaktivacija iste P*/
 CREATE OR REPLACE FUNCTION fjaZapocniZamjenu() RETURNS trigger AS
 
 $$
@@ -28,12 +29,9 @@ $$
 	
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER ZapocniZamjenu 
-	AFTER INSERT ON transakcija
-		FOR EACH ROW EXECUTE PROCEDURE fjaZapocniZamjenu();
 
 /*----------------------------------------------------------------------
-2) TRIGGER za deaktiviranje ponuđene karte  */
+ 4) TRIGGER za deaktiviranje ponuđene karte PN*/
 
 CREATE OR REPLACE FUNCTION fjaDeaktivirajVezanu() RETURNS trigger AS
 
@@ -58,40 +56,9 @@ CREATE TRIGGER DeaktivirajVezanu
 		FOR EACH ROW EXECUTE PROCEDURE fjaDeaktivirajVezanu();
 
 
+  
 /*----------------------------------------------------------------------
-3) TRIGGER za dovršavanje zamjene nakon odluke (upis odluke) */
-
-CREATE OR REPLACE FUNCTION fjaOdluciZamjenu() RETURNS trigger AS
-
-$$
-	DECLARE 
-		brojac INT = 0.0;
-		suma INT = 0.0;
-		tip INT = 0.0;
-
-	BEGIN 
-		brojac = (SELECT tipOglas FROM 
-				  	ulaznica NATURAL JOIN transakcija NATURAL JOIN oglas NATURAL JOIN jeUkljucen 
-				  		WHERE NEW.idTransakcija = idTransakcija );
-		suma = (SELECT SUM (odluka) FROM jeUkljucen WHERE idTransakcija = NEW.idTransakcija);
-	
-		IF(brojac = 0 AND (suma = 1 OR suma = 3)) THEN
-			UPDATE transakcija SET uspjesna = (suma-2) WHERE NEW.idTransakcija = idTransakcija;
-		END IF;
-		
-		
-		RETURN NEW;
-	END;	
-	
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER OdluciZamjenu 
-	AFTER INSERT OR UPDATE ON jeUkljucen
-		FOR EACH ROW EXECUTE PROCEDURE fjaOdluciZamjenu();
-
-
-/*----------------------------------------------------------------------
-4) TRIGGER za dovršavanje zamjene nakon odluke (reaktivacije karta (i ponuditelja i primatelja)) */
+6) TRIGGER za dovršavanje zamjene nakon odluke (reaktivacije karta (i ponuditelja i primatelja)) */
 
 CREATE OR REPLACE FUNCTION fjaZgotoviZamjenu() RETURNS trigger AS
 
@@ -135,6 +102,3 @@ $$
 	
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER ZgotoviZamjenu 
-	AFTER INSERT OR UPDATE ON transakcija
-		FOR EACH ROW EXECUTE PROCEDURE fjaZgotoviZamjenu();

@@ -121,6 +121,15 @@ CREATE TABLE spor
   FOREIGN KEY (tuzioEmail) REFERENCES korisnik(email),
   FOREIGN KEY (tuzenEmail) REFERENCES korisnik(email)
 );
+
+CREATE TABLE deaktiviranOglas
+(
+  idOglas INT NOT NULL,
+  dvDeaktivacije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (idOglas),
+  FOREIGN KEY (idOglas) REFERENCES oglas(idOglas)
+);
+
 /* -------------------------------------------------------------------- */
 /* pripazite na port koji su vam baze i promjenite ga u aplication.properties*/
 
@@ -137,5 +146,6 @@ GRANT ALL PRIVILEGES ON TABLE ulaznica TO pone;
 GRANT ALL PRIVILEGES ON TABLE volioglas TO pone;
 GRANT ALL PRIVILEGES ON TABLE nadtransakcija TO pone;
 GRANT ALL PRIVILEGES ON TABLE spor TO pone;
+GRANT ALL PRIVILEGES ON TABLE deaktiviranOglas TO pone;
 /* -------------------------------------------------------------------- */
 
