@@ -27,12 +27,11 @@ const AdminReported = ({ profilePic }) => {
 
     useEffect(() => {
         const fetchReportedUsers = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/reported`
-        );
-        Promise.all([fetchReportedUsers])
+            `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`
+        )
             .then((reportedResponse) => {
                 setReported(reportedResponse.data);
-                console.log("Fetched reported users: ", reportedResponse.data);
+                console.log("Fetched reported users: ", reportedResponse);
             })
             .catch((error) => {
                 console.error("Error fetching reported users: ", error);
@@ -74,12 +73,20 @@ const AdminReported = ({ profilePic }) => {
                         </div>
                     ) : (
                         reportedAccounts.map((user) => (
-                            <div>
+                            <div className="Users">
                                 {user.email}
-                                <button>Generiraj izvještaj</button>
+                                <button onclick = {() => axios.get(`${process.env.REACT_APP_BACKEND_URL}/report`)
+                                .then(() => {
+                                    console.log("Izjveštaj generiran");
+                                }).catch((error) => {
+                                    console.log("Error: " + error);
+                                })
+                            } 
+                                >Generiraj izvještaj</button>
                             </div>
                         ))
                     )}
+
                 </div>
             </div>
         </div>

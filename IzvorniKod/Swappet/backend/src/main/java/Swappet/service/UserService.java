@@ -1,13 +1,11 @@
 package Swappet.service;
 
-import Swappet.model.JeUkljucen;
-import Swappet.model.Korisnik;
-import Swappet.model.Transakcija;
-import Swappet.model.Oglas;
+import Swappet.model.*;
 import Swappet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +22,10 @@ public class UserService {
     private JeUkljucenRepository jeUkljucenRepository;
 
     @Autowired
-    private UlaznicaRepository ulaznicaRepository;
+    private OglasRepository oglasRepository;
 
     @Autowired
-    private OglasRepository oglasRepository;
+    private DeaktiviranOglasRepository deaktiviranOglasRepository;
 
     //upit u bazu za korisnika na temelju emaila (ključ)
     public Korisnik findUserByEmail(String email) {
@@ -53,5 +51,18 @@ public class UserService {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
         oglas.setAktivan(activation);
         oglasRepository.save(oglas);
+
+        DeaktiviranOglas deaktiviranOglas = deaktiviranOglasRepository.findByIdoglas(idOglas);
+        if (deaktiviranOglas == null && activation == -1) {
+            DeaktiviranOglas deaog = new DeaktiviranOglas(
+                    idOglas,
+                    LocalDate.now()
+            );
+            deaktiviranOglasRepository.save(deaog);
+            
+        } else if (deaktiviranOglas != null && activation == -1) {
+            deaktiviranOglas.setDvdeaktivacije(LocalDate.now());
+            deaktiviranOglasRepository.save(deaktiviranOglas);
+        }
     }
 }

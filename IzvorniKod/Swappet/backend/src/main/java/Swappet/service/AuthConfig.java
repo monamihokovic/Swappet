@@ -35,10 +35,9 @@ public class AuthConfig extends DefaultOAuth2UserService {
                                 "/ulaznica/kupnja", "/ulaznica", "/ulaznica/podnesi-razmjenu", "/user",
                                 "/user/oglasi", "/ulaznica/razmjene",
                                 "/homepage/advertisements", "/ulaznica/all", "/createEvent",
-                                "/admin/oglasi", "/admin/transakcije", "/user/transactions",
+                                "/admin/**", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
-                                "/advertisements", "/admin/activation", "/" +
-                                        "user/activation").permitAll()
+                                "/advertisements", "/admin/activation", "user/activation").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
@@ -63,9 +62,6 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Autowired
     private KorisnikRepository userRepository;
 
-    @Autowired
-    private SporRepository sporRepository;
-
     //funkcija koja provjerava postoji li korisnik u bazi te ga sprema ako nije
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -82,15 +78,15 @@ public class AuthConfig extends DefaultOAuth2UserService {
         if (userRepository.findByEmail(email) == null) {
             Korisnik user = new Korisnik(email, id, username);
             userRepository.save(user);
-//        } else {
-//            // provjera je li korisnik bio blokiran
-//            List<Spor> disputes = sporRepository.findByTuzenEmail(email);
-//            boolean isBanned = disputes.stream().anyMatch(spor -> spor.getOdlukaSpor() == 1);
-//
-//            if (isBanned) {
-//                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
-//            }
+        } else {
+            // provjera je li korisnik bio blokiran
+            Korisnik korisnik = userRepository.findByEmail(email);
+
+            if (korisnik.getKoristi() == 0) {
+                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
+            }
         }
+
         return oAuth2User;
     }
 }

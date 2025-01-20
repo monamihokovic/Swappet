@@ -11,15 +11,13 @@ import java.util.List;
 
 @Repository
 public interface OglasRepository extends JpaRepository<Oglas, Integer> {
-    //List<Oglas> findOglasByTipOglasIn(@Param("categories") List<Integer> categories); - stara verzija
 
-    Oglas findByIdOglas(Integer id);
-
-    Oglas findByKorisnik(Korisnik korisnik);
+    @Query("SELECT o FROM Oglas o WHERE o.idOglas = :id")
+    Oglas findByIdOglas(@Param("id") Integer id);
 
     // nova verzija - šalje upit za spajanje Oglasa i Ulaznice za dobivanje podataka o idoglas i cijena
     @Query("SELECT DISTINCT o, u.cijena FROM Oglas o LEFT JOIN Ulaznica u ON o.idOglas = u.oglas.idOglas " +
-            "LEFT JOIN JeTip j on j.idOglas = o.idOglas WHERE o.aktivan > 0 AND o.datum > CURRENT_DATE AND j.idDog IN :categories")
+            "LEFT JOIN JeTip j on j.idOglas = o.idOglas WHERE o.aktivan > 0 AND j.idDog IN :categories")
     List<Object[]> findOglasWithCijenaByCategories(@Param("categories") List<Integer> categories);
 
     //šalje upit za oglase i njihove cijene na temelju emaila

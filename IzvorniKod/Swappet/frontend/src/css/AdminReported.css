@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+.admin-page {
+    background: rgb(65,67,97);
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: 'League Spartan', sans-serif;
+}
+
+.Useri {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.Users{
+    color: #ffffff;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+.item {
+    background-color: #4f5469;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #e8e5e7;
+}
+
+.item:hover {
+    background-color: #626a7d;
+    color: #26293d;
+}
+
+
+
+
+.createEvent,
+.admin {
+    margin-left: 20px;
+    background-color: #816898;
+    border: none;
+    border-radius: 20px;
+    width: 100px;
+    height: 50px;
+    align-self: center;
+    color: #e8e5e7;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.createEvent:hover,
+.admin:hover {
+    background-color: #26293d;
+    color: #816898;
+}
+
+.hidden {
+    display: none;
+}
+
+.no-events-message {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+}

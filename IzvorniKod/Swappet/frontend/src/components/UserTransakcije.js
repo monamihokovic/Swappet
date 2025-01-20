@@ -10,7 +10,7 @@ const UserTransakcije = ({ profilePic }) => {
     const [user, setUser] = useState(null);
     const [transactions, setTransactions] = useState([]);
 
-    // Fetch user info
+    // Fetch user information
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
@@ -18,15 +18,20 @@ const UserTransakcije = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
+                console.log("Ulogiran user: " + user)
             })
             .catch((error) => {
-                console.error("Error occurred: ", error);
+                if (error.response && error.response.status === 401) {
+                    setUser(null);
+                } else {
+                    console.error("Error occurred: ", error);
+                }
             });
     }, []);
 
     useEffect(() => {
         const fetchTransactions = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije`
+            `${process.env.REACT_APP_BACKEND_URL}/user/transaction/${user?.email}`, {withCredentials: true}
         );
 
         Promise.all([fetchTransactions])

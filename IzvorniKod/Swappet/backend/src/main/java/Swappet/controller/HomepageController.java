@@ -32,7 +32,7 @@ public class HomepageController {
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
     @PostMapping("/oglas")
     public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
-        System.out.println(categories.toString());
+        //System.out.println(categories.toString());
         List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
         storedOglasiData = oglasi;
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
