@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 import java.io.ByteArrayOutputStream;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class AdminService {
     @Autowired
     private KorisnikRepository korisnikRepository;
 
+    @Autowired
+    private DeaktiviranOglasRepository deaktiviranOglasRepository;
+
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
         List<OglasDTO> result = new ArrayList<>();
@@ -43,6 +47,12 @@ public class AdminService {
         for (Object[] row : rawData) {
             Oglas oglas = (Oglas) row[0];  // Oglas objekt
             Double price = (Double) row[1];  // cijena iz Ulaznice
+
+            DeaktiviranOglas deaog = deaktiviranOglasRepository.findByIdoglas(oglas.getIdOglas());
+            if (deaog != null && ChronoUnit.DAYS.between(deaog.getDvdeaktivacije(), LocalDate.now()) >= 14) {
+                oglas.setAktivan(-2);
+                oglasRepository.save(oglas);
+            }
 
             OglasDTO dto = buildOglasDTO(oglas, price, null);
             result.add(dto);
@@ -80,8 +90,12 @@ public class AdminService {
                 }
                 String datum = transakcija.getDvPocetak().toString();
                 int idulaznica = transakcija.getUlaznica().getIdUlaznica();
-                double cijena = transakcija.getUlaznica().getCijena();
-                avgcijena += cijena;
+
+                double cijena = 0;
+                if (transakcija.getUlaznica().getCijena() != null) {
+                    cijena = transakcija.getUlaznica().getCijena();
+                    avgcijena += cijena;
+                }
 
                 document.add(new Paragraph("Id transakcije: " + id));
                 document.add(new Paragraph("Uspjeh: " + uspjesnost));
@@ -109,8 +123,21 @@ public class AdminService {
     //aktivacija/deaktivacija oglasa
     public void activationRequest(Integer idOglas, Integer activationStatus) {
         Oglas oglas = oglasRepository.findByIdOglas(idOglas);
+
         oglas.setAktivan(activationStatus);
         oglasRepository.save(oglas);
+
+        DeaktiviranOglas deaktiviranOglas = deaktiviranOglasRepository.findByIdoglas(idOglas);
+        if (deaktiviranOglas == null && activationStatus == -1) {
+            DeaktiviranOglas deaog = new DeaktiviranOglas(
+                    idOglas,
+                    LocalDate.now()
+            );
+            deaktiviranOglasRepository.save(deaog);
+        } else if (deaktiviranOglas != null && activationStatus == -1) {
+            deaktiviranOglas.setDvdeaktivacije(LocalDate.now());
+            deaktiviranOglasRepository.save(deaktiviranOglas);
+        }
     }
 
     //ban usera
@@ -118,6 +145,11 @@ public class AdminService {
         Korisnik korisnik = korisnikRepository.findByEmail(email);
         Spor spor = sporRepository.findByTuzen(korisnik);
         spor.setOdlukaSpor(ban);
+
+        if (ban == 0) {
+            korisnik.setKoristi(0);
+            korisnikRepository.save(korisnik);
+        }
     }
 
     //izvlači iz baze listu prijavljenih korisnika
@@ -128,6 +160,17 @@ public class AdminService {
             reportedUsers.add(korisnik.getEmail());
         }
         return reportedUsers;
+    }
+
+    //izvlači iz baze sve admine
+    public List<String> getAllAdmini() {
+        List<Korisnik> admini = korisnikRepository.findAdmins();
+        List<String> admins = new ArrayList<>();
+
+        for (Korisnik korisnik : admini) {
+            admins.add(korisnik.getEmail());
+        }
+        return admins;
     }
 
     // pomoć za konstrukciju OglasDTO

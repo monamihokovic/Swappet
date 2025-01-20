@@ -7,8 +7,10 @@ import Swappet.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -34,11 +36,16 @@ public class OglasService {
     private VoliOglasRepository voliOglasRepository;
 
     @Autowired
-    TransakcijaRepository transakcijaRepository;
+    private TransakcijaRepository transakcijaRepository;
+
+    @Autowired
+    private DeaktiviranOglasRepository deaktiviranOglasRepository;
+    @Autowired
+    private SporRepository sporRepository;
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
     public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
-        System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
+        //System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
 
         List<Object[]> rawData = oglasRepository.findOglasWithCijenaByCategories(categories);
         List<OglasDTO> result = new ArrayList<>();
@@ -46,6 +53,12 @@ public class OglasService {
         for (Object[] row : rawData) {
             Oglas oglas = (Oglas) row[0];
             Double price = (Double) row[1];
+
+            if (oglas.getDatum().isBefore(LocalDateTime.now())) {
+                oglas.setAktivan(-2);
+                oglasRepository.save(oglas);
+                continue;
+            }
 
             String email = oglas.getKorisnik().getEmail();
             Integer likedStatus = voliOglasRepository.findByEmailAndIdOglas(email, oglas.getIdOglas())
@@ -96,6 +109,17 @@ public class OglasService {
                     .map(VoliOglas::getVoli)
                     .orElse(0);
 
+            DeaktiviranOglas deaog = deaktiviranOglasRepository.findByIdoglas(oglas.getIdOglas());
+            if (deaog != null && ChronoUnit.DAYS.between(deaog.getDvdeaktivacije(), LocalDate.now()) >= 14) {
+                oglas.setAktivan(-2);
+                oglasRepository.save(oglas);
+            }
+
+            if (oglas.getDatum().isBefore(LocalDateTime.now())) {
+                oglas.setAktivan(-2);
+                oglasRepository.save(oglas);
+            }
+
             OglasDTO dto = buildOglasDTO(oglas, price, likedStatus);
             result.add(dto);
         }
@@ -114,13 +138,18 @@ public class OglasService {
         } catch (NoSuchElementException e) {
             return null;
         }
+
         int counter = 0;
 
         for (Object[] row : rawData) {
             Integer idOglasSeller = (Integer) row[3];
-            if (idOglasSeller == di && Arrays.stream(row).iterator().hasNext()) {
+
+            if (idOglasSeller == di) {
                 counter++;
-                continue;
+                Integer idtemp = (Integer) rawData.getLast()[3];
+                if (idtemp != di) {
+                    continue;
+                }
             }
 
             di = idOglasSeller;
@@ -147,6 +176,7 @@ public class OglasService {
                     counter
             );
 
+            //System.out.println("Dohvaćen oglas: " + tradeDTO.getSellerAdDescription());
             result.add(tradeDTO);
             counter = 0;
         }
@@ -155,19 +185,49 @@ public class OglasService {
     }
 
     //sprema like/dislike/report (ovo treba provjeriti)
-    public void saveUserInteraction(String email, Integer idOglas, Integer action) {
-        VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
-        voliOglasRepository.save(voliOglas);
+    public void saveUserInteraction(String email, Integer idOglas, Integer action, String blame) {
+        if (action != 2) {
+            VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
+            voliOglasRepository.save(voliOglas);
+        } else {
+            Korisnik guilty = korisnikRepository.findByEmail(email);
+            Korisnik blamer = korisnikRepository.findByEmail(blame);
+
+            Spor postojeciSpor = sporRepository.findByTuzen(guilty);
+            if (postojeciSpor == null) {
+                Spor spor = new Spor(
+                        "User was naughty",
+                        LocalDateTime.now(),
+                        0,
+                        null,
+                        guilty,
+                        blamer
+                );
+                sporRepository.save(spor);
+            }
+        }
     }
 
     // pomoć za konstrukciju OglasDTO
     private OglasDTO buildOglasDTO(Oglas oglas, Double price, Integer likedStatus) {
+
         String address = oglas.getUlica() + " " + oglas.getKucnibr() + ", " + oglas.getGrad();
         String date = oglas.getDatum().toString();
         Integer numberOfTickets = oglas.getAktivan();
-        Integer ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
-        Integer red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
-        Integer broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+        Integer ticketType = 0;
+        Integer red = 0;
+        Integer broj = 0;
+
+        try {
+            ticketType = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+            red = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getRed();
+            broj = ulaznicaRepository.findUlazniceByOglas(oglas.getIdOglas()).getFirst().getBroj();
+        } catch (NoSuchElementException e) {
+            ticketType = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getVrstaUlaznice();
+            red = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getRed();
+            broj = ulaznicaRepository.findALlUlaznica(oglas.getIdOglas()).getFirst().getBroj();
+        }
+
         String tradeDescription = oglas.getOpisZamjene();
         Integer eventType = jeTipRepository.findByIdOglas(oglas.getIdOglas()).getIdDog();
 
@@ -188,5 +248,4 @@ public class OglasService {
                 likedStatus
         );
     }
-
 }

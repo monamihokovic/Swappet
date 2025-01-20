@@ -166,7 +166,6 @@
 .disabled-btn {
     background-color: #b0b0b0;
     cursor: not-allowed;
-    display: none;
 }
 
 /* Dropdown  */
@@ -298,4 +297,3 @@
     cursor: pointer;
     transform: scale(1.01);
 }
-

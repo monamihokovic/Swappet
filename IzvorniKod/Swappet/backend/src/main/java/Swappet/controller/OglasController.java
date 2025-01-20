@@ -88,7 +88,7 @@ public class OglasController {
         oglas.setTipOglas(transactionType);
         oglas.setAktivan(numberOfTickets);
         oglas.setKorisnik(korisnik);
-        
+
         if (!tradeDescription.isEmpty()) {
             oglas.setOpisZamjene(tradeDescription);
         } else {
@@ -120,8 +120,8 @@ public class OglasController {
 
     // spremanje interakcije
     @PostMapping("/interact")
-    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action) {
-        oglasService.saveUserInteraction(email, idOglas, action);
+    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action, @RequestParam String blame) {
+        oglasService.saveUserInteraction(email, idOglas, action, blame);
         return ResponseEntity.ok("Interakcija s oglasom uspješno spremljena.");
     }
 

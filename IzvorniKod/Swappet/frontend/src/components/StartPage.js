@@ -19,10 +19,10 @@ const StartPage = ({ onLogin }) => {
         <div id="swap">SWAP<span id="pet">PET</span><span id="usklicnik">!</span></div>
       </div>
 
-      <div className="search-bar">
+      {/* <div className="search-bar">
         <FaSearch className="search-icon"/>
         <input id="pretraga" type="text" placeholder="Pretraži događaje..."></input>
-      </div>
+      </div> */}
 
       <GoogleLoginButton className="google-login-btn" onLogin={onLogin} />
       

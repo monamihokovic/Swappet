@@ -3,6 +3,7 @@ package Swappet.controller;
 import Swappet.model.Transakcija;
 import Swappet.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +20,12 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @GetMapping("/")
+    public ResponseEntity<List<String>> getAdmins() {
+        List<String> admini = adminService.getAllAdmini();
+        return ResponseEntity.ok(admini);
+    }
+
     @GetMapping("/oglasi")
     public ResponseEntity<List<OglasDTO>> getAllOglasi() {
         List<OglasDTO> oglasi = adminService.getAllOglasi();
@@ -31,7 +38,7 @@ public class AdminController {
         return ResponseEntity.ok(transakcija);
     }
 
-    @GetMapping("/report")
+    @PostMapping("/report")
     public ResponseEntity<byte[]> reportPdf() {
         byte[] pdffile = adminService.generateReport();
         if (pdffile != null) {
@@ -46,7 +53,7 @@ public class AdminController {
 
     @PostMapping("/activation")
     public ResponseEntity<String> oglasActivation(@RequestBody Map<String, Integer> payload) {
-        Integer idOglas = payload.get("idOglas");
+        Integer idOglas = payload.get("id");
         Integer activation = payload.get("activation");
         adminService.activationRequest(idOglas, activation);
         if (activation > 0) {
@@ -71,4 +78,14 @@ public class AdminController {
             return ResponseEntity.ok("User banned");
         }
     }
+
+    private boolean checkAdmin(String email) {
+        List<String> admins = adminService.getAllAdmini();
+        if (admins.contains(email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

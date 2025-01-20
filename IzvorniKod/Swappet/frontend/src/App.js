@@ -124,6 +124,11 @@ function App() {
                     element={
                     <AdminReported />}
                 />
+                <Route
+                    path="/admin/guilty"
+                    element={
+                    <AdminReported />}
+                />
             </Routes>
         </Router>
     );

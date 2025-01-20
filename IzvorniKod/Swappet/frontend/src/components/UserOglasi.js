@@ -13,7 +13,7 @@ const UserOglasi = ({ profilePic }) => {
     const [ads, setAds] = useState([]);
     const [, setUlaznice] = useState([]);
 
-    // Fetch user info
+    // Fetch user information
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
@@ -23,13 +23,17 @@ const UserOglasi = ({ profilePic }) => {
                 setUser(response.data);
             })
             .catch((error) => {
-                console.error("Error occurred: ", error);
+                if (error.response && error.response.status === 401) {
+                    setUser(null);
+                } else {
+                    console.error("Error occurred: ", error);
+                }
             });
     }, []);
 
     useEffect(() => {
         const fetchAds = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`
+            `${process.env.REACT_APP_BACKEND_URL}/user/oglasi/${user?.email}`, { withCredentials: true }
         );
         const fetchTickets = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
@@ -44,7 +48,7 @@ const UserOglasi = ({ profilePic }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user]);
 
 
     return (

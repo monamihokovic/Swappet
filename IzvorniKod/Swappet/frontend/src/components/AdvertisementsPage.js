@@ -17,6 +17,9 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(""); // Search term state
+    const [likedFilter, setLikedFilter] = useState(false);
+    const [dislikedFilter, setDislikedFilter] = useState(false);
 
     // Fetch user information
     useEffect(() => {
@@ -26,6 +29,7 @@ const AdvertisementsPage = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
+                console.log("Ulogiran user: " + user)
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -52,6 +56,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                 setUlaznice(ticketsResponse.data); // List of Ulaznice
 
                 // Log the fetched tickets data
+                console.log("Fetched ads:", adsResponse.data);
                 console.log("Fetched tickets:", ticketsResponse.data);
             })
             .catch((error) => {
@@ -70,7 +75,7 @@ const AdvertisementsPage = ({ profilePic }) => {
         });
     };
 
-    // Filter tickets based on price, category, and ad type
+    // Filter tickets based on price, category, ad type, and search term
     const filteredTickets = ulaznice.filter((ticket) => {
         const ad = ads.find((ad) => ad.id === ticket.oglas.idOglas);
         const eventType = ad ? ad.eventType : null;
@@ -79,19 +84,38 @@ const AdvertisementsPage = ({ profilePic }) => {
         const categoryFilter =
             selectedCategories.length === 0 ||
             (eventType !== null && selectedCategories.includes(eventType));
+        const searchFilter =
+            searchTerm.trim() === "" ||
+            (ad && ad.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        return priceFilter && categoryFilter;
+        return priceFilter && categoryFilter && searchFilter;
     });
 
     const filteredAdsWithTickets = ads
         .map((ad) => {
+            // Filter associated tickets for each ad
             const associatedTickets = filteredTickets.filter(
                 (ticket) => ticket.oglas.idOglas === ad.id
             );
 
             return { ...ad, tickets: associatedTickets };
         })
-        .filter((adWithTickets) => adWithTickets.tickets.length > 0);
+        .filter((adWithTickets) => adWithTickets.tickets.length > 0) // Ensure there are tickets associated with the ad
+        .filter((ad) => {
+            if (likedFilter && dislikedFilter) {
+                // If both filters are active, show ads with liked (1) or disliked (-1)
+                return ad.liked === 1 || ad.liked === -1;
+            } else if (likedFilter) {
+                // If only liked filter is active, show ads with liked (1)
+                return ad.liked === 1;
+            } else if (dislikedFilter) {
+                // If only disliked filter is active, show ads with disliked (-1)
+                return ad.liked === -1;
+            } else {
+                // If no filter is active, show ads with liked (1) or no reaction (0)
+                return ad.liked === 1 || ad.liked === 0;
+            }
+        });
 
     const toggleAdminMenu = () => setIsAdminMenuOpen(!isAdminMenuOpen);
     const toggleUserMenu = () => setIsUserMenuOpen(!isUserMenuOpen);
@@ -118,6 +142,8 @@ const AdvertisementsPage = ({ profilePic }) => {
                         id="pretraga"
                         type="text"
                         placeholder="Pretraži događaje..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
 
@@ -159,16 +185,15 @@ const AdvertisementsPage = ({ profilePic }) => {
                         >
                             Pregledaj svoje transakcije
                         </button>
+                        <button
+                            className="user-option"
+                            onClick={() => navigate(`/user/trades`)}
+                        >
+                            Pregledaj svoje razmjene
+                        </button>
                     </div>
                 )}
 
-                <button
-                    className={user ? "createEvent" : "createEvent hidden"}
-                    onClick={() => navigate("/user/trades")}
-                    disabled={!user}
-                >
-                    Moje razmjene
-                </button>
 
                 {isAdminMenuOpen && (
                     <div className="admin-menu">
@@ -184,15 +209,70 @@ const AdvertisementsPage = ({ profilePic }) => {
                         >
                             Pregledaj transakcije
                         </button>
+                        <button
+                            className="admin-option"
+                            onClick={() => navigate("/admin/guilty")}
+                        >
+                            Pregledaj prijavljene korisnike
+                        </button>
+
+                        <button
+                            className="admin-option"
+                            onClick={() =>
+                                axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/report`, null, {
+                                    responseType: 'blob', // Important: Ensure the response is treated as a binary Blob
+                                })
+                                .then((response) => {
+                                    // Create a Blob object from the response data
+                                    const blob = new Blob([response.data], { type: 'application/pdf' });
+
+                                    // Create a URL for the Blob
+                                    const url = window.URL.createObjectURL(blob);
+
+                                    // Create a temporary <a> element to trigger the download
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.download = 'report.pdf'; // Set the file name for download
+                                    document.body.appendChild(link);
+                                    link.click(); // Trigger the download
+                                    document.body.removeChild(link); // Clean up the DOM
+
+                                    console.log("Izvještaj generiran");
+                                })
+                                .catch((error) => {
+                                    console.error("Error: " + error);
+                                })
+                            }>
+                            Generiraj izvještaj
+                        </button>
+
                     </div>
                 )}
 
+                <div className="liked-disliked-buttons">
+                    <button
+                        className={likedFilter ? "active" : ""}
+                        onClick={() => setLikedFilter(!likedFilter)}
+                    >
+                        Liked
+                    </button>
+                    <button
+                        className={dislikedFilter ? "active" : ""}
+                        onClick={() => setDislikedFilter(!dislikedFilter)}
+                    >
+                        Disliked
+                    </button>
+                </div>
+
                 <button
-                    className="logout"
+                    className={user ? "logout" : "logout hidden"}
                     onClick={() => {
-                        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/logout`;
-                        alert("Uspješno ste odjavljeni iz sustava!");
+                        if (user) {
+                            window.location.href = `${process.env.REACT_APP_BACKEND_URL}/logout`;
+                        }
                     }}
+                    disabled={!user}
+
                 >
                     <FaSignOutAlt className="logout-icon" />
                 </button>
@@ -247,6 +327,12 @@ const AdvertisementsPage = ({ profilePic }) => {
                         />
                         <span id="price-value">{price}</span>
                     </div>
+                    <button
+                        className="back-to-selection"
+                        onClick={() => navigate("/selection")}
+                    >
+                        Natrag na selection
+                    </button>
                 </div>
 
                 <div className="cards-container">

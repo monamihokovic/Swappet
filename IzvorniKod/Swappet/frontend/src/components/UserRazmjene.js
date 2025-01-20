@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../css/UserRazmjene.css";
@@ -14,7 +14,8 @@ function UserRazmjene({ profilePic }) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", { withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, 
+                {withCredentials: true })
             .then((response) => {
                 setUser(response.data);
                 setTrades(getDummyTrades());
@@ -28,7 +29,7 @@ function UserRazmjene({ profilePic }) {
     useEffect(() => {
         if (user) {
             axios
-                .get(`http://localhost:8081/user/trades/${user.email}`, { withCredentials: true })
+                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, { withCredentials: true })
                 .then((response) => {
                     setTrades(response.data);
                     console.log("Trades fetched:", response.data);
@@ -77,6 +78,7 @@ function UserRazmjene({ profilePic }) {
             .catch((error) => {
                 console.error("Error during check request:", error);
             });
+        navigate("/advertisements")
     };
 
     const handleCrossClick = (selledId, buyerId, quantity) => {
@@ -98,6 +100,7 @@ function UserRazmjene({ profilePic }) {
             .catch((error) => {
                 console.error("Error during cross request:", error);
             });
+        navigate("/advertisements")
     };
 
     return (

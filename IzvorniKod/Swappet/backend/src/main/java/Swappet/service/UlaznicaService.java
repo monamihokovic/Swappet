@@ -77,20 +77,11 @@ public class UlaznicaService {
         emailService.notifyTicketSold(sellerEmail, opis, numberOfTickets);
     }
 
-    //razmjena ulaznice
-//    public void tradeConfirmation(List<Integer> sellerTickets, int decision) {
-//        for (Integer idUlaznica : sellerTickets) {
-//            Integer idTransakcija = seMijenjaRepository.findByIdUlaznica(idUlaznica).getIdTransakcija();
-//            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(idTransakcija);
-//            jeUkljucen.setOdluka(decision);
-//            jeUkljucenRepository.save(jeUkljucen);
-//        }
-//    }
-
     // Razmjena ulaznica
     public void tradeConfirmation(Integer idOglasSeller, Integer idOglasBuyer, Integer amount, int decision) {
-        List<Ulaznica> sellerTickets = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
+
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
+        List<Integer> ulazniceZaRazmjenu = ulaznicaRepository.ulaznice(idOglasBuyer);
 
         // Provjera je li prodavateljev oglas označen za zamjenu
         if (sellerOglas.getTipOglas() == 1) {
@@ -98,12 +89,11 @@ public class UlaznicaService {
         }
 
         for (int i = 0; i < amount; i++) {
-            Ulaznica sellerTicket = sellerTickets.get(i);
-            Integer transactionId = seMijenjaRepository.findByIdUlaznica(sellerTicket.getIdUlaznica()).getIdTransakcija();
-
-            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transactionId);
+            Integer transakcija = ulazniceZaRazmjenu.get(i);
+            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija);
             jeUkljucen.setOdluka(decision);
             jeUkljucenRepository.save(jeUkljucen);
+
         }
     }
 
@@ -111,7 +101,6 @@ public class UlaznicaService {
         List<Ulaznica> ulazniceSeller = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
         List<Ulaznica> ulazniceBuyer = ulaznicaRepository.findUlazniceByOglas(idOglasBuyer);
         Oglas oglasBuyer = oglasRepository.findByIdOglas(idOglasBuyer);
-        //System.out.println(amount);
 
         for (int i = 0; i < amount; i++) {
             Ulaznica ulaznica = ulazniceSeller.get(i);

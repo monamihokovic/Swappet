@@ -25,7 +25,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Intege
             "JOIN seMijenja sm ON t.idtransakcija = sm.idtransakcija " +
             "JOIN ulaznica u ON t.idulaznica = u.idulaznica " +
             "JOIN oglas o ON u.idoglas = o.idoglas " +
-            "WHERE ju.odluka = 2 AND o.email = :email",
+            "WHERE ju.odluka = 0 AND o.email = :email",
             nativeQuery = true)
     List<Object[]> findUserTrades(@Param("email") String email);
 }
