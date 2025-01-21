@@ -68,7 +68,7 @@ const Card = ({ ad, tickets }) => {
         const fetchWeather = async () => {
             try {
                 const response = await axios.get(
-                    `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${eventDate}&hour=${eventTime}`
+                    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${eventDate}&hour=${eventTime}`
                 );
 
                 if (response.data?.forecast) {
