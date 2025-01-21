@@ -84,11 +84,14 @@ public class OglasService {
         JeTip jetip = new JeTip(savedTipDog.getIdDog(), savedOglas.getIdOglas());
         jeTipRepository.save(jetip);
 
-
         // spremi ulaznice i povezi ih s oglasom
         for (Ulaznica ulaznica : ulaznice) {
             ulaznica.setOglas(savedOglas);
             ulaznicaRepository.save(ulaznica);
+        }
+
+        if (oglas.getTipOglas() == 2) {
+            
         }
 
         return savedOglas;
