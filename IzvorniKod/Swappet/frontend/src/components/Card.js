@@ -232,10 +232,10 @@ const Card = ({ ad, tickets }) => {
         setSelectedAction(action);
         try {
             if (action !== 2) {
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}`;
-
+                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
+           
                 await axios.post(url, null, { withCredentials: true });
-
+           
                 alert("Oglas " + ad.description + " dis/likean!");
                 setDropdownVisible(false);
             } else {
