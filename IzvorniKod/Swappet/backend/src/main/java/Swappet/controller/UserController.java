@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private OglasService oglasService;
 
-    @CrossOrigin
+    //@CrossOrigin
     @GetMapping("/user-info")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         return principal.getAttributes();
