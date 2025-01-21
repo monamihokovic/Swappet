@@ -9,7 +9,7 @@ const AdminReported = ({ profilePic }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
-    const [reportedAccounts, setReported] = useState([]);
+    const [reportedAccounts] = useState([]);
 
     // Fetch user info
     useEffect(() => {
