@@ -33,7 +33,8 @@ const UserOglasi = ({ profilePic }) => {
 
     useEffect(() => {
         const fetchAds = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/user/oglasi/${user?.email}`, { withCredentials: true }
+            `${process.env.REACT_APP_BACKEND_URL}/user/oglasi/${user?.email}`,
+            { withCredentials: true }
         );
         const fetchTickets = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
@@ -48,8 +49,7 @@ const UserOglasi = ({ profilePic }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, [user]);
-
+    }, [user?.email]);
 
     return (
         <div className="admin-page">
@@ -81,9 +81,7 @@ const UserOglasi = ({ profilePic }) => {
 
                 <div className="oglasi">
                     {ads.length === 0 ? (
-                        <div className="no-events-message">
-                            Nema oglasa.
-                        </div>
+                        <div className="no-events-message">Nema oglasa.</div>
                     ) : (
                         ads.map((adWithTickets) => (
                             <Card
