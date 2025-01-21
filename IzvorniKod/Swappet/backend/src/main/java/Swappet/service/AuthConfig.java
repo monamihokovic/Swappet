@@ -56,7 +56,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
                             // dodaj cors header
                             //response.setHeader("Access-Control-Allow-Origin", frontendUrl);
                             //response.setHeader("Access-Control-Allow-Origin", "https://xaviers-mern-blog.onrender.com");
-                            response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE");
+                            //response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE");
+                            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers");
                             //redirect na frontend
                             response.sendRedirect(frontendUrl + "/selection");
                         })
