@@ -53,7 +53,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             // dodaj cors header
-                            response.setHeader("Access-Control-Allow-Origin", frontendUrl);
+                            //response.setHeader("Access-Control-Allow-Origin", frontendUrl);
+                            response.setHeader("Access-Control-Allow-Origin", "https://xaviers-mern-blog.onrender.com");
                             //redirect na frontend
                             response.sendRedirect(frontendUrl + "/selection");
                         })
