@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../css/UserRazmjene.css";
@@ -14,8 +14,9 @@ function UserRazmjene({ profilePic }) {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, 
-                {withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
                 setTrades(getDummyTrades());
@@ -29,7 +30,9 @@ function UserRazmjene({ profilePic }) {
     useEffect(() => {
         if (user) {
             axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, { withCredentials: true })
+                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, {
+                    withCredentials: true,
+                })
                 .then((response) => {
                     setTrades(response.data);
                     console.log("Trades fetched:", response.data);
@@ -65,20 +68,21 @@ function UserRazmjene({ profilePic }) {
             sellerId: selledId,
             buyerId: buyerId,
             amount: quantity,
-            decision: 1, 
+            decision: 1,
         };
         console.log("Request body:", requestBody);
         axios
             .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
-            }).then((response) => {
+            })
+            .then((response) => {
                 console.log("Trade approved:", response.data);
             })
             .catch((error) => {
                 console.error("Error during check request:", error);
             });
-        navigate("/advertisements")
+        navigate("/advertisements");
     };
 
     const handleCrossClick = (selledId, buyerId, quantity) => {
@@ -94,13 +98,14 @@ function UserRazmjene({ profilePic }) {
             .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
-            }).then((response) => {
+            })
+            .then((response) => {
                 console.log("Trade rejected:", response.data);
             })
             .catch((error) => {
                 console.error("Error during cross request:", error);
             });
-        navigate("/advertisements")
+        navigate("/advertisements");
     };
 
     return (
@@ -115,9 +120,13 @@ function UserRazmjene({ profilePic }) {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    <div className="username" onClick={() => navigate("/advertisements")}>
+                    <div
+                        className="username"
+                        onClick={() => navigate("/advertisements")}
+                    >
                         {user ? user.name : "Loading..."}
-                    </div>                </div>
+                    </div>{" "}
+                </div>
                 <h1 className="logo">
                     S<span id="usklicnik">!</span>
                 </h1>
@@ -141,13 +150,18 @@ function UserRazmjene({ profilePic }) {
                                 {transaction.buyerDescription}
                             </p>
                             <p>
-                                <strong>Quantity:</strong> {transaction.quantity}
+                                <strong>Quantity:</strong>{" "}
+                                {transaction.quantity}
                             </p>
                             <div className="card-buttons">
                                 <button
                                     className="checkmark-btn"
                                     onClick={() => {
-                                        handleCheckmarkClick(transaction.sellerId, transaction.buyerId, transaction.quantity);
+                                        handleCheckmarkClick(
+                                            transaction.sellerId,
+                                            transaction.buyerId,
+                                            transaction.quantity
+                                        );
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faCheck} />
@@ -155,7 +169,11 @@ function UserRazmjene({ profilePic }) {
                                 <button
                                     className="cross-btn"
                                     onClick={() =>
-                                        handleCrossClick(transaction.selledId, transaction.buyerId, transaction.quantity)
+                                        handleCrossClick(
+                                            transaction.selledId,
+                                            transaction.buyerId,
+                                            transaction.quantity
+                                        )
                                     }
                                 >
                                     <FontAwesomeIcon icon={faTimes} />

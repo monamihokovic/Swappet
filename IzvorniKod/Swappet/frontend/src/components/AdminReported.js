@@ -25,18 +25,18 @@ const AdminReported = ({ profilePic }) => {
             });
     }, []);
 
-    useEffect(() => {
-        const fetchReportedUsers = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`
-        )
-            .then((reportedResponse) => {
-                setReported(reportedResponse.data);
-                console.log("Fetched reported users: ", reportedResponse);
-            })
-            .catch((error) => {
-                console.error("Error fetching reported users: ", error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     const fetchReportedUsers = axios.get(
+    //         `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`
+    //     )
+    //         .then((reportedResponse) => {
+    //             setReported(reportedResponse.data);
+    //             console.log("Fetched reported users: ", reportedResponse);
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error fetching reported users: ", error);
+    //         });
+    // }, []);
 
     return (
         <div className="admin-page">
@@ -75,18 +75,27 @@ const AdminReported = ({ profilePic }) => {
                         reportedAccounts.map((user) => (
                             <div className="Users">
                                 {user.email}
-                                <button onclick = {() => axios.get(`${process.env.REACT_APP_BACKEND_URL}/report`)
-                                .then(() => {
-                                    console.log("Izjveštaj generiran");
-                                }).catch((error) => {
-                                    console.log("Error: " + error);
-                                })
-                            } 
-                                >Generiraj izvještaj</button>
+                                <button
+                                    onclick={() =>
+                                        axios
+                                            .get(
+                                                `${process.env.REACT_APP_BACKEND_URL}/report`
+                                            )
+                                            .then(() => {
+                                                console.log(
+                                                    "Izjveštaj generiran"
+                                                );
+                                            })
+                                            .catch((error) => {
+                                                console.log("Error: " + error);
+                                            })
+                                    }
+                                >
+                                    Generiraj izvještaj
+                                </button>
                             </div>
                         ))
                     )}
-
                 </div>
             </div>
         </div>
