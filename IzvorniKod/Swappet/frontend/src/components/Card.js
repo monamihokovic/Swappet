@@ -25,7 +25,6 @@ const Card = ({ ad, tickets }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    console.log("Seller ad:", ad);
 
     const [buyerAds, setBuyerAds] = useState(null); // All buyer ads fetched from his email
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected

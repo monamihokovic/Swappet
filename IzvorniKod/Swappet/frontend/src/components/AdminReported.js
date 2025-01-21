@@ -38,6 +38,17 @@ const AdminReported = ({ profilePic }) => {
     //         });
     // }, []);
 
+    const handleBan = (email, action) =>{
+        const response = axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
+            {email: email, ban: action})
+            .then((response)=>{
+                console.log("Akcija je uspješna: ", response.data);
+            }).catch((error)=>{
+                console.log("Došlo je do pogreške:", error);
+            });
+    };
+
     return (
         <div className="admin-page">
             <div className="header">
@@ -75,24 +86,8 @@ const AdminReported = ({ profilePic }) => {
                         reportedAccounts.map((user) => (
                             <div className="Users">
                                 {user.email}
-                                <button
-                                    onclick={() =>
-                                        axios
-                                            .get(
-                                                `${process.env.REACT_APP_BACKEND_URL}/report`
-                                            )
-                                            .then(() => {
-                                                console.log(
-                                                    "Izjveštaj generiran"
-                                                );
-                                            })
-                                            .catch((error) => {
-                                                console.log("Error: " + error);
-                                            })
-                                    }
-                                >
-                                    Generiraj izvještaj
-                                </button>
+                                <button value={0} onClick={handleBan(user.email, 0)}>Oslobodi</button>
+                                <button value={1} onClick={handleBan(user.email, 1)}>Zabrani</button>
                             </div>
                         ))
                     )}
