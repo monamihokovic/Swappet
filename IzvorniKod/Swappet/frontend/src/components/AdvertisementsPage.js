@@ -29,7 +29,6 @@ const AdvertisementsPage = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
-                console.log("Ulogiran user: " + user);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -165,7 +164,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "ivrodak@gmail.com" && (
+                {user && user.email === "majcik.b@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
