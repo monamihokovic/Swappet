@@ -38,16 +38,16 @@ const AdminReported = ({ profilePic }) => {
     //         });
     // }, []);
 
-    // const handleBan = (email, action) =>{
-    //     const response = axios.post(
-    //         `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
-    //         {email: email, ban: action})
-    //         .then((response)=>{
-    //             console.log("Akcija je uspješna: ", response.data);
-    //         }).catch((error)=>{
-    //             console.log("Došlo je do pogreške:", error);
-    //         });
-    // };
+    const handleBan = () => {
+        // const response = axios.post(
+        //     `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
+        //     {email: email, ban: action})
+        //     .then((response)=>{
+        //         console.log("Akcija je uspješna: ", response.data);
+        //     }).catch((error)=>{
+        //         console.log("Došlo je do pogreške:", error);
+        //     });
+    };
 
     return (
         <div className="admin-page">
