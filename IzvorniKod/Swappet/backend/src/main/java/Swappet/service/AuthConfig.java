@@ -29,6 +29,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
