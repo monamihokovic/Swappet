@@ -25,31 +25,34 @@ const AdminReported = ({ profilePic }) => {
             });
     }, []);
 
-    // useEffect(() => {
-    //     const fetchReportedUsers = axios.get(
-    //         `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
-    //             withCredentials: true,
-    //         })
-    //         .then((reportedResponse) => {
-    //             setReported(reportedResponse.data);
-    //             console.log("Fetched reported users: ", reportedResponse);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching reported users: ", error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
+                withCredentials: true,
+            })
+            .then((reportedResponse) => {
+                setReported(reportedResponse.data);
+                console.log("Fetched reported users: ", reportedResponse);
+            })
+            .catch((error) => {
+                console.error("Error fetching reported users: ", error);
+            });
+    }, []);
 
-    // const handleBan = (email, action) =>{
-    //     console.log("Mail korisnika: " + email)
-    //     const response = axios.post(
-    //         `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
-    //         {email: email, ban: action})
-    //         .then((response)=>{
-    //             console.log("Akcija je uspješna: ", response.data);
-    //         }).catch((error)=>{
-    //             console.log("Došlo je do pogreške:", error);
-    //         });
-    // };
+    const handleBan = (email, action) => {
+        console.log("Mail korisnika: " + email);
+        axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban`, {
+                email: email,
+                ban: action,
+            })
+            .then((response) => {
+                console.log("Akcija je uspješna: ", response.data);
+            })
+            .catch((error) => {
+                console.log("Došlo je do pogreške:", error);
+            });
+    };
 
     return (
         <div className="admin-page">
