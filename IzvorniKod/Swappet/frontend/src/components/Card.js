@@ -231,15 +231,15 @@ const Card = ({ ad, tickets }) => {
         console.log(user.email, ad.id, action);
         setSelectedAction(action);
         try {
-            if (action !== 2) {
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
-           
+            if (action !== "2") {
+                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}`;
+
                 await axios.post(url, null, { withCredentials: true });
-           
+
                 alert("Oglas " + ad.description + " dis/likean!");
                 setDropdownVisible(false);
-            } else {
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${ad.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
+            } else if(action === "2"){
+                const url = `${process.env.REACT_APP_BACKEND_URL}/homepage/dispute?tuzioEmail=${user.email}&tuzeniEmail=${ad.email}`;
 
                 await axios.post(url, null, { withCredentials: true });
 

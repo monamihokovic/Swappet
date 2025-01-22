@@ -164,7 +164,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "majcik.b@gmail.com" && (
+                {user && user.email === "ivrodak@gmail.com" && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu
@@ -286,7 +286,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     <FaSignOutAlt className="logout-icon" />
                 </button>
 
-                <div className="logo" onClick={() => navigate("/")}>
+                <div className="logo" onClick={() => navigate("/selection")}>
                     S<span id="usklicnik">!</span>
                 </div>
             </div>

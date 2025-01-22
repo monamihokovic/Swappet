@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../../LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.SwappetApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend&quot;,
@@ -107,12 +109,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SwappetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="MAIL_USERNAME" value="swappet.progi@gmail.com" />
+        <env name="MAIL_PASSWORD" value="jdbe jayf kyhp yolm" />
+      </envs>
+      <module name="Swappet" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="Swappet.service.SwappetApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -176,8 +189,9 @@
       <workItem from="1737367494693" duration="5182000" />
       <workItem from="1737373437705" duration="180000" />
       <workItem from="1737378745442" duration="1793000" />
-      <workItem from="1737394412939" duration="8834000" />
-      <workItem from="1737485538005" duration="406000" />
+      <workItem from="1737394412939" duration="9337000" />
+      <workItem from="1737474996944" duration="474000" />
+      <workItem from="1737541444178" duration="998000" />
     </task>
     <servers />
   </component>

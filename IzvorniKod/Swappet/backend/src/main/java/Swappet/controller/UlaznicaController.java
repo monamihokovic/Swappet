@@ -24,13 +24,6 @@ public class UlaznicaController {
         return ResponseEntity.ok(ulaznice);
     }
 
-    // Fetch a specific Ulaznica by ID
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Ulaznica> getUlaznicaById(@PathVariable Integer id) {
-//        Ulaznica ulaznica = ulaznicaService.getUlaznicaById(id);
-//        return ulaznica != null ? ResponseEntity.ok(ulaznica) : ResponseEntity.notFound().build();
-//    }
-
     // Kupnja ulaznica (1 ili više)
     @PostMapping("/kupnja")
     public ResponseEntity<String> purchaseTickets(@RequestBody TicketPurchaseRequest request) {
@@ -44,8 +37,8 @@ public class UlaznicaController {
         ulaznicaService.tradeConfirmation(
                 request.getSellerId(),
                 request.getBuyerId(),
-                request.getAmount(),
-                request.getDecision()
+                request.getDecision(),
+                request.getAmount()
         );
 
         if (request.getDecision() == 1) {

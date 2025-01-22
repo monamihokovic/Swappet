@@ -42,6 +42,8 @@ public class OglasService {
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
     @Autowired
     private SporRepository sporRepository;
+    @Autowired
+    private NadtransakcijaRepository nadtransakcijaRepository;
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
     public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
@@ -83,7 +85,6 @@ public class OglasService {
         TipDog savedTipDog = tipDogRepository.save(tipDog);
         JeTip jetip = new JeTip(savedTipDog.getIdDog(), savedOglas.getIdOglas());
         jeTipRepository.save(jetip);
-
 
         // spremi ulaznice i povezi ih s oglasom
         for (Ulaznica ulaznica : ulaznice) {
@@ -185,27 +186,9 @@ public class OglasService {
     }
 
     //sprema like/dislike/report (ovo treba provjeriti)
-    public void saveUserInteraction(String email, Integer idOglas, Integer action, String blame) {
-        if (action != 2) {
-            VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
-            voliOglasRepository.save(voliOglas);
-        } else {
-            Korisnik guilty = korisnikRepository.findByEmail(email);
-            Korisnik blamer = korisnikRepository.findByEmail(blame);
-
-            Spor postojeciSpor = sporRepository.findByTuzen(guilty);
-            if (postojeciSpor == null) {
-                Spor spor = new Spor(
-                        "User was naughty",
-                        LocalDateTime.now(),
-                        0,
-                        null,
-                        guilty,
-                        blamer
-                );
-                sporRepository.save(spor);
-            }
-        }
+    public void saveUserInteraction(String email, Integer idOglas, Integer action) {
+        VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
+        voliOglasRepository.save(voliOglas);
     }
 
     // pomoć za konstrukciju OglasDTO
@@ -248,4 +231,5 @@ public class OglasService {
                 likedStatus
         );
     }
+
 }

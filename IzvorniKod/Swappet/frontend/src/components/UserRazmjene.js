@@ -19,7 +19,6 @@ function UserRazmjene({ profilePic }) {
             })
             .then((response) => {
                 setUser(response.data);
-                setTrades(getDummyTrades());
                 //console.log("User email:", response.data.email);
             })
             .catch((error) => {
@@ -30,7 +29,7 @@ function UserRazmjene({ profilePic }) {
     useEffect(() => {
         if (user) {
             axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, {
+                .get(`${process.env.REACT_APP_BACKEND_URL}/user/trades/${user?.email}`, {
                     withCredentials: true,
                 })
                 .then((response) => {
@@ -43,25 +42,6 @@ function UserRazmjene({ profilePic }) {
         }
     }, [user]);
 
-    const getDummyTrades = () => [
-        {
-            selledId: "dummy1",
-            sellerAdDescription: "Selling 2 concert tickets",
-            sellerTradeDescription: "Looking for movie tickets",
-            buyerDescription: "Buyer interested in 2 tickets",
-            quantity: 2,
-            buyerId: "buyer123",
-        },
-        {
-            selledId: "dummy2",
-            sellerAdDescription: "Selling a rare comic book",
-            sellerTradeDescription: "Looking for a vintage vinyl record",
-            buyerDescription: "Buyer wants 1 comic book",
-            quantity: 1,
-            buyerId: "buyer456",
-        },
-    ];
-
     const handleCheckmarkClick = (selledId, buyerId, quantity) => {
         console.log("Checkmark clicked for selledId:", selledId);
         const requestBody = {
@@ -72,7 +52,7 @@ function UserRazmjene({ profilePic }) {
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`, requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
             })
@@ -82,7 +62,8 @@ function UserRazmjene({ profilePic }) {
             .catch((error) => {
                 console.error("Error during check request:", error);
             });
-        navigate("/advertisements");
+        alert("Razmjena potvrđena!");
+        navigate("/selection");
     };
 
     const handleCrossClick = (selledId, buyerId, quantity) => {
@@ -95,7 +76,7 @@ function UserRazmjene({ profilePic }) {
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`, requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
             })
@@ -105,7 +86,8 @@ function UserRazmjene({ profilePic }) {
             .catch((error) => {
                 console.error("Error during cross request:", error);
             });
-        navigate("/advertisements");
+        alert("Razmjena odbijena!");
+        navigate("/selection");
     };
 
     return (
@@ -170,7 +152,7 @@ function UserRazmjene({ profilePic }) {
                                     className="cross-btn"
                                     onClick={() =>
                                         handleCrossClick(
-                                            transaction.selledId,
+                                            transaction.sellerId,
                                             transaction.buyerId,
                                             transaction.quantity
                                         )

@@ -9,7 +9,7 @@ const AdminReported = ({ profilePic }) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
-    const [reportedAccounts] = useState([]);
+    const [reportedAccounts, setReported] = useState([]);
 
     // Fetch user info
     useEffect(() => {
@@ -25,28 +25,30 @@ const AdminReported = ({ profilePic }) => {
             });
     }, []);
 
-    // useEffect(() => {
-    //     const fetchReportedUsers = axios.get(
-    //         `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`
-    //     )
-    //         .then((reportedResponse) => {
-    //             setReported(reportedResponse.data);
-    //             console.log("Fetched reported users: ", reportedResponse);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching reported users: ", error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        const fetchReportedUsers = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
+                withCredentials: true,
+            })
+            .then((reportedResponse) => {
+                setReported(reportedResponse.data);
+                console.log("Fetched reported users: ", reportedResponse);
+            })
+            .catch((error) => {
+                console.error("Error fetching reported users: ", error);
+            });
+    }, []);
 
-    const handleBan = () => {
-        // const response = axios.post(
-        //     `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
-        //     {email: email, ban: action})
-        //     .then((response)=>{
-        //         console.log("Akcija je uspješna: ", response.data);
-        //     }).catch((error)=>{
-        //         console.log("Došlo je do pogreške:", error);
-        //     });
+    const handleBan = (email, action) =>{
+        console.log("Mail korisnika: " + email)
+        const response = axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
+            {email: email, ban: action})
+            .then((response)=>{
+                console.log("Akcija je uspješna: ", response.data);
+            }).catch((error)=>{
+                console.log("Došlo je do pogreške:", error);
+            });
     };
 
     return (
@@ -85,19 +87,9 @@ const AdminReported = ({ profilePic }) => {
                     ) : (
                         reportedAccounts.map((user) => (
                             <div className="Users">
-                                {user.email}
-                                <button
-                                    value={0}
-                                    onClick={handleBan(user.email, 0)}
-                                >
-                                    Oslobodi
-                                </button>
-                                <button
-                                    value={1}
-                                    onClick={handleBan(user.email, 1)}
-                                >
-                                    Zabrani
-                                </button>
+                                {user}
+                                <button value={0} onClick={() => handleBan(user, 1)}>Oslobodi</button>
+                                <button value={1} onClick={() => handleBan(user, 0)}>Zabrani</button>
                             </div>
                         ))
                     )}

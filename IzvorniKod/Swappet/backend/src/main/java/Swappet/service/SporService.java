@@ -19,12 +19,24 @@ public class SporService {
     private KorisnikRepository korisnikRepository;
 
     // stvaranje novog spora
-    public Spor createSpor(String opisSpor, String tuzioEmail, String tuzeniEmail) {
-        Korisnik tuzio = korisnikRepository.findByEmail(tuzioEmail);
-        Korisnik tuzen = korisnikRepository.findByEmail(tuzeniEmail);
+    public Spor createSpor(String tuzioEmail, String tuzeniEmail) {
+        Korisnik guilty = korisnikRepository.findByEmail(tuzeniEmail);
+        Korisnik blamer = korisnikRepository.findByEmail(tuzioEmail);
 
-        Spor spor = new Spor(opisSpor, LocalDateTime.now(), tuzio, tuzen);
-        return sporRepository.save(spor);
+        Spor postojeciSpor = sporRepository.findByTuzen(guilty);
+        if (postojeciSpor == null) {
+            Spor spor = new Spor(
+                    "User was naughty",
+                    LocalDateTime.now(),
+                    0,
+                    null,
+                    blamer,
+                    guilty
+            );
+            return sporRepository.save(spor);
+        } else {
+            postojeciSpor.setDvSpor(LocalDateTime.now());
+            return sporRepository.save(postojeciSpor);
+        }
     }
-
 }
