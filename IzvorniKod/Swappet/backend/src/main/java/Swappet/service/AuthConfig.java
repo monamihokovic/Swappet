@@ -29,7 +29,6 @@ public class AuthConfig extends DefaultOAuth2UserService {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
@@ -54,10 +53,10 @@ public class AuthConfig extends DefaultOAuth2UserService {
                 .oauth2Login(oauth2login -> oauth2login
                         .successHandler((request, response, authentication) -> {
                             // dodaj cors header
-                            //response.setHeader("Access-Control-Allow-Origin", frontendUrl);
+                            response.setHeader("Access-Control-Allow-Origin", frontendUrl);
                             //response.setHeader("Access-Control-Allow-Origin", "https://xaviers-mern-blog.onrender.com");
                             //response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE");
-                            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers");
+                            //response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers");
                             //redirect na frontend
                             response.sendRedirect(frontendUrl + "/selection");
                         })
