@@ -120,8 +120,8 @@ public class OglasController {
 
     // spremanje interakcije
     @PostMapping("/interact")
-    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action, @RequestParam String blame) {
-        oglasService.saveUserInteraction(email, idOglas, action, blame);
+    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action) {
+        oglasService.saveUserInteraction(email, idOglas, action);
         return ResponseEntity.ok("Interakcija s oglasom uspješno spremljena.");
     }
 

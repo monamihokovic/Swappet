@@ -29,7 +29,6 @@ const AdvertisementsPage = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
-                console.log("Ulogiran user: " + user)
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -38,7 +37,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     console.error("Error occurred: ", error);
                 }
             });
-    }, []);
+    }, [user]);
 
     // Fetch advertisements and tickets
     useEffect(() => {
@@ -86,7 +85,10 @@ const AdvertisementsPage = ({ profilePic }) => {
             (eventType !== null && selectedCategories.includes(eventType));
         const searchFilter =
             searchTerm.trim() === "" ||
-            (ad && ad.description.toLowerCase().includes(searchTerm.toLowerCase()));
+            (ad &&
+                ad.description
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()));
 
         return priceFilter && categoryFilter && searchFilter;
     });
@@ -194,7 +196,6 @@ const AdvertisementsPage = ({ profilePic }) => {
                     </div>
                 )}
 
-
                 {isAdminMenuOpen && (
                     <div className="admin-menu">
                         <button
@@ -219,33 +220,42 @@ const AdvertisementsPage = ({ profilePic }) => {
                         <button
                             className="admin-option"
                             onClick={() =>
-                                axios.post(`${process.env.REACT_APP_BACKEND_URL}/admin/report`, null, {
-                                    responseType: 'blob', // Important: Ensure the response is treated as a binary Blob
-                                })
-                                .then((response) => {
-                                    // Create a Blob object from the response data
-                                    const blob = new Blob([response.data], { type: 'application/pdf' });
+                                axios
+                                    .post(
+                                        `${process.env.REACT_APP_BACKEND_URL}/admin/report`,
+                                        null,
+                                        {
+                                            responseType: "blob", // Important: Ensure the response is treated as a binary Blob
+                                        }
+                                    )
+                                    .then((response) => {
+                                        // Create a Blob object from the response data
+                                        const blob = new Blob([response.data], {
+                                            type: "application/pdf",
+                                        });
 
-                                    // Create a URL for the Blob
-                                    const url = window.URL.createObjectURL(blob);
+                                        // Create a URL for the Blob
+                                        const url =
+                                            window.URL.createObjectURL(blob);
 
-                                    // Create a temporary <a> element to trigger the download
-                                    const link = document.createElement('a');
-                                    link.href = url;
-                                    link.download = 'report.pdf'; // Set the file name for download
-                                    document.body.appendChild(link);
-                                    link.click(); // Trigger the download
-                                    document.body.removeChild(link); // Clean up the DOM
+                                        // Create a temporary <a> element to trigger the download
+                                        const link =
+                                            document.createElement("a");
+                                        link.href = url;
+                                        link.download = "report.pdf"; // Set the file name for download
+                                        document.body.appendChild(link);
+                                        link.click(); // Trigger the download
+                                        document.body.removeChild(link); // Clean up the DOM
 
-                                    console.log("Izvještaj generiran");
-                                })
-                                .catch((error) => {
-                                    console.error("Error: " + error);
-                                })
-                            }>
+                                        console.log("Izvještaj generiran");
+                                    })
+                                    .catch((error) => {
+                                        console.error("Error: " + error);
+                                    })
+                            }
+                        >
                             Generiraj izvještaj
                         </button>
-
                     </div>
                 )}
 
@@ -272,12 +282,11 @@ const AdvertisementsPage = ({ profilePic }) => {
                         }
                     }}
                     disabled={!user}
-
                 >
                     <FaSignOutAlt className="logout-icon" />
                 </button>
 
-                <div className="logo" onClick={() => navigate("/")}>
+                <div className="logo" onClick={() => navigate("/selection")}>
                     S<span id="usklicnik">!</span>
                 </div>
             </div>

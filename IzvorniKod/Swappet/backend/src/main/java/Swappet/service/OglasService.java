@@ -42,6 +42,8 @@ public class OglasService {
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
     @Autowired
     private SporRepository sporRepository;
+    @Autowired
+    private NadtransakcijaRepository nadtransakcijaRepository;
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
     public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
@@ -88,10 +90,6 @@ public class OglasService {
         for (Ulaznica ulaznica : ulaznice) {
             ulaznica.setOglas(savedOglas);
             ulaznicaRepository.save(ulaznica);
-        }
-
-        if (oglas.getTipOglas() == 2) {
-            
         }
 
         return savedOglas;
@@ -188,27 +186,9 @@ public class OglasService {
     }
 
     //sprema like/dislike/report (ovo treba provjeriti)
-    public void saveUserInteraction(String email, Integer idOglas, Integer action, String blame) {
-        if (action != 2) {
-            VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
-            voliOglasRepository.save(voliOglas);
-        } else {
-            Korisnik guilty = korisnikRepository.findByEmail(email);
-            Korisnik blamer = korisnikRepository.findByEmail(blame);
-
-            Spor postojeciSpor = sporRepository.findByTuzen(guilty);
-            if (postojeciSpor == null) {
-                Spor spor = new Spor(
-                        "User was naughty",
-                        LocalDateTime.now(),
-                        0,
-                        null,
-                        guilty,
-                        blamer
-                );
-                sporRepository.save(spor);
-            }
-        }
+    public void saveUserInteraction(String email, Integer idOglas, Integer action) {
+        VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
+        voliOglasRepository.save(voliOglas);
     }
 
     // pomoć za konstrukciju OglasDTO
@@ -251,4 +231,5 @@ public class OglasService {
                 likedStatus
         );
     }
+
 }

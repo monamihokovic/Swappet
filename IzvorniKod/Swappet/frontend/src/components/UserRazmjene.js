@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import "../css/UserRazmjene.css";
@@ -14,11 +14,11 @@ function UserRazmjene({ profilePic }) {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, 
-                {withCredentials: true })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
+                withCredentials: true,
+            })
             .then((response) => {
                 setUser(response.data);
-                setTrades(getDummyTrades());
                 //console.log("User email:", response.data.email);
             })
             .catch((error) => {
@@ -29,7 +29,9 @@ function UserRazmjene({ profilePic }) {
     useEffect(() => {
         if (user) {
             axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, { withCredentials: true })
+                .get(`${process.env.REACT_APP_BACKEND_URL}/user/trades/${user?.email}`, {
+                    withCredentials: true,
+                })
                 .then((response) => {
                     setTrades(response.data);
                     console.log("Trades fetched:", response.data);
@@ -40,45 +42,28 @@ function UserRazmjene({ profilePic }) {
         }
     }, [user]);
 
-    const getDummyTrades = () => [
-        {
-            selledId: "dummy1",
-            sellerAdDescription: "Selling 2 concert tickets",
-            sellerTradeDescription: "Looking for movie tickets",
-            buyerDescription: "Buyer interested in 2 tickets",
-            quantity: 2,
-            buyerId: "buyer123",
-        },
-        {
-            selledId: "dummy2",
-            sellerAdDescription: "Selling a rare comic book",
-            sellerTradeDescription: "Looking for a vintage vinyl record",
-            buyerDescription: "Buyer wants 1 comic book",
-            quantity: 1,
-            buyerId: "buyer456",
-        },
-    ];
-
     const handleCheckmarkClick = (selledId, buyerId, quantity) => {
         console.log("Checkmark clicked for selledId:", selledId);
         const requestBody = {
             sellerId: selledId,
             buyerId: buyerId,
             amount: quantity,
-            decision: 1, 
+            decision: 1,
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`, requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
-            }).then((response) => {
+            })
+            .then((response) => {
                 console.log("Trade approved:", response.data);
             })
             .catch((error) => {
                 console.error("Error during check request:", error);
             });
-        navigate("/advertisements")
+        alert("Razmjena potvrđena!");
+        navigate("/selection");
     };
 
     const handleCrossClick = (selledId, buyerId, quantity) => {
@@ -91,16 +76,18 @@ function UserRazmjene({ profilePic }) {
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`, requestBody, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
-            }).then((response) => {
+            })
+            .then((response) => {
                 console.log("Trade rejected:", response.data);
             })
             .catch((error) => {
                 console.error("Error during cross request:", error);
             });
-        navigate("/advertisements")
+        alert("Razmjena odbijena!");
+        navigate("/selection");
     };
 
     return (
@@ -115,9 +102,13 @@ function UserRazmjene({ profilePic }) {
                             e.target.src = defaultProfilePic;
                         }}
                     />
-                    <div className="username" onClick={() => navigate("/advertisements")}>
+                    <div
+                        className="username"
+                        onClick={() => navigate("/advertisements")}
+                    >
                         {user ? user.name : "Loading..."}
-                    </div>                </div>
+                    </div>{" "}
+                </div>
                 <h1 className="logo">
                     S<span id="usklicnik">!</span>
                 </h1>
@@ -141,13 +132,18 @@ function UserRazmjene({ profilePic }) {
                                 {transaction.buyerDescription}
                             </p>
                             <p>
-                                <strong>Quantity:</strong> {transaction.quantity}
+                                <strong>Quantity:</strong>{" "}
+                                {transaction.quantity}
                             </p>
                             <div className="card-buttons">
                                 <button
                                     className="checkmark-btn"
                                     onClick={() => {
-                                        handleCheckmarkClick(transaction.sellerId, transaction.buyerId, transaction.quantity);
+                                        handleCheckmarkClick(
+                                            transaction.sellerId,
+                                            transaction.buyerId,
+                                            transaction.quantity
+                                        );
                                     }}
                                 >
                                     <FontAwesomeIcon icon={faCheck} />
@@ -155,7 +151,11 @@ function UserRazmjene({ profilePic }) {
                                 <button
                                     className="cross-btn"
                                     onClick={() =>
-                                        handleCrossClick(transaction.selledId, transaction.buyerId, transaction.quantity)
+                                        handleCrossClick(
+                                            transaction.sellerId,
+                                            transaction.buyerId,
+                                            transaction.quantity
+                                        )
                                     }
                                 >
                                     <FontAwesomeIcon icon={faTimes} />

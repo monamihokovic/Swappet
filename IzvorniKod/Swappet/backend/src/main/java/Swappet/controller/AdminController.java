@@ -71,6 +71,7 @@ public class AdminController {
 
     @PostMapping("/ban")
     public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest) {
+        System.out.println("Mail: " + banRequest.getEmail());
         adminService.banUser(banRequest.getEmail(), banRequest.getBan());
         if (banRequest.getBan() > 0) {
             return ResponseEntity.ok("User freed");

@@ -14,7 +14,7 @@ import {
     faThumbsDown,
     faFlag,
     faHeart,
-    faHeartBroken
+    faHeartBroken,
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/Card.css";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -25,7 +25,6 @@ const Card = ({ ad, tickets }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    console.log("Seller ad:", ad);
 
     const [buyerAds, setBuyerAds] = useState(null); // All buyer ads fetched from his email
     const [buyerAd, setBuyerAd] = useState(null); // Which ad is selected
@@ -44,9 +43,11 @@ const Card = ({ ad, tickets }) => {
     const eventDate = ad.date.split("T")[0];
     const eventTime = ad.date.split("T")[1].split(":")[0];
     const [dropdownVisible, setDropdownVisible] = useState(false); // State for dropdown visibility
-    const [selectedAction, setSelectedAction] = useState("");
+    const [, setSelectedAction] = useState("");
     const location = useLocation();
-    const isAdminOrUserOglasiPage = location.pathname.endsWith("/admin/oglasi") || location.pathname.endsWith("/user/oglasi");
+    const isAdminOrUserOglasiPage =
+        location.pathname.endsWith("/admin/oglasi") ||
+        location.pathname.endsWith("/user/oglasi");
 
     useEffect(() => {
         axios
@@ -66,7 +67,7 @@ const Card = ({ ad, tickets }) => {
         const fetchWeather = async () => {
             try {
                 const response = await axios.get(
-                    `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${eventDate}&hour=${eventTime}`
+                    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&dt=${eventDate}&hour=${eventTime}`
                 );
 
                 if (response.data?.forecast) {
@@ -127,7 +128,10 @@ const Card = ({ ad, tickets }) => {
             }
         } else {
             // Trade logic: Limit to the minimum of availableTickets and buyerAd.aktivan
-            if (buyerAd && count < Math.min(availableTickets, buyerAd.aktivan)) {
+            if (
+                buyerAd &&
+                count < Math.min(availableTickets, buyerAd.aktivan)
+            ) {
                 setCount((prev) => prev + 1);
                 console.log("Incremented count for trade:", count + 1);
             }
@@ -227,26 +231,25 @@ const Card = ({ ad, tickets }) => {
         console.log(user.email, ad.id, action);
         setSelectedAction(action);
         try {
-            if(action != 2){
+            if (action !== "2") {
                 const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}`;
 
                 await axios.post(url, null, { withCredentials: true });
 
                 alert("Oglas " + ad.description + " dis/likean!");
-                setDropdownVisible(false); 
-            }else{
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${ad.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
+                setDropdownVisible(false);
+            } else if(action === "2"){
+                const url = `${process.env.REACT_APP_BACKEND_URL}/homepage/dispute?tuzioEmail=${user.email}&tuzeniEmail=${ad.email}`;
 
                 await axios.post(url, null, { withCredentials: true });
 
                 alert("Korisnik prijavljen");
-                setDropdownVisible(false); 
+                setDropdownVisible(false);
             }
         } catch (error) {
             console.error("Error interacting with backend:", error);
         }
     };
-
 
     const getMatchingBuyerAds = () => {
         if (!buyerAds || !ad.tradeDescription) return [];
@@ -276,32 +279,51 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    const isSameUser = user?.email === ad.email;
+    //const isSameUser = user?.email === ad.email;
 
-    const isAdvertisementsRoute = location.pathname === '/advertisements';
-    const isAdminOrUserRoute = (location.pathname==='/user/oglasi' || location.pathname==='/admin/oglasi');
-    const isAdminRoute = location.pathname==='/admin/oglasi';
-    const isUserRoute = location.pathname==='/user/oglasi';
+    const isAdvertisementsRoute = location.pathname === "/advertisements";
+    const isAdminOrUserRoute =
+        location.pathname === "/user/oglasi" ||
+        location.pathname === "/admin/oglasi";
+    const isAdminRoute = location.pathname === "/admin/oglasi";
+    const isUserRoute = location.pathname === "/user/oglasi";
     const handleActivation = async () => {
-        const activation = (ad.numberOfTickets >= 1 ? -1 : -10);
-        const payload = { id: ad.id, activation: activation};
-    
+        const activation = ad.numberOfTickets >= 1 ? -1 : -10;
+        const payload = { id: ad.id, activation: activation };
+
         try {
             if (isAdminRoute) {
-                console.log("ID oglasa: ", ad.id, "| aktivacija: ", activation, "Broj karata: ", ad.numberOfTickets);
+                console.log(
+                    "ID oglasa: ",
+                    ad.id,
+                    "| aktivacija: ",
+                    activation,
+                    "Broj karata: ",
+                    ad.numberOfTickets
+                );
                 const response = await axios.post(
-                `${process.env.REACT_APP_BACKEND_URL}/admin/activation`,
+                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation`,
                     payload,
                     {
                         withCredentials: true,
                         headers: { "Content-Type": "application/json" },
                     }
                 );
-                console.log("Aktivacija i deaktivacija uspješni.", response.data);
+                console.log(
+                    "Aktivacija i deaktivacija uspješni.",
+                    response.data
+                );
                 alert("Deaktivacija ili reaktivacija oglasa uspješna");
                 navigate(0);
             } else if (isUserRoute) {
-                console.log("ID oglasa: ", ad.id, "| aktivacija: ", activation, "Broj karata: ", ad.numberOfTickets);
+                console.log(
+                    "ID oglasa: ",
+                    ad.id,
+                    "| aktivacija: ",
+                    activation,
+                    "Broj karata: ",
+                    ad.numberOfTickets
+                );
                 const response = await axios.post(
                     `${process.env.REACT_APP_BACKEND_URL}/user/activation`,
                     payload,
@@ -310,7 +332,10 @@ const Card = ({ ad, tickets }) => {
                         headers: { "Content-Type": "application/json" },
                     }
                 );
-                console.log("Aktivacija i deaktivacija uspješni.", response.data);
+                console.log(
+                    "Aktivacija i deaktivacija uspješni.",
+                    response.data
+                );
                 alert("Deaktivacija ili reaktivacija oglasa uspješna");
                 navigate(0);
             }
@@ -322,20 +347,26 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    const zauvijekDeaktiviran = ad.numberOfTickets===-2
+    const zauvijekDeaktiviran = ad.numberOfTickets === -2;
 
     return (
         <div className="card">
             <div className="card-info">
                 <div className="tip1">
                     {ad.liked === 1 ? (
-                        <FontAwesomeIcon icon={faHeart} className="liked-icon" />
+                        <FontAwesomeIcon
+                            icon={faHeart}
+                            className="liked-icon"
+                        />
                     ) : ad.liked === -1 ? (
-                        <FontAwesomeIcon icon={faHeartBroken} className="disliked-icon" />
+                        <FontAwesomeIcon
+                            icon={faHeartBroken}
+                            className="disliked-icon"
+                        />
                     ) : null}
                     {" " + ad.description}
-
-                </div>                <div className="adresa1">{ad.address}</div>
+                </div>{" "}
+                <div className="adresa1">{ad.address}</div>
                 <div className="datum1">{ad.date}</div>
                 <div className="cijena1">
                     {ad.type === "1" ? `${ad.price} €` : ad.tradeDescription}
@@ -345,16 +376,21 @@ const Card = ({ ad, tickets }) => {
                 <div className="tip1">
                     Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
                 </div>
-
                 {isAdminOrUserRoute && (
-                    <button className={ad.numberOfTickets==-2 || isAdvertisementsRoute ? "activation hidden" : "activation"} 
-                    onClick={handleActivation}
-                    disabled={zauvijekDeaktiviran}>
-                        {ad.numberOfTickets>=1 ? "Deaktiviraj oglas" : "Aktiviraj oglas"}
-                        
+                    <button
+                        className={
+                            ad.numberOfTickets === -2 || isAdvertisementsRoute
+                                ? "activation hidden"
+                                : "activation"
+                        }
+                        onClick={handleActivation}
+                        disabled={zauvijekDeaktiviran}
+                    >
+                        {ad.numberOfTickets >= 1
+                            ? "Deaktiviraj oglas"
+                            : "Aktiviraj oglas"}
                     </button>
                 )}
-
                 {/* Tridot Dropdown */}
                 {!isAdminOrUserOglasiPage && (
                     <div className="tridot-dropdown">
@@ -373,7 +409,9 @@ const Card = ({ ad, tickets }) => {
                                     />{" "}
                                     Like
                                 </button>
-                                <button onClick={() => handleActionSelect("-1")}>
+                                <button
+                                    onClick={() => handleActionSelect("-1")}
+                                >
                                     <FontAwesomeIcon
                                         icon={faThumbsDown}
                                         className="dropdown-icon"
@@ -391,13 +429,11 @@ const Card = ({ ad, tickets }) => {
                         )}
                     </div>
                 )}
-                    {/* {selectedAction && (
+                {/* {selectedAction && (
                         <div className="selected-action">
                             <span>Action selected: {selectedAction}</span>
                         </div>
                 )} */}
-                
-
                 {!isAdminOrUserOglasiPage && (
                     <div className="counter-section">
                         <FontAwesomeIcon
@@ -422,7 +458,6 @@ const Card = ({ ad, tickets }) => {
                         </button>
                     </div>
                 )}
-
                 {/* Exchange Dropdown Always Visible */}
                 {!isAdminOrUserOglasiPage && ad.type !== "1" && buyerAds && (
                     <div className="exchange-dropdown">
@@ -432,21 +467,25 @@ const Card = ({ ad, tickets }) => {
                         >
                             <option value="">Select matching tickets</option>
                             {getMatchingBuyerAds().map((buyerAd) => (
-                                <option key={buyerAd.idOglas} value={buyerAd.opis}>
+                                <option
+                                    key={buyerAd.idOglas}
+                                    value={buyerAd.opis}
+                                >
                                     {buyerAd.opis}
                                 </option>
                             ))}
                         </select>
                     </div>
                 )}
-
                 {!isAdminOrUserOglasiPage && (
                     <button
-                        className={`buy-btn ${!isTransactionProcessing &&
-                                (ad.type === "1" || (ad.type === "0" && selectedOption))
+                        className={`buy-btn ${
+                            !isTransactionProcessing &&
+                            (ad.type === "1" ||
+                                (ad.type === "0" && selectedOption))
                                 ? ""
                                 : "disabled-btn"
-                            }`}
+                        }`}
                         onClick={handlePurchase}
                         disabled={
                             isTransactionProcessing ||

@@ -39,6 +39,8 @@ public class AdminService {
 
     @Autowired
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
+    @Autowired
+    private VoliOglasRepository voliOglasRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -144,11 +146,15 @@ public class AdminService {
     public void banUser(String email, Integer ban) {
         Korisnik korisnik = korisnikRepository.findByEmail(email);
         Spor spor = sporRepository.findByTuzen(korisnik);
-        spor.setOdlukaSpor(ban);
 
         if (ban == 0) {
             korisnik.setKoristi(0);
             korisnikRepository.save(korisnik);
+            spor.setOdlukaSpor(1);
+            sporRepository.save(spor);
+        } else if (ban == 1) {
+            spor.setOdlukaSpor(-1);
+            sporRepository.save(spor);
         }
     }
 

@@ -18,9 +18,6 @@ import java.util.List;
 @RequestMapping("/homepage")
 public class HomepageController {
 
-    // Homepage: trebaš primiti od frontenda kategorije za oglase,
-    // ubaciti upit u bazu i vratiti na frontend oglase iz tih kategorija
-
     @Autowired
     private OglasService oglasService;
 
@@ -50,8 +47,8 @@ public class HomepageController {
 
     // kreiraj novi spor
     @PostMapping("/dispute")
-    public ResponseEntity<Spor> createSpor(@RequestParam String opisSpor, @RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
-        Spor spor = sporService.createSpor(opisSpor, tuzioEmail, tuzeniEmail);
+    public ResponseEntity<Spor> createSpor(@RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
+        Spor spor = sporService.createSpor(tuzioEmail, tuzeniEmail);
         return ResponseEntity.ok(spor);
     }
 }

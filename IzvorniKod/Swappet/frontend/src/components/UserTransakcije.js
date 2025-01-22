@@ -18,7 +18,7 @@ const UserTransakcije = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
-                console.log("Ulogiran user: " + user)
+                console.log("Ulogiran user: " + user);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -27,11 +27,12 @@ const UserTransakcije = ({ profilePic }) => {
                     console.error("Error occurred: ", error);
                 }
             });
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         const fetchTransactions = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/user/transaction/${user?.email}`, {withCredentials: true}
+            `${process.env.REACT_APP_BACKEND_URL}/user/transaction/${user?.email}`,
+            { withCredentials: true }
         );
 
         Promise.all([fetchTransactions])
@@ -42,7 +43,7 @@ const UserTransakcije = ({ profilePic }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user?.email]);
 
     const uspjesnostTransakcije = (uspjesna) => {
         switch (uspjesna) {
