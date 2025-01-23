@@ -1,107 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
 
-/* Background and overall layout */
 .selection-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background: rgb(65, 67, 97);
     background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
 }
-.naslov1{
-    color: #e8e5e7;
-    font-family: 'League Spartan', sans-serif;
-    cursor: pointer;
-    margin-top: -200px;
-    align-items: center;
-  }
-  
-  #dobrodosli1{
-    text-align: center;
-    font-size: 1.5em;
-    padding-bottom: 10px;
-  }
-  
-  #swap1{
-    font-size: 5em;
-    font-weight: 900;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    align-items: center;
-  }
-  #pet1{
-    color: #816898;
-  }
-  
-  #usklicnik1{
-    font-size: 1.2em;
-  }
 
 .odabir{
     color: #e8e5e7;
     font-size: 1.2em;
-    margin-top: 50p;
+    margin-top: 20px;
+    margin-bottom: 45px;
 }
 
 .category-buttons{
-    display: flex;
+    display:flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 1em;
     margin-top: 1em;
-    gap: 20px;
+    gap: 1em;
     width: 90%;
 }
 
 .category-button{
     background-color: #26293d;
-    color: #816898;
+    color: #816189;
     border: none;
     border-radius: 20px;
-    padding: 0.7em 1.5em;
+    padding: 0.8em 2.5em;
     margin: 0.5em;
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.category-button:hover{
-    background-color: #816898;
-    color: #e8e5e7;
-}
-
+.category-button:hover,
 .category-button.selected{
-    background-color: #816898;
+    background-color: #816189;
     color: #e8e5e7;
 }
 
 .warning-text{
     color: #e8e5e7;
     font-size: 1.2em;
-    margin-top: 50p;
+    margin-top: 2em;
     font-weight: bold;
+    margin-bottom: 1em;
 }
 
 .continue-button{
-    background-color: #816898;
+    background-color: #816189;
     color: #e8e5e7;
-    padding: 0.5em 1em;
+    padding: 0.6em 2em;
     border-radius: 20px;
     border: none;
     transition: background-color 0.3s;
     margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .continue-button:hover{
     background-color: #e8e5e7;
-    color: #816898;
+    color: #816189;
 }
 
 .continue-button:disabled{
-    padding: 0.5em 1em;
-    border-radius: 20px;
-    border: none;
     background-color: #313131;
-    color: #65696b;
+    color: #656565;
 }
+

@@ -1,106 +1,64 @@
-﻿.transaction-page {
-	background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
-	color: #ffffff;
-	min-height: 100vh;
-	padding: 0;
-	margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+.user-page {
+    background: rgb(65,67,97);
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: 'League Spartan', sans-serif; 
+}
+#razmjene{
+    font-family: 'League Spartan', sans-serif;
+    font-size: 4em;
+    margin-top: 20px;
+    justify-self: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+#razmjene:hover{
+    color: #26293d;
 }
 
-.header {
-	background-color: #e8e5e7;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 20px;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.razmjene{
+    display: flex;
+    flex-direction: wrap;
+    gap: 10px;
+    background-color: rgba(38, 41, 61, 0.4);
+    padding: 2em;
+    border-radius: 30px;
+
+}
+.razmjena{
+    font-family: sans-serif;
+    background-color: #26293d;
+    padding: 20px;
+    border-radius: 15px;
+    min-width: 400px;
+}
+.razmjena:hover{
+    transform: scale(1.01);
 }
 
-.profile {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	cursor: pointer;
+.trade-btns{
+    display: flex;
+    justify-content: center;
 }
 
-.pfp {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	object-fit: cover;
+.checkmark-btn, 
+.cross-btn{
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    border: none;
+    transition: background-color 0.3s;
 }
 
-.username {
-	color: #65696b;
-	font-size: 1.5em;
-	font-weight: bold;
+.checkmark-btn:hover,
+.cross-btn:hover{
+    cursor: pointer;
+    background-color: #816189;
+    color: #ffffff;
 }
 
-.logo {
-	font-family: 'League Spartan', sans-serif;
-	font-weight: bolder;
-	font-size: 2em;
-	color: #816898;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#usklicnik {
-	color: #9aa0a3;
-}
-
-.cards-container {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	padding: 20px;
-}
-
-.card {
-	background-color: #26293d;
-	padding: 15px;
-	border-radius: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-	.card p {
-		margin: 5px 0;
-	}
-
-.card-buttons {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 10px;
-}
-
-.checkmark-btn,
-.cross-btn {
-	background-color: #e8e5e7;
-	color: #26293d;
-	border: none;
-	border-radius: 5px;
-	padding: 5px 10px;
-	font-size: 1.2em;
-	cursor: pointer;
-	transition: background-color 0.3s, transform 0.2s;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: 10px
-}
-
-	.checkmark-btn:hover {
-		background-color: #28a745;
-		color: #ffffff;
-		transform: scale(1.1);
-	}
-
-	.cross-btn:hover {
-		background-color: #dc3545;
-		color: #ffffff;
-		transform: scale(1.1);
-	}
-
-.no-trades {
-	text-align: center;
-	color: #aaa;
-	font-size: 1.2em;
-}

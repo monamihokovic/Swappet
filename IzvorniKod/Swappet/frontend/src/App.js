@@ -10,7 +10,7 @@ import "./App.css";
 import StartPage from "./components/StartPage";
 import SelectionPage from "./components/SelectionPage";
 import AdvertisementsPage from "./components/AdvertisementsPage";
-import CreateEvent from "./components/createEvent";
+import CreateEvent from "./components/CreateEvent";
 import AdminOglasi from "./components/AdminOglasi";
 import AdminTransakcije from "./components/AdminTransakcije";
 import UserTransakcije from "./components/UserTransakcije";
@@ -20,9 +20,8 @@ import AdminReported from "./components/AdminReported";
 
 
 function App() {
-    const [, setUserToken] = useState(null); // Manage user token
-    const [userName, setUserName] = useState("gost"); // State to hold username
-    const [profilePic, setProfilePic] = useState(null);
+    const [, setUserToken] = useState(null); //Upravljanje user token-om
+    const [userName, setUserName] = useState("gost"); //UserName korisnika - prvo postavljen na 'gost'
     const defaultProfilePic = "/defaultpfp.jpg";
 
     const handleLogin = async (token) => {
@@ -42,10 +41,8 @@ function App() {
                 }
             );
             const data = await response.json();
-            setProfilePic(data.picture || defaultProfilePic);
         } catch (error) {
             console.error("Error fetching profile picture:", error);
-            setProfilePic(defaultProfilePic);
         }
     };
 
@@ -75,7 +72,6 @@ function App() {
                     element={
                         <AdvertisementsPage
                             userName={userName}
-                            profilePic={profilePic}
                         />
                     }
                 />
@@ -84,7 +80,6 @@ function App() {
                     element={
                         <CreateEvent
                             userName={userName}
-                            profilePic={profilePic}
                         />
                     }
                 />
@@ -93,7 +88,6 @@ function App() {
                     element={
                         <AdminOglasi
                             userName={userName}
-                            profilePic={profilePic}
                         />
                     }
                 />
@@ -102,7 +96,6 @@ function App() {
                     element={
                         <AdminTransakcije
                             userName={userName}
-                            profilePic={profilePic}
                         />
                     }
                 />

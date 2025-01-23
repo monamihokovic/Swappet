@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
+import Header from "./Header";
 import "../css/UserOglasi.css";
 import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const UserOglasi = ({ profilePic }) => {
-    const navigate = useNavigate();
+const UserOglasi = () => {
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
+    const [ads, setAds] = useState([]); //inicijalizacija oglasa
+    const [, setUlaznice] = useState([]); //inicijalizacija karti
 
-    const [user, setUser] = useState(null);
-    const [ads, setAds] = useState([]);
-    const [, setUlaznice] = useState([]);
-
-    // Fetch user information
+    //dohvat informacija o korisniku
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
@@ -31,6 +30,7 @@ const UserOglasi = ({ profilePic }) => {
             });
     }, []);
 
+    //dohvat korisnikovih ulaznica
     useEffect(() => {
         const fetchAds = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/user/oglasi/${user?.email}`,
@@ -51,37 +51,16 @@ const UserOglasi = ({ profilePic }) => {
             });
     }, [user?.email]);
 
-    return (
-        <div className="admin-page">
-            <div className="header">
-                <div className="profile">
-                    <img
-                        src={user?.picture || defaultProfilePic}
-                        alt="Profile"
-                        className="pfp"
-                        onError={(e) => {
-                            e.target.src = defaultProfilePic;
-                        }}
-                    />
-                    <div
-                        className="username"
-                        onClick={() => navigate("/advertisements")}
-                    >
-                        {user ? user.name : "Loading..."}
-                    </div>
-                </div>
-
-                <div className="logo" onClick={() => navigate("/")}>
-                    S<span id="usklicnik">!</span>
-                </div>
-            </div>
-
-            <div className="container">
-                <h2 id="oglasi">Svi moji oglasi</h2>
-
+    return(
+        <div className="user-page">
+            <Header></Header>
+            <div className="container-oglasa">
+                <div id="oglasi">Svi moji oglasi </div>
                 <div className="oglasi">
-                    {ads.length === 0 ? (
-                        <div className="no-events-message">Nema oglasa.</div>
+                {ads.length === 0 ? (
+                        <div className="no-events-message">
+                            Nema oglasa.
+                        </div>
                     ) : (
                         ads.map((adWithTickets) => (
                             <Card
@@ -97,4 +76,4 @@ const UserOglasi = ({ profilePic }) => {
     );
 };
 
-export default UserOglasi;
+export default UserOglasi; 

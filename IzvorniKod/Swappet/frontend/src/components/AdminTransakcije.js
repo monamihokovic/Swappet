@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/AdminTransakcije.css";
 import axios from "axios";
+import Header from "./Header";
+
 const defaultProfilePic = "/defaultpfp.jpg";
 
-const AdminTransakcije = ({ profilePic }) => {
+const AdminTransakcije = ()=>{
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
+    const [transactions, setTransactions] = useState([]); //inicijalizacija transakcija
+
+    //inicijalizacija useNavigate (koristi se za redirectanje)
     const navigate = useNavigate();
 
-    const [user, setUser] = useState(null);
-    const [transactions, setTransactions] = useState([]);
-
-    // Fetch user info
+    //dohvati informacije o korisniku
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
@@ -24,6 +27,7 @@ const AdminTransakcije = ({ profilePic }) => {
             });
     }, []);
 
+    //dohvati informacije o transakcijama
     useEffect(() => {
         const fetchTransactions = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije`
@@ -39,6 +43,8 @@ const AdminTransakcije = ({ profilePic }) => {
             });
     }, []);
 
+
+    //uspješnost transakcije
     const uspjesnostTransakcije = (uspjesna) => {
         switch (uspjesna) {
             case 0:
@@ -49,66 +55,38 @@ const AdminTransakcije = ({ profilePic }) => {
                 return "Neuspješna";
             default:
                 return uspjesna ? "Nije definirano" : "Nije definirano";
-        }
+        } 
     };
 
-    return (
+
+    return( 
         <div className="admin-page">
-            <div className="header">
-                <div className="profile">
-                    <img
-                        src={user?.picture || defaultProfilePic}
-                        alt="Profile"
-                        className="pfp"
-                        onError={(e) => {
-                            e.target.src = defaultProfilePic;
-                        }}
-                    />
-                    <div
-                        className="username"
-                        onClick={() => navigate("/advertisements")}
-                    >
-                        {user ? user.name : "Loading..."}
-                    </div>
-                </div>
-
-                <div className="logo" onClick={() => navigate("/")}>
-                    S<span id="usklicnik">!</span>
-                </div>
-            </div>
-
-            <div className="container">
-                <div className="container2">
-                    <h2 id="transakcije">Sve transakcije</h2>
-                    <div className="transakcije">
-                        {transactions.map((transaction) => (
+            <Header></Header>
+            <div className="container-transakcija">
+                <div id="transakcije">Sve transakcije</div>
+                <div className="transakcije">
+                {transactions.length === 0 ? (
+                        <div className="no-events-message">
+                            Nema transakcija. 
+                        </div>
+                    ) : (
+                        transactions.map((transaction) => (
                             <div
-                                className="item"
-                                key={transaction.idtransakcija}
+                                className="transakcija"
+                                key={transaction.idTransakcija}
                             >
-                                <div>
-                                    ID transakcije: {transaction.idTransakcija}
-                                </div>
-                                <div>
-                                    Uspjeh transakcije:{" "}
-                                    {uspjesnostTransakcije(
-                                        transaction.uspjesna
-                                    )}
-                                </div>
-                                <div>
-                                    Početak transakcije: {transaction.dvPocetak}
-                                </div>
-                                <div>
-                                    ID ulaznice:{" "}
-                                    {transaction.ulaznica.idUlaznica}
-                                </div>
+                                <div className="tip1">ID transakcije: {transaction.idTransakcija}</div>
+                                <div className="tip1">Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
+                                <div className="tip1">Početak transakcije: {transaction.dvPocetak}</div>
+                                <div className="tip1">ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
                             </div>
-                        ))}
-                    </div>
+                        ))  
+                    )}
+       
+
                 </div>
             </div>
         </div>
     );
 };
-
-export default AdminTransakcije;
+export default AdminTransakcije; 

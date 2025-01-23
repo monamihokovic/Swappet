@@ -12,6 +12,7 @@ const Header = () => {
     const [user, setUser] = useState(null);  //inicijalizacija korisnika
     const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false); // admin menu zatvoren
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // user menu zatvoren
+    const [admins, setAdmins] = useState([]); //inicijalizacija admina
 
     //inicijalizacija useNavigate (koristi se za redirectanje)
     const navigate = useNavigate();
@@ -42,11 +43,28 @@ const Header = () => {
     const location = useLocation();
     const isCreateEvent = location.pathname ==="/createEvent";
 
+    //dohvati listu admina
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/`, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                setAdmins(response.data);
+                console.log("Admini: ", response.data);
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+    }, []);
+
+
+
 
 
     return(
         <div className="header">
-            <div className="profile">
+            <div className="profile" onClick={() => navigate("/advertisements")}>
                 <img
                     className="profile-picture"
                     alt="Profile"
@@ -97,7 +115,7 @@ const Header = () => {
                 </div>
             )}
 
-            {user && user?.email ==="majcik.b@gmail.com" &&(
+            {user && (admins.includes(user?.email)) &&(
                 <button
                     className="admin"
                     onClick={toggleAdminMenu}
@@ -166,8 +184,8 @@ const Header = () => {
             >
                 Natrag na selection
             </button>
-
-            <div 
+            {user &&(
+                <div 
                 className={user ? "logout" : "logout hidden"}
                 onClick={() => {
                     if (user){
@@ -178,6 +196,8 @@ const Header = () => {
             >
                 <FaSignOutAlt className="logout-icon" alt="Odjavi se"/>
             </div>
+                    
+            )}
 
             <div 
                 className="logo"
