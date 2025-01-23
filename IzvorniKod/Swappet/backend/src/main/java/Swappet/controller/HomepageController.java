@@ -27,10 +27,9 @@ public class HomepageController {
     private SporService sporService;
 
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
-    @PostMapping("/oglas")
-    public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
-        //System.out.println(categories.toString());
-        List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
+    @PostMapping("/oglas/{email}")
+    public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories, @PathVariable String email) {
+        List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories, email);
         storedOglasiData = oglasi;
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

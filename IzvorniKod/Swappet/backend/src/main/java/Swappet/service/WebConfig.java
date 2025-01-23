@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     // dohvati env varijablu
     @Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
-    private String frontendUrl;
+    private String frontendUrl;//= "http://localhost:3000";
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

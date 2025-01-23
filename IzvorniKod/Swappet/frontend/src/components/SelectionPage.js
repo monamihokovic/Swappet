@@ -48,7 +48,7 @@ const SelectionPage = ({ userName }) => {
             console.log("Selected category IDs:", selectedCategoryIds);
             axios
                 .post(
-                    `${process.env.REACT_APP_BACKEND_URL}/homepage/oglas`,
+                    `${process.env.REACT_APP_BACKEND_URL}/homepage/oglas/${user?.email}`,
                     selectedCategoryIds,
                     {
                         withCredentials: true,

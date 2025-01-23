@@ -20,6 +20,7 @@ const AdvertisementsPage = ({ profilePic }) => {
     const [searchTerm, setSearchTerm] = useState(""); // Search term state
     const [likedFilter, setLikedFilter] = useState(false);
     const [dislikedFilter, setDislikedFilter] = useState(false);
+    const [admins, setAdmins] = useState([]);
 
     // Fetch user information
     useEffect(() => {
@@ -38,6 +39,21 @@ const AdvertisementsPage = ({ profilePic }) => {
                 }
             });
     }, [user]);
+
+    //dohvati listu admina
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/`, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                setAdmins(response.data);
+                console.log("Admini: ", response.data);
+            })
+            .catch((error) => {
+                console.log("Error: " + error);
+            });
+    }, []);
 
     // Fetch advertisements and tickets
     useEffect(() => {
@@ -164,7 +180,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                     User usluge
                 </button>
 
-                {user && user.email === "ivrodak@gmail.com" && (
+                {user && (admins.includes(user?.email)) && (
                     <button
                         className="admin"
                         onClick={toggleAdminMenu} // Toggle admin menu

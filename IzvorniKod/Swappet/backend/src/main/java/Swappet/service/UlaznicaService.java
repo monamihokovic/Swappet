@@ -81,6 +81,7 @@ public class UlaznicaService {
     public void tradeConfirmation(Integer idOglasSeller, Integer idOglasBuyer, Integer amount, int decision) {
 
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
+        String email = sellerOglas.getKorisnik().getEmail();
         List<Integer> ulazniceZaRazmjenu = ulaznicaRepository.ulaznice(idOglasBuyer);
 
         // Provjera je li prodavateljev oglas označen za zamjenu
@@ -90,10 +91,9 @@ public class UlaznicaService {
 
         for (int i = 0; i < amount; i++) {
             Integer transakcija = ulazniceZaRazmjenu.get(i);
-            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija);
+            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, email);
             jeUkljucen.setOdluka(decision);
             jeUkljucenRepository.save(jeUkljucen);
-
         }
     }
 

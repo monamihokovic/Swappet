@@ -138,17 +138,9 @@ const Card = ({ ad, tickets }) => {
         }
     };
 
-    //const incrementTrade = () => {
-    //    if (tradeCount < buyerAd.aktivan) setTradeCount((prev) => prev + 1);
-    //};
-
     const decrement = () => {
         if (count > 1) setCount((prev) => prev - 1);
     };
-
-    //const decrementTrade = () => {
-    //    if (tradeCount > 1) setTradeCount((prev) => prev - 1);
-    //};
 
     const handlePurchase = async () => {
         setIsTransactionProcessing(true);
@@ -238,6 +230,7 @@ const Card = ({ ad, tickets }) => {
 
                 alert("Oglas " + ad.description + " dis/likean!");
                 setDropdownVisible(false);
+                navigate("/selection");
             } else if(action === "2"){
                 const url = `${process.env.REACT_APP_BACKEND_URL}/homepage/dispute?tuzioEmail=${user.email}&tuzeniEmail=${ad.email}`;
 
@@ -249,6 +242,7 @@ const Card = ({ ad, tickets }) => {
         } catch (error) {
             console.error("Error interacting with backend:", error);
         }
+
     };
 
     const getMatchingBuyerAds = () => {

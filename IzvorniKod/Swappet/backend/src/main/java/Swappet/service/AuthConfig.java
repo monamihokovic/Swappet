@@ -1,9 +1,7 @@
 package Swappet.service;
 
 import Swappet.model.Korisnik;
-import Swappet.model.Spor;
 import Swappet.repository.KorisnikRepository;
-import Swappet.repository.SporRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +21,10 @@ public class AuthConfig extends DefaultOAuth2UserService {
 
     // dohvati env varijablu
     @Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
-    private String frontendUrl;
+    private String frontendUrl; // = "http://localhost:3000";
+
+    @Autowired
+    private KorisnikRepository korisnikRepository;
 
     //Funkcija za autentifikaciju korisnika preko Google OAuth2
     @Bean
@@ -31,8 +32,8 @@ public class AuthConfig extends DefaultOAuth2UserService {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/homepage", "/homepage/oglas",
-                                "/ulaznica/kupnja", "/ulaznica", "/ulaznica/podnesi-razmjenu", "/user",
+                        .requestMatchers("/", "/register", "/homepage/**", "/homepage/oglas",
+                                "/ulaznica/kupnja", "/ulaznica/**", "/ulaznica/podnesi-razmjenu", "/user",
                                 "/user/oglasi", "/ulaznica/razmjene",
                                 "/homepage/advertisements", "/ulaznica/all", "/createEvent",
                                 "/admin/**", "/user/transactions",
@@ -79,14 +80,18 @@ public class AuthConfig extends DefaultOAuth2UserService {
         //potrebno je Googleov id srezati jer je prevelik za int
         int id = Integer.parseInt(idlong.substring(idlong.length() - 7));
 
+        Korisnik korisnik = userRepository.findByEmail(email);
         //provjera i spremanje korisnika u bazu
-        if (userRepository.findByEmail(email) == null) {
+        if (korisnik == null) {
             Korisnik user = new Korisnik(email, id, username);
             userRepository.save(user);
+        } else if (korisnik.getUsername() != username) {
+            //ako korisnikov username i id nisu oni koji je u bazi, updateaj ga
+            korisnik.setUsername(username);
+            korisnik.setIdKorisnik(id);
+            korisnikRepository.save(korisnik);
         } else {
             // provjera je li korisnik bio blokiran
-            Korisnik korisnik = userRepository.findByEmail(email);
-
             if (korisnik.getKoristi() == 0) {
                 throw new OAuth2AuthenticationException("Korisnik je blokiran.");
             }
