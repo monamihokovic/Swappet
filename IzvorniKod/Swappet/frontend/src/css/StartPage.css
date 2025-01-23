@@ -1,120 +1,83 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
 
-/* Background and overall layout */
-.start-page {
+.start-page{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: rgb(65,67,97);
+    background: rgb(65, 67, 97);
     background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
 }
 
 .naslov{
-  color: #e8e5e7;
-  font-family: 'League Spartan', sans-serif;
-  cursor: pointer;
+    color: #e8e5e7;
+    font-family: 'League Spartan', sans-serif;
+    cursor: pointer
 }
 
 #dobrodosli{
-  text-align: center;
-  font-size: 1.5em;
-  padding-bottom: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    padding-bottom: 1em;
 }
 
 #swap{
-  font-size: 5em;
-  font-weight: 900;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 5em;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
+
 #pet{
-  color: #816898;
+    color: #816189;
 }
 
 #usklicnik{
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
 
-.search-bar{
-  display: flex;
-  align-items: center;
-  background-color: #26293d;
-  border-radius: 30px;
-  width: 20em;
-  height: 1.5em;
-  padding: 0.5em 1em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-
+.redirect-btn, .google-login-btn{
+    display: flex;
+    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5em;
+    height: 2em;
+    width: 17em;
+    border-radius: 15px;
+    background-color: #816189;
+    border: none;
+    color: #e8e5e7;
+    transition: background-color 0.3s;
+    font-size: 15px;
+    justify-content: center;
 }
 
-.search-icon:hover{
-  cursor: pointer;
+.redirect-btn:hover, .google-login-btn:hover{
+    background-color: #e8e5e7;
+    color: #816189;
+    cursor: pointer;
 }
-
-.search-icon{
-  color: #816898;
-}
-
-.search-bar input{
-  background: none;
-  color: #816898;
-  font-size: 0.9em;
-}
-
-#pretraga{
-  border: none;
-}
-
-.search-bar input::placeholder{
-  color: #816898;
-  text-align: center;
-  margin-right: -50px;
-}
-
-.redirect-button{
-  display: flex;
-  justify-content: flex-end;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5em;
-  height: 2em;
-  width: 17em;
-  border-radius: 15px;
-  background-color: #816898;
-  border: none;
-  color: #e8e5e7;
-  transition: background-color 0.3s;
- font-size: 15px;
-}
-
-.redirect-button:hover{
-  background-color: #e8e5e7;
-  color: #816898;
-  cursor: pointer;
-}
-
-#kategorije{
-  margin-left: 40px;
+#redirect-kategorije{
+    margin-right: 1em;
 }
 
 .footer{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 90%;
-  color: #e8e5e7;
-  position: fixed;
-  bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    color: #e8e5e7;
+    position: fixed;
+    bottom: 20px;
 }
 
 .footer a{
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 .footer a:hover{
-  text-decoration: underline;
-  color: #816898;
+    text-decoration: underline;
+    color: #816189;
 }
