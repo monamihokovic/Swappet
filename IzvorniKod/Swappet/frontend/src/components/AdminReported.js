@@ -26,8 +26,8 @@ const AdminReported = ({ profilePic }) => {
     }, []);
 
     useEffect(() => {
-        const fetchReportedUsers = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
+        axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
                 withCredentials: true,
             })
             .then((reportedResponse) => {
@@ -39,14 +39,17 @@ const AdminReported = ({ profilePic }) => {
             });
     }, []);
 
-    const handleBan = (email, action) =>{
-        console.log("Mail korisnika: " + email)
-        const response = axios.post(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/ban`,
-            {email: email, ban: action})
-            .then((response)=>{
+    const handleBan = (email, action) => {
+        console.log("Mail korisnika: " + email);
+        axios
+            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban`, {
+                email: email,
+                ban: action,
+            })
+            .then((response) => {
                 console.log("Akcija je uspješna: ", response.data);
-            }).catch((error)=>{
+            })
+            .catch((error) => {
                 console.log("Došlo je do pogreške:", error);
             });
     };
@@ -88,8 +91,18 @@ const AdminReported = ({ profilePic }) => {
                         reportedAccounts.map((user) => (
                             <div className="Users">
                                 {user}
-                                <button value={0} onClick={() => handleBan(user, 1)}>Oslobodi</button>
-                                <button value={1} onClick={() => handleBan(user, 0)}>Zabrani</button>
+                                <button
+                                    value={0}
+                                    onClick={() => handleBan(user, 1)}
+                                >
+                                    Oslobodi
+                                </button>
+                                <button
+                                    value={1}
+                                    onClick={() => handleBan(user, 0)}
+                                >
+                                    Zabrani
+                                </button>
                             </div>
                         ))
                     )}
