@@ -39,8 +39,6 @@ public class AdminService {
 
     @Autowired
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
-    @Autowired
-    private VoliOglasRepository voliOglasRepository;
 
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
@@ -177,6 +175,26 @@ public class AdminService {
             admins.add(korisnik.getEmail());
         }
         return admins;
+    }
+
+    public void addAdmin(String newAdmin) {
+        Korisnik korisnik = korisnikRepository.findByEmail(newAdmin);
+        System.out.println("Novi admin: " + newAdmin);
+        System.out.println("Korisnik: " + korisnik.getEmail());
+        if (korisnik != null) {
+            korisnik.setUloga(1);
+            korisnikRepository.save(korisnik);
+        } else {
+            Korisnik newKorisnik = new Korisnik(
+                    newAdmin,
+                    123456789,
+                    "Admin Adminović",
+                    1,
+                    1
+            );
+            korisnikRepository.save(newKorisnik);
+        }
+
     }
 
     // pomoć za konstrukciju OglasDTO

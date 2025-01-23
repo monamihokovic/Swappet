@@ -40,13 +40,9 @@ public class OglasService {
 
     @Autowired
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
-    @Autowired
-    private SporRepository sporRepository;
-    @Autowired
-    private NadtransakcijaRepository nadtransakcijaRepository;
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
-    public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories) {
+    public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories, String email) {
         //System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
 
         List<Object[]> rawData = oglasRepository.findOglasWithCijenaByCategories(categories);
@@ -62,7 +58,6 @@ public class OglasService {
                 continue;
             }
 
-            String email = oglas.getKorisnik().getEmail();
             Integer likedStatus = voliOglasRepository.findByEmailAndIdOglas(email, oglas.getIdOglas())
                     .map(VoliOglas::getVoli)
                     .orElse(0);

@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface JeUkljucenRepository extends JpaRepository<JeUkljucen, JeUkljucenId> {
 
-    @Query("SELECT ju FROM JeUkljucen ju WHERE ju.idTransakcija = :idtransakcija AND ju.odluka = 0")
-    JeUkljucen findByIdTransakcija(@Param("idtransakcija") Integer idTransakcija);
+    @Query("SELECT ju FROM JeUkljucen ju WHERE ju.idTransakcija = :idtransakcija AND ju.odluka = 0 AND ju.email = :email")
+    JeUkljucen findByIdTransakcija(@Param("idtransakcija") Integer idTransakcija, @Param("email") String email);
 
     List<JeUkljucen> findByEmail(String email);
 

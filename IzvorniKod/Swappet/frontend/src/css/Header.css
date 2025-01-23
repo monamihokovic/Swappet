@@ -1,0 +1,139 @@
+.header{
+    background-color: #e8e5e7;
+    display: flex;
+    justify-content: left;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    justify-content: space-between;
+    gap: 15px;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.profile:hover{
+    filter: brightness(0.7);
+}
+
+.profile-picture{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.username{
+    color: #656565;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.logo{
+    font-family: 'League Spartan', sans-serif;
+    font-weight: bolder;
+    float: right;
+    font-size: 4em;
+    align-self: center;
+    margin-left: auto;
+    color: #656565;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.logo:hover{
+    color: #816898;
+}
+
+.create-event,
+.user, 
+.admin, 
+.back-to-selection{
+    margin-left: 20px;
+    background-color: #26293d;
+    border: none;
+    border-radius: 20px;
+    padding: 1em 1.5em;
+    align-self: center;
+    color: #e8e5e7;
+    transition: background-color 0.3s;
+}
+
+.create-event:hover,
+.user:hover,
+.admin:hover,
+.back-to-selection:hover{
+    background-color: #816898;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}
+
+.admin-menu,
+.user-menu {
+    position: absolute;
+    top: 60px;
+    left: 26%;
+    background-color: #26293d;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-menu{
+    left: 34%;
+}
+
+.admin-option,
+.user-option {
+    background-color: #816898;
+    color: #e8e5e7;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    width: 200px;
+}
+
+.admin-option:hover,
+.user-option:hover{
+    background-color: #26293d;
+    color: #816898;
+}
+
+.logout {
+    margin-left: auto;
+    background-color: #26293d;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e8e5e7;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+.logout:hover {
+        background-color: #9aa0a3;
+}
+
+.logout-icon {
+    font-size: 1.5em;
+}
+
+
+

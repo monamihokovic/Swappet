@@ -131,5 +131,4 @@ public class OglasController {
         List<OglasDTO> oglasi = oglasService.getAllOglasi(email);
         return ResponseEntity.ok(oglasi);
     }
-
 }

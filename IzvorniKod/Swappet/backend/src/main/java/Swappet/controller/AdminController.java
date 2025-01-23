@@ -3,13 +3,13 @@ package Swappet.controller;
 import Swappet.model.Transakcija;
 import Swappet.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,57 +26,100 @@ public class AdminController {
         return ResponseEntity.ok(admini);
     }
 
-    @GetMapping("/oglasi")
-    public ResponseEntity<List<OglasDTO>> getAllOglasi() {
-        List<OglasDTO> oglasi = adminService.getAllOglasi();
-        return ResponseEntity.ok(oglasi);
-    }
-
-    @GetMapping("/transakcije")
-    public ResponseEntity<List<Transakcija>> getAllTransakcije() {
-        List<Transakcija> transakcija = adminService.getAllTransactions();
-        return ResponseEntity.ok(transakcija);
-    }
-
-    @PostMapping("/report")
-    public ResponseEntity<byte[]> reportPdf() {
-        byte[] pdffile = adminService.generateReport();
-        if (pdffile != null) {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(pdffile);
+    //http://localhost:8080/endpoint?param1=value1&param2=value2
+    @GetMapping("/add")
+    public ResponseEntity<String> addAdmin(@RequestParam String admin, @RequestParam String email) {
+        if (checkAdmin(admin)) {
+            adminService.addAdmin(email);
+            return ResponseEntity.ok("Dodan admin: " + email);
         } else {
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Korisnik nije admin");
         }
     }
 
-    @PostMapping("/activation")
-    public ResponseEntity<String> oglasActivation(@RequestBody Map<String, Integer> payload) {
-        Integer idOglas = payload.get("id");
-        Integer activation = payload.get("activation");
-        adminService.activationRequest(idOglas, activation);
-        if (activation > 0) {
-            return ResponseEntity.ok("Oglas reaktiviran");
+
+    @GetMapping("/oglasi/{email}")
+    public ResponseEntity<List<OglasDTO>> getAllOglasi(@PathVariable String email) {
+        if (checkAdmin(email)) {
+            List<OglasDTO> oglasi = adminService.getAllOglasi();
+            return ResponseEntity.ok(oglasi);
         } else {
-            return ResponseEntity.ok("Oglas deaktiviran");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Collections.emptyList());
         }
     }
 
-    @GetMapping("/guilty")
-    public ResponseEntity<List<String>> getGuilty() {
-        List<String> guiltyUsers = adminService.reportedUsers();
-        return ResponseEntity.ok(guiltyUsers);
+    @GetMapping("/transakcije/{email}")
+    public ResponseEntity<List<Transakcija>> getAllTransakcije(@PathVariable String email) {
+        if (checkAdmin(email)) {
+            List<Transakcija> transakcija = adminService.getAllTransactions();
+            return ResponseEntity.ok(transakcija);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Collections.emptyList());
+        }
     }
 
-    @PostMapping("/ban")
-    public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest) {
-        System.out.println("Mail: " + banRequest.getEmail());
-        adminService.banUser(banRequest.getEmail(), banRequest.getBan());
-        if (banRequest.getBan() > 0) {
-            return ResponseEntity.ok("User freed");
+    @PostMapping("/report/{email}")
+    public ResponseEntity<byte[]> reportPdf(@PathVariable String email) {
+        if (checkAdmin(email)) {
+            byte[] pdffile = adminService.generateReport();
+            if (pdffile != null) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(pdffile);
+            } else {
+                return ResponseEntity.status(500).body(null);
+            }
         } else {
-            return ResponseEntity.ok("User banned");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(null);
+        }
+    }
+
+    @PostMapping("/activation/{email}")
+    public ResponseEntity<String> oglasActivation(@RequestBody Map<String, Integer> payload, @PathVariable String email) {
+        if (checkAdmin(email)) {
+            Integer idOglas = payload.get("id");
+            Integer activation = payload.get("activation");
+            adminService.activationRequest(idOglas, activation);
+            if (activation > 0) {
+                return ResponseEntity.ok("Oglas reaktiviran");
+            } else {
+                return ResponseEntity.ok("Oglas deaktiviran");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Korisnik nije admin");
+        }
+    }
+
+    @GetMapping("/guilty/{email}")
+    public ResponseEntity<List<String>> getGuilty(@PathVariable String email) {
+        if (checkAdmin(email)) {
+            List<String> guiltyUsers = adminService.reportedUsers();
+            return ResponseEntity.ok(guiltyUsers);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(Collections.emptyList());
+        }
+    }
+
+    @PostMapping("/ban/{email}")
+    public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest, @PathVariable String email) {
+        if (checkAdmin(email)) {
+            System.out.println("Mail: " + banRequest.getEmail());
+            adminService.banUser(banRequest.getEmail(), banRequest.getBan());
+            if (banRequest.getBan() > 0) {
+                return ResponseEntity.ok("User freed");
+            } else {
+                return ResponseEntity.ok("User banned");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("Korisnik nije admin");
         }
     }
 
