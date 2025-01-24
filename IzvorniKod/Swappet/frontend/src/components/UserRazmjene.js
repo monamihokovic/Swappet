@@ -31,9 +31,12 @@ function UserRazmjene() {
     useEffect(() => {
         if (user) {
             axios
-                .get(`${process.env.REACT_APP_BACKEND_URL}/${user.email}`, {
-                    withCredentials: true,
-                })
+                .get(
+                    `${process.env.REACT_APP_BACKEND_URL}/user/trades/${user.email}`,
+                    {
+                        withCredentials: true,
+                    }
+                )
                 .then((response) => {
                     setTrades(response.data);
                     console.log("Trades fetched:", response.data);
