@@ -7,8 +7,8 @@ import {
     faTint,
     faPlus,
     faMinus,
-    faShoppingCart,
-    //faHandHolding,
+    faShoppingCart, 
+    //faHandHolding, 
     faEllipsisVertical,
     faThumbsUp,
     faThumbsDown,
@@ -20,17 +20,17 @@ import "../css/Card.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
-const Card = ({ ad }) => {
+
+const defaultProfilePic = "/defaultpfp.jpg";
+
+const Card=({ad, tickets}) => {
     const [user, setUser] = useState(null); //inicijalizacja korisnika
     const [loading, setLoading] = useState(true); //za učitavanje (?)
     const [buyerAds, setBuyerAds] = useState(null); //oglasi kupca
     const [buyerAd, setBuyerAd] = useState(null); // odabrani oglasi kupca
     const [count, setCount] = useState(1); // broj karti koje korisnik kupuje
-    const [isTransactionProcessing, setIsTransactionProcessing] =
-        useState(false); //transakcija u izvođenju, neomogućuje kupovinu kupljenih karata
-    const [availableTickets, setAvailableTickets] = useState(
-        ad.numberOfTickets || 0
-    ); //broj karata koje se mogu kupiti
+    const [isTransactionProcessing, setIsTransactionProcessing] = useState(false); //transakcija u izvođenju, neomogućuje kupovinu kupljenih karata
+    const [availableTickets, setAvailableTickets] = useState( ad.numberOfTickets || 0);  //broj karata koje se mogu kupiti
     const [selectedOption, setSelectedOption] = useState("");
 
     //info za vrijeme
@@ -43,9 +43,7 @@ const Card = ({ ad }) => {
     const [, setSelectedAction] = useState("");
 
     const location = useLocation(); //za provjeru rute na kojoj se korisnik nalazi
-    const isAdminOrUserOglasiPage =
-        location.pathname.endsWith("/admin/oglasi") ||
-        location.pathname.endsWith("/user/oglasi");
+    const isAdminOrUserOglasiPage = location.pathname.endsWith("/admin/oglasi") || location.pathname.endsWith("/user/oglasi");
 
     //inicijalizacija useNavigate (koristi se za redirectanje)
     const navigate = useNavigate();
@@ -168,6 +166,7 @@ const Card = ({ ad }) => {
                 alert("Ulaznice kupljene!");
                 setAvailableTickets((prev) => prev - count);
             } else {
+                
                 if (selectedOption) {
                     console.log("Trade Option Selected:", selectedOption);
                     console.log("Seller ad id:", ad.id);
@@ -204,22 +203,13 @@ const Card = ({ ad }) => {
         setDropdownVisible(!dropdownVisible);
     };
 
-    //logika za filtriranje oglasa po searchu (ne znam jel ovo još potrebno, s obzirom da smo izbacili search oglasa)
+    //provjerava je li oglas za razmjenu
     const getMatchingBuyerAds = () => {
-        if (!buyerAds || !ad.tradeDescription) return [];
-
-        // Split the seller's trade description into words
-        const sellerWords = ad.tradeDescription
-            .split(/\s+/)
-            .map((word) => word.toLowerCase());
-
-        // Filter buyer ads based on common words in their 'opis' and seller's 'tradeDescription'
-        return buyerAds.filter((buyerAd) => {
-            const buyerWords = buyerAd.opis
-                .split(/\s+/)
-                .map((word) => word.toLowerCase());
-            return buyerWords.some((word) => sellerWords.includes(word)); // Check for common words
-        });
+        if (!buyerAds || !ad.tradeDescription){
+            return [];
+        }else {
+            return buyerAds;
+        }
     };
 
     //opis tipa karte
@@ -239,15 +229,16 @@ const Card = ({ ad }) => {
         console.log(user.email, ad.id, action);
         setSelectedAction(action);
         try {
-            if (action !== 2) {
+            if (action !== "2") {
                 const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
-
+               
                 await axios.post(url, null, { withCredentials: true });
-
+               
                 alert("Oglas " + ad.description + " dis/likean!");
+                navigate("/selection");
                 setDropdownVisible(false);
             } else {
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${ad.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
+                const url = `${process.env.REACT_APP_BACKEND_URL}/homepage/dispute?tuzioEmail=${user.email}&tuzeniEmail=${ad.email}`;
 
                 await axios.post(url, null, { withCredentials: true });
 
@@ -281,7 +272,7 @@ const Card = ({ ad }) => {
                     ad.numberOfTickets
                 );
                 const response = await axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation`,
+                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation/${user?.email}`,
                     payload,
                     {
                         withCredentials: true,
@@ -342,11 +333,11 @@ const Card = ({ ad }) => {
     // -> zbog ovog korisnik ne može kupiti/zamijeniti svoj oglas, niti ga lajkati/dislajkati/prijaviti
     const isTheSameUser = user?.email === ad.email;
 
-    return (
+    return(
         <div className="card">
             <div className="card-info">
                 <div className="tip1">
-                    {ad.liked === 1 ? (
+                {ad.liked === 1 ? (
                         <FontAwesomeIcon
                             icon={faHeart}
                             className="liked-icon"
@@ -361,19 +352,15 @@ const Card = ({ ad }) => {
                 </div>
                 <div className="tip2">{ad.address}</div>
                 <div className="tip2">{ad.date}</div>
-                <div className="tip2">
-                    {ad.type === "1" ? `${ad.price} €` : ad.tradeDescription}
-                </div>
+                <div className="tip2">{ad.type === "1" ? `${ad.price} €` : ad.tradeDescription}</div>
                 <div className="tip3">Broj ulaznica: {availableTickets}</div>
                 <div className="tip3">Korisnik: {ad.email}</div>
-                <div className="tip3">
-                    Vrsta karte: {getTicketTypeDescription(ad.ticketType)}
-                </div>
+                <div className="tip3">Vrsta karte: {getTicketTypeDescription(ad.ticketType)}</div>
 
                 {isAdminOrUserRoute && (
                     <button
                         className={
-                            ad.numberOfTickets === -2 || isAdvertisementsRoute
+                            ad.numberOfTickets === 0 || ad.numberOfTickets === -2 || isAdvertisementsRoute
                                 ? "activation hidden"
                                 : "activation"
                         }
@@ -386,7 +373,7 @@ const Card = ({ ad }) => {
                     </button>
                 )}
 
-                {!isAdminOrUserOglasiPage && !isTheSameUser && user && (
+                {!isAdminOrUserOglasiPage &&  !isTheSameUser && user &&(
                     <div className="tridot-dropdown">
                         <FontAwesomeIcon
                             icon={faEllipsisVertical}
@@ -394,7 +381,7 @@ const Card = ({ ad }) => {
                             onClick={toggleDropdown}
                             title="Options"
                         />
-                        {dropdownVisible && !isTheSameUser && user && (
+                        {dropdownVisible && !isTheSameUser  && user && (
                             <div className="dropdown-menu">
                                 <button onClick={() => handleActionSelect("1")}>
                                     <FontAwesomeIcon
@@ -423,7 +410,7 @@ const Card = ({ ad }) => {
                         )}
                     </div>
                 )}
-                {!isAdminOrUserOglasiPage && !isTheSameUser && user && (
+                {!isAdminOrUserOglasiPage && !isTheSameUser  && user &&(
                     <div className="counter-section">
                         <FontAwesomeIcon
                             icon={faShoppingCart}
@@ -448,32 +435,26 @@ const Card = ({ ad }) => {
                     </div>
                 )}
 
-                {!isAdminOrUserOglasiPage &&
-                    ad.type !== "1" &&
-                    buyerAds &&
-                    !isTheSameUser &&
-                    user && (
-                        <div className="exchange-dropdown">
-                            <select
-                                onChange={handleSelectChange}
-                                value={selectedOption}
-                            >
-                                <option value="">
-                                    Select matching tickets
+                {!isAdminOrUserOglasiPage && ad.type !== "1" && buyerAds && !isTheSameUser && user &&(
+                    <div className="exchange-dropdown">
+                        <select
+                            onChange={handleSelectChange}
+                            value={selectedOption}
+                        >
+                            <option value="">Select matching tickets</option>
+                            {getMatchingBuyerAds().map((buyerAd) => (
+                                <option
+                                    key={buyerAd.idOglas}
+                                    value={buyerAd.opis}
+                                >
+                                    {buyerAd.opis}
                                 </option>
-                                {getMatchingBuyerAds().map((buyerAd) => (
-                                    <option
-                                        key={buyerAd.idOglas}
-                                        value={buyerAd.opis}
-                                    >
-                                        {buyerAd.opis}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                            ))}
+                        </select>
+                    </div>
+                )}
 
-                {!isAdminOrUserOglasiPage && !isTheSameUser && user && (
+                {!isAdminOrUserOglasiPage && !isTheSameUser &&  user &&(
                     <button
                         className={`buy-btn ${
                             !isTransactionProcessing &&
@@ -517,6 +498,7 @@ const Card = ({ ad }) => {
             ) : (
                 <div className="weather-info">Weather data not available</div>
             )}
+
         </div>
     );
 };

@@ -40,6 +40,7 @@ public class AdminService {
     @Autowired
     private DeaktiviranOglasRepository deaktiviranOglasRepository;
 
+    //za sve oglase u bazi
     public List<OglasDTO> getAllOglasi() {
         List<Object[]> rawData = oglasRepository.findAllOglasi();
         List<OglasDTO> result = new ArrayList<>();
@@ -61,10 +62,12 @@ public class AdminService {
         return result;
     }
 
+    //za sve transakcije u bazi
     public List<Transakcija> getAllTransactions() {
         return transakcijaRepository.findAll();
     }
 
+    //generator za report
     public byte[] generateReport() {
         List<Transakcija> transactions = transakcijaRepository.reportTransactions();
         int brojOglasa = oglasRepository.findRelevantOglasi().size();
@@ -140,7 +143,7 @@ public class AdminService {
         }
     }
 
-    //ban usera
+    //ovom funkcijom prijavljenog korisnika bannamo ili oslobađamo, ovisno o odluci s frontenda
     public void banUser(String email, Integer ban) {
         Korisnik korisnik = korisnikRepository.findByEmail(email);
         Spor spor = sporRepository.findByTuzen(korisnik);
@@ -150,6 +153,21 @@ public class AdminService {
             korisnikRepository.save(korisnik);
             spor.setOdlukaSpor(1);
             sporRepository.save(spor);
+
+            List<Oglas> oglasi = oglasRepository.findUserOglasi(korisnik);
+            List<Ulaznica> ulaznice = ulaznicaRepository.findUserUlaznice(korisnik);
+
+            for (Oglas oglas : oglasi) {
+                oglas.setAktivan(-1);
+                oglasRepository.save(oglas);
+            }
+
+            for (Ulaznica ulaznica : ulaznice) {
+                Integer type = ulaznica.getVrstaUlaznice();
+                ulaznica.setVrstaUlaznice(-type);
+                ulaznicaRepository.save(ulaznica);
+            }
+
         } else if (ban == 1) {
             spor.setOdlukaSpor(-1);
             sporRepository.save(spor);
@@ -177,10 +195,9 @@ public class AdminService {
         return admins;
     }
 
+    //za dodavanje novog admina
     public void addAdmin(String newAdmin) {
         Korisnik korisnik = korisnikRepository.findByEmail(newAdmin);
-        System.out.println("Novi admin: " + newAdmin);
-        System.out.println("Korisnik: " + korisnik.getEmail());
         if (korisnik != null) {
             korisnik.setUloga(1);
             korisnikRepository.save(korisnik);
@@ -194,7 +211,6 @@ public class AdminService {
             );
             korisnikRepository.save(newKorisnik);
         }
-
     }
 
     // pomoć za konstrukciju OglasDTO

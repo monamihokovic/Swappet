@@ -18,13 +18,13 @@ public class SporService {
     @Autowired
     private KorisnikRepository korisnikRepository;
 
-    // stvaranje novog spora
+    // stvaranje novog spora i spremanje prijavljenog korisnika
     public Spor createSpor(String tuzioEmail, String tuzeniEmail) {
         Korisnik guilty = korisnikRepository.findByEmail(tuzeniEmail);
         Korisnik blamer = korisnikRepository.findByEmail(tuzioEmail);
 
         Spor postojeciSpor = sporRepository.findByTuzen(guilty);
-        if (postojeciSpor == null) {
+        if (postojeciSpor == null || postojeciSpor.getOdlukaSpor() != 0) {
             Spor spor = new Spor(
                     "User was naughty",
                     LocalDateTime.now(),

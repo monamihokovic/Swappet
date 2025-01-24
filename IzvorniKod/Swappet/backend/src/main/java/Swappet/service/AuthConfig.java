@@ -14,14 +14,12 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.List;
-
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
     // dohvati env varijablu
     @Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
-    private String frontendUrl; // = "http://localhost:3000";
+    private String frontendUrl;//= "http://localhost:3000";
 
     @Autowired
     private KorisnikRepository korisnikRepository;
@@ -32,13 +30,15 @@ public class AuthConfig extends DefaultOAuth2UserService {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
+                        //ovdje moramo staviti sve rute koje koristimo, inače dobivamo CORS error
                         .requestMatchers("/", "/register", "/homepage/**", "/homepage/oglas",
                                 "/ulaznica/kupnja", "/ulaznica/**", "/ulaznica/podnesi-razmjenu", "/user",
                                 "/user/oglasi", "/ulaznica/razmjene",
                                 "/homepage/advertisements", "/ulaznica/all", "/createEvent",
                                 "/admin/**", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
-                                "/advertisements", "/admin/activation", "user/activation", "/admin/guilty").permitAll()
+                                "/advertisements", "/admin/activation/**", "user/activation", "/admin/guilty/**",
+                                "/admin/oglasi/**", "/admin/ban/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout

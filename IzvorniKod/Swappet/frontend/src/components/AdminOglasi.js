@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Card from "./Card";
+import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import Card from "./Card"; 
 import "../css/AdminOglasi.css";
 import axios from "axios";
 import Header from "./Header";
 
-const AdminOglasi = () => {
-    const [, setUser] = useState(null); //inicijalizacija korisnika
+const defaultProfilePic = "/defaultpfp.jpg";
+
+const AdminOglasi=()=>{
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
     const [ads, setAds] = useState([]); //inicijalizacija oglasa
-    const [, setUlaznice] = useState([]); //inicijalizacija karti
+    const [ulaznice, setUlaznice] = useState([]); //inicijalizacija karti
+
 
     //dohvati informacije o korisniku
     useEffect(() => {
@@ -26,7 +30,7 @@ const AdminOglasi = () => {
     //dohvati ulaznice
     useEffect(() => {
         const fetchAds = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/oglasi`
+            `${process.env.REACT_APP_BACKEND_URL}/admin/oglasi/${user?.email}`
         );
         const fetchTickets = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
@@ -41,16 +45,19 @@ const AdminOglasi = () => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user]); 
 
-    return (
+
+    return(
         <div className="admin-page">
             <Header></Header>
             <div className="container-oglasa">
                 <div id="oglasi">Svi oglasi: </div>
                 <div className="oglasi">
-                    {ads.length === 0 ? (
-                        <div className="no-events-message">Nema oglasa.</div>
+                {ads.length === 0 ? (
+                        <div className="no-events-message">
+                            Nema oglasa.
+                        </div>
                     ) : (
                         ads.map((adWithTickets) => (
                             <Card

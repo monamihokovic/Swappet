@@ -20,13 +20,14 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    //ruta za vraćanje liste admina iz baze na frontend
     @GetMapping("/")
     public ResponseEntity<List<String>> getAdmins() {
         List<String> admini = adminService.getAllAdmini();
         return ResponseEntity.ok(admini);
     }
 
-    //http://localhost:8080/endpoint?param1=value1&param2=value2
+    //ruta za dodavanje novih admina u bazu
     @GetMapping("/add")
     public ResponseEntity<String> addAdmin(@RequestParam String admin, @RequestParam String email) {
         if (checkAdmin(admin)) {
@@ -38,7 +39,7 @@ public class AdminController {
         }
     }
 
-
+    //ruta kojom vraćamo sve oglase iz baze na frontend
     @GetMapping("/oglasi/{email}")
     public ResponseEntity<List<OglasDTO>> getAllOglasi(@PathVariable String email) {
         if (checkAdmin(email)) {
@@ -50,6 +51,7 @@ public class AdminController {
         }
     }
 
+    //ruta kojom na frontend vraćamo sve transakcije iz baze
     @GetMapping("/transakcije/{email}")
     public ResponseEntity<List<Transakcija>> getAllTransakcije(@PathVariable String email) {
         if (checkAdmin(email)) {
@@ -61,6 +63,7 @@ public class AdminController {
         }
     }
 
+    //na ovoj ruti se generira izjveštaj u pdf formatu
     @PostMapping("/report/{email}")
     public ResponseEntity<byte[]> reportPdf(@PathVariable String email) {
         if (checkAdmin(email)) {
@@ -79,6 +82,7 @@ public class AdminController {
         }
     }
 
+    //ovom rutom, kao admin, aktiviramo ili deaktiviramo oglase
     @PostMapping("/activation/{email}")
     public ResponseEntity<String> oglasActivation(@RequestBody Map<String, Integer> payload, @PathVariable String email) {
         if (checkAdmin(email)) {
@@ -96,6 +100,7 @@ public class AdminController {
         }
     }
 
+    //ovom rutom na frontend vraćamo sve reportane korisnike iz baze
     @GetMapping("/guilty/{email}")
     public ResponseEntity<List<String>> getGuilty(@PathVariable String email) {
         if (checkAdmin(email)) {
@@ -107,10 +112,10 @@ public class AdminController {
         }
     }
 
+    //ovom rutom bannamo korisnike
     @PostMapping("/ban/{email}")
     public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest, @PathVariable String email) {
         if (checkAdmin(email)) {
-            System.out.println("Mail: " + banRequest.getEmail());
             adminService.banUser(banRequest.getEmail(), banRequest.getBan());
             if (banRequest.getBan() > 0) {
                 return ResponseEntity.ok("User freed");
@@ -123,6 +128,7 @@ public class AdminController {
         }
     }
 
+    //pomoćna funkcija kojom provjeravamo je li ulogirani korisnik zaista jedan od admina
     private boolean checkAdmin(String email) {
         List<String> admins = adminService.getAllAdmini();
         if (admins.contains(email)) {
@@ -131,5 +137,4 @@ public class AdminController {
             return false;
         }
     }
-
 }
