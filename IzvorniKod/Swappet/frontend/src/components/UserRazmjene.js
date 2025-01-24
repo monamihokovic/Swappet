@@ -8,7 +8,7 @@ import Header from "./Header";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
-function UserRazmjene(){
+function UserRazmjene() {
     const [trades, setTrades] = useState([]); //inicijalizacija razmjena
     const [user, setUser] = useState(null); //inicijalizacija korisnika
 
@@ -58,10 +58,14 @@ function UserRazmjene(){
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
-                withCredentials: true,
-                headers: { "Content-Type": "application/json" },
-            })
+            .post(
+                `${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`,
+                requestBody,
+                {
+                    withCredentials: true,
+                    headers: { "Content-Type": "application/json" },
+                }
+            )
             .then((response) => {
                 console.log("Trade approved:", response.data);
             })
@@ -70,8 +74,6 @@ function UserRazmjene(){
             });
         navigate("/advertisements");
     };
-
-
 
     const handleCrossClick = (selledId, buyerId, quantity) => {
         console.log("Cross clicked for selledId:", selledId);
@@ -83,10 +85,14 @@ function UserRazmjene(){
         };
         console.log("Request body:", requestBody);
         axios
-            .post("http://localhost:8081/ulaznica/razmjena", requestBody, {
-                withCredentials: true,
-                headers: { "Content-Type": "application/json" },
-            })
+            .post(
+                `${process.env.REACT_APP_BACKEND_URL}/ulaznica/razmjena`,
+                requestBody,
+                {
+                    withCredentials: true,
+                    headers: { "Content-Type": "application/json" },
+                }
+            )
             .then((response) => {
                 console.log("Trade rejected:", response.data);
             })
@@ -102,25 +108,49 @@ function UserRazmjene(){
             <div className="container-razmjena">
                 <div id="razmjene">Sve moje razmjene</div>
                 <div className="razmjene">
-                    {trades.length=== 0 ? (
+                    {trades.length === 0 ? (
                         <div className="no-events-message">Nema razmjena.</div>
-                    ): (
+                    ) : (
                         trades.map((trade) => (
                             <div key={trade.selledId} className="razmjena">
-                                <div><strong>Oglas prodavača:</strong> {trade.sellerAdDescription}</div>
-                                <div><strong>Zamjena prodavača:</strong> {trade.sellerTradeDescription}</div>
-                                <div><strong>Zamjena kupca:</strong> {trade.buyerDescription}</div>
-                                <div><strong>Broj karata:</strong> {trade.quantity}</div>
+                                <div>
+                                    <strong>Oglas prodavača:</strong>{" "}
+                                    {trade.sellerAdDescription}
+                                </div>
+                                <div>
+                                    <strong>Zamjena prodavača:</strong>{" "}
+                                    {trade.sellerTradeDescription}
+                                </div>
+                                <div>
+                                    <strong>Zamjena kupca:</strong>{" "}
+                                    {trade.buyerDescription}
+                                </div>
+                                <div>
+                                    <strong>Broj karata:</strong>{" "}
+                                    {trade.quantity}
+                                </div>
                                 <div className="trade-btns">
-                                    <button 
+                                    <button
                                         className="checkmark-btn"
-                                        onClick={() => {handleCheckmarkClick(trade.selledId, trade.buyerId, trade.quantity);}}
+                                        onClick={() => {
+                                            handleCheckmarkClick(
+                                                trade.selledId,
+                                                trade.buyerId,
+                                                trade.quantity
+                                            );
+                                        }}
                                     >
-                                     <FontAwesomeIcon icon={faCheck} />
+                                        <FontAwesomeIcon icon={faCheck} />
                                     </button>
                                     <button
                                         className="cross-btn"
-                                        onClick={() => {handleCrossClick(trade.selledId, trade.buyerId, trade.quantity)}}
+                                        onClick={() => {
+                                            handleCrossClick(
+                                                trade.selledId,
+                                                trade.buyerId,
+                                                trade.quantity
+                                            );
+                                        }}
                                     >
                                         <FontAwesomeIcon icon={faTimes} />
                                     </button>
@@ -131,8 +161,7 @@ function UserRazmjene(){
                 </div>
             </div>
         </div>
-
     );
 }
 
-export default UserRazmjene; 
+export default UserRazmjene;
