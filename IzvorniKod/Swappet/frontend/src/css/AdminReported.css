@@ -5,66 +5,63 @@
     background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
     color: #ffffff;
     min-height: 100vh;
+    font-family: 'League Spartan', sans-serif; 
+}
+
+#reported{
     font-family: 'League Spartan', sans-serif;
-}
-
-.Useri {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.Users{
-    color: #ffffff;
-    font-size: 2.5em;
-    font-weight: bold;
-    margin-bottom: 15px;
-
-}
-
-.item {
-    background-color: #4f5469;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 16px;
+    font-size: 4em;
+    margin-top: 20px;
+    justify-self: center;
     cursor: pointer;
-    color: #e8e5e7;
+    margin-bottom: 20px;
 }
 
-.item:hover {
-    background-color: #626a7d;
+#reported:hover{
     color: #26293d;
 }
-
-
-
-
-.createEvent,
-.admin {
-    margin-left: 20px;
-    background-color: #816898;
-    border: none;
-    border-radius: 20px;
-    width: 100px;
-    height: 50px;
-    align-self: center;
-    color: #e8e5e7;
-    cursor: pointer;
+.korisnik{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: max-content;
+    min-width: 150px;
+    max-width: 200px;
+    max-height: 150px;
+    background-color: #26293d;
+    padding: 1em;
     transition: background-color 0.3s;
 }
-
-.createEvent:hover,
-.admin:hover {
-    background-color: #26293d;
-    color: #816898;
+.korisnik:hover{
+    transform: scale(1.01);
+    background-color: #816189;
 }
 
-.hidden {
-    display: none;
+.useri{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: rgba(38, 41, 61, 0.4);
+    padding: 2em;
+    border-radius: 30px;  
 }
 
-.no-events-message {
+#email{
+    margin-bottom: 10px;
     text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    margin-top: 20px;
+}
+
+.ban-button{
+    margin: 10px;
+    padding: 0.5em;
+    border: none;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+}
+.ban-button:hover{
+    cursor: pointer;
+    background-color: #26293d;
+    color: #816189;
 }

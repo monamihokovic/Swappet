@@ -4,48 +4,51 @@ import axios from "axios";
 import "../css/SelectionPage.css";
 import { FaArrowRight } from "react-icons/fa";
 
-const SelectionPage = ({ userName }) => {
-    const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); // Only stores IDs
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate(); // React Router's navigate function
+const SelectionPage = () => {
+    const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); //inicijalizacija odabranih kategorija
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
+    
+    //inicijalizacija useNavigate (koristi se za redirectanje)
+    const navigate = useNavigate();
 
-    // Define categories with names and IDs
-    const categoryMap = [
-        { name: "Koncerti", id: 1 },
-        { name: "Izložbe", id: 2 },
-        { name: "Predstave", id: 3 },
-        { name: "Putovanja", id: 4 },
-        { name: "Tulumi", id: 5 },
-        { name: "Kino", id: 6 },
-        { name: "Sport", id: 7 },
-        { name: "Prijevoz", id: 8 },
-        { name: "Ostalo", id: 9 },
-    ];
-
+    //dohvat informacija o korisniku
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
-                withCredentials: true,
-            })
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {withCredentials: true})
             .then((response) => {
                 setUser(response.data);
             })
             .catch((error) => {
-                console.error("Error occurred: ", error);
-            });
+                console.error("Error occured: ", error);
+            })
     }, []);
 
+    //kategorije
+    const categoryMap = [
+        {name: "Koncerti", id: 1},
+        {name: "Izložbe", id: 2},
+        {name: "Predstave", id: 3},
+        {name: "Putovanja", id: 4},
+        {name: "Tulumi", id: 5},
+        {name: "Kino", id: 6},
+        {name: "Sport", id: 7},
+        {name: "Prijevoz", id: 8},
+        {name: "Ostalo", id: 9}
+    ];
+
     const toggleCategory = (id) => {
-        setSelectedCategoryIds((prev) =>
-            prev.includes(id)
-                ? prev.filter((item) => item !== id)
-                : [...prev, id]
+        setSelectedCategoryIds((prev)=>
+            	prev.includes(id) ?
+                    prev.filter((item) => item !== id) :
+                    [...prev, id]
         );
     };
 
+    //pošalji info na backend
     const handleContinueClick = () => {
         if (selectedCategoryIds.length > 0) {
             console.log("Selected category IDs:", selectedCategoryIds);
+            console.log(`${process.env.REACT_APP_BACKEND_URL}/homepage/oglas/${user?.email}`);
             axios
                 .post(
                     `${process.env.REACT_APP_BACKEND_URL}/homepage/oglas/${user?.email}`,
@@ -67,29 +70,22 @@ const SelectionPage = ({ userName }) => {
         }
     };
 
-    return (
+    return(
         <div className="selection-page">
-            <div className="naslov1">
-                <div id="dobrodosli1">Dobrodošli na</div>
-                <div id="swap1">
-                    SWAP<span id="pet1">PET</span>, {user?.name || "gost"}
-                    <span id="usklicnik1">!</span>
-                </div>
+            <div className="naslov">
+                <div id="dobrodosli">Dobrodošli na</div>
+                <div id="swap">SWAP<span id="pet">PET</span>, {user?.name || "gost"}<span id="usklicnik">!</span></div>
             </div>
 
-            <p className="odabir">
-                Odaberite događaje koji vas najviše zanimaju.
-            </p>
+            <div className="odabir">
+                Odaberite događaje koji vas najviše zanimaju!
+            </div>
 
             <div className="category-buttons">
                 {categoryMap.map((category) => (
                     <button
                         key={category.id}
-                        className={`category-button ${
-                            selectedCategoryIds.includes(category.id)
-                                ? "selected"
-                                : ""
-                        }`}
+                        className={`category-button ${selectedCategoryIds.includes(category.id) ? "selected" : ""}`}
                         onClick={() => toggleCategory(category.id)}
                     >
                         {category.name}
@@ -97,21 +93,21 @@ const SelectionPage = ({ userName }) => {
                 ))}
             </div>
 
-            <p className="warning-text">
+            <div className="warning-text">
                 Najmanje jedna kategorija mora biti odabrana.
-            </p>
+            </div>
 
             <div className="continue-button-container">
                 <button
                     className="continue-button"
-                    disabled={selectedCategoryIds.length === 0}
+                    disabled={selectedCategoryIds.length===0}
                     onClick={handleContinueClick}
                 >
-                    Nastavi <FaArrowRight />
+                    Nastavi <FaArrowRight/>    
                 </button>
             </div>
         </div>
     );
-};
+}
 
 export default SelectionPage;

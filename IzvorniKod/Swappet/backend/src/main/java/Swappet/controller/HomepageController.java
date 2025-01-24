@@ -1,9 +1,6 @@
 package Swappet.controller;
 
-import Swappet.model.Korisnik;
 import Swappet.model.Spor;
-import Swappet.repository.KorisnikRepository;
-import Swappet.repository.SporRepository;
 import Swappet.service.OglasService;
 import Swappet.service.SporService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -29,8 +25,12 @@ public class HomepageController {
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
     @PostMapping("/oglas/{email}")
     public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories, @PathVariable String email) {
-        List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories, email);
-        storedOglasiData = oglasi;
+
+        if (!email.equals("undefined")) {
+            storedOglasiData = oglasService.getOglasWithCijenaByCategories(categories, email);
+        } else {
+            storedOglasiData = oglasService.getOglasWithCijenaByCategories(categories, null);
+        }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -44,9 +44,10 @@ public class HomepageController {
         }
     }
 
-    // kreiraj novi spor
+    // kreiraj novi spor, prijavi korisnika
     @PostMapping("/dispute")
     public ResponseEntity<Spor> createSpor(@RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
+        System.out.println("Tuzenik: " + tuzeniEmail);
         Spor spor = sporService.createSpor(tuzioEmail, tuzeniEmail);
         return ResponseEntity.ok(spor);
     }

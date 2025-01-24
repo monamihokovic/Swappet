@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.List;
-
 @Configuration
 public class AuthConfig extends DefaultOAuth2UserService {
 
@@ -39,7 +37,7 @@ public class AuthConfig extends DefaultOAuth2UserService {
                                 "/admin/**", "/user/transactions",
                                 "/user/oglasi/{email}", "/myTransactions", "/oglas/add", "/user/trades/**",
                                 "/advertisements", "/admin/activation/**", "user/activation", "/admin/guilty/**",
-                                "/admin/oglasi/**").permitAll()
+                                "/admin/oglasi/**", "/admin/ban/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout

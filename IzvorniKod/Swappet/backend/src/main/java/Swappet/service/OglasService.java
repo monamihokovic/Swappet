@@ -43,9 +43,15 @@ public class OglasService {
 
     //upit za oglase u bazu, na temelju kategorije (vraćamo s cijenom ulaznice), izmjenjena verzija
     public List<OglasDTO> getOglasWithCijenaByCategories(List<Integer> categories, String email) {
-        //System.out.println("[SERVICE] Fetching advertisements for categories: " + categories);
 
-        List<Object[]> rawData = oglasRepository.findOglasWithCijenaByCategories(categories);
+        List<Object[]> rawData;
+
+        if (email != null) {
+            rawData = oglasRepository.findOglasWithCijenaByCategories(categories, korisnikRepository.findByEmail(email));
+        } else {
+            rawData = oglasRepository.findOglasForNullUser(categories);
+        }
+
         List<OglasDTO> result = new ArrayList<>();
 
         for (Object[] row : rawData) {
@@ -58,16 +64,18 @@ public class OglasService {
                 continue;
             }
 
-            Integer likedStatus = voliOglasRepository.findByEmailAndIdOglas(email, oglas.getIdOglas())
-                    .map(VoliOglas::getVoli)
-                    .orElse(0);
+            Integer likedStatus = 0;
+            if (email != null) {
+                likedStatus = voliOglasRepository.findByEmailAndIdOglas(email, oglas.getIdOglas())
+                        .map(VoliOglas::getVoli)
+                        .orElse(0);
+            }
 
             OglasDTO dto = buildOglasDTO(oglas, price, likedStatus);
 
             result.add(dto);
         }
 
-        //System.out.println("[SERVICE] All advertisements processed: " + result);
         return result;
     }
 
@@ -172,7 +180,6 @@ public class OglasService {
                     counter
             );
 
-            //System.out.println("Dohvaćen oglas: " + tradeDTO.getSellerAdDescription());
             result.add(tradeDTO);
             counter = 0;
         }
@@ -180,7 +187,7 @@ public class OglasService {
         return result;
     }
 
-    //sprema like/dislike/report (ovo treba provjeriti)
+    //sprema like/dislike za korisnika
     public void saveUserInteraction(String email, Integer idOglas, Integer action) {
         VoliOglas voliOglas = new VoliOglas(email, action, idOglas);
         voliOglasRepository.save(voliOglas);

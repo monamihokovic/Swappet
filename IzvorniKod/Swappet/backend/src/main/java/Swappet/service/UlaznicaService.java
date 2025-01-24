@@ -82,7 +82,10 @@ public class UlaznicaService {
 
         //nađi email korisnika, njegov oglas za razmjenu i id-jeve transakcija u kojima su njegove ulaznice koje treba potvrditi
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
-        String email = sellerOglas.getKorisnik().getEmail();
+        Oglas buyerOglas = oglasRepository.findByIdOglas(idOglasBuyer);
+
+        String sellerEmail = sellerOglas.getKorisnik().getEmail();
+        String buyerEmail = buyerOglas.getKorisnik().getEmail();
         List<Integer> ulazniceZaRazmjenu = ulaznicaRepository.ulaznice(idOglasBuyer);
 
         // Provjera je li prodavateljev oglas označen za zamjenu
@@ -93,8 +96,13 @@ public class UlaznicaService {
         //za svaku ulaznicu postavi odluku -> -1 za odbijanje, 1 za prihvaćanje
         for (int i = 0; i < amount; i++) {
             Integer transakcija = ulazniceZaRazmjenu.get(i);
-            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, email);
+            JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, sellerEmail);
             jeUkljucen.setOdluka(decision);
+        }
+
+        //pošalji mail uključenim korisnicima
+        if (amount > 0) {
+            emailService.notifySuccessfulExchange(sellerEmail, buyerEmail, sellerOglas.getOpis(), buyerOglas.getOpis(), amount);
         }
     }
 

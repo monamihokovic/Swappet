@@ -86,4 +86,49 @@ public class EmailService {
         // posalji mail
         emailSender.send(message);
     }
+
+    // obavijesti oba korisnika da je razmjena uspješno obavljena
+    @Async
+    public void notifySuccessfulExchange(String user1Email, String user2Email,
+                                         String user1Opis, String user2Opis,
+                                         Integer numberOfTickets) {
+
+        // provjera je li email usluga dostupna
+        if (!emailEnabled) {
+            System.err.println("Email usluga nije dostupna. Neuspješno slanje.");
+            return;
+        }
+
+        // obavijest za prvog korisnika
+        SimpleMailMessage firstMessage = new SimpleMailMessage();
+        firstMessage.setTo(user1Email);
+        firstMessage.setSubject("Razmjena uspješno završena");
+        firstMessage.setText("Poštovani,\n\n" +
+                "Vaša razmjena ulaznica je uspješno završena!\n\n" +
+                "Detalji razmjene:\n" +
+                "- Vaš događaj: " + user1Opis + "\n" +
+                "- Događaj drugog korisnika: " + user2Opis + "\n" +
+                "- Broj razmijenjenih ulaznica: " + numberOfTickets + "\n\n" +
+                "Hvala što koristite Swappet!\n\n" +
+                "Srdačan pozdrav,\n" +
+                "Vaš Swappet tim");
+
+        // obavijest za drugog korisnika
+        SimpleMailMessage secondMessage = new SimpleMailMessage();
+        secondMessage.setTo(user2Email);
+        secondMessage.setSubject("Razmjena uspješno završena");
+        secondMessage.setText("Poštovani,\n\n" +
+                "Vaša razmjena ulaznica je uspješno završena!\n\n" +
+                "Detalji razmjene:\n" +
+                "- Vaš događaj: " + user2Opis + "\n" +
+                "- Događaj drugog korisnika: " + user1Opis + "\n" +
+                "- Broj razmijenjenih ulaznica: " + numberOfTickets + "\n\n" +
+                "Hvala što koristite Swappet!\n\n" +
+                "Srdačan pozdrav,\n" +
+                "Vaš Swappet tim");
+
+        // posalji mailove
+        emailSender.send(firstMessage);
+        emailSender.send(secondMessage);
+    }
 }

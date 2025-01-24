@@ -143,7 +143,7 @@ public class AdminService {
         }
     }
 
-    //ovom funkcijom prijavljenog korisnika bannamo
+    //ovom funkcijom prijavljenog korisnika bannamo ili oslobađamo, ovisno o odluci s frontenda
     public void banUser(String email, Integer ban) {
         Korisnik korisnik = korisnikRepository.findByEmail(email);
         Spor spor = sporRepository.findByTuzen(korisnik);
@@ -198,8 +198,6 @@ public class AdminService {
     //za dodavanje novog admina
     public void addAdmin(String newAdmin) {
         Korisnik korisnik = korisnikRepository.findByEmail(newAdmin);
-        System.out.println("Novi admin: " + newAdmin);
-        System.out.println("Korisnik: " + korisnik.getEmail());
         if (korisnik != null) {
             korisnik.setUloga(1);
             korisnikRepository.save(korisnik);

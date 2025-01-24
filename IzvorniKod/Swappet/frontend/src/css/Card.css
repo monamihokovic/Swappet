@@ -1,26 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
 .card {
     background-color: #26293d;
     width: 100%;
     min-width: 500px;
-    max-width: 95%; /* Restrict card's maximum width */
-    height: auto; /* Allow card height to adjust dynamically */
+    max-width: 95%; 
+    height: auto; 
     flex-grow: 1;
     margin: 20px;
     border-radius: 20px;
     display: flex;
-    justify-content: space-between; /* Separate content */
+    justify-content: space-between;
     gap: 20px;
     height: auto;
-    max-height: 600px; /* Restrict maximum card height */
+    max-height: 600px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     padding: 20px;
-    overflow: hidden; /* Hide overflowing content */
+    overflow: hidden;
 }
 
-    .card:hover {
-        transform: scale(1.01);
-    }
+.card:hover {
+    transform: scale(1.01);
+}
 
 .card-info {
     display: flex;
@@ -28,18 +30,16 @@
     justify-content: space-between;
     flex: 1;
     margin: auto;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden;
 }
-
-    .card-info div {
-        white-space: nowrap; /* Prevent text from wrapping */
-        overflow: hidden; /* Hide overflowing text */
-        text-overflow: ellipsis; /* Add '...' to indicate overflow */
-        margin-bottom: 8px;
-    }
-
+.card-info div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    margin-bottom: 8px;
+}
 .weather-info {
-    flex: 0 0 250px; /* Fixed width for weather section */
+    flex: 0 0 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,45 +49,30 @@
     border-radius: 10px;
     color: #fff;
     font-size: 1em;
-    overflow: hidden; /* Prevent weather content overflow */
-    word-wrap: break-word; /* Ensure long words wrap properly */
+    overflow: hidden;
+    word-wrap: break-word;
 }
-
-    .weather-info div {
-        margin-bottom: 8px;
-        text-overflow: ellipsis; /* Add '...' for long content */
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-.tip1 {
-    font-family: 'League Spartan', sans-serif;
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #816898;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.opis, .adresa1, .datum1, .cijena1 {
-    font-size: 1.1em;
-    color: #65696b;
-    margin: 5px 0;
-    white-space: nowrap;
+.weather-info div {
+    margin-bottom: 8px;
     text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
 }
 
-@media (max-width: 768px) {
-    .card {
-        flex-direction: column;
-        gap: 15px;
-    }
+.tip1{
+    font-size: 40px;
+    font-weight: 500;
+    font-family: 'League Spartan', sans-serif;
+}
+.tip1:hover{
+    font-size: 40px;
+    font-weight: 500;
+    font-family: 'League Spartan', sans-serif;
+    color: #816189;
+}
 
-    .weather-info {
-        flex: 1;
-        margin-top: 20px;
-    }
+.tip2{
+    font-size: 20px;  
 }
 
 .weather-info {
@@ -104,12 +89,10 @@
     color: #ffffff;
 }
 
-    .weather-item svg {
-        color: #816898; /* Icon color */
-        font-size: 1.5em;
-    }
-
-/* Counter Section */
+.weather-item svg {
+    color: #816898; /* Icon color */
+    font-size: 1.5em;
+}
 .counter-section {
     display: flex;
     align-items: center;
@@ -144,7 +127,6 @@
     min-width: 20px;
     text-align: center;
 }
-
 .buy-btn {
     background-color: #816898;
     color: white;
@@ -160,18 +142,17 @@
 }
 
 .buy-btn:hover {
-   background-color: #6b4e8d; 
-}
+    background-color: #6b4e8d; 
+ }
+ 
+ .disabled-btn {
+     background-color: #b0b0b0;
+     cursor: not-allowed;
+ }
 
-.disabled-btn {
-    background-color: #b0b0b0;
-    cursor: not-allowed;
-}
-
-/* Dropdown  */
-.exchange-dropdown {
-    position: relative; /* Ensures it stays within its container */
-    width: 97%; /* Matches the card width */
+ .exchange-dropdown {
+    position: relative;
+    width: 97%;
     background-color: #26293d;
     border-radius: 10px;
     padding: 10px;
@@ -180,26 +161,26 @@
     z-index: 1000;
 }
 
-    .exchange-dropdown select {
-        width: 100%; /* Full width of the dropdown */
-        padding: 10px;
-        background-color: #1e2235;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        font-size: 1.1em;
-        font-weight: bold;
-        cursor: pointer;
-        outline: none;
-        transition: background-color 0.3s ease;
-    }
+.exchange-dropdown select {
+    width: 100%; /* Full width of the dropdown */
+    padding: 10px;
+    background-color: #1e2235;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
 
-    .exchange-dropdown option {
-        background-color: #1e2235;
-        color: #fff;
-        padding: 10px;
-        font-size: 1em;
-    }
+.exchange-dropdown option {
+    background-color: #1e2235;
+    color: #fff;
+    padding: 10px;
+    font-size: 1em;
+}
 
 .selected-option {
     display: flex;
@@ -210,23 +191,23 @@
 
 .selected-option-text {
     display: inline-block;
-    font-family: 'League Spartan', sans-serif; /* Matches your page's typography */
+    font-family: 'League Spartan', sans-serif;
     font-weight: bold;
     font-size: 1.2em;
-    color: #816898; /* Matches your primary color scheme */
-    background-color: #1e2235; /* Subtle background for distinction */
+    color: #816898;
+    background-color: #1e2235;
     padding: 5px 10px;
     border-radius: 10px;
-    text-transform: capitalize; /* Makes text more uniform */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    margin: 5px 0; /* Adds spacing from surrounding elements */
+    text-transform: capitalize;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 5px 0;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tridot-dropdown {
-    position: relative; /* For absolute positioning of dropdown menu */
-    display: inline-block; /* Ensure the tridot icon and dropdown align */
-    margin: 10px 0; /* Adds vertical spacing */
+    position: relative;
+    display: inline-block;
+    margin: 10px 0;
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -234,49 +215,49 @@
 
 .tridot-icon {
     font-size: 1.5em;
-    color: #816898; /* Primary color for the icon */
+    color: #816898;
     transition: color 0.3s ease;
     margin-top: auto;
     margin-bottom: auto;
 }
 
-    .tridot-icon:hover {
-        color: #6b4e8d; /* Darker shade for hover effect */
-    }
-
-.dropdown-menu {
-    right: 0; /* Align menu to the right */
-    background-color: #1e2235; /* Matches the card's background */
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    min-width: 150px; /* Fixed width for uniformity */
-    padding: 10px 5px; /* Vertical spacing inside menu */
-    display: flex;
-    flex-direction: row;
+.tridot-icon:hover {
+    color: #6b4e8d;
 }
 
-    .dropdown-menu button {
-        background: none; /* Transparent background */
-        border: none; /* No border */
-        color: #fff; /* White text for visibility */
-        font-size: 1em;
-        text-align: left;
-        padding: 10px 15px; /* Adds padding for clickable area */
-        cursor: pointer;
-        display: flex; /* Align icon and text */
-        align-items: center;
-        gap: 10px; /* Spacing between icon and text */
-        width: 100%;
-        transition: background-color 0.3s ease;
-    }
+.dropdown-menu {
+right: 0;
+background-color: #1e2235; 
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+min-width: 150px; 
+padding: 10px 5px;
+display: flex;
+flex-direction: row;
+}
 
-        .dropdown-menu button:hover {
-            background-color: #26293d; /* Slightly darker for hover feedback */
-        }
+.dropdown-menu button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    text-align: left;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu button:hover {
+    background-color: #26293d;
+}
 
 .dropdown-icon {
-    font-size: 1.2em; /* Slightly smaller than the tridot */
-    color: #816898; /* Matches icon color */
+    font-size: 1.2em; 
+    color: #816898; 
 }
 
 .activation{
@@ -297,3 +278,17 @@
     cursor: pointer;
     transform: scale(1.01);
 }
+
+
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .weather-info {
+        flex: 1;
+        margin-top: 20px;
+    }
+}
+

@@ -5,24 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="863f526e-4f20-4a0e-8de4-cbe194a5d4af" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/frontendFinal.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/HomepageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/HomepageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UlaznicaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/controller/UlaznicaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/OglasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/OglasRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/UlaznicaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/SporRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/repository/SporRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AdminService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/OglasService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SporService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/SporService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/UlaznicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/UlaznicaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/Swappet/service/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdminOglasi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdminOglasi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdminReported.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdminReported.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdminTransakcije.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdminTransakcije.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AdvertisementsPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Card.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/GoogleLoginBtn.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/GoogleLoginBtn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SelectionPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SelectionPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/StartPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/StartPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/UserOglasi.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserOglasi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/UserRazmjene.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserRazmjene.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/UserTransakcije.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/UserTransakcije.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/createEvent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/createEvent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/AdminOglasi.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/AdminOglasi.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/AdminReported.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/AdminReported.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/AdminTransakcije.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/AdminTransakcije.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/AdvertisementsPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/AdvertisementsPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/Card.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/Card.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/GoogleLoginBtn.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/SelectionPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/SelectionPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/StartPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/StartPage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/UserOglasi.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/UserOglasi.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/UserRazmjene.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/UserRazmjene.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/UserTransakcije.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/UserTransakcije.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/css/createEvent.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/css/createEvent.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,34 +95,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
-    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.SwappetApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
+    "Notification.DoNotAsk-Database detector": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.SwappetApplication.executor": "Run",
+    "git-widget-placeholder": "Merging dev",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Goran/Documents/GitHub/Swappet/IzvorniKod/Swappet/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Goran\Documents\GitHub\Swappet\IzvorniKod\Swappet\src\main\java\Swappet" />
@@ -212,7 +235,7 @@
       <workItem from="1737641594153" duration="715000" />
       <workItem from="1737654446479" duration="5331000" />
       <workItem from="1737669192083" duration="20000" />
-      <workItem from="1737717039088" duration="297000" />
+      <workItem from="1737717039088" duration="6970000" />
     </task>
     <servers />
   </component>

@@ -27,7 +27,6 @@ public class AdminController {
         return ResponseEntity.ok(admini);
     }
 
-    //http://localhost:8080/endpoint?param1=value1&param2=value2
     //ruta za dodavanje novih admina u bazu
     @GetMapping("/add")
     public ResponseEntity<String> addAdmin(@RequestParam String admin, @RequestParam String email) {
@@ -117,7 +116,6 @@ public class AdminController {
     @PostMapping("/ban/{email}")
     public ResponseEntity<String> userBan(@RequestBody BanRequest banRequest, @PathVariable String email) {
         if (checkAdmin(email)) {
-            System.out.println("Mail: " + banRequest.getEmail());
             adminService.banUser(banRequest.getEmail(), banRequest.getBan());
             if (banRequest.getBan() > 0) {
                 return ResponseEntity.ok("User freed");

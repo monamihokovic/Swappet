@@ -17,7 +17,7 @@ public class UlaznicaController {
     @Autowired
     private UlaznicaService ulaznicaService;
 
-    // Fetch all Ulaznica records
+    // vraća sve ulaznice iz baze
     @GetMapping("/all")
     public ResponseEntity<List<Ulaznica>> getAllUlaznice() {
         List<Ulaznica> ulaznice = ulaznicaService.getAllUlaznice();
@@ -41,8 +41,6 @@ public class UlaznicaController {
                 request.getDecision()
         );
 
-        System.out.println("Odluka: " + request.getDecision());
-
         if (request.getDecision() == 1) {
             return ResponseEntity.ok("Ulaznica/e uspješno razmjenjene");
         } else {
@@ -60,6 +58,7 @@ public class UlaznicaController {
         return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
     }
 
+    //vraća sve oglase za razmjenu od zadanog korisnika
     @PostMapping("/razmjene")
     public ResponseEntity<List<Oglas>> retrieveExchangeAds(@RequestBody Map<String, String> payload) {
         String mail = payload.get("mail");
