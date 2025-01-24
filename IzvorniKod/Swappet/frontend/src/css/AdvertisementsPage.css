@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
 .advertisements-page {
     background: rgb(65,67,97);
     background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
@@ -6,165 +7,179 @@
     min-height: 100vh;
 }
 
-.header{
-    background-color: #e8e5e7;
-    display: flex;
-    justify-content: left;
-}
-
-.profile{
-    display: flex;
-    height: 20px;
-    align-items: center;
-    margin-top: 1.5em;
-    margin-left: 30px;
-    justify-content: space-between;
-    gap: 15px;
-    margin-right: 50px;
-    cursor: pointer;
-}
-
-.pfp{
-    width: 50px;
-    border-radius: 50%;
-}
-
-.username{
-    color: #65696b;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.profile:hover{
-    filter:brightness(0.7)
-}
-
-.logo{
-    font-family: 'League Spartan', sans-serif;
-    font-weight: bolder;
-    float: right;
-    font-size: 4em;
-    align-self: center;
-    margin-left: auto;
-    color: #816898;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
-#usklicnik{
-    color: #9aa0a3;
-}
-
 .filter{
-    background-color: #e8e5e7;
+    background-color: rgba(38, 41, 61, 0.9);   
     width: 250px;
     margin: 10px;
     border-radius: 20px;
-    height: 370px;
+    min-height: 400px;
+    max-height: 400px;
     min-width: 250px;
+    height: contain;
+    display: flex;
+    flex-flow: column;
 }
 
-.imeFiltra{
-    color: #26293d;
+.filter-name{
+    color: #e8e5e7;
     font-weight: bold;
     text-align: center;
     font-size: 1.2em;
+    margin-top: 10px;
 }
-.lista{
-    color: #26293d;
+
+.lista {
+    color: #e8e5e7;
     margin-left: 10px;
     font-weight: bold;
     font-size: 1.1em;
     margin-top: 10px;
 }
-li{
-    color: #65696b;
+li {
+    cursor: pointer;
     list-style-type: none;
     margin-left: 20px;
 }
-li:hover{
-    color: #26293d;
-    font-weight: bold;
-}
-li.selected{
-    color: #26293d;
+li:hover {
+    color: #816189;
     font-weight: bold;
 }
 
-.price-range{
-    color: #26293d;
+li.selected {
+    color: #816189;
+    font-weight: bold;
+}
+
+.price-range {
+    color: #e8e5e7;
     font-size: 1.1em;
     font-weight: bold;
     margin-left: 20px;
     display: flex;
     flex-direction: column;
-    margin-top: 2em;
-}
-#price-value{
-    color: #65696b;
-    text-align: center;
+    margin-top: 1em;
+    background-color: transparent;
 }
 
-.price-range input[type="range"]{
+.price {
+    margin-bottom: 10px;
+}
+
+#price-value {
+    color: #e8e5e7;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.price-range input[type="range"] {
     width: 90%;
     -webkit-appearance: none;
+    background: transparent; 
 }
 
-.price-range input[type="range"]::-webkit-slider-runnable-track{
-    background: #26293d;
+
+.price-range input[type="range"]::-webkit-slider-runnable-track {
+    background: #656565;
+    height: 6px; /* Visina slider tracka */
     border-radius: 10px;
-}
-
-.price-range input[type="range"]::-webkit-slider-thumb{
-    background: #65696b;
     cursor: pointer;
 }
 
-.price-range input[type="range"]::-moz-range-track{
-    background: #816898;
+
+.price-range input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    background: #e8e5e7; 
+    border: none; 
+    border-radius: 50%; 
+    cursor: pointer;
+    position: relative;
+    margin-top: -7px;
 }
 
-.price-range input[type="range"]::-moz-range-thumb{
-    background: #9aa0a3;
+/* Stil za Firefox */
+.price-range input[type="range"]::-moz-range-track {
+    background: #656565;
+    height: 6px;
+    border-radius: 10px;
 }
 
-.container{
+.price-range input[type="range"]::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    background: #e8e5e7;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Dodatni stilovi za Edge */
+.price-range input[type="range"]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+    height: 6px;
+}
+
+.price-range input[type="range"]::-ms-thumb {
+    height: 20px;
+    width: 20px;
+    background: #e8e5e7;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.liked-disliked{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around
+}
+.liked-disliked button{
+    background-color: #656565;
+    color: #e8e5e7;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.liked-disliked button:hover{
+    background-color: #816189;
+    color: #e8e5e7;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+.liked-disliked button.active{
+    background-color: #e8e5e7;
+    color: #816189;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
     gap: 20px;
     margin-right: 20px;
 }
-
-.cards-container{
+.cards-container {
     flex-grow: 1;
     margin-right: 20px;
 }
-
-.createEvent{
-   margin-left: 20px;
-   background-color: #816898;
-   border: none;
-   border-radius: 20px;
-   width: 100px;
-   height: 50px;
-   align-self: center;
-   color:#e8e5e7;
-   cursor: pointer;
-   transition: background-color 0.3s;
-}
-
-.createEvent:hover{
-    background-color: #26293d;
-    color: #816898;
-}
-
-.hidden{
-    display: none;
-}
-
-.no-events-message{
+.no-events-message {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
     margin-top: 20px;
 }
+

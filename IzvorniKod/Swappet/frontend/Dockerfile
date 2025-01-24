@@ -3,7 +3,7 @@ FROM nginx:alpine
 COPY build /usr/share/nginx/html
 
 # Izlozi port
-EXPOSE 8081
+EXPOSE 80
 
 # Kopira konfiguraciju nginx-a
 COPY nginx.conf /etc/nginx/conf.d/default.template

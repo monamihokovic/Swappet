@@ -4,11 +4,11 @@ import Swappet.model.Korisnik;
 import Swappet.model.Oglas;
 import Swappet.model.TipDog;
 import Swappet.model.Ulaznica;
-import Swappet.service.KorisnikServiceImpl;
+import Swappet.service.UserService;
 import Swappet.service.OglasService;
 import Swappet.repository.TipDogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +28,10 @@ public class OglasController {
     private OglasService oglasService;
 
     @Autowired
-    private KorisnikServiceImpl korisnikServiceImpl;
+    private UserService userService;
 
     //dodavanje oglasa u bazu
-    @PostMapping("")
+    @PostMapping("/add")
     public Oglas addOglas(@RequestBody OglasRequest oglasRequest, @AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
             throw new RuntimeException("User not authenticated");
@@ -40,13 +40,13 @@ public class OglasController {
         // izvadimo korisničke podatke iz principal objekta
         String email = principal.getAttribute("email");
 
-        // Provjera ako email iz principal-a nije prisutan
+        // provjera ako email iz principal-a nije prisutan
         if (email == null || email.isEmpty()) {
             throw new RuntimeException("Email is missing from user principal");
         }
 
-        // Proveravamo da li korisnik postoji u bazi
-        Korisnik korisnik = korisnikServiceImpl.findUserByEmail(email);
+        // Provjeravamo postoji li korisnik u bazi
+        Korisnik korisnik = userService.findUserByEmail(email);
         if (korisnik == null) {
             throw new RuntimeException("User not found for email: " + email);
         }
@@ -55,10 +55,20 @@ public class OglasController {
         String description = oglasRequest.getDescription();
         Integer categoryId = oglasRequest.getCategoryId();
         Double price = oglasRequest.getPrice();
+        Integer numberOfTickets = oglasRequest.getNumberOfTickets();
         String street = oglasRequest.getStreet();
         String houseNumber = oglasRequest.getHouseNumber();
         String city = oglasRequest.getCity();
         String date = oglasRequest.getDate();
+        Integer ticketType = oglasRequest.getTicketType();
+        Integer transactionType = oglasRequest.getTransactionType();
+        String tradeDescription = oglasRequest.getTradeDescription();
+        Integer red = oglasRequest.getRed();
+        Integer broj = oglasRequest.getBroj();
+
+        if (numberOfTickets == null || numberOfTickets == 0) {
+            numberOfTickets = 1;
+        }
 
         // parsiraj datum
         LocalDateTime eventDate;
@@ -75,21 +85,41 @@ public class OglasController {
         oglas.setGrad(city);
         oglas.setKucnibr(houseNumber);
         oglas.setOpis(description);
-        oglas.setTipOglas(categoryId);
-        oglas.setAktivan(1);
-        oglas.setOpisZamjene("");
+        oglas.setTipOglas(transactionType);
+        oglas.setAktivan(numberOfTickets);
         oglas.setKorisnik(korisnik);
 
-        // Napraviti objekat Ulaznica
-        Ulaznica ulaznica = new Ulaznica();
-        ulaznica.setCijena(price);
-        ulaznica.setVrstaUlaznice(null);
-        ulaznica.setRed(null);
-        ulaznica.setBroj(null);
-        ulaznica.setOglas(oglas);
+        if (!tradeDescription.isEmpty()) {
+            oglas.setOpisZamjene(tradeDescription);
+        } else {
+            oglas.setOpisZamjene("");
+        }
+
+        // Napraviti objekte za svaku ulaznicu
 
         List<Ulaznica> ulaznice = new ArrayList<>();
-        ulaznice.add(ulaznica);
+
+        for (int i = 0; i < numberOfTickets; i++) {
+            Ulaznica ulaznica = new Ulaznica();
+            ulaznica.setCijena(price);
+            ulaznica.setVrstaUlaznice(ticketType);
+
+            if (red != null) {
+                ulaznica.setRed(red);
+            } else {
+                ulaznica.setRed(-1);
+            }
+
+            if (broj != null) {
+                ulaznica.setBroj(broj);
+            } else {
+                ulaznica.setBroj(-1);
+            }
+
+            ulaznica.setOglas(oglas);
+
+            ulaznice.add(ulaznica);
+        }
 
         // Spremiti TipDog
         TipDog tipDog = tipDogRepository.findById(categoryId)
@@ -97,5 +127,19 @@ public class OglasController {
 
         // Spremiti Oglas i Ulaznicu u bazu
         return oglasService.saveOglasWithDetails(oglas, tipDog, ulaznice);
+    }
+
+    // spremanje interakcije
+    @PostMapping("/interact")
+    public ResponseEntity<String> interactWithOglas(@RequestParam String email, @RequestParam Integer idOglas, @RequestParam Integer action) {
+        oglasService.saveUserInteraction(email, idOglas, action);
+        return ResponseEntity.ok("Interakcija s oglasom uspješno spremljena.");
+    }
+
+    // dohvaćanje filtriranih oglasa
+    @GetMapping("/filtered")
+    public ResponseEntity<List<OglasDTO>> getFilteredOglasi(@RequestParam String email) {
+        List<OglasDTO> oglasi = oglasService.getAllOglasi(email);
+        return ResponseEntity.ok(oglasi);
     }
 }

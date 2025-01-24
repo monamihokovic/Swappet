@@ -10,6 +10,12 @@ public class OglasRequest {
     private String city;    //grad
     private String date; // datum događaja
     private String email; // email ulogiranog korisnika
+    private Integer numberOfTickets; // broj ulaznica
+    private Integer ticketType; // tip ulaznice
+    private Integer transactionType; //tip transakcije -> prodaja, zamjena ili lanac
+    private String tradeDescription; //opis zamjene-
+    private Integer red; //red sjedala, optional
+    private Integer broj; //broj sjedala, optional
 
 
     public String getDescription() {
@@ -74,5 +80,53 @@ public class OglasRequest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public void setNumberOfTickets(Integer numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
+    }
+
+    public Integer getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(Integer ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public Integer getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(Integer transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public String getTradeDescription() {
+        return tradeDescription;
+    }
+
+    public void setTradeDescription(String tradeDescription) {
+        this.tradeDescription = tradeDescription;
+    }
+
+    public Integer getBroj() {
+        return broj;
+    }
+
+    public void setBroj(Integer broj) {
+        this.broj = broj;
+    }
+
+    public Integer getRed() {
+        return red;
+    }
+
+    public void setRed(Integer red) {
+        this.red = red;
     }
 }

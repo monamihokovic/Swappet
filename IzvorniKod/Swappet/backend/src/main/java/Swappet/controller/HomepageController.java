@@ -1,6 +1,8 @@
 package Swappet.controller;
 
+import Swappet.model.Spor;
 import Swappet.service.OglasService;
+import Swappet.service.SporService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +14,23 @@ import java.util.List;
 @RequestMapping("/homepage")
 public class HomepageController {
 
-    // Homepage: trebaš primiti od frontenda kategorije za oglase,
-    // ubaciti upit u bazu i vratiti na frontend oglase iz tih kategorija
-
     @Autowired
     private OglasService oglasService;
 
     private List<OglasDTO> storedOglasiData;
 
+    @Autowired
+    private SporService sporService;
+
     // nova verzija, oglasi po kategoriji uz cijenu ulaznice
-    @PostMapping("/oglas")
-    public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories) {
-        List<OglasDTO> oglasi = oglasService.getOglasWithCijenaByCategories(categories);
-        storedOglasiData = oglasi;
+    @PostMapping("/oglas/{email}")
+    public ResponseEntity<Void> getOglasWithCijenaByCategories(@RequestBody List<Integer> categories, @PathVariable String email) {
+
+        if (!email.equals("undefined")) {
+            storedOglasiData = oglasService.getOglasWithCijenaByCategories(categories, email);
+        } else {
+            storedOglasiData = oglasService.getOglasWithCijenaByCategories(categories, null);
+        }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -36,5 +42,13 @@ public class HomepageController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // If no data found
         }
+    }
+
+    // kreiraj novi spor, prijavi korisnika
+    @PostMapping("/dispute")
+    public ResponseEntity<Spor> createSpor(@RequestParam String tuzioEmail, @RequestParam String tuzeniEmail) {
+        System.out.println("Tuzenik: " + tuzeniEmail);
+        Spor spor = sporService.createSpor(tuzioEmail, tuzeniEmail);
+        return ResponseEntity.ok(spor);
     }
 }

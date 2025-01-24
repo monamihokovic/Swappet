@@ -1,6 +1,7 @@
 package Swappet.model;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -21,12 +22,25 @@ public class Transakcija {
     @ManyToOne
     @JoinColumn(name = "idulaznica", nullable = false)
     private Ulaznica ulaznica;
+    
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "idnadtransakcija", referencedColumnName = "idnadtransakcija")
+    private Nadtransakcija nadtransakcija;
+
 
     public Transakcija(Integer uspjesna, Ulaznica ulaznica, LocalDateTime dvPocetak) {
         this.uspjesna = uspjesna;
         this.ulaznica = ulaznica;
         this.dvPocetak = dvPocetak;
     }
+
+    public Transakcija(Integer uspjesna, Ulaznica ulaznica, LocalDateTime dvPocetak, Nadtransakcija nadtransakcija) {
+        this.uspjesna = uspjesna;
+        this.ulaznica = ulaznica;
+        this.dvPocetak = dvPocetak;
+        this.nadtransakcija = nadtransakcija;
+    }
+
 
     public Transakcija() {
     }
@@ -57,6 +71,14 @@ public class Transakcija {
 
     public Integer getIdTransakcija() {
         return idTransakcija;
+    }
+
+    public Nadtransakcija getNadtransakcija() {
+        return nadtransakcija;
+    }
+
+    public void setNadtransakcija(Nadtransakcija nadtransakcija) {
+        this.nadtransakcija = nadtransakcija;
     }
 
 }

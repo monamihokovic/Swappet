@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+.create-event-page {
+    background: rgb(65,67,97);
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
+    color: #ffffff;
+    min-height: 100vh;
+}
+.event-creator{
+    background-color: #26293d;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 20px;
+}
+
+.novi-dogadaj{
+    flex-basis: 100%;
+    margin-left: 20px; 
+    text-align: center;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 40px;
+}
+
+.container1,
+.container2 {
+    flex: 1 1 45%;
+    box-sizing: border-box;
+    margin: 20px;
+}
+
+.info{
+    font-size: 25px;
+    font-weight: bold;
+    color: #e8e5e7;
+    margin-bottom: 10px;
+}
+
+.input{
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.kategorija-input label{
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #816898;
+    
+}
+.kategorija-input,
+.opis-input{
+    margin-right: 27px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.opis-input:hover{
+    cursor: pointer;
+}
+.kategorija-input:hover
+{
+    margin-right: 27px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    color: #816898;
+}
+
+.submit {
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #816898;
+    transition: background-color 0.3s;
+    margin-top: 20px; 
+    
+}
+
+.submit:hover {
+    color: #816898;
+    background-color: #ffffff;
+}

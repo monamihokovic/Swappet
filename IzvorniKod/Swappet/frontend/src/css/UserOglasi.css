@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+.user-page {
+    background: rgb(65,67,97);
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
+    color: #ffffff;
+    min-height: 100%; 
+    font-family: 'League Spartan', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#oglasi{
+    font-family: 'League Spartan', sans-serif;
+    font-size: 4em;
+    margin-top: 20px;
+    justify-self: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#oglasi:hover{
+    color: #26293d;
+}
+
+.oglasi{
+    background-color: rgba(38, 41, 61, 0.4);
+    padding: 0.5em;
+    border-radius: 30px;
+}

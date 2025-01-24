@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Card from "./Card";
 import "../css/AdvertisementsPage.css";
-import { FaSearch } from "react-icons/fa";
 import axios from "axios";
+import Header from "./Header";
+import Card from "./Card";
 
-const defaultProfilePic = "/defaultpfp.jpg";
+const AdvertisementsPage = () => {
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
+    const [ads, setAds] = useState([]); //inicijalizacija oglasa
+    const [ulaznice, setUlaznice] = useState([]); //inicijalizacija ulaznica
+    const [price, setPrice] = useState(100); //inicijalizacija 'default' cijene na filtru
+    const [selectedCategories, setSelectedCategories] = useState([]); //inicijalizacija odabranih kategorija
+    const [searchTerm] = useState(""); //hmm nisam sto posto
+    const [likedFilter, setLikedFilter] = useState(false); //za prikaz lajkanih oglasa
+    const [dislikedFilter, setDislikedFilter] = useState(false); //za prikaz dislajkanih oglasa
 
-const AdvertisementsPage = ({ profilePic }) => {
-    const navigate = useNavigate();
-
-    const handleCreate = () => {
-        navigate("/createEvent");
-    };
-
-    const [user, setUser] = useState(null);
-    const [ads, setAds] = useState([]);
-    const [categories] = useState([1, 2, 3]);
-    const [price, setPrice] = useState(50);
-    const [selectedCategories, setSelectedCategories] = useState([]);
-
-    // Fetch user information
+    //dohvat informacija o korisniku
     useEffect(() => {
         axios
-            .get("http://localhost:8081/user-info", {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/user-info`, {
                 withCredentials: true,
             })
-            .then((response) => setUser(response.data))
+            .then((response) => {
+                setUser(response.data);
+            })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     setUser(null);
@@ -34,25 +30,37 @@ const AdvertisementsPage = ({ profilePic }) => {
                     console.error("Error occurred: ", error);
                 }
             });
-    }, []);
+    }, [user]);
 
-    // Fetch advertisements from the backend
+    //dohvat oglasa i karti
     useEffect(() => {
-        axios
-            .get("http://localhost:8081/homepage/advertisements", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((response) => {
-                setAds(response.data); // Assuming the response is the List<OglasDTO>
+        const fetchAds = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`,
+            {
+                withCredentials: true,
+            }
+        );
+        const fetchTickets = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`,
+            {
+                withCredentials: true,
+            }
+        );
+
+        Promise.all([fetchAds, fetchTickets])
+            .then(([adsResponse, ticketsResponse]) => {
+                setAds(adsResponse.data);
+                setUlaznice(ticketsResponse.data);
+
+                console.log("Fetchani oglasi: ", adsResponse.data);
+                console.log("Fetchane karte: ", ticketsResponse.data);
             })
             .catch((error) => {
-                console.error("Error fetching ads:", error);
+                console.error("Error fetching data: ", error);
             });
-    }, [categories]);
+    }, []);
 
-    // Handle category selection
+    //rukovanje odabranim kategorijama
     const handleCategoryClick = (category) => {
         setSelectedCategories((prevSelectedCategories) => {
             if (prevSelectedCategories.includes(category)) {
@@ -63,58 +71,53 @@ const AdvertisementsPage = ({ profilePic }) => {
         });
     };
 
-    // Filter ads based on price and selected categories
-    const filteredAds = ads.filter((ad) => {
-        const priceFilter = ad.price <= price;
+    //filtriranje oglasa
+    const filteredTickets = ulaznice.filter((ticket) => {
+        const ad = ads.find((ad) => ad.id === ticket.oglas.idOglas);
+        const eventType = ad ? ad.eventType : null;
+        const priceFilter = ticket.cijena <= price;
         const categoryFilter =
             selectedCategories.length === 0 ||
-            selectedCategories.includes(ad.type);
-        return priceFilter && categoryFilter;
+            (eventType !== null && selectedCategories.includes(eventType));
+        const searchFilter =
+            searchTerm.trim() === "" ||
+            (ad &&
+                ad.description
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()));
+
+        return priceFilter && categoryFilter && searchFilter;
     });
+
+    const filteredAdsWithTickets = ads
+        .map((ad) => {
+            const associatedTickets = filteredTickets.filter(
+                (ticket) => ticket.oglas.idOglas === ad.id
+            );
+
+            return { ...ad, tickets: associatedTickets };
+        })
+        .filter((adWithTickets) => adWithTickets.tickets.length > 0)
+        .filter((ad) => {
+            if (likedFilter && dislikedFilter) {
+                return ad.liked === 1 || ad.liked === -1;
+            } else if (likedFilter) {
+                return ad.liked === 1;
+            } else if (dislikedFilter) {
+                return ad.liked === -1;
+            } else {
+                return ad.liked === 1 || ad.liked === 0;
+            }
+        });
 
     return (
         <div className="advertisements-page">
-            <div className="header">
-                <div className="profile">
-                    <img
-                        src={profilePic || defaultProfilePic}
-                        alt="Profile"
-                        className="pfp"
-                        onError={(e) => {
-                            e.target.src = defaultProfilePic;
-                        }}
-                    />
-                    <div className="username">{user ? user.name : "gost"}</div>
-                </div>
-
-                <div className="search-bar">
-                    <FaSearch className="search-icon" />
-                    <input
-                        id="pretraga"
-                        type="text"
-                        placeholder="Pretraži događaje..."
-                    />
-                </div>
-
-                <button
-                    className={user ? "createEvent" : "createEvent hidden"} // Conditionally hide the button when not logged in
-                    onClick={handleCreate}
-                    disabled={!user} // Disable the button when user is not logged in
-                >
-                    Dodaj događaj
-                </button>
-
-                <div className="logo">
-                    S<span id="usklicnik">!</span>
-                </div>
-            </div>
-
+            <Header></Header>
             <div className="container">
                 <div className="filter">
-                    <div className="imeFiltra">Filter događaja</div>
-
-                    <div className="Vrsta">
-                        <div className="lista">Vrsta</div>
+                    <div className="filter-name">Filter oglasa</div>
+                    <div className="filter-kategorija">
+                        <div className="lista">Kategorija</div>
                         {[
                             "Koncert",
                             "Izložba",
@@ -141,7 +144,9 @@ const AdvertisementsPage = ({ profilePic }) => {
                     </div>
 
                     <div className="price-range">
-                        <label htmlFor="price">Cijena:</label>
+                        <label htmlFor="price" className="price">
+                            Cijena:{" "}
+                        </label>
                         <input
                             type="range"
                             id="price"
@@ -152,22 +157,46 @@ const AdvertisementsPage = ({ profilePic }) => {
                             onChange={(e) => setPrice(e.target.value)}
                             step="1"
                         />
-                        <span id="price-value">{price}</span>
+                        <span id="price-value">{price}€</span>
                     </div>
+                    {user && (
+                        <div className="liked-disliked">
+                            <button
+                                className={likedFilter ? "active" : ""}
+                                onClick={() => setLikedFilter(!likedFilter)}
+                            >
+                                Liked
+                            </button>
+                            <button
+                                className={dislikedFilter ? "active" : ""}
+                                onClick={() =>
+                                    setDislikedFilter(!dislikedFilter)
+                                }
+                            >
+                                Disliked
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 <div className="cards-container">
-                    {filteredAds.length === 0 ? (
+                    {filteredAdsWithTickets.length === 0 ? (
                         <div className="no-events-message">
-                            Nema još takvih događaja... :(
+                            {" "}
+                            Nema još takvih oglasa... :({" "}
                         </div>
                     ) : (
-                        filteredAds.map((ad) => <Card key={ad.id} ad={ad} />)
+                        filteredAdsWithTickets.map((adWithTickets) => (
+                            <Card
+                                key={adWithTickets.id}
+                                ad={adWithTickets}
+                                tickets={adWithTickets.tickets}
+                            ></Card>
+                        ))
                     )}
                 </div>
             </div>
         </div>
     );
 };
-
 export default AdvertisementsPage;

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap');
+
+.admin-page {
+    background: rgb(65,67,97);
+    background: linear-gradient(180deg, rgb(89, 90, 130) 10%, #26293d 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: 'League Spartan', sans-serif; 
+}
+
+#reported{
+    font-family: 'League Spartan', sans-serif;
+    font-size: 4em;
+    margin-top: 20px;
+    justify-self: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#reported:hover{
+    color: #26293d;
+}
+.korisnik{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: max-content;
+    min-width: 150px;
+    max-width: 200px;
+    max-height: 150px;
+    background-color: #26293d;
+    padding: 1em;
+    transition: background-color 0.3s;
+}
+.korisnik:hover{
+    transform: scale(1.01);
+    background-color: #816189;
+}
+
+.useri{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: rgba(38, 41, 61, 0.4);
+    padding: 2em;
+    border-radius: 30px;  
+}
+
+#email{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.ban-button{
+    margin: 10px;
+    padding: 0.5em;
+    border: none;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+}
+.ban-button:hover{
+    cursor: pointer;
+    background-color: #26293d;
+    color: #816189;
+}
