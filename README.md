@@ -65,11 +65,11 @@ Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju k
 
 ## Članovi tima 
 > Ivan Vjekoslav Rođak - voditelj, backend  
-> Goran Torbica - backend  
+> Goran Torbica - backend, deployment  
 > Mona Mihoković - backend, dokumentacija  
 > Patrick Mraz - frontend  
 > Maja Blažok - frontend  
-> Dominik Mandić - baza podataka i vanjski resursi  
+> Dominik Mandić - baza podataka, vanjski resursi, dokumentacija  
 > Paško Zekić - dokumentacija  
 
 ## Kontribucije
