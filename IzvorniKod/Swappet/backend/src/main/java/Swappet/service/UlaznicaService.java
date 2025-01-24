@@ -98,6 +98,7 @@ public class UlaznicaService {
             Integer transakcija = ulazniceZaRazmjenu.get(i);
             JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, sellerEmail);
             jeUkljucen.setOdluka(decision);
+            jeUkljucenRepository.save(jeUkljucen);
         }
 
         //pošalji mail uključenim korisnicima
