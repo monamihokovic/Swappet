@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../css/Header.css";
-import axios from "axios";
 import { FaSignOutAlt } from "react-icons/fa";
+import axios from "axios";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 
@@ -125,19 +125,21 @@ const Header = () => {
                 <div className="admin-menu">
                     <button
                         className="admin-option"
-                        onClick={() => navigate(`/admin/oglasi`)}
+                        onClick={() => navigate(`/admin/oglasi/${user?.email}`)}
                     >
                         Pregledaj sve oglase
                     </button>
                     <button
                         className="admin-option"
-                        onClick={() => navigate(`/admin/transakcije`)}
+                        onClick={() =>
+                            navigate(`/admin/transakcije/${user?.email}`)
+                        }
                     >
                         Pregledaj sve transakcije
                     </button>
                     <button
                         className="admin-option"
-                        onClick={() => navigate(`/admin/guilty`)}
+                        onClick={() => navigate(`/admin/guilty/${user?.email}`)}
                     >
                         Pregledaj prijavljene korisnike
                     </button>
@@ -146,7 +148,7 @@ const Header = () => {
                         onClick={() =>
                             axios
                                 .post(
-                                    `${process.env.REACT_APP_BACKEND_URL}/admin/report`,
+                                    `${process.env.REACT_APP_BACKEND_URL}/admin/report/${user?.email}`,
                                     null,
                                     { responseType: "blob" }
                                 )

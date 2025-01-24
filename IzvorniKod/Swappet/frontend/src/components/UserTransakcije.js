@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/UserTransakcije.css";
 import axios from "axios";
 import Header from "./Header";
 
-const defaultProfilePic = "/defaultpfp.jpg";
-
 const UserTransakcije = () => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
-    const [transactions, setTransactions] = useState([]); //inicijalizacija korisnikovih transakcija
+    const [, setTransactions] = useState([]); //inicijalizacija korisnikovih transakcija
 
     //dohvat informacija o korisniku
     useEffect(() => {
@@ -46,26 +43,26 @@ const UserTransakcije = () => {
     }, [user?.email]);
 
     //uspješnost transakciej
-    const uspjesnostTransakcije = (uspjesna) => {
-        switch (uspjesna) {
-            case 0:
-                return "Čeka odluku";
-            case 1:
-                return "Uspješna";
-            case -1:
-                return "Neuspješna";
-            default:
-                return uspjesna ? "Nije definirano" : "Nije definirano";
-        }
-    };
+    // const uspjesnostTransakcije = (uspjesna) => {
+    //     switch (uspjesna) {
+    //         case 0:
+    //             return "Čeka odluku";
+    //         case 1:
+    //             return "Uspješna";
+    //         case -1:
+    //             return "Neuspješna";
+    //         default:
+    //             return uspjesna ? "Nije definirano" : "Nije definirano";
+    //     }
+    // };
 
-    return(
+    return (
         <div className="user-page">
             <Header></Header>
             <div className="container-transakcija">
                 <div id="transakcije">Sve moje transakcije</div>
                 <div className="transakcije">
-                {/*{transactions.length === 0 ? (
+                    {/*{transactions.length === 0 ? (
                         <div className="no-events-message">
                             Nema transakcija. 
                         </div>
@@ -82,82 +79,122 @@ const UserTransakcije = () => {
                             </div>
                         ))  
                     )}*/}
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
-                    <div
-                                className="transakcija"
-                                
-                            >
-                                <div className="transaction-info"><strong>ID transakcije:</strong> 213</div>
-                                <div className="transaction-info"><strong>Uspjeh transakcije:</strong> uspjesna</div>
-                                <div className="transaction-info"><strong>Početak transakcije:</strong> 23933</div>
-                                <div className="transaction-info"><strong>ID ulaznice:</strong> 23498</div>
+                    <div className="transakcija">
+                        <div className="transaction-info">
+                            <strong>ID transakcije:</strong> 213
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Uspjeh transakcije:</strong> uspjesna
+                        </div>
+                        <div className="transaction-info">
+                            <strong>Početak transakcije:</strong> 23933
+                        </div>
+                        <div className="transaction-info">
+                            <strong>ID ulaznice:</strong> 23498
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
 };
- 
+
 export default UserTransakcije;
