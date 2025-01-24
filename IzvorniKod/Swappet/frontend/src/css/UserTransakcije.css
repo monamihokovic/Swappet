@@ -7,3 +7,53 @@
     min-height: 100vh;
     font-family: 'League Spartan', sans-serif;
 }
+
+#transakcije{
+    font-family: 'League Spartan', sans-serif;
+    font-size: 4em;
+    margin-top: 20px;
+    justify-self: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#transakcije:hover{
+    color: #26293d;
+}
+
+.transakcija{
+    display: flex; 
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    width: max-content;
+    max-height: 150px;
+    background-color: #26293d;
+    padding: 1em;
+    transition: background-color 0.3s;
+
+}
+
+.transakcija:hover{
+    transform: scale(1.01);
+    background-color: #816189;
+    cursor: pointer;
+}
+
+.transakcije{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: rgba(38, 41, 61, 0.4);
+    padding: 2em;
+    border-radius: 30px;
+    
+}
+
+.transaction-info{
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 300px;
+    margin: 5px;
+}
