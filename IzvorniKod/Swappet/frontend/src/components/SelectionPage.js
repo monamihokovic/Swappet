@@ -48,6 +48,7 @@ const SelectionPage = () => {
     const handleContinueClick = () => {
         if (selectedCategoryIds.length > 0) {
             console.log("Selected category IDs:", selectedCategoryIds);
+            console.log(`${process.env.REACT_APP_BACKEND_URL}/homepage/oglas/${user?.email}`);
             axios
                 .post(
                     `${process.env.REACT_APP_BACKEND_URL}/homepage/oglas/${user?.email}`,

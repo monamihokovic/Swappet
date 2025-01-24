@@ -18,7 +18,6 @@ const UserTransakcije = () => {
             })
             .then((response) => {
                 setUser(response.data);
-                console.log("Ulogiran user: " + user);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
@@ -27,7 +26,7 @@ const UserTransakcije = () => {
                     console.error("Error occurred: ", error);
                 }
             });
-    }, [user]);
+    }, []);
 
     //dohvat korisnikovih transakcija
     useEffect(() => {

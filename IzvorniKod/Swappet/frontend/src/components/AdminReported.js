@@ -9,6 +9,8 @@ const defaultProfilePic = "/defaultpfp.jpg";
 const AdminReported=()=>{ 
     const [user, setUser] = useState(null); //inicijalizacija korisnika
     const [reportedAccounts, setReported] = useState([]); //inicijalizacija prijavljenih računa
+    
+    const navigate = useNavigate();
 
     //dohvati informacije o korisniku
     useEffect(() => {
@@ -27,7 +29,7 @@ const AdminReported=()=>{
     //dohvati reportane usere
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty/${user?.email}`, {
                 withCredentials: true,
             })
             .then((reportedResponse) => {
@@ -37,19 +39,21 @@ const AdminReported=()=>{
             .catch((error) => {
                 console.error("Error fetching reported users: ", error);
             });
-    }, []);
+    }, [user]);
     
 
     //rukovanje 'banom'
     const handleBan = (email, action) => {
         console.log("Mail korisnika: " + email);
         axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban`, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban/${user?.email}`, {
                 email: email,
                 ban: action,
             })
             .then((response) => {
                 console.log("Akcija je uspješna: ", response.data);
+                alert("Akcija uspješna!");
+                navigate(0);
             })
             .catch((error) => {
                 console.log("Došlo je do pogreške:", error);
@@ -70,8 +74,8 @@ const AdminReported=()=>{
                         reportedAccounts.map((user) => (
                             <div className="korisnik">
                                 <div id="email">Korisnik: {user}</div>
-                                <button value={1} onClick={handleBan(user, 1)} className="ban-button">Oslobodi</button>
-                                <button value={0} onClick={handleBan(user, 0)} className="ban-button">Zabrani</button>
+                                <button value={1} onClick={() => handleBan(user, 1)} className="ban-button">Oslobodi</button>
+                                <button value={0} onClick={() => handleBan(user, 0)} className="ban-button">Zabrani</button>
                             </div>
                         ))
                     )}

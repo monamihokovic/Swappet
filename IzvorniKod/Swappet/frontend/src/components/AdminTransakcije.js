@@ -30,7 +30,7 @@ const AdminTransakcije = ()=>{
     //dohvati informacije o transakcijama
     useEffect(() => {
         const fetchTransactions = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije`
+            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije/${user?.email}`
         );
 
         Promise.all([fetchTransactions])
@@ -41,7 +41,7 @@ const AdminTransakcije = ()=>{
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user]);
 
 
     //uspješnost transakcije

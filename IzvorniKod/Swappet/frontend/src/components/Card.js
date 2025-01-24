@@ -203,22 +203,13 @@ const Card=({ad, tickets}) => {
         setDropdownVisible(!dropdownVisible);
     };
 
-    //logika za filtriranje oglasa po searchu (ne znam jel ovo još potrebno, s obzirom da smo izbacili search oglasa)
+    //provjerava je li oglas za razmjenu
     const getMatchingBuyerAds = () => {
-        if (!buyerAds || !ad.tradeDescription) return [];
-
-        // Split the seller's trade description into words
-        const sellerWords = ad.tradeDescription
-            .split(/\s+/)
-            .map((word) => word.toLowerCase());
-
-        // Filter buyer ads based on common words in their 'opis' and seller's 'tradeDescription'
-        return buyerAds.filter((buyerAd) => {
-            const buyerWords = buyerAd.opis
-                .split(/\s+/)
-                .map((word) => word.toLowerCase());
-            return buyerWords.some((word) => sellerWords.includes(word)); // Check for common words
-        });
+        if (!buyerAds || !ad.tradeDescription){
+            return [];
+        }else {
+            return buyerAds;
+        }
     };
 
     //opis tipa karte
@@ -238,18 +229,19 @@ const Card=({ad, tickets}) => {
         console.log(user.email, ad.id, action);
         setSelectedAction(action);
         try {
-            if (action !== 2) {
+            if (action !== "2") {
                 const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${user.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
                
                 await axios.post(url, null, { withCredentials: true });
                
                 alert("Oglas " + ad.description + " dis/likean!");
+                navigate("/selection");
                 setDropdownVisible(false);
             } else {
-                const url = `${process.env.REACT_APP_BACKEND_URL}/oglas/interact?email=${ad.email}&idOglas=${ad.id}&action=${action}&blame=${user?.email}`;
-    
+                const url = `${process.env.REACT_APP_BACKEND_URL}/homepage/dispute?tuzioEmail=${user.email}&tuzeniEmail=${ad.email}`;
+
                 await axios.post(url, null, { withCredentials: true });
-    
+
                 alert("Korisnik prijavljen");
                 setDropdownVisible(false);
             }
@@ -280,7 +272,7 @@ const Card=({ad, tickets}) => {
                     ad.numberOfTickets
                 );
                 const response = await axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation`,
+                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation/${user?.email}`,
                     payload,
                     {
                         withCredentials: true,
@@ -368,7 +360,7 @@ const Card=({ad, tickets}) => {
                 {isAdminOrUserRoute && (
                     <button
                         className={
-                            ad.numberOfTickets === -2 || isAdvertisementsRoute
+                            ad.numberOfTickets === 0 || ad.numberOfTickets === -2 || isAdvertisementsRoute
                                 ? "activation hidden"
                                 : "activation"
                         }
