@@ -296,7 +296,7 @@ const Card = ({ ad, tickets }) => {
                     ad.numberOfTickets
                 );
                 const response = await axios.post(
-                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation`,
+                    `${process.env.REACT_APP_BACKEND_URL}/admin/activation/${user?.email}`,
                     payload,
                     {
                         withCredentials: true,
@@ -373,7 +373,7 @@ const Card = ({ ad, tickets }) => {
                 {isAdminOrUserRoute && (
                     <button
                         className={
-                            ad.numberOfTickets === -2 || isAdvertisementsRoute
+                            ad.numberOfTickets === 0 || ad.numberOfTickets === -2 || isAdvertisementsRoute
                                 ? "activation hidden"
                                 : "activation"
                         }

@@ -35,4 +35,8 @@ public interface OglasRepository extends JpaRepository<Oglas, Integer> {
     //vraća sve oglase čiji datum događanja još nije prošao
     @Query("SELECT DISTINCT o FROM Oglas o WHERE o.datum > CURRENT_DATE AND o.aktivan > 0")
     List<Oglas> findRelevantOglasi();
+
+    //izvlači iz baze sve oglase jednog korisnika
+    @Query("SELECT o FROM Oglas o WHERE o.korisnik = :korisnik")
+    List<Oglas> findUserOglasi(@Param("korisnik") Korisnik korisnik);
 }

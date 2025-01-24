@@ -80,6 +80,7 @@ public class UlaznicaService {
     // Razmjena ulaznica
     public void tradeConfirmation(Integer idOglasSeller, Integer idOglasBuyer, Integer amount, int decision) {
 
+        //nađi email korisnika, njegov oglas za razmjenu i id-jeve transakcija u kojima su njegove ulaznice koje treba potvrditi
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
         String email = sellerOglas.getKorisnik().getEmail();
         List<Integer> ulazniceZaRazmjenu = ulaznicaRepository.ulaznice(idOglasBuyer);
@@ -89,19 +90,22 @@ public class UlaznicaService {
             throw new IllegalArgumentException("Ulaznica nije označena za zamjenu.");
         }
 
+        //za svaku ulaznicu postavi odluku -> -1 za odbijanje, 1 za prihvaćanje
         for (int i = 0; i < amount; i++) {
             Integer transakcija = ulazniceZaRazmjenu.get(i);
             JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, email);
             jeUkljucen.setOdluka(decision);
-            jeUkljucenRepository.save(jeUkljucen);
         }
     }
 
+    //ovime se kreira zahtjev za razmjenu
     public void submitExchangeAd(Integer idOglasSeller, Integer idOglasBuyer, Integer amount) {
+        //prvo treba naći aktivne ulaznice koje će se koristiti u razmjeni
         List<Ulaznica> ulazniceSeller = ulaznicaRepository.findUlazniceByOglas(idOglasSeller);
         List<Ulaznica> ulazniceBuyer = ulaznicaRepository.findUlazniceByOglas(idOglasBuyer);
         Oglas oglasBuyer = oglasRepository.findByIdOglas(idOglasBuyer);
 
+        //za zadani broj ulaznica (koji dobivamo od frontenda) treba postaviti tablice u bazi
         for (int i = 0; i < amount; i++) {
             Ulaznica ulaznica = ulazniceSeller.get(i);
 
@@ -143,6 +147,7 @@ public class UlaznicaService {
 
     }
 
+    //ovom funkcijom vraćamo iz baze sve oglase nekog korisnika koje su označene za razmjenu
     public List<Oglas> getExchangeAds(String mail) {
         Korisnik korisnik = korisnikRepository.findByEmail(mail);
         List<Oglas> exchangeAds = oglasRepository.findTradesForUser(korisnik);

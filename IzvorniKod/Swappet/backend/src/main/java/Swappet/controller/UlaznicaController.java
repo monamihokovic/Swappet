@@ -37,9 +37,11 @@ public class UlaznicaController {
         ulaznicaService.tradeConfirmation(
                 request.getSellerId(),
                 request.getBuyerId(),
-                request.getDecision(),
-                request.getAmount()
+                request.getAmount(),
+                request.getDecision()
         );
+
+        System.out.println("Odluka: " + request.getDecision());
 
         if (request.getDecision() == 1) {
             return ResponseEntity.ok("Ulaznica/e uspješno razmjenjene");
@@ -54,7 +56,6 @@ public class UlaznicaController {
         Integer sellerId = payload.get("sellerAd");
         Integer buyerId = payload.get("buyerAd");
         Integer amount = payload.get("count");
-        System.out.println(amount);
         ulaznicaService.submitExchangeAd(sellerId, buyerId, amount);
         return ResponseEntity.ok("Oglas razmjene uspješno podnesen.");
     }

@@ -8,7 +8,7 @@ const defaultProfilePic = "/defaultpfp.jpg";
 const AdminReported = ({ profilePic }) => {
     const navigate = useNavigate();
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState();
     const [reportedAccounts, setReported] = useState([]);
 
     // Fetch user info
@@ -19,6 +19,7 @@ const AdminReported = ({ profilePic }) => {
             })
             .then((response) => {
                 setUser(response.data);
+                console.log("KOliko puta se zoveš?");
             })
             .catch((error) => {
                 console.error("Error occurred: ", error);
@@ -27,7 +28,7 @@ const AdminReported = ({ profilePic }) => {
 
     useEffect(() => {
         axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty`, {
+            .get(`${process.env.REACT_APP_BACKEND_URL}/admin/guilty/${user?.email}`, {
                 withCredentials: true,
             })
             .then((reportedResponse) => {
@@ -37,12 +38,12 @@ const AdminReported = ({ profilePic }) => {
             .catch((error) => {
                 console.error("Error fetching reported users: ", error);
             });
-    }, []);
+    }, [user]);
 
     const handleBan = (email, action) => {
         console.log("Mail korisnika: " + email);
         axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban`, {
+            .post(`${process.env.REACT_APP_BACKEND_URL}/admin/ban/${user?.email}`, {
                 email: email,
                 ban: action,
             })

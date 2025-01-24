@@ -19,7 +19,6 @@ function UserRazmjene({ profilePic }) {
             })
             .then((response) => {
                 setUser(response.data);
-                //console.log("User email:", response.data.email);
             })
             .catch((error) => {
                 console.error("Error occurred: ", error);

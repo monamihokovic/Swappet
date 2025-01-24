@@ -238,7 +238,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                             onClick={() =>
                                 axios
                                     .post(
-                                        `${process.env.REACT_APP_BACKEND_URL}/admin/report`,
+                                        `${process.env.REACT_APP_BACKEND_URL}/admin/report/${user?.email}`,
                                         null,
                                         {
                                             responseType: "blob", // Important: Ensure the response is treated as a binary Blob
@@ -363,7 +363,7 @@ const AdvertisementsPage = ({ profilePic }) => {
                 <div className="cards-container">
                     {filteredAdsWithTickets.length === 0 ? (
                         <div className="no-events-message">
-                            Nema još takvih događaja... :(
+                            Nema još takvih događaja... :
                         </div>
                     ) : (
                         filteredAdsWithTickets.map((adWithTickets) => (

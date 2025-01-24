@@ -29,7 +29,7 @@ const AdminOglasi = () => {
 
     useEffect(() => {
         const fetchAds = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/oglasi`
+            `${process.env.REACT_APP_BACKEND_URL}/admin/oglasi/${user?.email}`
         );
         const fetchTickets = axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`
@@ -44,7 +44,7 @@ const AdminOglasi = () => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user]);
 
 
 

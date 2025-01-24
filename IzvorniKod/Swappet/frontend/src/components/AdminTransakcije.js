@@ -26,7 +26,7 @@ const AdminTransakcije = ({ profilePic }) => {
 
     useEffect(() => {
         const fetchTransactions = axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije`
+            `${process.env.REACT_APP_BACKEND_URL}/admin/transakcije/${user?.email}`
         );
 
         Promise.all([fetchTransactions])
@@ -37,7 +37,7 @@ const AdminTransakcije = ({ profilePic }) => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
-    }, []);
+    }, [user]);
 
     const uspjesnostTransakcije = (uspjesna) => {
         switch (uspjesna) {
