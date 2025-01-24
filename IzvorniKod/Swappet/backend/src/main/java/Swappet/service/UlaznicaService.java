@@ -84,6 +84,8 @@ public class UlaznicaService {
         Oglas sellerOglas = oglasRepository.findByIdOglas(idOglasSeller);
         Oglas buyerOglas = oglasRepository.findByIdOglas(idOglasBuyer);
 
+        int numberOfTickets = 0;
+
         String sellerEmail = sellerOglas.getKorisnik().getEmail();
         String buyerEmail = buyerOglas.getKorisnik().getEmail();
         List<Integer> ulazniceZaRazmjenu = ulaznicaRepository.ulaznice(idOglasBuyer);
@@ -99,11 +101,15 @@ public class UlaznicaService {
             JeUkljucen jeUkljucen = jeUkljucenRepository.findByIdTransakcija(transakcija, sellerEmail);
             jeUkljucen.setOdluka(decision);
             jeUkljucenRepository.save(jeUkljucen);
+
+            if (decision == 1) {
+                numberOfTickets++;
+            }
         }
 
         //pošalji mail uključenim korisnicima
-        if (amount > 0) {
-            emailService.notifySuccessfulExchange(sellerEmail, buyerEmail, sellerOglas.getOpis(), buyerOglas.getOpis(), amount);
+        if (numberOfTickets > 0) {
+            emailService.notifySuccessfulExchange(sellerEmail, buyerEmail, sellerOglas.getOpis(), buyerOglas.getOpis(), numberOfTickets);
         }
     }
 
