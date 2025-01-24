@@ -4,11 +4,12 @@ import "../css/CreateEvent.css";
 import axios from "axios";
 import Header from "./Header";
 
-const defaultProfilePic = "/defaultpfp.jpg"; 
+const defaultProfilePic = "/defaultpfp.jpg";
 
-const CreateEvent = ({username, profilePic}) =>{
+const CreateEvent = ({ username, profilePic }) => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
-    const [eventDetails, setEventDetails] = useState({ //inicijalizacija podatakaq o događaju
+    const [eventDetails, setEventDetails] = useState({
+        //inicijalizacija podatakaq o događaju
         name: "",
         category: "",
         date: "",
@@ -20,7 +21,7 @@ const CreateEvent = ({username, profilePic}) =>{
         city: "",
         numberOfTickets: "",
         ticketType: "",
-        transactionType: "1", 
+        transactionType: "1",
         tradeDescription: "",
     });
     const [seats, setSeats] = useState([]); //inicijalizacija reda i broja sjedala
@@ -118,9 +119,9 @@ const CreateEvent = ({username, profilePic}) =>{
             tradeDescription:
                 eventDetails.transactionType === "0"
                     ? eventDetails.tradeDescription
-                    : "", 
+                    : "",
             email: user?.email,
-            red: seats[0].row, 
+            red: seats[0].row,
             broj: seats[0].seat,
         };
 
@@ -156,17 +157,13 @@ const CreateEvent = ({username, profilePic}) =>{
         Ostalo: 9,
     };
 
-    
-
-
-    return(
+    return (
         <div className="create-event-page">
             <Header></Header>
 
             <form className="event-creator" onSubmit={handleSubmit}>
                 <div className="novi-dogadaj">Stvori novi događaj: </div>
                 <div className="container1">
-
                     <div className="info">Kategorija:</div>
                     {Object.keys(categoryMapping).map((category) => (
                         <label className="kategorija-input" key={category}>
@@ -199,7 +196,7 @@ const CreateEvent = ({username, profilePic}) =>{
                         value={eventDetails.time}
                         onChange={handleInputChange}
                         required
-                    />    
+                    />
 
                     <div className="info">Vrsta transakcije:</div>
                     <div className="opis-input">
@@ -254,11 +251,9 @@ const CreateEvent = ({username, profilePic}) =>{
                                 required
                             />
                         </>
-                    )} 
+                    )}
 
-                    <div className="info">
-                        Količina ulaznica za prodaju:
-                    </div>
+                    <div className="info">Količina ulaznica za prodaju:</div>
                     <input
                         className="input"
                         type="number"
@@ -312,7 +307,7 @@ const CreateEvent = ({username, profilePic}) =>{
                                 ))}
                             </tbody>
                         </table>
-                    )}  
+                    )}
                 </div>
 
                 <div className="container2">
@@ -338,7 +333,7 @@ const CreateEvent = ({username, profilePic}) =>{
                         value={eventDetails.description}
                         onChange={handleInputChange}
                         placeholder="Opiši događaj..."
-                    />    
+                    />
 
                     <div className="info">Ulica događaja:</div>
                     <input
@@ -373,12 +368,11 @@ const CreateEvent = ({username, profilePic}) =>{
                         required
                     />
                     <input
-                    className="submit"
-                    type="submit"
-                    value="Kreiraj događaj!"
-                />
+                        className="submit"
+                        type="submit"
+                        value="Kreiraj događaj!"
+                    />
                 </div>
-                
             </form>
         </div>
     );
