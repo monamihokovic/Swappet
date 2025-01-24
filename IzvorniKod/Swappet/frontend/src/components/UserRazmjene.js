@@ -32,7 +32,7 @@ function UserRazmjene() {
         if (user) {
             axios
                 .get(
-                    `${process.env.REACT_APP_BACKEND_URL}/user/trades/${user.email}`,
+                    `${process.env.REACT_APP_BACKEND_URL}/user/trades/${user?.email}`,
                     {
                         withCredentials: true,
                     }
@@ -112,7 +112,7 @@ function UserRazmjene() {
                         <div className="no-events-message">Nema razmjena.</div>
                     ) : (
                         trades.map((trade) => (
-                            <div key={trade.selledId} className="razmjena">
+                            <div key={trade.sellerId} className="razmjena">
                                 <div>
                                     <strong>Oglas prodavača:</strong>{" "}
                                     {trade.sellerAdDescription}
@@ -134,7 +134,7 @@ function UserRazmjene() {
                                         className="checkmark-btn"
                                         onClick={() => {
                                             handleCheckmarkClick(
-                                                trade.selledId,
+                                                trade.sellerId,
                                                 trade.buyerId,
                                                 trade.quantity
                                             );
@@ -146,7 +146,7 @@ function UserRazmjene() {
                                         className="cross-btn"
                                         onClick={() => {
                                             handleCrossClick(
-                                                trade.selledId,
+                                                trade.sellerId,
                                                 trade.buyerId,
                                                 trade.quantity
                                             );
