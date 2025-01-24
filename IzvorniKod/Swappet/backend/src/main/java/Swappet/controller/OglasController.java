@@ -103,8 +103,19 @@ public class OglasController {
             Ulaznica ulaznica = new Ulaznica();
             ulaznica.setCijena(price);
             ulaznica.setVrstaUlaznice(ticketType);
-            ulaznica.setRed(red);
-            ulaznica.setBroj(broj);
+
+            if (red != null) {
+                ulaznica.setRed(red);
+            } else {
+                ulaznica.setRed(-1);
+            }
+
+            if (broj != null) {
+                ulaznica.setBroj(broj);
+            } else {
+                ulaznica.setBroj(-1);
+            }
+
             ulaznica.setOglas(oglas);
 
             ulaznice.add(ulaznica);

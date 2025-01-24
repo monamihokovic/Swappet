@@ -90,11 +90,10 @@ public class AuthConfig extends DefaultOAuth2UserService {
             korisnik.setUsername(username);
             korisnik.setIdKorisnik(id);
             korisnikRepository.save(korisnik);
-        } else {
-            // provjera je li korisnik bio blokiran
-            if (korisnik.getKoristi() == 0) {
-                throw new OAuth2AuthenticationException("Korisnik je blokiran.");
-            }
+        }
+        // provjera je li korisnik bio blokiran
+        if (korisnik.getKoristi() == 0) {
+            throw new OAuth2AuthenticationException("Korisnik je blokiran.");
         }
 
         return oAuth2User;
