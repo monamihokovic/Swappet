@@ -1,22 +1,18 @@
-import React, {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "../css/AdvertisementsPage.css";
 import axios from "axios";
 import Header from "./Header";
 import Card from "./Card";
 
-const defaultProfilePic = "/defaultpfp.jpg";
-
-const AdvertisementsPage= () => {
+const AdvertisementsPage = () => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
     const [ads, setAds] = useState([]); //inicijalizacija oglasa
     const [ulaznice, setUlaznice] = useState([]); //inicijalizacija ulaznica
     const [price, setPrice] = useState(100); //inicijalizacija 'default' cijene na filtru
-    const [selectedCategories, setSelectedCategories] =  useState([]); //inicijalizacija odabranih kategorija
-    const [searchTerm, setSearchTerm] = useState(""); //hmm nisam sto posto
+    const [selectedCategories, setSelectedCategories] = useState([]); //inicijalizacija odabranih kategorija
+    const [searchTerm] = useState(""); //hmm nisam sto posto
     const [likedFilter, setLikedFilter] = useState(false); //za prikaz lajkanih oglasa
     const [dislikedFilter, setDislikedFilter] = useState(false); //za prikaz dislajkanih oglasa
-
 
     //dohvat informacija o korisniku
     useEffect(() => {
@@ -38,24 +34,30 @@ const AdvertisementsPage= () => {
 
     //dohvat oglasa i karti
     useEffect(() => {
-        const fetchAds = axios.get(`${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`, {
-            withCredentials: true,
-        });
-        const fetchTickets = axios.get(`${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`, {
-            withCredentials: true,
-        });
+        const fetchAds = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/homepage/advertisements`,
+            {
+                withCredentials: true,
+            }
+        );
+        const fetchTickets = axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/ulaznica/all`,
+            {
+                withCredentials: true,
+            }
+        );
 
         Promise.all([fetchAds, fetchTickets])
-        .then(([adsResponse, ticketsResponse])=> {
-            setAds(adsResponse.data);
-            setUlaznice(ticketsResponse.data);
+            .then(([adsResponse, ticketsResponse]) => {
+                setAds(adsResponse.data);
+                setUlaznice(ticketsResponse.data);
 
-            console.log("Fetchani oglasi: ", adsResponse.data);
-            console.log("Fetchane karte: ", ticketsResponse.data);
-        })
-        .catch((error) => {
-            console.error("Error fetching data: ", error);
-        })
+                console.log("Fetchani oglasi: ", adsResponse.data);
+                console.log("Fetchane karte: ", ticketsResponse.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
     }, []);
 
     //rukovanje odabranim kategorijama
@@ -108,8 +110,7 @@ const AdvertisementsPage= () => {
             }
         });
 
-
-    return(
+    return (
         <div className="advertisements-page">
             <Header></Header>
             <div className="container">
@@ -130,7 +131,11 @@ const AdvertisementsPage= () => {
                         ].map((category, index) => (
                             <li
                                 key={category}
-                                className={selectedCategories.includes(index + 1) ? "selected": ""}
+                                className={
+                                    selectedCategories.includes(index + 1)
+                                        ? "selected"
+                                        : ""
+                                }
                                 onClick={() => handleCategoryClick(index + 1)}
                             >
                                 {category}
@@ -139,7 +144,9 @@ const AdvertisementsPage= () => {
                     </div>
 
                     <div className="price-range">
-                        <label htmlFor="price" className="price">Cijena: </label>
+                        <label htmlFor="price" className="price">
+                            Cijena:{" "}
+                        </label>
                         <input
                             type="range"
                             id="price"
@@ -152,29 +159,32 @@ const AdvertisementsPage= () => {
                         />
                         <span id="price-value">{price}€</span>
                     </div>
-                    {user &&(
+                    {user && (
                         <div className="liked-disliked">
-                        <button
-                            className={likedFilter ? "active" : ""}
-                            onClick={() => setLikedFilter(!likedFilter)}
-                        >
-                            Liked
-                        </button>
-                        <button
-                            className={dislikedFilter ? "active" : ""}
-                            onClick={() => setDislikedFilter(!dislikedFilter)}
-                        >
-                            Disliked
-                        </button>
-                    </div>
-
+                            <button
+                                className={likedFilter ? "active" : ""}
+                                onClick={() => setLikedFilter(!likedFilter)}
+                            >
+                                Liked
+                            </button>
+                            <button
+                                className={dislikedFilter ? "active" : ""}
+                                onClick={() =>
+                                    setDislikedFilter(!dislikedFilter)
+                                }
+                            >
+                                Disliked
+                            </button>
+                        </div>
                     )}
-                    
                 </div>
 
                 <div className="cards-container">
-                    {filteredAdsWithTickets.length===0 ? (
-                        <div className="no-events-message"> Nema još takvih oglasa... :( </div>
+                    {filteredAdsWithTickets.length === 0 ? (
+                        <div className="no-events-message">
+                            {" "}
+                            Nema još takvih oglasa... :({" "}
+                        </div>
                     ) : (
                         filteredAdsWithTickets.map((adWithTickets) => (
                             <Card

@@ -4,9 +4,7 @@ import "../css/CreateEvent.css";
 import axios from "axios";
 import Header from "./Header";
 
-const defaultProfilePic = "/defaultpfp.jpg";
-
-const CreateEvent = ({ username, profilePic }) => {
+const CreateEvent = () => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
     const [eventDetails, setEventDetails] = useState({
         //inicijalizacija podatakaq o događaju
@@ -76,13 +74,10 @@ const CreateEvent = ({ username, profilePic }) => {
             numberOfTickets: numberOfTickets,
         }));
 
-        const newSeats = Array.from(
-            { length: numberOfTickets },
-            (_, index) => ({
-                row: "",
-                seat: "",
-            })
-        );
+        const newSeats = Array.from({ length: numberOfTickets }, (_) => ({
+            row: "",
+            seat: "",
+        }));
         setSeats(newSeats);
     };
 

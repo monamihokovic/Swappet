@@ -18,11 +18,10 @@ import UserOglasi from "./components/UserOglasi";
 import UserRazmjene from "./components/UserRazmjene";
 import AdminReported from "./components/AdminReported";
 
-
 function App() {
     const [, setUserToken] = useState(null); //Upravljanje user token-om
     const [userName, setUserName] = useState("gost"); //UserName korisnika - prvo postavljen na 'gost'
-    const defaultProfilePic = "/defaultpfp.jpg";
+    //const defaultProfilePic = "/defaultpfp.jpg";
 
     const handleLogin = async (token) => {
         setUserToken(token); // Store the token in the state
@@ -40,7 +39,7 @@ function App() {
                     },
                 }
             );
-            const data = await response.json();
+            await response.json();
         } catch (error) {
             console.error("Error fetching profile picture:", error);
         }
@@ -57,8 +56,6 @@ function App() {
         return <StartPage onLogin={onLogin} />;
     };
 
-    
-
     return (
         <Router>
             <Routes>
@@ -69,59 +66,28 @@ function App() {
                 />
                 <Route
                     path="/advertisements"
-                    element={
-                        <AdvertisementsPage
-                            userName={userName}
-                        />
-                    }
+                    element={<AdvertisementsPage userName={userName} />}
                 />
                 <Route
                     path="/createEvent"
-                    element={
-                        <CreateEvent
-                            userName={userName}
-                        />
-                    }
+                    element={<CreateEvent userName={userName} />}
                 />
                 <Route
                     path="/admin/oglasi"
-                    element={
-                        <AdminOglasi
-                            userName={userName}
-                        />
-                    }
+                    element={<AdminOglasi userName={userName} />}
                 />
                 <Route
                     path="/admin/transakcije"
-                    element={
-                        <AdminTransakcije
-                            userName={userName}
-                        />
-                    }
+                    element={<AdminTransakcije userName={userName} />}
                 />
                 <Route
-                    path="/user/transactions" 
-                    element={<UserTransakcije />} 
-                 />
-                <Route 
-                    path="/user/oglasi/"
-                    element={<UserOglasi />} 
+                    path="/user/transactions"
+                    element={<UserTransakcije />}
                 />
-                <Route
-                    path="/user/trades"
-                    element={
-                    <UserRazmjene/>}
-                />
-                <Route
-                    path="/admin/reported"
-                    element={
-                    <AdminReported />}
-                />
-                <Route
-                    path="/admin/guilty"
-                    element={
-                    <AdminReported />}
-                />
+                <Route path="/user/oglasi/" element={<UserOglasi />} />
+                <Route path="/user/trades" element={<UserRazmjene />} />
+                <Route path="/admin/reported" element={<AdminReported />} />
+                <Route path="/admin/guilty" element={<AdminReported />} />
             </Routes>
         </Router>
     );
