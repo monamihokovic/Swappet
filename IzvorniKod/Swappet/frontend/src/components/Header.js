@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../css/Header.css";
 import axios from "axios";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const defaultProfilePic = "/defaultpfp.jpg";
 

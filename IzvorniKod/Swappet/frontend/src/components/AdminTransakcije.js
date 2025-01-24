@@ -5,7 +5,7 @@ import axios from "axios";
 import Header from "./Header";
 
 const AdminTransakcije = () => {
-    const [, setUser] = useState(null); //inicijalizacija korisnika
+    const [user, setUser] = useState(null); //inicijalizacija korisnika
     const [transactions, setTransactions] = useState([]); //inicijalizacija transakcija
 
     //inicijalizacija useNavigate (koristi se za redirectanje)
