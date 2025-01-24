@@ -125,21 +125,19 @@ const Header = () => {
                 <div className="admin-menu">
                     <button
                         className="admin-option"
-                        onClick={() => navigate(`/admin/oglasi/${user?.email}`)}
+                        onClick={() => navigate(`/admin/oglasi`)}
                     >
                         Pregledaj sve oglase
                     </button>
                     <button
                         className="admin-option"
-                        onClick={() =>
-                            navigate(`/admin/transakcije/${user?.email}`)
-                        }
+                        onClick={() => navigate(`/admin/transakcije`)}
                     >
                         Pregledaj sve transakcije
                     </button>
                     <button
                         className="admin-option"
-                        onClick={() => navigate(`/admin/guilty/${user?.email}`)}
+                        onClick={() => navigate(`/admin/guilty`)}
                     >
                         Pregledaj prijavljene korisnike
                     </button>
