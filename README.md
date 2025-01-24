@@ -59,7 +59,7 @@ Naša web aplikacija dizajnirana je s naglaskom na korisničko iskustvo, sigurno
 ## Tehnologije
 Za učinkovitu komunikaciju unutar našeg tima koristimo Discord, koji nam omogućava brzu razmjenu ideja i suradnju u realnom vremenu. Za razvoj web aplikacije, odabrali smo React za frontend, što nam omogućava izradu interaktivnih i dinamičnih korisničkih sučelja. 
 
-Na backend strani, koristimo Java i Spring framework. 
+Na backend strani, koristimo programski jezik Java i Spring Boot framework. 
 
 Ova kombinacija tehnologija omogućava nam da stvorimo efikasnu web aplikaciju koja zadovoljava potrebe naših korisnika.
 
