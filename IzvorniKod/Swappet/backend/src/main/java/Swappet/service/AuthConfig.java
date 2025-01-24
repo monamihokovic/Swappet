@@ -4,6 +4,7 @@ import Swappet.model.Korisnik;
 import Swappet.repository.KorisnikRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,8 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AuthConfig extends DefaultOAuth2UserService {
 
     // dohvati env varijablu
-    //@Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
-    private String frontendUrl = "http://localhost:3000";
+    @Value("${frontend.url:http://localhost:3000}") // default na localhost ako nije konfigurirano
+    private String frontendUrl;//= "http://localhost:3000";
 
     @Autowired
     private KorisnikRepository korisnikRepository;
