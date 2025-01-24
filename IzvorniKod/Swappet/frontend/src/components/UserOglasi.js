@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 import Header from "./Header";
 import "../css/UserOglasi.css";
 import axios from "axios";
-
-const defaultProfilePic = "/defaultpfp.jpg";
 
 const UserOglasi = () => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
@@ -51,16 +48,14 @@ const UserOglasi = () => {
             });
     }, [user?.email]);
 
-    return(
+    return (
         <div className="user-page">
             <Header></Header>
             <div className="container-oglasa">
                 <div id="oglasi">Svi moji oglasi </div>
                 <div className="oglasi">
-                {ads.length === 0 ? (
-                        <div className="no-events-message">
-                            Nema oglasa.
-                        </div>
+                    {ads.length === 0 ? (
+                        <div className="no-events-message">Nema oglasa.</div>
                     ) : (
                         ads.map((adWithTickets) => (
                             <Card
@@ -76,4 +71,4 @@ const UserOglasi = () => {
     );
 };
 
-export default UserOglasi; 
+export default UserOglasi;

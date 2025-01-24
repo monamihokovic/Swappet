@@ -6,8 +6,6 @@ import "../css/UserRazmjene.css";
 import axios from "axios";
 import Header from "./Header";
 
-const defaultProfilePic = "/defaultpfp.jpg";
-
 function UserRazmjene() {
     const [trades, setTrades] = useState([]); //inicijalizacija razmjena
     const [user, setUser] = useState(null); //inicijalizacija korisnika

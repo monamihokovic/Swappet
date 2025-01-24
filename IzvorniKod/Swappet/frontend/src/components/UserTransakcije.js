@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/UserTransakcije.css";
 import axios from "axios";
 import Header from "./Header";
-
-const defaultProfilePic = "/defaultpfp.jpg";
 
 const UserTransakcije = () => {
     const [user, setUser] = useState(null); //inicijalizacija korisnika
@@ -59,15 +56,15 @@ const UserTransakcije = () => {
         }
     };
 
-    return(
+    return (
         <div className="user-page">
             <Header></Header>
             <div className="container-transakcija">
                 <div id="transakcije">Sve moje transakcije</div>
                 <div className="transakcije">
-                {transactions.length === 0 ? (
+                    {transactions.length === 0 ? (
                         <div className="no-events-message">
-                            Nema transakcija. 
+                            Nema transakcija.
                         </div>
                     ) : (
                         transactions.map((transaction) => (
@@ -75,17 +72,29 @@ const UserTransakcije = () => {
                                 className="transakcija"
                                 key={transaction.idTransakcija}
                             >
-                                <div className="tip1">ID transakcije: {transaction.idTransakcija}</div>
-                                <div className="tip1">Uspjeh transakcije: {uspjesnostTransakcije(transaction.uspjesna)}</div>
-                                <div className="tip1">Početak transakcije: {transaction.dvPocetak}</div>
-                                <div className="tip1">ID ulaznice: {transaction.ulaznica.idUlaznica}</div>
+                                <div className="tip1">
+                                    ID transakcije: {transaction.idTransakcija}
+                                </div>
+                                <div className="tip1">
+                                    Uspjeh transakcije:{" "}
+                                    {uspjesnostTransakcije(
+                                        transaction.uspjesna
+                                    )}
+                                </div>
+                                <div className="tip1">
+                                    Početak transakcije: {transaction.dvPocetak}
+                                </div>
+                                <div className="tip1">
+                                    ID ulaznice:{" "}
+                                    {transaction.ulaznica.idUlaznica}
+                                </div>
                             </div>
-                        ))  
+                        ))
                     )}
                 </div>
             </div>
         </div>
     );
 };
- 
+
 export default UserTransakcije;
